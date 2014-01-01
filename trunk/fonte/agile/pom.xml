@@ -180,8 +180,51 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<!-- <version>3.6.8.Final</version> -->
 			<version>4.2.2.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>br.fucapi.bpms</groupId>
+			<artifactId>bpms-activiti-servico</artifactId>
+			<version>1.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jasperreports</artifactId>
+					<groupId>net.sf.reports</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>br.fucapi.bpms</groupId>
+			<artifactId>bpms-alfresco-servico</artifactId>
+			<version>1.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.alfresco</groupId>
+					<artifactId>alfresco-repository</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.alfresco</groupId>
+					<artifactId>alfresco-data-model</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.alfresco</groupId>
+					<artifactId>alfresco-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jasperreports</artifactId>
+					<groupId>net.sf.reports</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 	</dependencies>
