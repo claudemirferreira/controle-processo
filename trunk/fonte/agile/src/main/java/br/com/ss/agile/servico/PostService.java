@@ -1,6 +1,6 @@
-package br.com.servico;
+package br.com.ss.agile.servico;
 
-import br.com.dominio.Post;
+import br.com.ss.agile.dominio.Post;
 
 public interface PostService <Post, Integer> {
 	

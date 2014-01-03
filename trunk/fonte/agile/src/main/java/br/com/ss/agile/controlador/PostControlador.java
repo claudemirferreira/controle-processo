@@ -1,12 +1,12 @@
-package br.com.controlador;
+package br.com.ss.agile.controlador;
 
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
-import br.com.dominio.Post;
-import br.com.servico.PostService;
+import br.com.ss.agile.dominio.Post;
+import br.com.ss.agile.servico.PostService;
 
 @ManagedBean
 public class PostControlador {

@@ -32,5 +32,5 @@
 	</bean>
 
 	<!-- Jpa Repositories -->
-	<jpa:repositories base-package="br.com.repositorio"></jpa:repositories>
+	<jpa:repositories base-package="br.com.ss.agile.repositorio"></jpa:repositories>
 </beans>

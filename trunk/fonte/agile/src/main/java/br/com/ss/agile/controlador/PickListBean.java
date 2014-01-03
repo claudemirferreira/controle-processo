@@ -1,4 +1,4 @@
-package br.com.controlador;
+package br.com.ss.agile.controlador;
 
 /*
  * Copyright 2009 Prime Technology.
@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 
-import br.com.dominio.Player;
+import br.com.ss.agile.dominio.Player;
 
 @ManagedBean
 @SessionScoped
