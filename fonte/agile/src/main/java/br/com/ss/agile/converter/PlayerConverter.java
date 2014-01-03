@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.com.converter;
+package br.com.ss.agile.converter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import br.com.dominio.Player;
+import br.com.ss.agile.dominio.Player;
 
 @FacesConverter(value = "playerConverter")
 public class PlayerConverter implements Converter {

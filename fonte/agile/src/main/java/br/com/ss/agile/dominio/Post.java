@@ -1,4 +1,4 @@
-package br.com.dominio;
+package br.com.ss.agile.dominio;
 
 import java.util.Date;
 

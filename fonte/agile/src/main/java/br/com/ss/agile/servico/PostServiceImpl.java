@@ -1,11 +1,11 @@
-package br.com.servico;
+package br.com.ss.agile.servico;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.dominio.Post;
-import br.com.repositorio.PostRepository;
+import br.com.ss.agile.dominio.Post;
+import br.com.ss.agile.repositorio.PostRepository;
 
 @Service
 @Transactional

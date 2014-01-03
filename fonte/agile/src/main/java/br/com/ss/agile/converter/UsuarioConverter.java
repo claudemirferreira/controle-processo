@@ -1,23 +1,22 @@
-package br.com.converter;
+package br.com.ss.agile.converter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.fucapi.bpms.alfresco.dominio.UsuarioGrupo;
+import br.fucapi.bpms.alfresco.dominio.Usuario;
 
-@FacesConverter(value = "usuarioGrupoConverter")
-public class UsuarioGrupoConverter implements Converter {
+@FacesConverter(value = "usuarioConverter")
+public class UsuarioConverter implements Converter {
 
 	public Object getAsObject(FacesContext arg0, UIComponent uiComponent,
 			String value) {
-		return UsuarioGrupo.fromJsonToUsuarioGrupo(value);
+		return Usuario.fromJsonToUsuario(value);
 	}
 
 	public String getAsString(FacesContext arg0, UIComponent uiComponent,
-			Object usuarioGrupo) {
-		return ((UsuarioGrupo) usuarioGrupo).toJson().replace("\"",
-						 "\'");
+			Object usuario) {
+		return ((Usuario) usuario).toJson().replace("\"", "\'");
 	}
 }

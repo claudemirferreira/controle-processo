@@ -1,4 +1,4 @@
-package br.com.controlador;
+package br.com.ss.agile.controlador;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import br.com.dominio.Post;
-import br.com.repositorio.PostRepository;
+import br.com.ss.agile.dominio.Post;
+import br.com.ss.agile.repositorio.PostRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath:META-INF/applicationContext.xml")
