@@ -16,31 +16,31 @@
 
 				<p:growl id="msg" showDetail="true" escape="false" />
 
-				<p:pickList id="pojoPickList" value="#{pickListBean.players}"
-					var="player" effect="bounce" itemValue="#{player}"
-					itemLabel="#{player.name}" converter="playerConverter"
+				<p:pickList id="pojoPickList" value="#{usuarioControlador.usuarios}"
+					var="usuario" effect="bounce" itemValue="#{usuario}"
+					itemLabel="#{usuario.firstName}" converter="usuarioConverter"
 					showSourceControls="true" showTargetControls="true"
 					showCheckbox="true" showSourceFilter="true" showTargetFilter="true"
 					filterMatchMode="contains">
 
-					<f:facet name="sourceCaption">Available</f:facet>
-					<f:facet name="targetCaption">Starting</f:facet>
+					<f:facet name="sourceCaption">Listagem de usuários</f:facet>
+					<f:facet name="targetCaption">Usuários selecionados</f:facet>
 
-					<p:ajax event="transfer" listener="#{pickListBean.onTransfer}"
-						update="msg" />
+					<p:ajax event="transfer"
+						listener="#{usuarioControlador.onTransfer}" update="msg" />
 
 					<p:column style="width:25%">
-						<p:graphicImage value="/imagem/barca/#{player.photo}" width="30"
-							height="40" />
+						<p:graphicImage value="/imagem/barca/#{usuario.userName}.jpg" width="30" height="40" />
 					</p:column>
 
 					<p:column style="width:75%;">
-                        #{player.name}
+                        #{usuario.firstName}
                     </p:column>
 
 				</p:pickList>
 
 			</h:form>
+
 		</div>
 	</ui:define>
 </ui:composition>
