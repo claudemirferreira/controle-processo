@@ -9,7 +9,7 @@ public class UtilUrl implements Serializable {
 // INICIO - TELAS GERAIS
 	
 	private final static String GERAL_PESQUISA_PROCESSO = "PESQUISA_PROCESSO";
-	private final static String GERAL_PESQUISA_PROCESSO_URL = "/pages/processo/pesquisa.xhtml";
+	private final static String GERAL_PESQUISA_PROCESSO_URL = "/paginas/processo/pesquisa.xhtml";
 	
 // FIM - TELAS GERAIS	
 	
@@ -17,29 +17,29 @@ public class UtilUrl implements Serializable {
 	
 	// telas de tarefa
 	private final static String REQUERIMENTO_TAREFA_ANEXAR_DOCUMENTOS = "ANEXAR_DOCUMENTOS";
-	private final static String REQUERIMENTO_TAREFA_ANEXAR_DOCUMENTOS_URL = "/pages/tarefa/requerimento/parecergap.xhtml";
+	private final static String REQUERIMENTO_TAREFA_ANEXAR_DOCUMENTOS_URL = "/paginas/tarefa/requerimento/parecergap.xhtml";
 	
 	private final static String REQUERIMENTO_TAREFA_CONFIRMAR_NOTIFICACAO = "CONFIRMAR_NOTIFICACAO";
-	private final static String REQUERIMENTO_TAREFA_CONFIRMAR_NOTIFICACAO_URL = "/pages/tarefa/requerimento/parecergap.xhtml";
+	private final static String REQUERIMENTO_TAREFA_CONFIRMAR_NOTIFICACAO_URL = "/paginas/tarefa/requerimento/parecergap.xhtml";
 
 	private final static String REQUERIMENTO_TAREFA_PARECER_CARI = "PARECER_CARI";
-	private final static String REQUERIMENTO_TAREFA_PARECER_CARI_URL = "/pages/tarefa/requerimento/parecergap.xhtml";
+	private final static String REQUERIMENTO_TAREFA_PARECER_CARI_URL = "/paginas/tarefa/requerimento/parecergap.xhtml";
 
 	private final static String REQUERIMENTO_TAREFA_PESQUISA_TAREFA = "PESQUISA_TAREFA";
-	private final static String REQUERIMENTO_TAREFA_PESQUISA_TAREFA_URL = "/pages/tarefa/search.xhtml";
+	private final static String REQUERIMENTO_TAREFA_PESQUISA_TAREFA_URL = "/paginas/tarefa/search.xhtml";
 
 	// talas de processo
 	private final static String REQUERIMENTO_PROCESSO_CADASTRO = "REQUERIMENTO_PROCESSO_CADASTRO";
-	private final static String REQUERIMENTO_PROCESSO_CADASTRO_URL = "/pages/processo/requerimento/cadastro.xhtml";
+	private final static String REQUERIMENTO_PROCESSO_CADASTRO_URL = "/paginas/processo/requerimento/cadastro.xhtml";
 	
 	private final static String REQUERIMENTO_PROCESSO_DETALHE = "REQUERIMENTO_PROCESSO_DETALHE";
-	private final static String REQUERIMENTO_PROCESSO_DETALHE_URL = "/pages/processo/requerimento/detalhe.xhtml";
+	private final static String REQUERIMENTO_PROCESSO_DETALHE_URL = "/paginas/processo/requerimento/detalhe.xhtml";
 	
 	private final static String REQUERIMENTO_PROCESSO_ANEXAR_DOCUMENTOS = "REQUERIMENTO_PROCESSO_ANEXAR_DOCUMENTOS";
-	private final static String REQUERIMENTO_PROCESSO_ANEXAR_DOCUMENTOS_URL = "/pages/processo/requerimento/lista_documento.xhtml";
+	private final static String REQUERIMENTO_PROCESSO_ANEXAR_DOCUMENTOS_URL = "/paginas/processo/requerimento/lista_documento.xhtml";
 	
 	private final static String REQUERIMENTO_PROCESSO_OK = "REQUERIMENTO_PROCESSO_OK";
-	private final static String REQUERIMENTO_PROCESSO_OK_URL = "/pages/processo/requerimento/sucesso.xhtml";
+	private final static String REQUERIMENTO_PROCESSO_OK_URL = "/paginas/processo/requerimento/sucesso.xhtml";
 	
 // FIM - TELAS REQUERIMENTO PROCESSO
 
