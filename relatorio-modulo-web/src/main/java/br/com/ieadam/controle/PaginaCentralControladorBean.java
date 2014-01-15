@@ -10,7 +10,7 @@ public class PaginaCentralControladorBean {
 	private String paginaCentral;
 	
 	public PaginaCentralControladorBean() {
-		setPaginaCentral("/home.xhtml");
+		setPaginaCentral("/rotina.xhtml");
 	}
 
 	public String getPaginaCentral() {
