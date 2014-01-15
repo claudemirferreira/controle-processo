@@ -1,0 +1,50 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	
+	<h:form id="form">
+		<p:panel>
+
+			<h:panelGrid id="panelSearch" columns="6" cellpadding="8">
+					<h:outputText value="Relatório " styleClass="ui-priority-primary" />
+					<p:selectOneMenu value="#{relatorioTesourariaControlador.filtroRelatorioDTO.tipoRelatorio}"
+						style="width:300px;">
+						<f:selectItem itemLabel="SALDO CONGREGAÇÃO" itemValue="SALDO_CONGREGACAOO" />
+						<f:selectItem itemLabel="PROVENTOS PASTORAL" itemValue="PROVENTOS_PASTORAL" />
+						<f:selectItem itemLabel="DEBITO FINANCEIRO" itemValue="DEBITO_FINANCEIRO" />
+						<f:selectItem itemLabel="BALANCETE SINTÉTICO" itemValue="BALANCETE_SINTETICO" />
+						<f:selectItem itemLabel="BALANCETE ANALÍTICO" itemValue="BALANCETE_ANALITICO" />
+						<f:selectItem itemLabel="CENTRO DE CUSTO" itemValue="CENTRO_DE_CUSTO" />
+						<f:selectItem itemLabel="NADA CONSTA" itemValue="NADA_CONSTA" />
+						<f:selectItem itemLabel="SALDO DEPARTAMENTO" itemValue="SALDO_DEPARTAMENTO" />
+					</p:selectOneMenu>
+
+					<h:outputText value="Data " styleClass="ui-priority-primary" />
+					<p:inputMask id="data" requiredMessage="A data inicial deve ser preenchida!"
+						required="true" value="#{relatorioTesourariaControlador.filtroRelatorioDTO.dataInicial}"
+						mask="99/9999" />
+				</h:panelGrid>
+
+				<p:commandButton id="buttonGerarRelatorio" value="Gerar Relatório"
+					icon="ui-icon-search"
+					styleClass="ui-priority-primary"
+					action="#{relatorioTesourariaControlador.gerarRelatorio}" />
+
+				<p:blockUI block="form" trigger="buttonGerarRelatorio">
+					processando...<br />
+					<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+				</p:blockUI>
+					
+	
+		</p:panel>
+
+	</h:form>
+
+</ui:component>
