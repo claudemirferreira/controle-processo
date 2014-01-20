@@ -18,7 +18,6 @@ public class Zona {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_zona")
 	private int id;
 	
 	@Temporal(TemporalType.DATE)

@@ -21,7 +21,7 @@ public class Nucleo {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_nucleo")
+	@Column(name="id")
 	private int id;
 	
 	@Enumerated(EnumType.STRING)

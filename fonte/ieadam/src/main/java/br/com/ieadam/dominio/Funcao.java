@@ -19,7 +19,7 @@ public class Funcao {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_funcao")
+	@Column(name="id")
 	private int id;
 	
 	@Enumerated(EnumType.STRING)

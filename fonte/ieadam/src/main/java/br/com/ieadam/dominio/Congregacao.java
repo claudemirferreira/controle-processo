@@ -22,7 +22,7 @@ public class Congregacao {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_congregacao")
+	@Column(name="id")
 	private int id;
 	
 	@OneToMany(mappedBy="congregacao")

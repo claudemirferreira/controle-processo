@@ -23,7 +23,7 @@ public class Area {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_area")
+	@Column(name="id")
 	private int id;
 	
 	@OneToOne
