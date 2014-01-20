@@ -10,7 +10,7 @@ public class PaginaCentralControladorBean {
 	private String paginaCentral;
 	
 	public PaginaCentralControladorBean() {
-		setPaginaCentral("/home.xhtml");
+		setPaginaCentral("paginas/relatorio/tesouraria/pesquisa.xhtml");
 	}
 
 	public String getPaginaCentral() {
@@ -19,6 +19,11 @@ public class PaginaCentralControladorBean {
 
 	public void setPaginaCentral(String paginaCentral) {
 		this.paginaCentral = paginaCentral;
+	}
+	
+	public void teste(){
+		
+		System.out.println("www");
 	}
 	
 }

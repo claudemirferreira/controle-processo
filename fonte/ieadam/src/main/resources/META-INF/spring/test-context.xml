@@ -23,5 +23,6 @@
 	</bean>
 	
 	<!-- Jpa Repositories -->
-	<jpa:repositories base-package="br.com.iae.repositories"></jpa:repositories>
+	<jpa:repositories base-package="br.com.ieadam.repositorio"></jpa:repositories>
+	
 </beans>

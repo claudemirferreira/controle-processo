@@ -7,21 +7,32 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<div style="width: 100%;">
-		<div style="float: left; vertical-align: middle;">
-<!-- 			<h:graphicImage style="vertical-align: middle;" url="/resources/imagens/logoIEADAM.jpg" /> -->
-			<h:outputText style="font-size:38px; color: red; vertical-align: bottom;" value="SGR - SISTEMA DE GERAÇÃO DE RELATÓRIOS" />
-		</div>
+	<h:form id="menuForm">
 
-		<div style="float: right; text-align: center; vertical-align:middle;" >
-			<p:outputLabel style="font-size: 18px; text-align:center; vertical-align: middle;"
-				value="Usuário: #{usuarioControlador.usuario.login} " />
-		
-			<p:commandLink id="ajax" action="#{loginControlador.logoff}"
-					style="font-size: 18px; width:10%; text-align:center; vertical-align: middle; text-decoration: underline; " >
-				<h:outputText value="  sair" style="font-size: 18px; color:darkgray" />
-			</p:commandLink>
-		</div>
-	</div>
+		<p:growl id="messages" />
+		<p:menubar>
+			<p:menuitem value="Secretária" icon="ui-icon-close"
+				update=":paginaCentral">
+				<f:setPropertyActionListener
+					target="#{paginaCentralControladorBean.paginaCentral}"
+					value="paginas/relatorio/secretaria/pesquisa.xhtml" />
+			</p:menuitem>
+
+			<p:menuitem value="Tesourária" icon="ui-icon-close"
+				update=":paginaCentral">
+				<f:setPropertyActionListener
+					target="#{paginaCentralControladorBean.paginaCentral}"
+					value="paginas/relatorio/tesouraria/pesquisa.xhtml" />
+			</p:menuitem>
+
+			<f:facet name="options">
+				<p:outputLabel style="margin-right:10px"
+					value="Usuário: #{usuarioControlador.usuario.login}" />
+				<p:commandButton type="button" value="Logout" icon="ui-icon-extlink"
+					update=":paginaCentral" />
+			</f:facet>
+		</p:menubar>
+
+	</h:form>
 
 </ui:component>
