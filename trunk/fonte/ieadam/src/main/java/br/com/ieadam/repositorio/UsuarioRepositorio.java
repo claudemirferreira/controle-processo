@@ -1,14 +1,20 @@
 package br.com.ieadam.repositorio;
 
-import java.util.List;
-
 import javax.persistence.NoResultException;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import br.com.ieadam.dominio.Usuario;
 
-public interface UsuarioRepositorio {
-	
-	public List<Usuario> list();
+public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
 
-	public Usuario autenticarUsuario(String login, String senha) throws NoResultException ;
+	@Query("select u from usuario u where u.login = :login")
+	public Usuario findByLogin(@Param("login") String login);
+
+	@Query("select u from usuario u where u.login = :login and u.senha = :senha")
+	public Usuario autenticarUsuario(@Param("login") String login,
+			@Param("senha") String senha) throws NoResultException;
+
 }

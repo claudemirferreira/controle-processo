@@ -21,7 +21,7 @@ public class Membro {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_membro")
+	@Column(name="id")
 	private int id;
 	
 	@OneToOne

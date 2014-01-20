@@ -2,24 +2,34 @@ package br.com.ieadam.dominio;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="ieadam_cidade")
 public class Cidade {
 
-	private int id_cidade;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+
 	private String Nome;
-	
+
 	private String UF;
-	
+
 	private Character ind_Situacao;
-	
+
 	private Date data_ult_atu;
 
-	public int getId_cidade() {
-		return id_cidade;
+	public int getId() {
+		return id;
 	}
 
-	public void setId_cidade(int id_cidade) {
-		this.id_cidade = id_cidade;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {
