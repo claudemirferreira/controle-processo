@@ -1,0 +1,52 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	
+	<h:form id="form">
+
+		<p:panel>
+
+			<h:panelGrid id="panelSearch" columns="6" cellpadding="8">
+					<h:outputText value="Relatório " styleClass="ui-priority-primary" />
+					<p:selectOneMenu value="#{relatorioSecretariaControlador.filtroRelatorioDTO.tipoRelatorio}"
+						style="width:300px;">
+						<f:selectItem itemLabel="DEBITO DE SECRETARIA" itemValue="DEBITO_DE_SECRETARIA" />
+						<f:selectItem itemLabel="ESTATÍSTICO" itemValue="ESTATISTICO" />
+						<f:selectItem itemLabel="MEMBROS" itemValue="MEMBROS" />
+						<f:selectItem itemLabel="DEBITO PASTORAL" itemValue="DEBITO_PASTORAL" />
+					</p:selectOneMenu>
+
+					<h:outputText value="De " styleClass="ui-priority-primary" />
+					<p:inputMask id="dataInicial" requiredMessage="A data inicial deve ser preenchida!"
+						required="true" value="#{relatorioSecretariaControlador.filtroRelatorioDTO.dataInicial}"
+						mask="99/9999" />
+
+					<h:outputText value="À " styleClass="ui-priority-primary" />
+					<p:inputMask id="dataFinal" requiredMessage="A data final deve ser preenchida!"
+						required="true" value="#{relatorioSecretariaControlador.filtroRelatorioDTO.dataFinal}"
+						mask="99/9999" />
+
+			</h:panelGrid>
+			
+			<p:commandButton id="buttonGerarRelatorio" value="Gerar Relatório"
+				icon="ui-icon-search"
+				styleClass="ui-priority-primary"
+				action="#{relatorioSecretariaControlador.gerarRelatorio}" />
+
+			<p:blockUI block="form" trigger="buttonGerarRelatorio">
+				processando...<br />
+				<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+			</p:blockUI>
+			
+		</p:panel>
+
+	</h:form>
+
+</ui:component>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+		<div align="center">
+			<p:panel>
+				<p:carousel id="carousel" value="#{rotinaControlador.modulo1}"
+					var="car" itemStyleClass="carItem" headerText="TESOURARIA" numVisible="8"
+					style="width:100%; height:100%">
+					<h:panelGrid>
+						<p:graphicImage id="image" value="#{car.imagem}" height="100px"
+							width="100px" />
+
+						<h:outputText id="model" value="#{car.nome}" />
+
+						<p:commandLink id="view" update=":form:carDetail"
+							oncomplete="PF('carDialog').show()" title="View Detail">
+							<h:outputText styleClass="ui-icon ui-icon-search"
+								style="margin:0 auto;" />
+							<f:setPropertyActionListener value="#{car}"
+								target="#{rotinaControlador.rotina}" />
+						</p:commandLink>
+					</h:panelGrid>
+				</p:carousel>
+
+				<p:dialog header="Car Detail" showEffect="fade" hideEffect="fade"
+					modal="true" widgetVar="carDialog">
+
+					<p:outputPanel id="carDetail" style="text-align:center;"
+						layout="block">
+						<p:graphicImage id="carImage"
+							value="/images/cars/#{rotinaControlador.rotina.nome}.jpg" />
+
+						<h:panelGrid>
+							<h:outputText id="modelNo"
+								value="#{rotinaControlador.rotina.nome}" />
+
+							<h:outputText id="year"
+								value="#{rotinaControlador.rotina.descricao}" />
+
+							<h:outputText id="color" value="#{rotinaControlador.rotina.nome}"
+								style="color:#{rotinaControlador.rotina.nome}" />
+						</h:panelGrid>
+					</p:outputPanel>
+
+				</p:dialog>
+
+			</p:panel>
+		</div>
+
+	</h:form>
+
+</ui:component>
