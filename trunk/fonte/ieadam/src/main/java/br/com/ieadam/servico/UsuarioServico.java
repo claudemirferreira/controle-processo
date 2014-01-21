@@ -21,6 +21,6 @@ public interface UsuarioServico {
 	public Usuario findByLogin(@Param("login") String login);
 
 	@Query("select u from usuario u where u.login = :login and u.senha = :senha")
-	public Usuario autenticarUsuario(@Param("login") String login,
+	public Usuario findByLoginAndSenha(@Param("login") String login,
 			@Param("senha") String senha) throws NoResultException;
 }

@@ -2,6 +2,7 @@ package br.com.ieadam.dominio;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class Congregacao {
 	private int id;
 	
 	@OneToMany(mappedBy="congregacao")
-	private Collection<Membro> membros;
+	private Set<Membro> membros;
 	
 	private String cidade;
 	
@@ -63,11 +64,11 @@ public class Congregacao {
 		this.id = id;
 	}
 
-	public Collection<Membro> getMembros() {
+	public Set<Membro> getMembros() {
 		return membros;
 	}
 
-	public void setMembro(Collection<Membro> membros) {
+	public void setMembro(Set<Membro> membros) {
 		this.membros = membros;
 	}
 

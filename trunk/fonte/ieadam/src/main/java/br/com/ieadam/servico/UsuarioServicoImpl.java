@@ -14,12 +14,12 @@ public class UsuarioServicoImpl implements UsuarioServico {
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
 
-//	@Override
-	public Usuario autenticarUsuario(String login, String senha) {
-		return this.usuarioRepositorio.autenticarUsuario(login, senha);
+	@Override
+	public Usuario findByLoginAndSenha(String login, String senha) {
+		return this.usuarioRepositorio.findByLoginAndSenha(login, senha);
 	}
 
-//	@Override
+	@Override
 	public Usuario findByLogin(String login) {
 		return this.usuarioRepositorio.findByLogin(login);
 	}

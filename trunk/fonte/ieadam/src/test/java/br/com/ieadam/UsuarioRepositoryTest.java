@@ -2,36 +2,36 @@ package br.com.ieadam;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import br.com.ieadam.dominio.Post;
-import br.com.ieadam.repositorio.PostRepository;
+import br.com.ieadam.dominio.Situacao;
+import br.com.ieadam.dominio.Usuario;
+import br.com.ieadam.repositorio.UsuarioRepositorio;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
-//@ContextConfiguration(locations="classpath*:META-INF/spring/test-context.xml")
-public class PostRepositoryTest {
+// @ContextConfiguration(locations="classpath*:META-INF/spring/test-context.xml")
+public class UsuarioRepositoryTest {
 
 	@Autowired
-	PostRepository repository;
+	UsuarioRepositorio repository;
 
 	@Test
 	public void test() {
-		Post post = new Post();
-		post.setPostDate(new Date());
-		post.setTitle("First Post");
+		Usuario usuario = new Usuario();
+		usuario.setLogin("admin");
+		usuario.setSenha("admin");
+		usuario.setSituacao(Situacao.ATIVO);
 
-		repository.save(post);
+		repository.save(usuario);
 
-		Post dbpost = repository.findOne(post.getPostId());
+		Usuario dbpost = repository.findOne(usuario.getId());
 		assertNotNull(dbpost);
-		System.out.println(dbpost.getTitle());
+		System.out.println(dbpost.getLogin());
 	}
 
 }
