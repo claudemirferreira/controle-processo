@@ -25,6 +25,13 @@
 					value="paginas/relatorio/tesouraria/pesquisa.xhtml" />
 			</p:menuitem>
 
+			<p:menuitem value="Impressão de Relatório" icon="ui-icon-close"
+				update=":paginaCentral">
+				<f:setPropertyActionListener
+					target="#{paginaCentralControladorBean.paginaCentral}"
+					value="paginas/relatorio/teste.xhtml" />
+			</p:menuitem>
+
 			<f:facet name="options">
 				<p:outputLabel style="margin-right:10px"
 					value="Usuário: #{usuarioControlador.usuario.login}" />
