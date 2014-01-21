@@ -28,7 +28,7 @@ public class IEADAMAuthenticationManager implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 		try {
-			this.usuario = usuarioServico.autenticarUsuario(authentication.getName(), authentication.getCredentials().toString());
+			this.usuario = usuarioServico.findByLoginAndSenha(authentication.getName(), authentication.getCredentials().toString());
 			
 			List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 			

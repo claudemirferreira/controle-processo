@@ -1,7 +1,7 @@
 package br.com.ieadam.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,10 +25,10 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@ManyToMany(fetch=FetchType.EAGER)
-	private Collection<Perfil> perfis;
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<Perfil> perfis;
 
-	@Id
+	@Column
 	private String login;
 
 	private String senha;
@@ -35,7 +36,8 @@ public class Usuario implements Serializable {
 	@Enumerated
 	private Situacao situacao;
 
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
+	
 	private Membro membro;
 
 	public int getId() {
@@ -44,14 +46,6 @@ public class Usuario implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Collection<Perfil> getPerfis() {
-		return perfis;
-	}
-
-	public void setPerfis(Collection<Perfil> perfis) {
-		this.perfis = perfis;
 	}
 
 	public String getLogin() {
@@ -84,6 +78,14 @@ public class Usuario implements Serializable {
 
 	public void setMembro(Membro membro) {
 		this.membro = membro;
+	}
+
+	public Set<Perfil> getPerfis() {
+		return perfis;
+	}
+
+	public void setPerfis(Set<Perfil> perfis) {
+		this.perfis = perfis;
 	}
 
 }

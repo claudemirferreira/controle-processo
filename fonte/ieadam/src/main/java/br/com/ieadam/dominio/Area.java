@@ -2,6 +2,7 @@ package br.com.ieadam.dominio;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +42,7 @@ public class Area {
 	private Date dataUltimaAtualizacao;
 
 	@OneToMany(mappedBy="area")
-	private Collection<Congregacao> congregacoes;
+	private Set<Congregacao> congregacoes;
 	
 	public int getId() {
 		return id;
@@ -91,11 +92,11 @@ public class Area {
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
 
-	public Collection<Congregacao> getCongregacoes() {
+	public Set<Congregacao> getCongregacoes() {
 		return congregacoes;
 	}
 
-	public void setCongregacoes(Collection<Congregacao> congregacoes) {
+	public void setCongregacoes(Set<Congregacao> congregacoes) {
 		this.congregacoes = congregacoes;
 	}
 }
