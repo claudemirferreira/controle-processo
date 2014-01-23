@@ -2,6 +2,7 @@ package br.com.ieadam.dominio;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,7 +28,7 @@ public class Membro {
 	@OneToOne
 	private Funcao funcao;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Usuario usuario;
 
 	@ManyToOne

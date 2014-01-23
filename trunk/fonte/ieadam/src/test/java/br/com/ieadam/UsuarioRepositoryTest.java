@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import br.com.ieadam.dominio.Membro;
 import br.com.ieadam.dominio.Situacao;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.repositorio.UsuarioRepositorio;
@@ -26,12 +27,20 @@ public class UsuarioRepositoryTest {
 		usuario.setLogin("admin");
 		usuario.setSenha("admin");
 		usuario.setSituacao(Situacao.ATIVO);
+		
+		Membro m = new Membro();
+		m.setCpf("222222222222");
+		m.setNome("wwwwwwwwwwwwww");
+		m.setSexo("f");
+		
+		usuario.setMembro(m);
+//		m.setUsuario(usuario);
 
 		repository.save(usuario);
 
-		Usuario dbpost = repository.findOne(usuario.getId());
-		assertNotNull(dbpost);
-		System.out.println(dbpost.getLogin());
+//		Usuario dbpost = repository.findOne(usuario.getId());
+//		assertNotNull(dbpost);
+//		System.out.println(dbpost.getLogin());
 	}
 
 }

@@ -2,6 +2,7 @@ package br.com.ieadam;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class MembroRepositoryTest {
 	MembroRepositorio repository;
 
 	@Test
+	@Ignore
 	public void test() {
 		Membro membro = new Membro();
 		membro.setNome("ADMINISTRADOR");
