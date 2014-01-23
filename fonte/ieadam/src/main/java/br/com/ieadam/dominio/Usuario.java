@@ -3,6 +3,7 @@ package br.com.ieadam.dominio;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -36,8 +37,7 @@ public class Usuario implements Serializable {
 	@Enumerated
 	private Situacao situacao;
 
-	@OneToOne(fetch=FetchType.EAGER)
-	
+	@OneToOne(optional=true, cascade = CascadeType.ALL) 
 	private Membro membro;
 
 	public int getId() {
