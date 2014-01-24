@@ -22,28 +22,35 @@ public class IEADAMAuthenticationManager implements AuthenticationProvider {
 
 	@Autowired
 	private UsuarioServico usuarioServico;
-	
+
 	private Usuario usuario;
 
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 		try {
-			this.usuario = usuarioServico.findByLoginAndSenha(authentication.getName(), authentication.getCredentials().toString());
-			
+			this.usuario = usuarioServico.findByLoginAndSenha(authentication
+					.getName(), authentication.getCredentials().toString());
+
+			if (this.usuario == null) {
+				return null;
+			}
+
 			List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-			
+
 			UsernamePasswordAuthenticationToken authenticatedUser = new UsernamePasswordAuthenticationToken(
-	                usuario, null, grantedAuthorities);
-			
-	        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
-	        
-	        return authenticatedUser;
-	        
+					usuario, null, grantedAuthorities);
+
+			SecurityContextHolder.getContext().setAuthentication(
+					authenticatedUser);
+
+			return authenticatedUser;
+
 		} catch (NoResultException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
+
 	}
 
 	public Usuario getUsuario() {

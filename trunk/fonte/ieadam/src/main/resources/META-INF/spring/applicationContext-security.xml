@@ -11,12 +11,14 @@
 
 	<context:spring-configured />
 
-	<http use-expressions="true" auto-config="true">
+	<http use-expressions="true">
 
-		<intercept-url pattern="/paginas/**" access="permitAll" />
+		
 		<intercept-url pattern="/resources/**" access="permitAll" />
-		<intercept-url pattern="/index.xhtml" access="permitAll" />
 		<intercept-url pattern="/login.xhtml" access="permitAll" />
+		
+		<intercept-url pattern="/paginas/**" access="isAuthenticated()" />
+		<intercept-url pattern="/index.xhtml" access="isAuthenticated()" />
 
 		<form-login login-page="/login.xhtml" default-target-url="/index.xhtml" />
 	</http>

@@ -9,52 +9,56 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<div align="center">
-			<p:panel>
-				<p:carousel id="carousel" value="#{rotinaControlador.modulo1}"
-					var="car" itemStyleClass="carItem" headerText="TESOURARIA" numVisible="8"
-					style="width:100%; height:100%">
-					<h:panelGrid>
-						<p:graphicImage id="image" value="#{car.imagem}" height="100px"
-							width="100px" />
+		<p:dataGrid id="carousel" 
+			value="#{rotinaControlador.moduloTesouraria}" var="car"
+			headerText="TESOURARIA" columns="4"
+			style="width:100%; height:100%; border: 0px solid #a8a8a8;">
+			<div align="center">
+				<h:panelGrid id="panelRelatorio" style="border: 0px solid #a8a8a8;">
+					<p:graphicImage id="image" value="#{car.imagem}" height="100px"
+						width="100px" />
 
-						<h:outputText id="model" value="#{car.nome}" />
+					<p:commandButton id="dynamicDialogButton" value="#{car.nome}"
+						onclick="#{car.acao}" type="button" icon="ui-icon-extlink" />
 
-						<p:commandLink id="view" update=":form:carDetail"
-							oncomplete="PF('carDialog').show()" title="View Detail">
-							<h:outputText styleClass="ui-icon ui-icon-search"
-								style="margin:0 auto;" />
-							<f:setPropertyActionListener value="#{car}"
-								target="#{rotinaControlador.rotina}" />
-						</p:commandLink>
-					</h:panelGrid>
-				</p:carousel>
+				</h:panelGrid>
+			</div>
+		</p:dataGrid>
 
-				<p:dialog header="Car Detail" showEffect="fade" hideEffect="fade"
-					modal="true" widgetVar="carDialog">
+		<p:dialog id="tesourariaSaldoCongregacao" header="SALDO DA CONGREGAÇÃO"
+			widgetVar="tesourariaSaldoCongregacao" focus="surname1">
 
-					<p:outputPanel id="carDetail" style="text-align:center;"
-						layout="block">
-						<p:graphicImage id="carImage"
-							value="/images/cars/#{rotinaControlador.rotina.nome}.jpg" />
+			<h:panelGrid columns="2" cellpadding="5">
 
-						<h:panelGrid>
-							<h:outputText id="modelNo"
-								value="#{rotinaControlador.rotina.nome}" />
+				<h:outputLabel for="name1" value="Name:" />
+				<p:inputText id="name1" label="name" />
 
-							<h:outputText id="year"
-								value="#{rotinaControlador.rotina.descricao}" />
+				<h:outputLabel for="surname1" value="Surname:" />
+				<p:inputText id="surname1" label="surname" />
 
-							<h:outputText id="color" value="#{rotinaControlador.rotina.nome}"
-								style="color:#{rotinaControlador.rotina.nome}" />
-						</h:panelGrid>
-					</p:outputPanel>
+				<h:outputLabel for="telephone1" value="Telephone:" />
+				<p:inputText id="telephone1" label="telephone" />
 
-				</p:dialog>
+			</h:panelGrid>
 
-			</p:panel>
-		</div>
+		</p:dialog>
 
+		<p:dialog id="tesourariaProventoPastoral" header="PROVENTO PASTORAL"
+			widgetVar="tesourariaProventoPastoral" focus="surname">
+
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<h:outputLabel for="name" value="Name:" />
+				<p:inputText id="name" label="name" />
+
+				<h:outputLabel for="surname" value="Surname:" />
+				<p:inputText id="surname" label="surname" />
+
+				<h:outputLabel for="telephone" value="Telephone:" />
+				<p:inputText id="telephone" label="telephone" />
+
+			</h:panelGrid>
+
+		</p:dialog>
 	</h:form>
-
 </ui:component>
