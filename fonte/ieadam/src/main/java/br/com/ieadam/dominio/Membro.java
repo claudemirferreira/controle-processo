@@ -1,5 +1,6 @@
 package br.com.ieadam.dominio;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -19,7 +20,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "ieadam_membro")
-public class Membro {
+public class Membro implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

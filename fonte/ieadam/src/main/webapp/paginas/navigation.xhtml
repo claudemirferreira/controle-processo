@@ -10,35 +10,45 @@
 	<h:form id="menuForm">
 
 		<p:growl id="messages" />
-		<p:menubar>
-			<p:menuitem value="Secretária" icon="ui-icon-close"
-				update=":paginaCentral">
-				<f:setPropertyActionListener
-					target="#{paginaCentralControladorBean.paginaCentral}"
-					value="paginas/relatorio/secretaria/pesquisa.xhtml" />
-			</p:menuitem>
 
-			<p:menuitem value="Tesourária" icon="ui-icon-close"
-				update=":paginaCentral">
-				<f:setPropertyActionListener
+		<p:toolbar>
+			<p:toolbarGroup align="left">
+				<p:commandButton value="Secretária" icon="ui-icon-document"
+					update=":form">
+					<f:setPropertyActionListener
+						target="#{paginaCentralControladorBean.paginaCentral}"
+						value="paginas/relatorio/secretaria/pesquisa.xhtml" />
+
+				</p:commandButton>
+				<p:separator />
+
+				<p:commandButton value="Tesourária" update=":form"
+					icon="ui-icon-folder-open">
+					<f:setPropertyActionListener
 					target="#{paginaCentralControladorBean.paginaCentral}"
 					value="paginas/relatorio/tesouraria/pesquisa.xhtml" />
-			</p:menuitem>
+				</p:commandButton>
+				<p:separator />
 
-			<p:menuitem value="Impressão de Relatório" icon="ui-icon-close"
-				update=":paginaCentral">
-				<f:setPropertyActionListener
-					target="#{paginaCentralControladorBean.paginaCentral}"
-					value="paginas/relatorio/teste.xhtml" />
-			</p:menuitem>
+				<p:commandButton value="Administrativo" update=":form"
+					icon="ui-icon-folder-open">
+					<f:setPropertyActionListener
+						target="#{paginaCentralControladorBean.paginaCentral}"
+						value="paginas/relatorio/teste.xhtml" />
+				</p:commandButton>
+				<p:separator />
 
-			<f:facet name="options">
+			</p:toolbarGroup>
+
+			<p:toolbarGroup align="right">
+
 				<p:outputLabel style="margin-right:10px"
 					value="Usuário: #{usuarioControlador.usuario.login}" />
-				<p:commandButton type="button" value="Logout" icon="ui-icon-extlink"
-					update=":paginaCentral" />
-			</f:facet>
-		</p:menubar>
+				<p:separator />
+				<p:commandButton action="#{usuarioControlador.logout}"
+					value="Logout" icon="ui-icon-extlink" update=":form" />
+			</p:toolbarGroup>
+		</p:toolbar>
 
 	</h:form>
 

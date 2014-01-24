@@ -2,6 +2,8 @@ package br.com.ieadam.servico;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ public class UsuarioServicoImpl implements UsuarioServico {
 	private UsuarioRepositorio usuarioRepositorio;
 
 	@Override
-	public Usuario findByLoginAndSenha(String login, String senha) {
+	public Usuario findByLoginAndSenha(String login, String senha) throws NoResultException {
 		return this.usuarioRepositorio.findByLoginAndSenha(login, senha);
 	}
 
