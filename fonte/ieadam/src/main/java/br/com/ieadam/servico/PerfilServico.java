@@ -1,0 +1,15 @@
+package br.com.ieadam.servico;
+
+import java.util.List;
+
+import br.com.ieadam.dominio.Perfil;
+
+public interface PerfilServico {
+
+	public List<Perfil> listarTodos();
+
+	public Perfil salvar(Perfil perfil);
+
+	public void remover(Perfil perfil);
+
+}

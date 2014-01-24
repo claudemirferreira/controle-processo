@@ -12,7 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,7 +27,8 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "usuario_perfil", joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_perfil", referencedColumnName = "id"))
 	private Set<Perfil> perfis;
 
 	@Column
@@ -37,7 +39,7 @@ public class Usuario implements Serializable {
 	@Enumerated
 	private Situacao situacao;
 
-	@OneToOne(optional=true, cascade = CascadeType.ALL) 
+	@OneToOne(optional = true, cascade = CascadeType.ALL)
 	private Membro membro;
 
 	public int getId() {
