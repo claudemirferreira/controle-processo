@@ -2,6 +2,11 @@ package br.com.ieadam;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.com.ieadam.dominio.Membro;
+import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Situacao;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.repositorio.UsuarioRepositorio;
@@ -24,17 +30,24 @@ public class UsuarioRepositoryTest {
 	@Test
 	public void test() {
 		Usuario usuario = new Usuario();
-		usuario.setLogin("admin");
-		usuario.setSenha("admin");
+		usuario.setLogin("teste");
+		usuario.setSenha("teste");
 		usuario.setSituacao(Situacao.ATIVO);
 		
 		Membro m = new Membro();
-		m.setCpf("222222222222");
-		m.setNome("wwwwwwwwwwwwww");
-		m.setSexo("f");
+		m.setCpf("11111111111");
+		m.setNome("teste ");
+		m.setSexo("M");
 		
 		usuario.setMembro(m);
 //		m.setUsuario(usuario);
+		
+		Perfil p = new Perfil();
+		p.setId(1);
+		Set<Perfil> list = new HashSet<Perfil>();
+		list.add(p);
+		
+		usuario.setPerfis(list);
 
 		repository.save(usuario);
 
