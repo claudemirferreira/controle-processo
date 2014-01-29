@@ -1,5 +1,6 @@
 package br.com.ss.data.servico;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,10 @@ import br.com.ss.data.entities.Pastor;
 import br.com.ss.data.repositories.PastorRepositorio;
 
 @Service
-public class PastorServicoImpl implements PastorServico {
+public class PastorServicoImpl implements PastorServico, Serializable {
 
+	private static final long serialVersionUID = -4614316993887353374L;
+	
 	@Autowired
 	private PastorRepositorio pastorRepositorio;
 

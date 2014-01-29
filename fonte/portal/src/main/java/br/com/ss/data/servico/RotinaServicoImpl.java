@@ -1,5 +1,6 @@
 package br.com.ss.data.servico;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,10 @@ import br.com.ss.data.entities.Rotina;
 import br.com.ss.data.repositories.RotinaRepositorio;
 
 @Service
-public class RotinaServicoImpl implements RotinaServico {
+public class RotinaServicoImpl implements RotinaServico, Serializable {
 
+	private static final long serialVersionUID = -7015513743088712661L;
+	
 	@Autowired
 	private RotinaRepositorio rotinaRepositorio;
 

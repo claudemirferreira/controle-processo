@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Theme implements Serializable {
 
+	private static final long serialVersionUID = -3284102216546471503L;
+
 	private String name;
 
 	private String image;

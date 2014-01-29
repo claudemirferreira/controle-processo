@@ -1,5 +1,6 @@
 package br.com.ss.data.servico;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,10 @@ import br.com.ss.data.entities.Perfil;
 import br.com.ss.data.repositories.PerfilRepositorio;
 
 @Service
-public class PerfilServicoImpl implements PerfilServico {
+public class PerfilServicoImpl implements PerfilServico, Serializable {
 
+	private static final long serialVersionUID = 3646593201944705310L;
+	
 	@Autowired
 	private PerfilRepositorio PerfilRepositorio;
 

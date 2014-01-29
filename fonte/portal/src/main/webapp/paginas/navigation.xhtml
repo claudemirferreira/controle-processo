@@ -62,6 +62,14 @@
 				</p:commandButton>
 				<p:separator />
 
+				<p:commandButton value="Tipo de Saída" update=":form"
+					icon="ui-icon-folder-open">
+					<f:setPropertyActionListener
+						target="#{paginaCentralControlador.paginaCentral}"
+						value="paginas/tiposaida/pesquisa.xhtml" />
+				</p:commandButton>
+				<p:separator />
+
 			</p:toolbarGroup>
 
 			<p:toolbarGroup align="right">
