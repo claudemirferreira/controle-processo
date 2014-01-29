@@ -1,5 +1,6 @@
 package br.com.ss.data.servico;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -11,8 +12,9 @@ import br.com.ss.data.entities.Usuario;
 import br.com.ss.data.repositories.UsuarioRepositorio;
 
 @Service
-public class UsuarioServicoImpl implements UsuarioServico {
+public class UsuarioServicoImpl implements UsuarioServico, Serializable {
 
+	private static final long serialVersionUID = 460008173632552219L;
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
 

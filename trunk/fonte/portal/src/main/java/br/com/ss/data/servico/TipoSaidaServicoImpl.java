@@ -1,5 +1,6 @@
 package br.com.ss.data.servico;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import br.com.ss.data.entities.TipoSaida;
 import br.com.ss.data.repositories.TipoSaidaRepositorio;
 
 @Service
-public class TipoSaidaServicoImpl implements TipoSaidaServico {
+public class TipoSaidaServicoImpl implements TipoSaidaServico, Serializable {
+
+	private static final long serialVersionUID = -3808786807226554269L;
 
 	@Autowired
 	private TipoSaidaRepositorio tipoSaidaRepositorio;
