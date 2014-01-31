@@ -4,28 +4,22 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[select * from sgr.ieadam_usuario]]>
 	</queryString>
-	<field name="class" class="java.lang.Class">
-		<fieldDescription><![CDATA[class]]></fieldDescription>
-	</field>
 	<field name="id" class="java.lang.Integer">
-		<fieldDescription><![CDATA[id]]></fieldDescription>
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="login" class="java.lang.String">
-		<fieldDescription><![CDATA[login]]></fieldDescription>
-	</field>
-	<field name="membro" class="br.com.ieadam.dominio.Membro">
-		<fieldDescription><![CDATA[membro]]></fieldDescription>
-	</field>
-	<field name="perfis" class="java.util.Set">
-		<fieldDescription><![CDATA[perfis]]></fieldDescription>
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="senha" class="java.lang.String">
-		<fieldDescription><![CDATA[senha]]></fieldDescription>
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="situacao" class="br.com.ieadam.dominio.Situacao">
-		<fieldDescription><![CDATA[situacao]]></fieldDescription>
+	<field name="situacao" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="membro" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
