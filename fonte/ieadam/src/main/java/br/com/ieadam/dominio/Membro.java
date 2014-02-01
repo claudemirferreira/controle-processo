@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,6 +20,11 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "ieadam_membro")
 public class Membro implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3975677754400788911L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

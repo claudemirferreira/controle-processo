@@ -37,7 +37,7 @@ public class MembroControlador implements Serializable {
 	}
 
 	public void pesquisar() {
-
+		this.lista = servico.listarMembrosPorNomeLike(this.pesquisa.getNome());
 	}
 
 	public void detalhe(Membro membro) {
