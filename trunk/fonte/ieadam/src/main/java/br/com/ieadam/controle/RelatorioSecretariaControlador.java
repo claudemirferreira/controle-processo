@@ -30,6 +30,9 @@ import br.com.ieadam.servico.RelatorioSecretariaServico;
 @SessionScoped
 public class RelatorioSecretariaControlador {
 
+	@ManagedProperty(value = "#{paginaCentralControladorBean}")
+	private PaginaCentralControladorBean paginaCentralControladorBean;
+	
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
 	@ManagedProperty(value = "#{relatorioSecretariaServicoImpl}")
@@ -50,6 +53,10 @@ public class RelatorioSecretariaControlador {
 		this.usuarios.add(usuario);
 	}
 
+	public void redirecionarModuloSecretaria() {
+		paginaCentralControladorBean.setPaginaCentral("paginas/relatorio/secretaria/pesquisa.xhtml");
+	}
+	
 	public void imprimir() {
 		try {
 
@@ -93,6 +100,15 @@ public class RelatorioSecretariaControlador {
 
 	public String relatorioSecretaria() {
 		return "/pages/relatorio/secretaria/pesquisa.jsf";
+	}
+
+	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
+		return paginaCentralControladorBean;
+	}
+
+	public void setPaginaCentralControladorBean(
+			PaginaCentralControladorBean paginaCentralControladorBean) {
+		this.paginaCentralControladorBean = paginaCentralControladorBean;
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {

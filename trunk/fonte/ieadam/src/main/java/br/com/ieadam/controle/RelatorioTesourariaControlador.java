@@ -34,6 +34,9 @@ import br.com.ieadam.servico.RelatorioTesourariaServico;
 @SessionScoped
 public class RelatorioTesourariaControlador {
 
+	@ManagedProperty(value = "#{paginaCentralControladorBean}")
+	private PaginaCentralControladorBean paginaCentralControladorBean;
+	
 	private Parametro parametro;
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
@@ -68,6 +71,10 @@ public class RelatorioTesourariaControlador {
 
 	}
 
+	public void redirecionarModuloTesouraria() {
+		paginaCentralControladorBean.setPaginaCentral("paginas/relatorio/tesouraria/pesquisa.xhtml");
+	}
+	
 	public void relatorioSaldoCongregacional() {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
@@ -196,6 +203,15 @@ public class RelatorioTesourariaControlador {
 	public void setRelatorioTesourariaServico(
 			RelatorioTesourariaServico relatorioTesourariaServico) {
 		this.relatorioTesourariaServico = relatorioTesourariaServico;
+	}
+
+	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
+		return paginaCentralControladorBean;
+	}
+
+	public void setPaginaCentralControladorBean(
+			PaginaCentralControladorBean paginaCentralControladorBean) {
+		this.paginaCentralControladorBean = paginaCentralControladorBean;
 	}
 
 	public Parametro getParametro() {
