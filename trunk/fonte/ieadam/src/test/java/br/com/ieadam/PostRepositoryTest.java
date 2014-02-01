@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import br.com.ieadam.repositorio.PostRepository;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
 //@ContextConfiguration(locations="classpath*:META-INF/spring/test-context.xml")
+@Ignore
 public class PostRepositoryTest {
 
 	@Autowired

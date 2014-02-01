@@ -20,20 +20,16 @@
 
 				<p:outputLabel value="Bairro:" styleClass="ui-priority-primary" />
 				<p:inputText id="bairro"
-					value="#{membroControlador.entidade.bairro}" />
-
-				<p:outputLabel value="Amigo:" styleClass="ui-priority-primary" />
-				<p:inputText id="amigoContato"
-					value="#{membroControlador.entidade.}" />
+					value="#{membroControlador.entidade.cpf}" />
 
 				<p:outputLabel value="Batizado:" styleClass="ui-priority-primary" />
 				<p:selectBooleanButton id="batizado"
-					value="#{membroControlador.entidade.batizado}" onLabel="SIM"
+					value="#{membroControlador.entidade.sexo}" onLabel="SIM"
 					offLabel="NÃO" onIcon="ui-icon-check" offIcon="ui-icon-close" />
 
 				<p:outputLabel value="Celular:" styleClass="ui-priority-primary" />
 				<p:inputMask id="celular" mask="9999-9999"
-					value="#{membroControlador.entidade.celular}" />
+					value="#{membroControlador.entidade.telefone}" />
 
 				<p:outputLabel value="Data Batismo" styleClass="ui-priority-primary" />
 				<p:calendar id="dataBatismo" pattern="dd/MM/yyyy"
@@ -49,41 +45,11 @@
 
 				<p:outputLabel value="Fone Comercial"
 					styleClass="ui-priority-primary" />
-				<p:inputMask id="foneComercial" mask="9999-9999"
-					value="#{membroControlador.entidade.foneComercial}" />
-
-				<p:outputLabel value="Fone Residencial"
-					styleClass="ui-priority-primary" />
-				<p:inputMask id="foneResidencial" mask="9999-9999"
-					value="#{membroControlador.entidade.foneResidencial}" />
-
-				<p:outputLabel value="Mãe" styleClass="ui-priority-primary" />
-				<p:inputText id="mae" value="#{membroControlador.entidade.mae}" />
-
-				<p:outputLabel value="Membro da Igreja"
-					styleClass="ui-priority-primary" />
-				<p:selectBooleanButton id="membroIgreja"
-					value="#{membroControlador.entidade.membroIgreja}" onLabel="SIM"
-					offLabel="NÃO" onIcon="ui-icon-check" offIcon="ui-icon-close" />
-
-				<p:outputLabel value="Modo de Conversão"
-					styleClass="ui-priority-primary" />
-				<p:inputText id="modoConversao"
-					value="#{membroControlador.entidade.modoConversao}" />
-
-				<p:outputLabel value="Pai" styleClass="ui-priority-primary" />
-				<p:inputText id="pai" value="#{membroControlador.entidade.pai}" />
-
-				<p:outputLabel value="Sexo" styleClass="ui-priority-primary" />
-				<p:selectBooleanButton id="sexo"
-					value="#{membroControlador.entidade.sexo}" onLabel="M" offLabel="F"
-					onIcon="ui-icon-check" offIcon="ui-icon-close" />
+				<p:inputMask id="foneComercial" mask="99"
+					value="#{membroControlador.entidade.qtdeFilhos}" />
 
 				<p:outputLabel value="Tem Filho(s)" styleClass="ui-priority-primary" />
-				<p:selectBooleanButton id="temFilho"
-					value="#{membroControlador.entidade.temFilho}" onLabel="SIM"
-					offLabel="NÃO" onIcon="ui-icon-check" offIcon="ui-icon-close" />
-
+			
 			</h:panelGrid>
 
 			<p:commandButton id="buttonCadastro" value="Salvar" update=":form"

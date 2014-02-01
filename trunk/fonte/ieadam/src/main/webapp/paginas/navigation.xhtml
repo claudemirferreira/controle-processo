@@ -13,7 +13,7 @@
 
 		<p:toolbar>
 			<p:toolbarGroup align="left">
-				<p:commandButton value="Secretária" icon="ui-icon-document"
+				<p:commandButton value="Secretaria" icon="ui-icon-document"
 					update=":form">
 					<f:setPropertyActionListener
 						target="#{paginaCentralControladorBean.paginaCentral}"
@@ -22,7 +22,7 @@
 				</p:commandButton>
 				<p:separator />
 
-				<p:commandButton value="Tesourária" update=":form"
+				<p:commandButton value="Tesouraria" update=":form"
 					icon="ui-icon-folder-open">
 					<f:setPropertyActionListener
 						target="#{paginaCentralControladorBean.paginaCentral}"
@@ -91,7 +91,7 @@
 			<p:toolbarGroup align="right">
 
 				<p:outputLabel style="margin-right:10px"
-					value="Usuário: #{usuarioControlador.usuario.login}" />
+					value="Usuário: #{usuarioControlador.usuario.membro.nome}" />
 				<p:separator />
 				<p:commandButton action="#{usuarioControlador.logout}"
 					value="Logout" icon="ui-icon-extlink" update=":form" />
