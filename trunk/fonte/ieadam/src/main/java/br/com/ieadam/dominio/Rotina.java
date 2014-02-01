@@ -89,10 +89,10 @@ public class Rotina implements Serializable {
 	public static List<Rotina> getModuloSecretaria() {
 
 		List<Rotina> list = new ArrayList<Rotina>();
-		Rotina rotina = new Rotina("debitoSecretaria1", "DESCRICAO", "debitoSecretaria.show()", "resources/imagens/rotina/banknote.png");
+		Rotina rotina = new Rotina("DÉBITO SECRETARIA", "DESCRICAO", "debitoSecretaria.show()", "resources/imagens/rotina/banknote.png");
 		list.add(rotina);
 
-		rotina = new Rotina("estatistico1", "DESCRICAO", "estatistico", "resources/imagens/rotina/bar_chart.png");
+		rotina = new Rotina("ESTATÍSTICO", "DESCRICAO", "estatistico", "resources/imagens/rotina/bar_chart.png");
 		list.add(rotina);
 
 		rotina = new Rotina("MEMBROS", "DESCRICAO", "ACAO", "resources/imagens/rotina/calculator.png");

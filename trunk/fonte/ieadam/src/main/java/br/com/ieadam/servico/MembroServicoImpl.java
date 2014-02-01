@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ieadam.dominio.Membro;
+import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.repositorio.MembroRepositorio;
 
 @Service
@@ -29,4 +30,13 @@ public class MembroServicoImpl implements MembroServico {
 		membroRepositorio.delete(membro);
 	}
 
+	@Override
+	public Membro findByUsuario(Usuario usuario) {
+		return this.membroRepositorio.findByUsuario(usuario);
+	}
+
+	@Override
+	public List<Membro> listarMembrosPorNomeLike(String nome) {
+		return this.membroRepositorio.listarMembrosPorNomeLike(nome);
+	}
 }
