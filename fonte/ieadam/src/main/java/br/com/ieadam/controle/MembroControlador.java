@@ -8,7 +8,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import br.com.ieadam.dominio.Congregacao;
 import br.com.ieadam.dominio.Membro;
+import br.com.ieadam.dominio.Situacao;
+import br.com.ieadam.servico.CongregacaoServico;
 import br.com.ieadam.servico.MembroServico;
 
 @ManagedBean
@@ -21,13 +24,23 @@ public class MembroControlador implements Serializable {
 
 	private Membro pesquisa;
 
+	private List<Congregacao> congregacoes;
+
 	private List<Membro> lista;
+
+	private Situacao[] situacoes;
 
 	@ManagedProperty(value = "#{membroServicoImpl}")
 	private MembroServico servico;
 
+	@ManagedProperty(value = "#{congregacaoServicoImpl}")
+	private CongregacaoServico congregacaoServico;
+
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
+
+	private final String TELA_CADASTRO = "paginas/membro/cadastro.xhtml";
+	private final String TELA_PESQUISA = "paginas/membro/pesquisa.xhtml";
 
 	@PostConstruct
 	public void init() {
@@ -37,14 +50,14 @@ public class MembroControlador implements Serializable {
 	}
 
 	public void pesquisar() {
-		this.lista = servico.listarMembrosPorNomeLike(this.pesquisa.getNome());
+
 	}
 
 	public void detalhe(Membro membro) {
 
 		this.entidade = membro;
-		this.paginaCentralControladorBean
-				.setPaginaCentral("paginas/membro/cadastro.xhtml");
+		this.congregacoes = congregacaoServico.listarTodos();
+		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
 
 	}
 
@@ -52,8 +65,7 @@ public class MembroControlador implements Serializable {
 
 		servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
-		this.paginaCentralControladorBean
-				.setPaginaCentral("paginas/membro/pesquisa.xhtml");
+		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public void excluir(Membro membro) {
@@ -64,8 +76,8 @@ public class MembroControlador implements Serializable {
 	public void novo() {
 
 		this.entidade = new Membro();
-		this.paginaCentralControladorBean
-				.setPaginaCentral("paginas/membro/cadastro.xhtml");
+//		this.congregacoes = congregacaoServico.listarTodos();
+		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
 
 	}
 
@@ -94,12 +106,36 @@ public class MembroControlador implements Serializable {
 		this.lista = lista;
 	}
 
+	public Situacao[] getSituacoes() {
+		return Situacao.values();
+	}
+
+	public void setSituacoes(Situacao[] situacoes) {
+		this.situacoes = situacoes;
+	}
+
+	public List<Congregacao> getCongregacoes() {
+		return congregacoes;
+	}
+
+	public void setCongregacoes(List<Congregacao> congregacoes) {
+		this.congregacoes = congregacoes;
+	}
+
 	public MembroServico getServico() {
 		return servico;
 	}
 
 	public void setServico(MembroServico servico) {
 		this.servico = servico;
+	}
+
+	public CongregacaoServico getCongregacaoServico() {
+		return congregacaoServico;
+	}
+
+	public void setCongregacaoServico(CongregacaoServico congregacaoServico) {
+		this.congregacaoServico = congregacaoServico;
 	}
 
 	public PaginaCentralControladorBean getPaginaCentralControladorBean() {

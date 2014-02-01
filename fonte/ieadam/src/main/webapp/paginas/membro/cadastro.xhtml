@@ -18,38 +18,159 @@
 				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" value="#{membroControlador.entidade.nome}" />
 
-				<p:outputLabel value="Bairro:" styleClass="ui-priority-primary" />
-				<p:inputText id="bairro"
-					value="#{membroControlador.entidade.cpf}" />
-
-				<p:outputLabel value="Batizado:" styleClass="ui-priority-primary" />
-				<p:selectBooleanButton id="batizado"
-					value="#{membroControlador.entidade.sexo}" onLabel="SIM"
-					offLabel="NÃO" onIcon="ui-icon-check" offIcon="ui-icon-close" />
-
-				<p:outputLabel value="Celular:" styleClass="ui-priority-primary" />
-				<p:inputMask id="celular" mask="9999-9999"
-					value="#{membroControlador.entidade.telefone}" />
-
-				<p:outputLabel value="Data Batismo" styleClass="ui-priority-primary" />
-				<p:calendar id="dataBatismo" pattern="dd/MM/yyyy"
-					value="#{membroControlador.entidade.dataBatismo}" />
-
-				<p:outputLabel value="Data Nascimento"
+				<p:outputLabel value="Data de Nascimento:"
 					styleClass="ui-priority-primary" />
-				<p:inputText id="dataNascimento"
+				<p:calendar id="dataNascimento" pattern="dd/MM/yyyy"
+					navigator="true" display="inline"
 					value="#{membroControlador.entidade.dataNascimento}" />
+
+				<p:outputLabel value="Data da Decisão"
+					styleClass="ui-priority-primary" />
+				<p:calendar id="dataDecisao" pattern="dd/MM/yyyy" navigator="true"
+					display="inline" value="#{membroControlador.entidade.dataDecisao}" />
+
+				<p:outputLabel value="Data de Batismo"
+					styleClass="ui-priority-primary" />
+				<p:calendar id="dataBatismo" pattern="dd/MM/yyyy" navigator="true"
+					display="inline" value="#{membroControlador.entidade.dataBatismo}" />
+
+				<p:outputLabel value="Data de Recebimento"
+					styleClass="ui-priority-primary" />
+				<p:calendar id="dataRecebimento" pattern="dd/MM/yyyy"
+					navigator="true" display="inline"
+					value="#{membroControlador.entidade.dataRecebimento}" />
+
+				<p:outputLabel value="Data de Batismo do Espirito"
+					styleClass="ui-priority-primary" />
+				<p:calendar id="dataBatEspirito" pattern="dd/MM/yyyy"
+					navigator="true" display="inline"
+					value="#{membroControlador.entidade.dataBatEspirito}" />
+
+				<p:outputLabel value="sexo" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{membroControlador.entidade.sexo}">
+					<f:selectItem itemLabel="MASCULINO" itemValue="M" />
+					<f:selectItem itemLabel="FEMININO" itemValue="F" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Cidade" styleClass="ui-priority-primary" />
+				<p:inputText id="cidade"
+					value="#{membroControlador.entidade.cidade}" />
+
+				<p:outputLabel value="UF" styleClass="ui-priority-primary" />
+				<p:inputText id="uf" value="#{membroControlador.entidade.uf}" />
+
+				<p:outputLabel value="Nacionalidade"
+					styleClass="ui-priority-primary" />
+				<p:inputText id="nacionalidade"
+					value="#{membroControlador.entidade.nacionalidade}" />
+
+				<p:outputLabel value="Estado Civil" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{membroControlador.entidade.estadoCivil}">
+					<f:selectItem itemLabel="SOLTEIRO" itemValue="SO" />
+					<f:selectItem itemLabel="CASADO" itemValue="CA" />
+					<f:selectItem itemLabel="SEPARADO" itemValue="SE" />
+					<f:selectItem itemLabel="DIVORCIADO" itemValue="DI" />
+					<f:selectItem itemLabel="VIÚVO" itemValue="VI" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="RG" styleClass="ui-priority-primary" />
+				<p:inputText id="rg" value="#{membroControlador.entidade.rg}" />
+
+				<p:outputLabel value="CPF" styleClass="ui-priority-primary" />
+				<p:inputText id="cpf" value="#{membroControlador.entidade.cpf}" />
+
+				<p:outputLabel value="Orgão Emissor"
+					styleClass="ui-priority-primary" />
+				<p:inputText id="rgOrgaoEmissor"
+					value="#{membroControlador.entidade.rgOrgaoEmissor}" />
 
 				<p:outputLabel value="E-mail" styleClass="ui-priority-primary" />
 				<p:inputText id="email" value="#{membroControlador.entidade.email}" />
 
-				<p:outputLabel value="Fone Comercial"
+				<p:outputLabel value="Titulo Eleitor"
 					styleClass="ui-priority-primary" />
-				<p:inputMask id="foneComercial" mask="99"
+				<p:inputText id="tituloEleitor"
+					value="#{membroControlador.entidade.tituloEleitor}" />
+
+				<p:outputLabel value="Pai" styleClass="ui-priority-primary" />
+				<p:inputText id="nomePai"
+					value="#{membroControlador.entidade.nomePai}" />
+
+				<p:outputLabel value="Zona do Titulo"
+					styleClass="ui-priority-primary" />
+				<p:inputText id="tituloZona"
+					value="#{membroControlador.entidade.tituloZona}" />
+
+				<p:outputLabel value="Seção do Titulo"
+					styleClass="ui-priority-primary" />
+				<p:inputText id="tituloSecao"
+					value="#{membroControlador.entidade.tituloSecao}" />
+
+
+				<p:outputLabel value="Mãe" styleClass="ui-priority-primary" />
+				<p:inputText id="nomeMae"
+					value="#{membroControlador.entidade.nomeMae}" />
+
+				<p:outputLabel value="Conjuge" styleClass="ui-priority-primary" />
+				<p:inputText id="conjuge"
+					value="#{membroControlador.entidade.conjuge}" />
+
+				<p:outputLabel value="Qtde Filhos" styleClass="ui-priority-primary" />
+				<p:inputText id="qtdeFilhos"
 					value="#{membroControlador.entidade.qtdeFilhos}" />
 
-				<p:outputLabel value="Tem Filho(s)" styleClass="ui-priority-primary" />
-			
+				<p:outputLabel value="Fator RH" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{membroControlador.entidade.fatorRh}">
+					<f:selectItem itemLabel="O+" itemValue="O+" />
+					<f:selectItem itemLabel="A+" itemValue="A+" />
+					<f:selectItem itemLabel="B+" itemValue="B+" />
+					<f:selectItem itemLabel="O-" itemValue="O-" />
+					<f:selectItem itemLabel="A-" itemValue="A-" />
+					<f:selectItem itemLabel="B-" itemValue="B-" />
+					<f:selectItem itemLabel="AB+" itemValue="AB+" />
+					<f:selectItem itemLabel="AB-" itemValue="AB-" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Endereço" styleClass="ui-priority-primary" />
+				<p:inputText id="endereco"
+					value="#{membroControlador.entidade.endereco}" />
+
+				<p:outputLabel value="CEP" styleClass="ui-priority-primary" />
+				<p:inputText id="cep" value="#{membroControlador.entidade.cep}" />
+
+				<p:outputLabel value="Telefone" styleClass="ui-priority-primary" />
+				<p:inputText id="telefone"
+					value="#{membroControlador.entidade.telefone}" />
+
+				<p:outputLabel value="Certidão Casamento"
+					styleClass="ui-priority-primary" />
+				<p:inputText id="certCasamento"
+					value="#{membroControlador.entidade.certCasamento}" />
+
+				<p:outputLabel value="Procedência" styleClass="ui-priority-primary" />
+				<p:inputText id="procedencia"
+					value="#{membroControlador.entidade.procedencia}" />
+
+				<p:outputLabel value="Formacao Teologico"
+					styleClass="ui-priority-primary" />
+
+				<p:inputText id="formacaoTeologico"
+					value="#{membroControlador.entidade.formacaoTeologico}" />
+
+				<p:outputLabel value="Situacção"
+					styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{membroControlador.entidade.situacao}">
+					<f:selectItems value="#{membroControlador.situacoes}" var="a"
+						itemValue="#{a}" itemLabel="#{a}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Congregação"
+					styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{membroControlador.entidade.congregacao}">
+					<f:selectItems value="#{membroControlador.congregacoes}" var="a"
+						itemValue="#{a.id}" itemLabel="#{a.nome}" />
+				</p:selectOneMenu>
+
 			</h:panelGrid>
 
 			<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
