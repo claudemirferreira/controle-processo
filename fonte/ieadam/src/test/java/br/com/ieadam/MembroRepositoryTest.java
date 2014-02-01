@@ -16,6 +16,7 @@ import br.com.ieadam.repositorio.MembroRepositorio;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
 // @ContextConfiguration(locations="classpath*:META-INF/spring/test-context.xml")
+@Ignore
 public class MembroRepositoryTest {
 
 	@Autowired
