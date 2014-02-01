@@ -55,6 +55,8 @@ public class UsuarioControlador {
 	public String logout() {
 		SecurityContextHolder.clearContext();
 		this.usuario = new Usuario();
+		
+		this.paginaCentralControladorBean.setPaginaCentral("paginacentral.xhtml");;
 		return "login.xhtml?faces-redirect=true";
 	}
 
