@@ -1,6 +1,5 @@
 package br.com.ieadam.dominio;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -18,41 +17,41 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="ieadam_congregacao")
+@Table(name = "ieadam_congregacao")
 public class Congregacao {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private int id;
-	
-	@OneToMany(mappedBy="congregacao")
+
+	@OneToMany(mappedBy = "congregacao")
 	private Set<Membro> membros;
-	
+
 	private String cidade;
-	
+
 	@ManyToOne
 	private Area area;
-	
+
 	private String bairro;
-	
+
 	@Temporal(TemporalType.DATE)
-	private Date dataFundacao; 
-	
+	private Date dataFundacao;
+
 	private String nome;
-	
+
 	private String endereco;
-	
+
 	private String cep;
-	
+
 	private String telefone;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Situacao situacao;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 
