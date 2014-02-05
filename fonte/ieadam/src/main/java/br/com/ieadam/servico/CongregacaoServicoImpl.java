@@ -1,5 +1,6 @@
 package br.com.ieadam.servico;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,10 @@ import br.com.ieadam.dominio.Congregacao;
 import br.com.ieadam.repositorio.CongregacaoRepositorio;
 
 @Service
-public class CongregacaoServicoImpl implements CongregacaoServico {
+public class CongregacaoServicoImpl implements CongregacaoServico, Serializable {
 
+	private static final long serialVersionUID = -5220391642354623929L;
+	
 	@Autowired
 	private CongregacaoRepositorio congregacaoRepositorio;
 
