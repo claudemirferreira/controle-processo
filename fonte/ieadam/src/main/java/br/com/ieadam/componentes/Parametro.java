@@ -15,10 +15,25 @@ public class Parametro implements Serializable {
 
 	private int ano;
 
+	private Mes mesInicio = Mes.JANEIRO;
+
+	private int anoInicio;
+
+	private Mes mesFim = Mes.JANEIRO;
+
+	private int anoFim;
+
+	private String usuario;
+
 	private List<Mes> meses = new ArrayList<Mes>();
 
 	public Parametro() {
 		this.ano = DataUtil.pegarAnocorrente();
+
+		this.anoInicio = this.ano;
+		this.anoFim = this.ano;
+
+		this.mesFim = DataUtil.pegarMescorrente();
 	}
 
 	public int getAno() {
@@ -43,6 +58,46 @@ public class Parametro implements Serializable {
 
 	public void setMeses(List<Mes> meses) {
 		this.meses = meses;
+	}
+
+	public Mes getMesInicio() {
+		return mesInicio;
+	}
+
+	public void setMesInicio(Mes mesInicio) {
+		this.mesInicio = mesInicio;
+	}
+
+	public int getAnoInicio() {
+		return anoInicio;
+	}
+
+	public void setAnoInicio(int anoInicio) {
+		this.anoInicio = anoInicio;
+	}
+
+	public Mes getMesFim() {
+		return mesFim;
+	}
+
+	public void setMesFim(Mes mesFim) {
+		this.mesFim = mesFim;
+	}
+
+	public int getAnoFim() {
+		return anoFim;
+	}
+
+	public void setAnoFim(int anoFim) {
+		this.anoFim = anoFim;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 }
