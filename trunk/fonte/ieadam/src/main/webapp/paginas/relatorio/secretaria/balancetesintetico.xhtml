@@ -9,30 +9,30 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="RELATÓRIO DE SALDO CONGREGACIONAL">
+		<p:panel header="RELATÓRIO DE BALANCETE SINTÉTICO" style="width:500px;">
 
 			<h:panelGrid id="panelPesquisa" columns="4">
 
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioTesourariaControlador.parametro.mes}"
-					effect="fold" editable="true">
-					<f:selectItems
-						value="#{relatorioTesourariaControlador.parametro.meses}" />
+					value="#{relatorioBalanceteSintetico.parametro.mes}" effect="fold"
+					editable="true">
+					<f:selectItems value="#{relatorioBalanceteSintetico.parametro.meses}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
 				<p:inputText id="ano" styleClass="ui-priority-primary"
-					required="true" requiredMessage="O ano deve ser informado"
-					value="#{relatorioTesourariaControlador.parametro.ano}" />
+					style="width:50px;" required="true"
+					requiredMessage="O ano deve ser informado"
+					value="#{relatorioBalanceteSintetico.parametro.ano}" />
 
 			</h:panelGrid>
 
 			<f:facet name="footer">
 
-				<p:commandButton id="btnPrint" value="Imprimir" icon="ui-icon-print"
-					action="#{relatorioTesourariaControlador.relatorioSaldoCongregacional}"
-					ajax="false" />
+				<h:commandButton value="Ver relatorio"
+					onclick="this.form.target='_blank'"
+					actionListener="#{relatorioBalanceteSintetico.imprimir}" />
 
 			</f:facet>
 

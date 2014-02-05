@@ -8,18 +8,17 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-
-		<p:dataGrid id="relatorioousel"
-			value="#{rotinaControlador.moduloSecretaria}" var="relatorio"
-			headerText="SECRETARIA" columns="4"
+		<p:dataGrid id="rotinaousel"
+			value="#{rotinaControlador.moduloAdministrativo}" var="rotina"
+			headerText="Administrativo" columns="4"
 			style="width:100%; height:100%; border: 0px solid #a8a8a8;">
 			<div align="center">
 				<h:panelGrid id="panelRelatorio" style="border: 0px solid #a8a8a8;">
-					<p:graphicImage id="image" value="#{relatorio.imagem}"
-						height="100px" width="100px" />
-
-					<h:outputText id="model" styleClass="ui-priority-primary"
-						value="#{relatorio.nome}" />
+					<p:graphicImage id="image" value="#{rotina.imagem}" height="100px"
+						width="100px" />
+						
+					<p:outputLabel value="#{rotina.nome}"
+						styleClass="ui-priority-primary" />
 
 					<p:commandButton id="buttonCadastro" value="Entrar" update=":form"
 						icon="ui-icon-search" styleClass="ui-priority-primary"

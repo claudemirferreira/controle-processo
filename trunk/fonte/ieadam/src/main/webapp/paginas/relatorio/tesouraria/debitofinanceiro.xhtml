@@ -9,22 +9,22 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="RELATÓRIO DE DÉBITO FINANCEIRO">
+		<p:panel header="RELATÓRIO DE DÉBITO FINANCEIRO" style="width:500px;">
 
 			<h:panelGrid id="panelPesquisa" columns="4">
 
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioTesourariaControlador.parametro.mes}"
-					effect="fold" editable="true">
-					<f:selectItems
-						value="#{relatorioTesourariaControlador.parametro.meses}" />
+					value="#{relatorioDebitoFinanceiro.parametro.mes}" effect="fold"
+					editable="true">
+					<f:selectItems value="#{relatorioDebitoFinanceiro.parametro.meses}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
 				<p:inputText id="ano" styleClass="ui-priority-primary"
-					required="true" requiredMessage="O ano deve ser informado"
-					value="#{relatorioTesourariaControlador.parametro.ano}" />
+					style="width:50px;" required="true"
+					requiredMessage="O ano deve ser informado"
+					value="#{relatorioDebitoFinanceiro.parametro.ano}" />
 
 			</h:panelGrid>
 
@@ -32,7 +32,7 @@
 
 				<h:commandButton value="Ver relatorio"
 					onclick="this.form.target='_blank'"
-					actionListener="#{relatorioTesourariaControlador.relatorioDebitoFinanceiro}" />
+					actionListener="#{relatorioDebitoFinanceiro.imprimir}" />
 
 			</f:facet>
 
