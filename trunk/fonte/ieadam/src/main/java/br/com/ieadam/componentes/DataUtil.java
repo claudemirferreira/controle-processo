@@ -5,20 +5,22 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import br.com.ieadam.dominio.Mes;
+
 public class DataUtil {
 
 	public static void main(String[] args) {
 		pegarAnocorrente();
 	}
 
-	public static int pegarMescorrente() {
+	public static Mes pegarMescorrente() {
 		Date data = new Date();
 		Calendar c = Calendar.getInstance();
 		c.setTime(data);
 		Format format = new SimpleDateFormat("MM");
-		System.out.println(Integer.parseInt(format.format(c.getTime())));
 
-		return Integer.parseInt(format.format(c.getTime()));
+		return pegarMes(Integer.parseInt(format.format(c.getTime())));
+
 	}
 
 	public static int pegarAnocorrente() {
@@ -29,4 +31,33 @@ public class DataUtil {
 
 		return year;
 	}
+
+	private static Mes pegarMes(int mes) {
+
+		if (mes == 1)
+			return Mes.JANEIRO;
+		else if (mes == 2)
+			return Mes.FEVEREIRO;
+		else if (mes == 3)
+			return Mes.MARCO;
+		else if (mes == 4)
+			return Mes.ABRIL;
+		else if (mes == 5)
+			return Mes.MAIO;
+		else if (mes == 6)
+			return Mes.JUNHO;
+		else if (mes == 7)
+			return Mes.JULHO;
+		else if (mes == 8)
+			return Mes.AGOSTO;
+		else if (mes == 9)
+			return Mes.SETEMBRO;
+		else if (mes == 10)
+			return Mes.OUTUBRO;
+		else if (mes == 11)
+			return Mes.NOVEMBRO;
+		else
+			return Mes.DEZEMBRO;
+	}
+
 }
