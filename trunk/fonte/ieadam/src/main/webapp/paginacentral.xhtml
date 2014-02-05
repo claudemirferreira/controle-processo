@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+		<div align="center">
+			<h:panelGrid columns="4" style="width:80%; margin-left: 8%; margin-top: 15%;" id="gridPrincipal">
+				<h:commandLink actionListener="#{relatorioTesourariaControlador.redirecionarModuloTesouraria}" value="Relatórios Tesouraria">
+					<p:graphicImage id="modoloTesouraria" value="resources/imagens/rotina/banknote.png" height="100px"
+						width="100px"/>
+				</h:commandLink>
+				<h:commandLink actionListener="#{relatorioSecretariaControlador.redirecionarModuloSecretaria}" value="Relatórios Secretaria">
+					<p:graphicImage id="moduloSecretaria" value="resources/imagens/rotina/bar_chart.png" height="100px"
+						width="100px"/>
+				</h:commandLink>
+				<h:commandLink actionListener="#{relatorioTesourariaControlador.redirecionarModuloTesouraria}" value="Relatórios Administrativos">
+					<p:graphicImage id="moduloAdministrativo" value="resources/imagens/rotina/calculator.png" height="100px"
+						width="100px"/>
+				</h:commandLink>
+				<h:commandLink actionListener="#{membroControlador.redirecionarModuloConfiguracao}" value="Configuração do Sistema">
+					<p:graphicImage id="moduloConfiguracao" value="resources/imagens/rotina/gold_bullion.png" height="100px"
+						width="100px"/>
+				</h:commandLink>
+			</h:panelGrid>
+		</div>
+	</h:form>
+
+</ui:component>
