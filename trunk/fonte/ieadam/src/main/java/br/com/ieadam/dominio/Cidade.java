@@ -1,28 +1,39 @@
 package br.com.ieadam.dominio;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.ieadam.dominio.enumerated.Situacao;
+
 @Entity
-@Table(name="ieadam_cidade")
-public class Cidade {
+@Table(name = "ieadam_cidade")
+public class Cidade implements Serializable{
+
+	private static final long serialVersionUID = 4441249403117836236L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
+	@Column(length = 60, nullable = false)
 	private String Nome;
 
+	@Column(length = 2, nullable = false)
 	private String UF;
 
-	private Character ind_Situacao;
+	@Enumerated
+	@Column(name = "situacao", nullable = false, length = 1)
+	private Situacao situacao;
 
-	private Date data_ult_atu;
+	private Date dataUltimaAtualizacao;
 
 	public int getId() {
 		return id;
@@ -48,19 +59,20 @@ public class Cidade {
 		UF = uF;
 	}
 
-	public Character getInd_Situacao() {
-		return ind_Situacao;
+	public Situacao getSituacao() {
+		return situacao;
 	}
 
-	public void setInd_Situacao(Character ind_Situacao) {
-		this.ind_Situacao = ind_Situacao;
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
 	}
 
-	public Date getData_ult_atu() {
-		return data_ult_atu;
+	public Date getDataUltimaAtualizacao() {
+		return dataUltimaAtualizacao;
 	}
 
-	public void setData_ult_atu(Date data_ult_atu) {
-		this.data_ult_atu = data_ult_atu;
+	public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao) {
+		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
+	
 }

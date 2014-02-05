@@ -1,52 +1,66 @@
 package br.com.ieadam.dominio;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.ieadam.dominio.enumerated.Situacao;
+
 @Entity
 @Table(name = "ieadam_congregacao")
-public class Congregacao {
+public class Congregacao implements Serializable {
+
+	private static final long serialVersionUID = 7686113032375136921L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
 	private int id;
 
-	@OneToMany(mappedBy = "congregacao")
+	@OneToMany
+	@JoinColumn(name = "congregacao_id", referencedColumnName = "id")
 	private Set<Membro> membros;
 
-	private String cidade;
+	@ManyToOne
+	@JoinColumn(name = "cidade_id", referencedColumnName = "id", unique = true)
+	private Cidade cidade;
 
 	@ManyToOne
+	@JoinColumn(name = "area_id", referencedColumnName = "id", unique = true)
 	private Area area;
 
+	@Column(length = 60, nullable = false)
 	private String bairro;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataFundacao;
 
+	@Column(length = 60, nullable = false)
 	private String nome;
 
+	@Column(length = 60, nullable = false)
 	private String endereco;
 
+	@Column(length = 8)
 	private String cep;
 
+	@Column(length = 30)
 	private String telefone;
 
-	@Enumerated(EnumType.STRING)
+	@Enumerated
+	@Column(name = "situacao", nullable = false, length = 1)
 	private Situacao situacao;
 
 	@Temporal(TemporalType.DATE)
@@ -71,12 +85,16 @@ public class Congregacao {
 		this.membros = membros;
 	}
 
-	public String getCidade() {
+	public Cidade getCidade() {
 		return cidade;
 	}
 
-	public void setCidade(String cidade) {
+	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+
+	public void setMembros(Set<Membro> membros) {
+		this.membros = membros;
 	}
 
 	public Area getArea() {

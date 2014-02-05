@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,12 +28,15 @@ public class Membro implements Serializable {
 	private int id;
 
 	@OneToOne
+	@JoinColumn(name = "funcao_id", referencedColumnName = "id")
 	private Funcao funcao;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
 
 	@ManyToOne
+	@JoinColumn(name = "congregacao_id", referencedColumnName = "id")
 	private Congregacao congregacao;
 
 	@Temporal(TemporalType.DATE)
@@ -54,32 +57,80 @@ public class Membro implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataBatEspirito;
 
-	@Enumerated(EnumType.STRING)
-	private Situacao situacao;
+	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
+	private String situacao;
 
+	@Column(name = "estadoCivil")
+	private int estadoCivil;
+
+	@Column(length = 60, nullable = false)
 	private String nome;
-	private String Sexo;
-	private String cidade;
+
+	@Column(name = "sexo", length = 1, columnDefinition = "CHAR(1)", nullable = false)
+	private String sexo;
+
+	@Column(length = 3, columnDefinition = "CHAR(3)", nullable = false)
+	private String fatorRH;
+
+	@ManyToOne
+	@JoinColumn(name = "cidade_id", referencedColumnName = "id")
+	private Cidade cidade;
+
+	@Column(length = 2, nullable = false)
 	private String uf;
+
+	@Column(length = 60, nullable = false)
 	private String nacionalidade;
-	private String estadoCivil;
+
+	@Column(length = 10)
 	private String rg;
+
+	@Column(length = 11)
 	private String cpf;
+
+	@Column(length = 10)
 	private String rgOrgaoEmissor;
+
+	@Column(length = 60)
 	private String email;
+
+	@Column(length = 10)
 	private String tituloEleitor;
+
+	@Column(length = 60)
 	private String nomePai;
+
+	@Column(length = 10)
 	private String tituloZona;
+
+	@Column(length = 60)
 	private String nomeMae;
+
+	@Column(length = 6)
 	private String tituloSecao;
+
+	@Column(length = 60)
 	private String conjuge;
+
+	@Column(length = 2)
 	private int qtdeFilhos;
-	private String fatorRh;
+
+	@Column(length = 60)
 	private String endereco;
+
+	@Column(length = 8)
 	private String cep;
+
+	@Column(length = 40)
 	private String telefone;
+
+	@Column(length = 10)
 	private String certCasamento;
+
+	@Column(length = 60)
 	private String procedencia;
+
+	@Column(length = 60)
 	private String formacaoTeologico;
 
 	public int getId() {
@@ -154,11 +205,11 @@ public class Membro implements Serializable {
 		this.dataBatEspirito = dataBatEspirito;
 	}
 
-	public Situacao getSituacao() {
+	public String getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(Situacao situacao) {
+	public void setSituacao(String situacao) {
 		this.situacao = situacao;
 	}
 
@@ -171,18 +222,18 @@ public class Membro implements Serializable {
 	}
 
 	public String getSexo() {
-		return Sexo;
+		return sexo;
 	}
 
 	public void setSexo(String sexo) {
-		Sexo = sexo;
+		this.sexo = sexo;
 	}
 
-	public String getCidade() {
+	public Cidade getCidade() {
 		return cidade;
 	}
 
-	public void setCidade(String cidade) {
+	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
 
@@ -200,14 +251,6 @@ public class Membro implements Serializable {
 
 	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
-	}
-
-	public String getEstadoCivil() {
-		return estadoCivil;
-	}
-
-	public void setEstadoCivil(String estadoCivil) {
-		this.estadoCivil = estadoCivil;
 	}
 
 	public String getRg() {
@@ -298,12 +341,20 @@ public class Membro implements Serializable {
 		this.qtdeFilhos = qtdeFilhos;
 	}
 
-	public String getFatorRh() {
-		return fatorRh;
+	public int getEstadoCivil() {
+		return estadoCivil;
 	}
 
-	public void setFatorRh(String fatorRh) {
-		this.fatorRh = fatorRh;
+	public void setEstadoCivil(int estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+
+	public String getFatorRH() {
+		return fatorRH;
+	}
+
+	public void setFatorRH(String fatorRH) {
+		this.fatorRH = fatorRH;
 	}
 
 	public String getEndereco() {

@@ -1,15 +1,16 @@
 package br.com.ieadam.dominio;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -17,9 +18,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.ieadam.dominio.enumerated.Situacao;
+
 @Entity
 @Table(name = "ieadam_area")
-public class Area {
+public class Area implements Serializable{
+
+	private static final long serialVersionUID = -6455533571538685292L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,20 +32,25 @@ public class Area {
 	private int id;
 
 	@OneToOne
+	@JoinColumn(name = "pastor_id", referencedColumnName = "id", unique = true)
 	private Membro pastor;
 
 	@ManyToOne
+	@JoinColumn(name = "nucleo_id", referencedColumnName = "id", unique = true)
 	private Nucleo nucleo;
 
+	@Column(length = 60, nullable = false)
 	private String nome;
 
-	@Enumerated(EnumType.STRING)
+	@Enumerated
+	@Column(length=1)
 	private Situacao situacao;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
 
-	@OneToMany(mappedBy = "area")
+	@OneToMany
+	@JoinColumn(name="area_id", referencedColumnName = "id")
 	private Set<Congregacao> congregacoes;
 
 	public int getId() {
