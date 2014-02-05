@@ -13,13 +13,13 @@ import br.com.ieadam.repositorio.PerfilRepositorio;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
 // @ContextConfiguration(locations="classpath*:META-INF/spring/test-context.xml")
-@Ignore
 public class PerfilRepositoryTest {
 
 	@Autowired
 	PerfilRepositorio repository;
 
 	@Ignore
+	@Test
 	public void test() {
 		Perfil perfil = new Perfil();
 		perfil.setNome("PERFIL 1");
