@@ -9,49 +9,25 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:dataGrid id="relatorioousel" 
-			value="#{rotinaControlador.moduloTesouraria}" var="relatorio"
+		<p:dataGrid id="rotinaousel"
+			value="#{rotinaControlador.moduloTesouraria}" var="rotina"
 			headerText="TESOURARIA" columns="4"
 			style="width:100%; height:100%; border: 0px solid #a8a8a8;">
 			<div align="center">
 				<h:panelGrid id="panelRelatorio" style="border: 0px solid #a8a8a8;">
-					<p:graphicImage id="image" value="#{relatorio.imagem}" height="100px"
+					<p:graphicImage id="image" value="#{rotina.imagem}" height="100px"
 						width="100px" />
 
-					<p:commandButton id="dynamicDialogButton" value="#{relatorio.nome}"
-						onclick="#{relatorio.acao}" type="button" icon="ui-icon-extlink" />
+					<p:outputLabel value="#{rotina.nome}"
+						styleClass="ui-priority-primary" />
+
+					<p:commandButton id="buttonCadastro" value="Entrar" update=":form"
+						icon="ui-icon-search" styleClass="ui-priority-primary"
+						action="#{rotinaControlador.telaRelatorio(rotina)}" />
 
 				</h:panelGrid>
 			</div>
 		</p:dataGrid>
 
-		<p:dialog id="tesourariaSaldoCongregacao" header="SALDO DA CONGREGAÇÃO"
-			widgetVar="tesourariaSaldoCongregacao" focus="dataInicialSC">
-
-			<h:panelGrid columns="2" cellpadding="5">
-
-				<h:outputLabel for="dataInicialSC" value="dataInicial:" />
-				<p:inputText id="dataInicialSC" label="dataInicial" />
-
-				<h:outputLabel for="dataFinalSC" value="dataFinal" />
-				<p:inputText id="dataFinalSC" label="dataFinalSC" />
-
-			</h:panelGrid>
-			<p:commandButton value="Gerar Relatório"/>
-		</p:dialog>
-
-		<p:dialog id="tesourariaProventoPastoral" header="PROVENTO PASTORAL"
-			widgetVar="tesourariaProventoPastoral" focus="dataInicialPP">
-
-			<h:panelGrid columns="2" cellpadding="5">
-
-				<h:outputLabel for="dataInicialPP" value="dataInicial:" />
-				<p:inputText id="dataInicialPP" label="dataInicial" />
-
-				<h:outputLabel for="dataFinalPP" value="dataFinal" />
-				<p:inputText id="dataFinalPP" label="dataFinalPP" />
-			</h:panelGrid>
-			<p:commandButton value="Gerar Relatório"/>	
-		</p:dialog>
 	</h:form>
 </ui:component>

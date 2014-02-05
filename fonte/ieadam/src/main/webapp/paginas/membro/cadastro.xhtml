@@ -16,7 +16,8 @@
 			<h:panelGrid id="panelCadastro" columns="6">
 
 				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
-				<p:inputText id="nome" value="#{membroControlador.entidade.nome}" />
+				<p:inputText id="nome" value="#{membroControlador.entidade.nome}"
+					style="width:300px;" />
 
 				<p:outputLabel value="Data de Nascimento:"
 					styleClass="ui-priority-primary" />
@@ -46,15 +47,14 @@
 					navigator="true" display="inline"
 					value="#{membroControlador.entidade.dataBatEspirito}" />
 
-				<p:outputLabel value="sexo" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{membroControlador.entidade.sexo}">
-					<f:selectItem itemLabel="MASCULINO" itemValue="M" />
-					<f:selectItem itemLabel="FEMININO" itemValue="F" />
-				</p:selectOneMenu>
-
 				<p:outputLabel value="Cidade" styleClass="ui-priority-primary" />
-				<p:inputText id="cidade"
-					value="#{membroControlador.entidade.cidade}" />
+					
+				<p:selectOneMenu id="cidade" value="#{membroControlador.entidade.cidade}"
+					converter="selectOneUsingObjectConverter"
+					items="#{membroControlador.cidades}">
+					<f:selectItems value="#{membroControlador.cidades}" var="cid"
+						itemLabel="#{cid.nome}" itemValue="#{cid}" />
+				</p:selectOneMenu>
 
 				<p:outputLabel value="UF" styleClass="ui-priority-primary" />
 				<p:inputText id="uf" value="#{membroControlador.entidade.uf}" />
@@ -66,11 +66,11 @@
 
 				<p:outputLabel value="Estado Civil" styleClass="ui-priority-primary" />
 				<p:selectOneMenu value="#{membroControlador.entidade.estadoCivil}">
-					<f:selectItem itemLabel="SOLTEIRO" itemValue="SO" />
-					<f:selectItem itemLabel="CASADO" itemValue="CA" />
-					<f:selectItem itemLabel="SEPARADO" itemValue="SE" />
-					<f:selectItem itemLabel="DIVORCIADO" itemValue="DI" />
-					<f:selectItem itemLabel="VIÚVO" itemValue="VI" />
+					<f:selectItem itemLabel="SOLTEIRO(A)" itemValue="0" />
+					<f:selectItem itemLabel="CASADO(A)" itemValue="1" />
+					<f:selectItem itemLabel="SEPARADO(A)" itemValue="2" />
+					<f:selectItem itemLabel="DIVORCIADO(A)" itemValue="3" />
+					<f:selectItem itemLabel="VIÚVO(A)" itemValue="3" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="RG" styleClass="ui-priority-primary" />
@@ -120,7 +120,7 @@
 					value="#{membroControlador.entidade.qtdeFilhos}" />
 
 				<p:outputLabel value="Fator RH" styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{membroControlador.entidade.fatorRh}">
+				<p:selectOneMenu value="#{membroControlador.entidade.fatorRH}">
 					<f:selectItem itemLabel="O+" itemValue="O+" />
 					<f:selectItem itemLabel="A+" itemValue="A+" />
 					<f:selectItem itemLabel="B+" itemValue="B+" />
@@ -153,25 +153,34 @@
 
 				<p:outputLabel value="Formacao Teologico"
 					styleClass="ui-priority-primary" />
-
 				<p:inputText id="formacaoTeologico"
 					value="#{membroControlador.entidade.formacaoTeologico}" />
 
-				<p:outputLabel value="Situacção"
-					styleClass="ui-priority-primary" />
+				<p:outputLabel value="Situação" styleClass="ui-priority-primary" />
 				<p:selectOneMenu value="#{membroControlador.entidade.situacao}">
-					<f:selectItems value="#{membroControlador.situacoes}" var="a"
-						itemValue="#{a}" itemLabel="#{a}" />
+					<f:selectItem itemLabel="ATIVO" itemValue="A" />
+					<f:selectItem itemLabel="INATIVO" itemValue="I" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Congregação"
-					styleClass="ui-priority-primary" />
-				<p:selectOneMenu value="#{membroControlador.entidade.congregacao}">
-					<f:selectItems value="#{membroControlador.congregacoes}" var="a"
-						itemValue="#{a.id}" itemLabel="#{a.nome}" />
+				<p:outputLabel value="Sexo" styleClass="ui-priority-primary" />
+				<p:selectOneMenu value="#{membroControlador.entidade.sexo}">
+					<f:selectItem itemLabel="MASCULINO" itemValue="A" />
+					<f:selectItem itemLabel="FEMININO" itemValue="I" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Congregação" styleClass="ui-priority-primary" />
+				<p:selectOneMenu id="combo" value="#{membroControlador.entidade.congregacao}"
+					converter="selectOneUsingObjectConverter"
+					items="#{membroControlador.congregacoes}">
+					<f:selectItems value="#{membroControlador.congregacoes}" var="cong"
+						itemLabel="#{cong.nome}" itemValue="#{cong}" />
 				</p:selectOneMenu>
 
 			</h:panelGrid>
+
+			<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+				icon="ui-icon-search" styleClass="ui-priority-primary"
+				action="#{membroControlador.salvar}" />
 
 			<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
 				icon="ui-icon-search" styleClass="ui-priority-primary"

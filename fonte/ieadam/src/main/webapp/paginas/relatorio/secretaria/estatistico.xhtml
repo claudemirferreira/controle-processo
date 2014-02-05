@@ -9,35 +9,35 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="RELATÓRIO DE NADA CONSTA" style="width:550px;">
+		<p:panel header="RELATÓRIO DE DÉBITO ESTATISTICO" style="width:550px;">
 
 			<h:panelGrid id="panelPesquisa" columns="4">
 
 				<p:outputLabel value="Mês Inicio:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioNadaConsta.parametro.mesInicio}" effect="fold"
+					value="#{relatorioEstatistico.parametro.mesInicio}" effect="fold"
 					editable="true">
-					<f:selectItems value="#{relatorioNadaConsta.parametro.meses}" />
+					<f:selectItems value="#{relatorioEstatistico.parametro.meses}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Ano Inicio:" styleClass="ui-priority-primary" />
 				<p:inputText id="anoInicio" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
-					value="#{relatorioNadaConsta.parametro.anoInicio}" />
+					value="#{relatorioEstatistico.parametro.anoInicio}" />
 
 				<p:outputLabel value="Mês Fim:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioNadaConsta.parametro.mesFim}" effect="fold"
+					value="#{relatorioEstatistico.parametro.mesFim}" effect="fold"
 					editable="true">
-					<f:selectItems value="#{relatorioNadaConsta.parametro.meses}" />
+					<f:selectItems value="#{relatorioEstatistico.parametro.meses}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Ano Fim:" styleClass="ui-priority-primary" />
 				<p:inputText id="anoFim" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
-					value="#{relatorioNadaConsta.parametro.anoFim}" />
+					value="#{relatorioEstatistico.parametro.anoFim}" />
 
 			</h:panelGrid>
 
@@ -45,7 +45,7 @@
 
 				<h:commandButton value="Ver relatorio"
 					onclick="this.form.target='_blank'"
-					actionListener="#{relatorioNadaConsta.imprimir}" />
+					actionListener="#{relatorioEstatistico.imprimir}" />
 
 			</f:facet>
 
