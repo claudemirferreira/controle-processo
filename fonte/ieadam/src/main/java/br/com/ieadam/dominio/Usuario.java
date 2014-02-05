@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.ieadam.dominio.enumerated.Situacao;
+
 @Entity
 @Table(name = "ieadam_usuario")
 public class Usuario implements Serializable {
@@ -28,18 +30,20 @@ public class Usuario implements Serializable {
 	private int id;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "usuario_perfil", joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_perfil", referencedColumnName = "id"))
+	@JoinTable(name = "usuario_perfil", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "perfil_id", referencedColumnName = "id"))
 	private Set<Perfil> perfis;
 
-	@Column
+	@Column(unique = true, length = 30)
 	private String login;
 
 	private String senha;
 
 	@Enumerated
+	@Column(name = "situacao", nullable = false, length = 1)
 	private Situacao situacao;
 
-	@OneToOne(optional = true, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "membro_id", referencedColumnName = "id", unique = true)
 	private Membro membro;
 
 	public int getId() {

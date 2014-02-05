@@ -15,7 +15,7 @@ public class Rotina implements Serializable {
 	private String acao;
 
 	private String imagem;
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -59,28 +59,44 @@ public class Rotina implements Serializable {
 	public static List<Rotina> getModuloTesouraria() {
 
 		List<Rotina> list = new ArrayList<Rotina>();
-		Rotina rotina = new Rotina("SALDO DA CONGREGAÇÃO", "DESCRICAO", "tesourariaSaldoCongregacao.show()", "resources/imagens/rotina/banknote.png");
+		Rotina rotina = new Rotina("SALDO DA CONGREGAÇÃO", "DESCRICAO",
+				"paginas/relatorio/tesouraria/saldocongregacao.xhtml",
+				"resources/imagens/rotina/banknote.png");
 		list.add(rotina);
 
-		rotina = new Rotina("PROVENTO PASTORAL", "DESCRICAO", "tesourariaProventoPastoral.show()", "resources/imagens/rotina/bar_chart.png");
+		rotina = new Rotina("PROVENTO PASTORAL", "DESCRICAO",
+				"paginas/relatorio/tesouraria/proventopastoral.xhtml",
+				"resources/imagens/rotina/bar_chart.png");
 		list.add(rotina);
 
-		rotina = new Rotina("DÉBITO FINANCEIRO", "DESCRICAO", "tesourariaDebitoFinanceiro.show()", "resources/imagens/rotina/calculator.png");
+		rotina = new Rotina("DÉBITO FINANCEIRO", "DESCRICAO",
+				"paginas/relatorio/tesouraria/debitofinanceiro.xhtml",
+				"resources/imagens/rotina/calculator.png");
 		list.add(rotina);
 
-		rotina = new Rotina("CENTRO DE CUSTO", "DESCRICAO", "tesourariaCentroCusto.show()", "resources/imagens/rotina/cash_register.png");
-		list.add(rotina);
-		
-		rotina = new Rotina("NADA CONSTA", "DESCRICAO", "tesourariaNadaConsta.show()", "resources/imagens/rotina/coins.png");
-		list.add(rotina);
-
-		rotina = new Rotina("SALDO DEPARTAMENTAL", "DESCRICAO", "tesourariaSaldoDepartamental.show()", "resources/imagens/rotina/credit_card.png");
+		rotina = new Rotina("CENTRO DE CUSTO", "DESCRICAO",
+				"paginas/relatorio/tesouraria/centrocusto.xhtml",
+				"resources/imagens/rotina/cash_register.png");
 		list.add(rotina);
 
-		rotina = new Rotina("BALANCETE ANALITICO", "DESCRICAO", "tesourariaBalanceteAnalitico.show()", "resources/imagens/rotina/gold_bullion.png");
+		rotina = new Rotina("NADA CONSTA", "DESCRICAO",
+				"paginas/relatorio/tesouraria/nadaconsta.xhtml",
+				"resources/imagens/rotina/coins.png");
 		list.add(rotina);
 
-		rotina = new Rotina("BALANCETE SINTÉTICO", "DESCRICAO", "tesourariaBalanceteSintetico.show()", "resources/imagens/rotina/invoice.png");
+		rotina = new Rotina("SALDO DEPARTAMENTAL", "DESCRICAO",
+				"paginas/relatorio/tesouraria/saldodepartamental.xhtml",
+				"resources/imagens/rotina/credit_card.png");
+		list.add(rotina);
+
+		rotina = new Rotina("BALANCETE ANALITICO", "DESCRICAO",
+				"paginas/relatorio/tesouraria/saldocongregacao.xhtml",
+				"resources/imagens/rotina/gold_bullion.png");
+		list.add(rotina);
+
+		rotina = new Rotina("BALANCETE SINTÉTICO", "DESCRICAO",
+				"paginas/relatorio/tesouraria/saldocongregacao.xhtml",
+				"resources/imagens/rotina/invoice.png");
 		list.add(rotina);
 
 		return list;
@@ -89,20 +105,40 @@ public class Rotina implements Serializable {
 	public static List<Rotina> getModuloSecretaria() {
 
 		List<Rotina> list = new ArrayList<Rotina>();
-		Rotina rotina = new Rotina("DÉBITO SECRETARIA", "DESCRICAO", "debitoSecretaria.show()", "resources/imagens/rotina/banknote.png");
+		Rotina rotina = new Rotina("debitoSecretaria1", "DESCRICAO",
+				"debitoSecretaria.show()",
+				"resources/imagens/rotina/banknote.png");
 		list.add(rotina);
 
-		rotina = new Rotina("ESTATÍSTICO", "DESCRICAO", "estatistico", "resources/imagens/rotina/bar_chart.png");
+		rotina = new Rotina("estatistico1", "DESCRICAO", "estatistico",
+				"resources/imagens/rotina/bar_chart.png");
 		list.add(rotina);
 
-		rotina = new Rotina("MEMBROS", "DESCRICAO", "ACAO", "resources/imagens/rotina/calculator.png");
+		rotina = new Rotina("MEMBROS", "DESCRICAO", "ACAO",
+				"resources/imagens/rotina/calculator.png");
 		list.add(rotina);
 
-		rotina = new Rotina("DÉBITO PASTORAL", "DESCRICAO", "ACAO", "resources/imagens/rotina/cash_register.png");
+		rotina = new Rotina("DÉBITO PASTORAL", "DESCRICAO", "ACAO",
+				"resources/imagens/rotina/cash_register.png");
 		list.add(rotina);
 
 		return list;
 	}
+	
+	public static List<Rotina> getModuloAdministrativo() {
 
+		List<Rotina> list = new ArrayList<Rotina>();
+		Rotina rotina = new Rotina("CADASTRO DE MEMBRO", "DESCRICAO",
+				"paginas/membro/pesquisa.xhtml",
+				"resources/imagens/rotina/banknote.png");
+		list.add(rotina);
+
+		rotina = new Rotina("PROVENTO PASTORAL", "DESCRICAO",
+				"paginas/relatorio/tesouraria/proventopastoral.xhtml",
+				"resources/imagens/rotina/bar_chart.png");
+		list.add(rotina);
+
+		return list;
+	}
 
 }
