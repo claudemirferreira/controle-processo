@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ieadam.dominio.Usuario;
+import br.com.ieadam.servico.MembroServico;
 import br.com.ieadam.utils.IEADAMAuthenticationManager;
 
 @ManagedBean
@@ -19,9 +20,12 @@ import br.com.ieadam.utils.IEADAMAuthenticationManager;
 public class UsuarioControlador {
 
 	private Usuario usuario;
-	
+
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
+
+	@ManagedProperty(value = "#{membroServicoImpl}")
+	private MembroServico membroServico;
 
 	@ManagedProperty(value = "#{IEADAMAuthenticationManager}")
 	private IEADAMAuthenticationManager IEADAMAuthenticationManager;
@@ -38,16 +42,25 @@ public class UsuarioControlador {
 						this.usuario.getLogin(), this.usuario.getSenha()));
 
 		if (authenticatedUser == null) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Sample error message", "PrimeFaces makes no mistakes"));
-//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: ", "Usuario ou Senha invalido"));
-			
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Sample error message",
+							"PrimeFaces makes no mistakes"));
+			// FacesContext.getCurrentInstance().addMessage(null, new
+			// FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: ",
+			// "Usuario ou Senha invalido"));
+
 			this.usuario = new Usuario();
-			
+
 			return "/login.xhtml?faces-redirect=true";
 		} else {
-			
-			this.usuario = (Usuario)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
+
+			this.usuario = (Usuario) SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
+
+//			this.usuario.setMembro(membroServico.findByUsuario(this.usuario));
+
 			return "/index.xhtml?faces-redirect=true";
 		}
 	}
@@ -55,8 +68,10 @@ public class UsuarioControlador {
 	public String logout() {
 		SecurityContextHolder.clearContext();
 		this.usuario = new Usuario();
-		
-		this.paginaCentralControladorBean.setPaginaCentral("paginacentral.xhtml");;
+
+		this.paginaCentralControladorBean
+				.setPaginaCentral("paginacentral.xhtml");
+		;
 		return "login.xhtml?faces-redirect=true";
 	}
 
@@ -67,7 +82,7 @@ public class UsuarioControlador {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
 	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
 		return paginaCentralControladorBean;
 	}
@@ -84,5 +99,13 @@ public class UsuarioControlador {
 	public void setIEADAMAuthenticationManager(
 			IEADAMAuthenticationManager iEADAMAuthenticationManager) {
 		IEADAMAuthenticationManager = iEADAMAuthenticationManager;
+	}
+
+	public MembroServico getMembroServico() {
+		return this.membroServico;
+	}
+
+	public void setMembroServico(MembroServico membroServico) {
+		this.membroServico = membroServico;
 	}
 }
