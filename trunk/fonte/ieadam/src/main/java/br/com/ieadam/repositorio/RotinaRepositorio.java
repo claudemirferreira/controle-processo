@@ -6,11 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.ieadam.dominio.Perfil;
+import br.com.ieadam.dominio.Rotina;
 
-public interface PerfilRepositorio extends JpaRepository<Perfil, Integer> {
+public interface RotinaRepositorio extends JpaRepository<Rotina, Integer> {
 
-	@Query("select u from Perfil u where u.nome like :nome")
-	public List<Perfil> findByNomeLike(@Param("nome") String nome);
-
+	@Query("select u from Rotina u where u.nome like :nome")
+	public List<Rotina> findByNomeLike(@Param("nome") String nome);
 }

@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,8 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import br.com.ieadam.dominio.enumerated.Situacao;
 
 @Entity
 @Table(name = "ieadam_congregacao")
@@ -59,9 +56,8 @@ public class Congregacao implements Serializable {
 	@Column(length = 30)
 	private String telefone;
 
-	@Enumerated
-	@Column(name = "situacao", nullable = false, length = 1)
-	private Situacao situacao;
+	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
+	private String situacao;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
@@ -153,11 +149,11 @@ public class Congregacao implements Serializable {
 		this.telefone = telefone;
 	}
 
-	public Situacao getSituacao() {
+	public String getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(Situacao situacao) {
+	public void setSituacao(String situacao) {
 		this.situacao = situacao;
 	}
 

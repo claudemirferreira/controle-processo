@@ -29,9 +29,8 @@ public class Nucleo implements Serializable{
 	@Column(name = "id")
 	private int id;
 
-	@Enumerated
-	@Column(name = "situacao", nullable = false, length = 1)
-	private Situacao situacao;
+	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
+	private String situacao;
 
 	@OneToOne
 	@JoinColumn(name="id", referencedColumnName="coordenador_id")
@@ -55,11 +54,11 @@ public class Nucleo implements Serializable{
 		this.id = id;
 	}
 
-	public Situacao getSituacao() {
+	public String getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(Situacao situacao) {
+	public void setSituacao(String situacao) {
 		this.situacao = situacao;
 	}
 

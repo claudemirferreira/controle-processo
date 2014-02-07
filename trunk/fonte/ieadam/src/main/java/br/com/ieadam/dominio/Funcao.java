@@ -25,9 +25,8 @@ public class Funcao implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Enumerated
-	@Column(length=1)
-	private Situacao situacao;
+	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
+	private String situacao;
 
 	@Column(length = 60, nullable = false)
 	private String descricao;
@@ -43,11 +42,11 @@ public class Funcao implements Serializable{
 		this.id = id;
 	}
 
-	public Situacao getSituacao() {
+	public String getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(Situacao situacao) {
+	public void setSituacao(String situacao) {
 		this.situacao = situacao;
 	}
 

@@ -1,17 +1,21 @@
 package br.com.ieadam.dto;
 
+import java.io.Serializable;
+
 import br.com.ieadam.dominio.Usuario;
 
-public class FiltroRelatorioDTO {
+public class FiltroRelatorioDTO implements Serializable {
+
+	private static final long serialVersionUID = 3229078578713401437L;
 
 	private String tipoRelatorio;
-	
+
 	private String dataInicial;
-	
+
 	private String dataFinal;
-	
+
 	private Usuario usuarioLogado;
-	
+
 	private Usuario membro;
 
 	public String getTipoRelatorio() {

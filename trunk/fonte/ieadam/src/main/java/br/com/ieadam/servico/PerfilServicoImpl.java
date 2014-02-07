@@ -27,6 +27,10 @@ public class PerfilServicoImpl implements PerfilServico {
 	@Override
 	public void remover(Perfil perfil) {
 		this.perfilRepositorio.delete(perfil);
+	}
 
+	@Override
+	public List<Perfil> findByNomeLike(String nome) {
+		return this.perfilRepositorio.findByNomeLike(nome);
 	}
 }

@@ -15,7 +15,7 @@
 	<field name="senha" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="situacao" class="java.lang.Integer">
+	<field name="situacao" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
