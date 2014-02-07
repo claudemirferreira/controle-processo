@@ -14,7 +14,7 @@ public class PaginaCentralControladorBean implements Serializable{
 	private String paginaCentral;
 	
 	public PaginaCentralControladorBean() {
-		setPaginaCentral("home.xhtml");
+		setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
 	public String getPaginaCentral() {

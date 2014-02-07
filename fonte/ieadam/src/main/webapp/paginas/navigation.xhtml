@@ -11,6 +11,11 @@
 
 		<p:growl id="messages" />
 
+		<p:toolbar autoDisplay="true" rendered="true" id="menu"
+			binding="#{usuarioControlador.toolbarTeste}"
+			model="#{usuarioControlador.toolbarTeste}">
+		</p:toolbar>
+
 		<p:toolbar>
 			<p:toolbarGroup align="left">
 				<p:commandButton value="Secretária" icon="ui-icon-document"
@@ -42,12 +47,19 @@
 
 			<p:toolbarGroup align="right">
 
-				<p:outputLabel style="margin-right:10px" value="Usuário: #{usuarioControlador.usuario.membro.nome}" />
+				<p:outputLabel style="margin-right:10px"
+					value="Usuário: #{usuarioControlador.usuario.membro.nome}" />
+					
 				<p:separator />
-				<p:commandButton action="#{usuarioControlador.logout}"
-					value="Logout" icon="ui-icon-extlink" update=":form" />
+				<p:commandButton action="#{perfilControlador.telaPerfis}" id="home"
+					icon="ui-icon-home" value="Home"  update=":form" />
+					
+				<p:separator />
+				<p:commandButton action="#{usuarioControlador.logout}" id="logoff"
+					icon="ui-icon-closethick" value="Logout"  update=":form" />
 			</p:toolbarGroup>
 		</p:toolbar>
+
 
 	</h:form>
 

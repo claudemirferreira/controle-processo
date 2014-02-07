@@ -4,17 +4,43 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ieadam_rotina")
 public class Rotina implements Serializable {
 
 	private static final long serialVersionUID = 8724103892548378330L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private int id;
+
+	@Column(length = 60, nullable = false)
 	private String nome;
 
+	@Column(length = 100, nullable = false)
 	private String descricao;
 
+	@Column(length = 100, nullable = false)
 	private String acao;
 
+	@Column(length = 100, nullable = false)
 	private String imagem;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "perfil_rotina", joinColumns = @JoinColumn(name = "rotina_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "perfil_id", referencedColumnName = "id"))
+	private List<Perfil> perfis;
 
 	public String getNome() {
 		return nome;
@@ -48,12 +74,22 @@ public class Rotina implements Serializable {
 		this.imagem = imagem;
 	}
 
-	public Rotina(String nome, String descricao, String acao, String imagem) {
-		super();
+	public Rotina( String nome, String descricao, String acao, String imagem) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.acao = acao;
 		this.imagem = imagem;
+	}
+	
+	public Rotina(int id, String nome, String descricao, String acao, String imagem) {
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.acao = acao;
+		this.imagem = imagem;
+	}
+
+	public Rotina() {
 	}
 
 	public static List<Rotina> getModuloTesouraria() {
@@ -124,7 +160,7 @@ public class Rotina implements Serializable {
 
 		return list;
 	}
-	
+
 	public static List<Rotina> getModuloAdministrativo() {
 
 		List<Rotina> list = new ArrayList<Rotina>();
@@ -139,6 +175,22 @@ public class Rotina implements Serializable {
 		list.add(rotina);
 
 		return list;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public List<Perfil> getPerfis() {
+		return perfis;
+	}
+
+	public void setPerfis(List<Perfil> perfis) {
+		this.perfis = perfis;
 	}
 
 }

@@ -2,11 +2,11 @@ package br.com.ieadam.dominio;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,8 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.ieadam.dominio.enumerated.Situacao;
-
 @Entity
 @Table(name = "ieadam_area")
 public class Area implements Serializable{
@@ -28,7 +26,6 @@ public class Area implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
 	private int id;
 
 	@OneToOne
@@ -42,16 +39,15 @@ public class Area implements Serializable{
 	@Column(length = 60, nullable = false)
 	private String nome;
 
-	@Enumerated
-	@Column(length=1)
-	private Situacao situacao;
+	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
+	private String situacao;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
 
 	@OneToMany
 	@JoinColumn(name="area_id", referencedColumnName = "id")
-	private Set<Congregacao> congregacoes;
+	private List<Congregacao> congregacoes;
 
 	public int getId() {
 		return id;
@@ -85,11 +81,11 @@ public class Area implements Serializable{
 		this.nome = nome;
 	}
 
-	public Situacao getSituacao() {
+	public String getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(Situacao situacao) {
+	public void setSituacao(String situacao) {
 		this.situacao = situacao;
 	}
 
@@ -101,11 +97,11 @@ public class Area implements Serializable{
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
 
-	public Set<Congregacao> getCongregacoes() {
+	public List<Congregacao> getCongregacoes() {
 		return congregacoes;
 	}
 
-	public void setCongregacoes(Set<Congregacao> congregacoes) {
+	public void setCongregacoes(List<Congregacao> congregacoes) {
 		this.congregacoes = congregacoes;
 	}
 }

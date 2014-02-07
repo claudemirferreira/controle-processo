@@ -29,9 +29,8 @@ public class Cidade implements Serializable{
 	@Column(length = 2, nullable = false)
 	private String UF;
 
-	@Enumerated
-	@Column(name = "situacao", nullable = false, length = 1)
-	private Situacao situacao;
+	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
+	private String situacao;
 
 	private Date dataUltimaAtualizacao;
 
@@ -59,11 +58,11 @@ public class Cidade implements Serializable{
 		UF = uF;
 	}
 
-	public Situacao getSituacao() {
+	public String getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(Situacao situacao) {
+	public void setSituacao(String situacao) {
 		this.situacao = situacao;
 	}
 

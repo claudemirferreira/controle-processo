@@ -61,7 +61,7 @@ public class Membro implements Serializable {
 	private String situacao;
 
 	@Column(name = "estadoCivil")
-	private int estadoCivil;
+	private String estadoCivil;
 
 	@Column(length = 60, nullable = false)
 	private String nome;
@@ -341,11 +341,11 @@ public class Membro implements Serializable {
 		this.qtdeFilhos = qtdeFilhos;
 	}
 
-	public int getEstadoCivil() {
+	public String getEstadoCivil() {
 		return estadoCivil;
 	}
 
-	public void setEstadoCivil(int estadoCivil) {
+	public void setEstadoCivil(String estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
 
