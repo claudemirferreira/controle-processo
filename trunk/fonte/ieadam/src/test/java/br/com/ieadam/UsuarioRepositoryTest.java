@@ -1,6 +1,8 @@
 package br.com.ieadam;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Ignore;
@@ -40,7 +42,7 @@ public class UsuarioRepositoryTest {
 
 		Perfil p = new Perfil();
 		p.setId(1);
-		Set<Perfil> list = new HashSet<Perfil>();
+		List<Perfil> list = new ArrayList<Perfil>();
 		list.add(p);
 
 		usuario.setPerfis(list);

@@ -1,6 +1,7 @@
 package br.com.ieadam;
 
-import org.junit.Ignore;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.com.ieadam.dominio.Perfil;
+import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.repositorio.PerfilRepositorio;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,20 +20,14 @@ public class PerfilRepositoryTest {
 	@Autowired
 	PerfilRepositorio repository;
 
-	@Ignore
 	@Test
 	public void test() {
-		Perfil perfil = new Perfil();
-		perfil.setNome("PERFIL 1");
-		perfil.setDescricao("DESC");
 
-		repository.save(perfil);
+		Usuario u = new Usuario();
 
-		perfil = new Perfil();
-		perfil.setNome("PERFIL 2");
-		perfil.setDescricao("DESC");
+//		List<Perfil> perfis = repository.listarPerfilPorUsuario(2);
 
-		repository.save(perfil);
+		// assertNotNull(perfis);
 
 		// Perfil dbperfil = repository.findOne(perfil.getPerfilId());
 		// assertNotNull(dbperfil);

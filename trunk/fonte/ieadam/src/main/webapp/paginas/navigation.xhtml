@@ -11,39 +11,7 @@
 
 		<p:growl id="messages" />
 
-		<p:toolbar autoDisplay="true" rendered="true" id="menu"
-			binding="#{usuarioControlador.toolbarTeste}"
-			model="#{usuarioControlador.toolbarTeste}">
-		</p:toolbar>
-
 		<p:toolbar>
-			<p:toolbarGroup align="left">
-				<p:commandButton value="Secretária" icon="ui-icon-document"
-					update=":form">
-					<f:setPropertyActionListener
-						target="#{paginaCentralControladorBean.paginaCentral}"
-						value="paginas/relatorio/secretaria/pesquisa.xhtml" />
-
-				</p:commandButton>
-				<p:separator />
-
-				<p:commandButton value="Tesourária" update=":form"
-					icon="ui-icon-folder-open">
-					<f:setPropertyActionListener
-						target="#{paginaCentralControladorBean.paginaCentral}"
-						value="paginas/relatorio/tesouraria/pesquisa.xhtml" />
-				</p:commandButton>
-				<p:separator />
-
-				<p:commandButton value="Administrativo" update=":form"
-					icon="ui-icon-folder-open">
-					<f:setPropertyActionListener
-						target="#{paginaCentralControladorBean.paginaCentral}"
-						value="paginas/administrativo/pesquisa.xhtml" />
-				</p:commandButton>
-				<p:separator />
-
-			</p:toolbarGroup>
 
 			<p:toolbarGroup align="right">
 

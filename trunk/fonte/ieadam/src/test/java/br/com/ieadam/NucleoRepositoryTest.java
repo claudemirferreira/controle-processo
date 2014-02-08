@@ -27,7 +27,7 @@ public class NucleoRepositoryTest {
 	public void test() {
 		Nucleo nucleo = new Nucleo();
 		nucleo.setNome("ADMINISTRADOR");
-		nucleo.setSituacao(Situacao.ATIVO);
+		nucleo.setSituacao("A");
 
 		Zona zona = new Zona();
 		zona.setId(1);
