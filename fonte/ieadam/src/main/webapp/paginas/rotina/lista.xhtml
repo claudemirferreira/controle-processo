@@ -8,27 +8,29 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-	
-	<p:panel header="LISTAGEM DE ROTINAS DO PERFIL [ #{perfilControlador.perfil.nome} ]">
-		<p:dataGrid id="rotinaousel"
-			value="#{perfilControlador.rotinas}" var="rotina"
-			headerText="Administrativo" columns="#{perfilControlador.colunas}"
-			style="width:100%; height:100%; border: 0px solid #a8a8a8;">
-			<div align="center">
-				<h:panelGrid id="panelRelatorio" style="border: 0px solid #a8a8a8;">
 
-					<p:graphicImage value="#{rotina.imagem}" />
+		<p:panel
+			header="#{perfilControlador.perfil.descricao}">
+			<p:dataGrid id="rotinaousel" value="#{perfilControlador.rotinas}"
+				var="rotina" headerText="Administrativo"
+				columns="#{perfilControlador.colunas}"
+				style="width:100%; height:100%; border: 0px solid #a8a8a8;">
+				<div align="center">
+					<h:panelGrid id="panelRelatorio" style="border: 0px solid #a8a8a8;">
 
-					<p:outputLabel value="#{rotina.nome}"
-						styleClass="ui-priority-primary" />
+						<h:commandLink
+							actionListener="#{rotinaControlador.telaRotinas(rotina)}"
+							title="#{rotina.nome}" update=":form">
+							<p:graphicImage style="width:100%; height: 100%;"
+								value="#{rotina.imagem}" />
+						</h:commandLink>
 
-					<p:commandButton id="buttonCadastro" value="Entrar" update=":form"
-						icon="ui-icon-search" styleClass="ui-priority-primary"
-						action="#{rotinaControlador.telaRotinas(rotina)}" />
+						<p:outputLabel value="#{rotina.nome}"
+							styleClass="ui-priority-primary" />
 
-				</h:panelGrid>
-			</div>
-		</p:dataGrid>
+					</h:panelGrid>
+				</div>
+			</p:dataGrid>
 		</p:panel>
 
 	</h:form>

@@ -27,7 +27,7 @@ public class AreaRepositoryTest {
 	public void test() {
 		Area area = new Area();
 		area.setNome("ADMINISTRADOR");
-		area.setSituacao(Situacao.ATIVO);
+		area.setSituacao("A");
 
 		Nucleo n = new Nucleo();
 		n.setId(1);

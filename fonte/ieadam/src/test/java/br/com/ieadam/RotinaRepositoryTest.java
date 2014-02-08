@@ -1,41 +1,35 @@
 package br.com.ieadam;
 
-import static org.junit.Assert.assertNotNull;
+import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import br.com.ieadam.dominio.Zona;
-import br.com.ieadam.dominio.enumerated.Situacao;
-import br.com.ieadam.repositorio.ZonaRepositorio;
+import br.com.ieadam.dominio.Rotina;
+import br.com.ieadam.repositorio.RotinaRepositorioSql;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
 // @ContextConfiguration(locations =
 // "classpath*:META-INF/spring/test-context.xml")
-public class ZonaRepositoryTest {
+public class RotinaRepositoryTest {
 
 	@Autowired
-	ZonaRepositorio repository;
+	RotinaRepositorioSql repository;
 
 	@Test
-	@Ignore
+	// @Ignore
 	public void test() {
-		Zona zona = new Zona();
-		zona.setNome("ADMINISTRADOR");
-		zona.setSituacao("A");
 
-		zona.setCd_ZonaArgo(1);
+		List<Rotina> list = repository.listaRotinasPorPerfil(2);
+		for (Rotina rotina : list) {
+			System.out.println(rotina.getNome());
 
-		repository.save(zona);
+		}
 
-		Zona dbpost = repository.findOne(zona.getId());
-		assertNotNull(dbpost);
-		System.out.println(dbpost.getNome());
 	}
 
 }

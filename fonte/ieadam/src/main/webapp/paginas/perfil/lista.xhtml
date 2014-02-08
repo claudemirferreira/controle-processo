@@ -8,24 +8,24 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-	
-		<p:panel header="LISTAGEM DE PERFIL DO USUÁRIO">
+
+		<p:panel>
 			<p:dataGrid id="rotinaousel"
 				value="#{usuarioControlador.usuario.perfis}" var="perfil"
 				headerText="Administrativo" columns="#{usuarioControlador.colunas}"
 				style="width:100%; height:100%; ">
 				<div align="center">
-					<h:panelGrid id="panelRelatorio" >
+					<h:panelGrid id="panelRelatorio">
 
-						<p:graphicImage value="#{perfil.imagem}" />
-
+						<h:commandLink
+							actionListener="#{perfilControlador.telaRotinas(perfil)}"
+							title="#{perfil.nome}" update=":form">
+							<p:graphicImage 
+								value="#{perfil.imagem}" />
+						</h:commandLink>
 						<p:outputLabel value="#{perfil.nome}"
 							styleClass="ui-priority-primary" />
-
-						<p:commandButton id="buttonCadastro" value="Entrar" update=":form"
-							icon="ui-icon-search" styleClass="ui-priority-primary"
-							action="#{perfilControlador.telaRotinas(perfil)}" />
-
+						
 					</h:panelGrid>
 				</div>
 			</p:dataGrid>
