@@ -1,5 +1,6 @@
 package br.com.ieadam.servico;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,12 @@ import br.com.ieadam.repositorio.RotinaRepositorio;
 import br.com.ieadam.repositorio.RotinaRepositorioSql;
 
 @Service
-public class RotinaServicoImpl implements RotinaServico {
+public class RotinaServicoImpl implements RotinaServico, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4128328556228022891L;
 
 	@Autowired
 	private RotinaRepositorio rotinaRepositorio;

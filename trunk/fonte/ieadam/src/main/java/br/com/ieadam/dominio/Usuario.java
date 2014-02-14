@@ -42,6 +42,10 @@ public class Usuario implements Serializable {
 	@JoinColumn(name = "membro_id", referencedColumnName = "id", unique = true)
 	private Membro membro;
 
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "nivelpastoral_id", referencedColumnName = "id", unique = true)
+	private NivelPastoral nivelPastoral;
+
 	public int getId() {
 		return id;
 	}
@@ -88,6 +92,14 @@ public class Usuario implements Serializable {
 
 	public void setPerfis(List<Perfil> perfis) {
 		this.perfis = perfis;
+	}
+
+	public NivelPastoral getNivelPastoral() {
+		return nivelPastoral;
+	}
+
+	public void setNivelPastoral(NivelPastoral nivelPastoral) {
+		this.nivelPastoral = nivelPastoral;
 	}
 
 }
