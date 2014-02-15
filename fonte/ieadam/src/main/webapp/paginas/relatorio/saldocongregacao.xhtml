@@ -9,12 +9,12 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="RELATÓRIO DE SALDO CONGREGAÇÃO" style="width:500px;">
+		<p:panel header="RELATÓRIO DE SALDO CONGREGAÇÃO" style="width:99%;">
 
 			<h:panelGrid id="panelPesquisa" columns="4">
 
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu styleClass="ui-priority-primary"
+				<p:selectOneMenu styleClass="ui-priority-primary" style="width:100%;"
 					value="#{relatorioSaldoCongregacao.parametro.mes}"
 					effect="fold" editable="true">
 					<f:selectItems
@@ -30,11 +30,15 @@
 
 			<f:facet name="footer">
 
-				<h:commandButton value="Ver relatorio"
-					onclick="this.form.target='_blank'"
+				<h:commandButton value="Gerar relatorio" ajax="false"
+					icon="ui-icon-gear" styleClass="ui-priority-primary"
 					actionListener="#{relatorioSaldoCongregacao.imprimir}" />
-
+				
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-search" styleClass="ui-priority-primary"
+					actionListener="#{relatorioSaldoCongregacao.redirecionarModuloPrincipalSecretaria}" />
 			</f:facet>
+
 
 		</p:panel>
 

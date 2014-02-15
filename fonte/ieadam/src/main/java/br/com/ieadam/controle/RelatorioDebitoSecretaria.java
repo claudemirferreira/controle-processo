@@ -2,7 +2,9 @@ package br.com.ieadam.controle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -35,8 +37,9 @@ public class RelatorioDebitoSecretaria implements Serializable {
 
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
-
-	List<Usuario> usuarios;
+	
+	@ManagedProperty(value = "#{paginaCentralControladorBean}")
+	private PaginaCentralControladorBean paginaCentralControladorBean;
 
 	@PostConstruct
 	public void init() {
@@ -49,15 +52,12 @@ public class RelatorioDebitoSecretaria implements Serializable {
 
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
 		this.parametro.setMes(DataUtil.pegarMescorrente());
-
-		this.usuarios = new ArrayList<Usuario>();
-		Usuario usuario = new Usuario();
-
-		usuario.setLogin("eeeeeee");
-		usuarios.add(usuario);
-
 	}
-
+	
+	public void redirecionarModuloPrincipalSecretaria() {
+		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
+	}
+	
 	public void imprimir() {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
@@ -65,10 +65,18 @@ public class RelatorioDebitoSecretaria implements Serializable {
 		ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
 
-		JRDataSource jrRS = new JRBeanCollectionDataSource(this.usuarios);
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		Usuario u = new Usuario();
+		u.setLogin("login");
+		usuarios.add(u);
+		
+		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
 
-		relatorioUtil.gerarRelatorioWeb(jrRS, null, arquivo);
-
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("dataInicio", this.parametro.getDataInicio());
+		params.put("dataFim", this.parametro.getDataFim());
+		
+		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
@@ -95,12 +103,12 @@ public class RelatorioDebitoSecretaria implements Serializable {
 		this.relatorioUtil = relatorioUtil;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
+	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
+		return paginaCentralControladorBean;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setPaginaCentralControladorBean(
+			PaginaCentralControladorBean paginaCentralControladorBean) {
+		this.paginaCentralControladorBean = paginaCentralControladorBean;
 	}
-
 }

@@ -8,45 +8,25 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<h:form id="form">
-		<p:panel header="RELATÓRIO DE DÉBITO ESTATISTICO" style="width:550px;">
+	<h:form id="form" target="_blank">
+		<p:panel header="RELATÓRIO DE DÉBITO PASTORAL" style="width:99%;">
 
-			<h:panelGrid id="panelPesquisa" columns="4">
-
-				<p:outputLabel value="Mês Inicio:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioDebitoSecretaria.parametro.mesInicio}"
-					effect="fold" editable="true">
-					<f:selectItems value="#{relatorioDebitoSecretaria.parametro.meses}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Ano Inicio:" styleClass="ui-priority-primary" />
-				<p:inputText id="anoInicio" styleClass="ui-priority-primary"
-					style="width:50px;" required="true"
-					requiredMessage="O ano deve ser informado"
-					value="#{relatorioDebitoSecretaria.parametro.anoInicio}" />
-
-				<p:outputLabel value="Mês Fim:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioDebitoSecretaria.parametro.mesFim}" effect="fold"
-					editable="true">
-					<f:selectItems value="#{relatorioDebitoSecretaria.parametro.meses}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Ano Fim:" styleClass="ui-priority-primary" />
-				<p:inputText id="anoFim" styleClass="ui-priority-primary"
-					style="width:50px;" required="true"
-					requiredMessage="O ano deve ser informado"
-					value="#{relatorioDebitoSecretaria.parametro.anoFim}" />
-
+			<h:panelGrid id="panelPesquisa" columns="2" cellspacing="4">
+				<p:outputLabel value="Data Início: " styleClass="ui-priority-primary"/>
+				<p:inputMask value="#{relatorioDebitoPastoral.parametro.dataInicio}" mask="99/9999"/>
+				
+				<p:outputLabel value="Data Fim: " styleClass="ui-priority-primary"/>
+				<p:inputMask value="#{relatorioDebitoPastoral.parametro.dataFim}" mask="99/9999"/>
 			</h:panelGrid>
 
 			<f:facet name="footer">
+				<p:commandButton value="Gerar Relatório" ajax="false"
+					icon="ui-icon-gear" styleClass="ui-priority-primary"
+					actionListener="#{relatorioDebitoPastoral.imprimir}" />
 
-				<h:commandButton value="Ver relatorio"
-					onclick="this.form.target='_blank'"
-					actionListener="#{relatorioDebitoSecretaria.imprimir}" />
-
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-search" styleClass="ui-priority-primary"
+					actionListener="#{relatorioDebitoPastoral.redirecionarModuloPrincipalSecretaria}" />
 			</f:facet>
 
 		</p:panel>
