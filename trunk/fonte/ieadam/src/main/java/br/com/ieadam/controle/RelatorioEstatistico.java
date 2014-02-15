@@ -2,7 +2,9 @@ package br.com.ieadam.controle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -39,6 +41,9 @@ public class RelatorioEstatistico implements Serializable {
 
 	List<Usuario> usuarios;
 
+	@ManagedProperty(value = "#{paginaCentralControladorBean}")
+	private PaginaCentralControladorBean paginaCentralControladorBean;
+	
 	@PostConstruct
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
@@ -70,11 +75,18 @@ public class RelatorioEstatistico implements Serializable {
 		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(this.usuarios);
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("dataIncio", this.parametro.getDataInicio());
+		params.put("dataFim", this.parametro.getDataFim());
 
-		relatorioUtil.gerarRelatorioWeb(jrRS, null, arquivo);
-
+		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
 	}
 
+	public void redirecionarModuloPrincipalSecretaria() {
+		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
+	}
+	
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
 		return filtroRelatorioDTO;
 	}
@@ -107,4 +119,12 @@ public class RelatorioEstatistico implements Serializable {
 		this.usuarios = usuarios;
 	}
 
+	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
+		return paginaCentralControladorBean;
+	}
+
+	public void setPaginaCentralControladorBean(
+			PaginaCentralControladorBean paginaCentralControladorBean) {
+		this.paginaCentralControladorBean = paginaCentralControladorBean;
+	}
 }

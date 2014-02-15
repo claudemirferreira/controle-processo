@@ -12,8 +12,6 @@
 	<context:spring-configured />
 
 	<http use-expressions="true">
-
-		
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/login.xhtml" access="permitAll" />
 		
@@ -22,7 +20,11 @@
 		<intercept-url pattern="/paginacentral.xhtml" access="isAuthenticated()" />
 
 		<form-login login-page="/login.xhtml" default-target-url="/index.xhtml" />
+		
+		<custom-filter ref="ieadamFiltro" after="SECURITY_CONTEXT_FILTER"/>
 	</http>
+
+	<beans:bean id="ieadamFiltro" class="br.com.ieadam.utils.IEADAMFiltro"/>
 
 	<beans:bean id="IEADAMAuthenticationProvider"
 		class="br.com.ieadam.utils.IEADAMAuthenticationManager" />

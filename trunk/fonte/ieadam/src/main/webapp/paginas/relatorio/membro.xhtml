@@ -8,32 +8,23 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<h:form id="form">
-		<p:panel header="RELATÓRIO DE BALANCETE SINTÉTICO" style="width:500px;">
+	<h:form id="form" target="_blank">
+		<p:panel header="RELATÓRIO DE MEMBROS" style="width:99%;">
 
 			<h:panelGrid id="panelPesquisa" columns="4">
-
-				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioBalanceteSintetico.parametro.mes}" effect="fold"
-					editable="true">
-					<f:selectItems value="#{relatorioBalanceteSintetico.parametro.meses}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
-				<p:inputText id="ano" styleClass="ui-priority-primary"
-					style="width:50px;" required="true"
-					requiredMessage="O ano deve ser informado"
-					value="#{relatorioBalanceteSintetico.parametro.ano}" />
-
+				<p:outputLabel value="Nome do Membro:" styleClass="ui-priority-primary" />
+				<p:inputText value="#{relatorioMembro.parametro.usuario}" />
 			</h:panelGrid>
 
 			<f:facet name="footer">
 
-				<h:commandButton value="Ver relatorio"
-					onclick="this.form.target='_blank'"
-					actionListener="#{relatorioBalanceteSintetico.imprimir}" />
+				<p:commandButton value="Gerar relatorio" ajax="false"
+					icon="ui-icon-gear" styleClass="ui-priority-primary"
+					actionListener="#{relatorioMembro.imprimir}" />
 
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-search" styleClass="ui-priority-primary"
+					actionListener="#{relatorioMembro.redirecionarModuloPrincipalSecretaria}" />
 			</f:facet>
 
 		</p:panel>

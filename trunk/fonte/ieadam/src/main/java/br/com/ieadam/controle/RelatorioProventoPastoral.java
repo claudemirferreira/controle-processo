@@ -2,7 +2,9 @@ package br.com.ieadam.controle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -38,6 +40,9 @@ public class RelatorioProventoPastoral implements Serializable {
 
 	List<Usuario> usuarios;
 
+	@ManagedProperty(value = "#{paginaCentralControladorBean}")
+	private PaginaCentralControladorBean paginaCentralControladorBean;
+	
 	@PostConstruct
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
@@ -67,8 +72,16 @@ public class RelatorioProventoPastoral implements Serializable {
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(this.usuarios);
 
-		relatorioUtil.gerarRelatorioWeb(jrRS, null, arquivo);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("mes", this.parametro.getMes().getMes());
+		params.put("ano", this.parametro.getAno());
+		
+		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
 
+	}
+	
+	public void redirecionarModuloPrincipalSecretaria() {
+		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
@@ -103,4 +116,12 @@ public class RelatorioProventoPastoral implements Serializable {
 		this.usuarios = usuarios;
 	}
 
+	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
+		return paginaCentralControladorBean;
+	}
+
+	public void setPaginaCentralControladorBean(
+			PaginaCentralControladorBean paginaCentralControladorBean) {
+		this.paginaCentralControladorBean = paginaCentralControladorBean;
+	}
 }

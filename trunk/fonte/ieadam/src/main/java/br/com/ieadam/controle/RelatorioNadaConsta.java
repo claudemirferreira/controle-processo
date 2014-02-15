@@ -2,7 +2,9 @@ package br.com.ieadam.controle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -37,6 +39,9 @@ public class RelatorioNadaConsta implements Serializable {
 
 	List<Usuario> usuarios;
 
+	@ManagedProperty(value = "#{paginaCentralControladorBean}")
+	private PaginaCentralControladorBean paginaCentralControladorBean;
+	
 	@PostConstruct
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
@@ -63,10 +68,18 @@ public class RelatorioNadaConsta implements Serializable {
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(this.usuarios);
 
-		relatorioUtil.gerarRelatorioWeb(jrRS, null, arquivo);
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("dataIncio", this.parametro.getDataInicio());
+		params.put("dataFim", this.parametro.getDataFim());
+		
+		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
 
 	}
 
+	public void redirecionarModuloPrincipalSecretaria() {
+		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
+	}
+	
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
 		return filtroRelatorioDTO;
 	}
@@ -82,7 +95,15 @@ public class RelatorioNadaConsta implements Serializable {
 	public void setParametro(Parametro parametro) {
 		this.parametro = parametro;
 	}
+	
+	public RelatorioUtil getRelatorioUtil() {
+		return relatorioUtil;
+	}
 
+	public void setRelatorioUtil(RelatorioUtil relatorioUtil) {
+		this.relatorioUtil = relatorioUtil;
+	}
+	
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
@@ -91,4 +112,12 @@ public class RelatorioNadaConsta implements Serializable {
 		this.usuarios = usuarios;
 	}
 
+	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
+		return paginaCentralControladorBean;
+	}
+	
+	public void setPaginaCentralControladorBean(
+			PaginaCentralControladorBean paginaCentralControladorBean) {
+		this.paginaCentralControladorBean = paginaCentralControladorBean;
+	}
 }

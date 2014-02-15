@@ -27,6 +27,10 @@ public class Parametro implements Serializable {
 
 	private List<Mes> meses = new ArrayList<Mes>();
 
+	private String dataInicio;
+	
+	private String dataFim;
+	
 	public Parametro() {
 		this.ano = DataUtil.pegarAnocorrente();
 
@@ -98,6 +102,22 @@ public class Parametro implements Serializable {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(String dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public String getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(String dataFim) {
+		this.dataFim = dataFim;
 	}
 
 }
