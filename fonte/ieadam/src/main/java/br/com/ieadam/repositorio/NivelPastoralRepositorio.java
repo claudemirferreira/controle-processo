@@ -1,7 +1,5 @@
 package br.com.ieadam.repositorio;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,6 +12,4 @@ public interface NivelPastoralRepositorio extends JpaRepository<NivelPastoral, I
 	@Query("select m from NivelPastoral m where m.usuario = :usuario")
 	public NivelPastoral findByUsuario(@Param("usuario") Usuario usuario);
 	
-	@Query("select m from NivelPastoral")
-	public List<NivelPastoral> findAll();
 }

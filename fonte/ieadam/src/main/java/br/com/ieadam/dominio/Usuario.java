@@ -11,13 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ieadam_usuario")
+@Table(name = "saa_usuario")
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -3267682267159820805L;
@@ -26,10 +25,6 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "usuario_perfil", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "perfil_id", referencedColumnName = "id"))
-	private List<Perfil> perfis;
-
 	@Column(unique = true, length = 30)
 	private String login;
 
@@ -37,6 +32,9 @@ public class Usuario implements Serializable {
 
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
+	
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+	private List<UsuarioPerfil> perfilRotinas;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "membro_id", referencedColumnName = "id", unique = true)
@@ -86,20 +84,20 @@ public class Usuario implements Serializable {
 		this.membro = membro;
 	}
 
-	public List<Perfil> getPerfis() {
-		return perfis;
-	}
-
-	public void setPerfis(List<Perfil> perfis) {
-		this.perfis = perfis;
-	}
-
 	public NivelPastoral getNivelPastoral() {
 		return nivelPastoral;
 	}
 
 	public void setNivelPastoral(NivelPastoral nivelPastoral) {
 		this.nivelPastoral = nivelPastoral;
+	}
+
+	public List<UsuarioPerfil> getPerfilRotinas() {
+		return perfilRotinas;
+	}
+
+	public void setPerfilRotinas(List<UsuarioPerfil> perfilRotinas) {
+		this.perfilRotinas = perfilRotinas;
 	}
 
 }

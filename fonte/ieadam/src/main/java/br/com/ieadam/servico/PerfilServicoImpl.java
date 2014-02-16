@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.repositorio.PerfilRepositorio;
+import br.com.ieadam.repositorio.PerfilRepositorioSql;
 
 @Service
 public class PerfilServicoImpl implements PerfilServico {
 
 	@Autowired
 	private PerfilRepositorio perfilRepositorio;
+
+	@Autowired
+	private PerfilRepositorioSql perfilRepositorioSql;
 
 	@Override
 	public List<Perfil> listarTodos() {
@@ -32,5 +36,12 @@ public class PerfilServicoImpl implements PerfilServico {
 	@Override
 	public List<Perfil> findByNomeLike(String nome) {
 		return this.perfilRepositorio.findByNomeLike(nome);
+	}
+
+	@Override
+	public List<Perfil> listaPerfilPorSistemaPorUsuario(int sistemaId,
+			int usuarioId) {
+		return this.perfilRepositorioSql.listaPerfilPorSistemaPorUsuario(
+				sistemaId, usuarioId);
 	}
 }
