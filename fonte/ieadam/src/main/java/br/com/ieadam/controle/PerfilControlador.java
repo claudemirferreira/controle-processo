@@ -1,7 +1,6 @@
 package br.com.ieadam.controle;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,9 +8,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import br.com.ieadam.componentes.Util;
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Rotina;
+import br.com.ieadam.dominio.Sistema;
+import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.servico.PerfilServico;
 import br.com.ieadam.servico.RotinaServico;
 
@@ -30,12 +33,16 @@ public class PerfilControlador implements Serializable {
 	private Perfil pesquisa;
 
 	private List<Perfil> lista;
+	
+	private List<Perfil> listaPerfilUsuario;
+	
+	private Usuario usuario;
+	
+	private Sistema sistema;
 
 	private int colunas;
 
-	private String TELA_LISTA_ROTINAS = "paginas/rotina/lista.xhtml";
-
-	private String TELA_LISTA_PEFIS = "paginas/perfil/lista.xhtml";
+	private String TELA_LISTA = "paginas/perfil/lista.xhtml";
 	
 	private final String TELA_CADASTRO = "paginas/perfil/cadastro.xhtml";
 	
@@ -46,7 +53,7 @@ public class PerfilControlador implements Serializable {
 
 	@ManagedProperty(value = "#{rotinaServicoImpl}")
 	private RotinaServico rotinaServico;
-
+	
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
@@ -56,6 +63,8 @@ public class PerfilControlador implements Serializable {
 		this.lista = servico.listarTodos();
 		this.entidade = new Perfil();
 		this.pesquisa = new Perfil();
+		
+		this.listaPerfilPorSistemaPorUsuario();
 	}
 	
 	public void pesquisar() {
@@ -88,18 +97,19 @@ public class PerfilControlador implements Serializable {
 		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
-	public void telaRotinas(Perfil perfil) {
-		this.perfil = perfil;
-		this.rotinas = rotinaServico.listaRotinasPorPerfil(perfil.getId());
-		this.colunas = Util.definirTamanhoColuna(rotinas.size());
-		this.paginaCentralControladorBean
-				.setPaginaCentral(this.TELA_LISTA_ROTINAS);
-
-	}
-
 	public void telaPerfis() {
 		this.paginaCentralControladorBean
-				.setPaginaCentral(this.TELA_LISTA_PEFIS);
+				.setPaginaCentral(this.TELA_LISTA);
+	}
+	
+	public void listaPerfilPorSistemaPorUsuario(){
+		this.usuario = (Usuario) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		
+		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario(2, usuario.getId());
+		
+		this.telaPerfis();
+		
 	}
 
 	public Perfil getPerfil() {
@@ -173,6 +183,14 @@ public class PerfilControlador implements Serializable {
 
 	public void setPesquisa(Perfil pesquisa) {
 		this.pesquisa = pesquisa;
+	}
+
+	public List<Perfil> getListaPerfilUsuario() {
+		return listaPerfilUsuario;
+	}
+
+	public void setListaPerfilUsuario(List<Perfil> listaPerfilUsuario) {
+		this.listaPerfilUsuario = listaPerfilUsuario;
 	}
 
 }

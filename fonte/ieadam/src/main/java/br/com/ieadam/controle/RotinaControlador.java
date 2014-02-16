@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Rotina;
 import br.com.ieadam.servico.RotinaServico;
 
@@ -21,18 +22,16 @@ public class RotinaControlador implements Serializable {
 
 	private Rotina pesquisa;
 
+	private Perfil perfil;
+
 	private List<Rotina> lista;
-
-	private List<Rotina> moduloSecretaria;
-
-	private List<Rotina> moduloTesouraria;
-
-	private List<Rotina> moduloAdministrativo;
 
 	private int colunas;
 
 	private final String TELA_CADASTRO = "paginas/rotina/cadastro.xhtml";
 	private final String TELA_PESQUISA = "paginas/rotina/pesquisa.xhtml";
+
+	private String TELA_LISTA_ROTINAS = "paginas/rotina/lista.xhtml";
 	private final String TELA_ROTINA_PERFIL = "paginas/rotina/rotinaperfil.xhtml";
 
 	@ManagedProperty(value = "#{rotinaServicoImpl}")
@@ -43,13 +42,11 @@ public class RotinaControlador implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		this.moduloSecretaria = Rotina.getModuloSecretaria();
-		this.moduloTesouraria = Rotina.getModuloTesouraria();
-		this.moduloAdministrativo = Rotina.getModuloAdministrativo();
-
 		this.lista = servico.listarTodos();
 		this.entidade = new Rotina();
 		this.pesquisa = new Rotina();
+
+		this.perfil = new Perfil();
 
 	}
 
@@ -78,12 +75,30 @@ public class RotinaControlador implements Serializable {
 		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
+	public void telaRotinas(Perfil perfil) {
+		this.perfil = perfil;
+		this.lista = servico.listaRotinasPorPerfil(perfil.getId());
+		this.colunas = 3; // Util.definirTamanhoColuna(rotinas.size());
+		
+		this.paginaCentralControladorBean
+				.setPaginaCentral(this.TELA_LISTA_ROTINAS);
+
+	}
+	
+	public void teste(){
+		
+		
+		System.out.println("teste###########################");
+		
+		
+	}
+
 	public void retornar() {
 		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public void telaRelatorio(Rotina rotina) {
-		this.paginaCentralControladorBean.setPaginaCentral(rotina.getAcao());
+		this.paginaCentralControladorBean.setPaginaCentral(rotina.getPath());
 	}
 
 	public Rotina getEntidade() {
@@ -118,22 +133,6 @@ public class RotinaControlador implements Serializable {
 		this.colunas = colunas;
 	}
 
-	public List<Rotina> getModuloSecretaria() {
-		return moduloSecretaria;
-	}
-
-	public void setModuloSecretaria(List<Rotina> moduloSecretaria) {
-		this.moduloSecretaria = moduloSecretaria;
-	}
-
-	public List<Rotina> getModuloTesouraria() {
-		return moduloTesouraria;
-	}
-
-	public void setModuloTesouraria(List<Rotina> moduloTesouraria) {
-		this.moduloTesouraria = moduloTesouraria;
-	}
-
 	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
 		return paginaCentralControladorBean;
 	}
@@ -141,14 +140,6 @@ public class RotinaControlador implements Serializable {
 	public void setPaginaCentralControladorBean(
 			PaginaCentralControladorBean paginaCentralControladorBean) {
 		this.paginaCentralControladorBean = paginaCentralControladorBean;
-	}
-
-	public List<Rotina> getModuloAdministrativo() {
-		return moduloAdministrativo;
-	}
-
-	public void setModuloAdministrativo(List<Rotina> moduloAdministrativo) {
-		this.moduloAdministrativo = moduloAdministrativo;
 	}
 
 	public RotinaServico getServico() {
@@ -165,7 +156,7 @@ public class RotinaControlador implements Serializable {
 
 	public void telaRotinas(Rotina rotina) {
 
-		this.paginaCentralControladorBean.setPaginaCentral(rotina.getAcao());
+		this.paginaCentralControladorBean.setPaginaCentral(rotina.getPath());
 
 	}
 

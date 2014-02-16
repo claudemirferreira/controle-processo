@@ -9,19 +9,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
 
-import org.primefaces.component.commandbutton.CommandButton;
-import org.primefaces.component.toolbar.Toolbar;
-import org.primefaces.component.toolbar.ToolbarGroup;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import br.com.ieadam.componentes.Util;
 import br.com.ieadam.dominio.Perfil;
+import br.com.ieadam.dominio.Sistema;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.servico.MembroServico;
+import br.com.ieadam.servico.SistemaServico;
 import br.com.ieadam.utils.IEADAMAuthenticationManager;
 
 @ManagedBean
@@ -29,29 +26,31 @@ import br.com.ieadam.utils.IEADAMAuthenticationManager;
 public class UsuarioControlador {
 
 	private Usuario usuario;
+	
+	private Sistema sistema;
 
 	private List<Perfil> perfis = new ArrayList<Perfil>();
-
-	private Toolbar toolbarTeste;
-
-	private ToolbarGroup toolbarGroupLeft;
-
-	private CommandButton commandButton;
 
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
 	@ManagedProperty(value = "#{membroServicoImpl}")
 	private MembroServico membroServico;
+	
+	@ManagedProperty(value = "#{sistemaServicoImpl}")
+	private SistemaServico sistemaServico;
 
 	private int colunas;
-	
+
 	@ManagedProperty(value = "#{IEADAMAuthenticationManager}")
 	private IEADAMAuthenticationManager IEADAMAuthenticationManager;
 
 	@PostConstruct
 	public void init() {
 		this.usuario = new Usuario();
+		
+		this.sistema = sistemaServico.findByCodigo("IEADAM"); 
+		
 	}
 
 	public String logar() {
@@ -71,49 +70,15 @@ public class UsuarioControlador {
 
 			return "/login.xhtml?faces-redirect=true";
 		} else {
-			
 
 			this.usuario = (Usuario) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
-			
-			this.toolbarTeste = new Toolbar();
-			this.toolbarGroupLeft = new ToolbarGroup();
 
-			toolbarGroupLeft.setAlign("left");
-			
-			this.colunas = Util.definirTamanhoColuna(usuario.getPerfis().size());
-
-			for (Perfil perfil : usuario.getPerfis()) {
-
-				this.perfis.add(perfil);
-				System.out.println(perfil.getNome());
-				commandButton = new CommandButton();
-
-				commandButton.setValue(perfil.getNome());
-				commandButton.setUpdate(":form");
-				// Metho
-
-				commandButton
-						.setAction(createMethodBinding("#{rotinaControlador.teste}"));
-
-				toolbarGroupLeft.getChildren().add(commandButton);
-
-			}
-
-			toolbarTeste.getChildren().add(toolbarGroupLeft);
+			this.colunas =3;
+//					Util					.definirTamanhoColuna(usuario.getPerfis().size());
 
 			return "/index.xhtml?faces-redirect=true";
 		}
-	}
-
-	@SuppressWarnings("deprecation")
-	private MethodBinding createMethodBinding(String action) {
-		MethodBinding methodBinding = null;
-
-		methodBinding = FacesContext.getCurrentInstance().getApplication()
-				.createMethodBinding(action, null);
-
-		return methodBinding;
 	}
 
 	public String logout() {
@@ -160,22 +125,6 @@ public class UsuarioControlador {
 		this.membroServico = membroServico;
 	}
 
-	public Toolbar getToolbarTeste() {
-		return toolbarTeste;
-	}
-
-	public void setToolbarTeste(Toolbar toolbarTeste) {
-		this.toolbarTeste = toolbarTeste;
-	}
-
-	public ToolbarGroup getToolbarGroupLeft() {
-		return toolbarGroupLeft;
-	}
-
-	public void setToolbarGroupLeft(ToolbarGroup toolbarGroupLeft) {
-		this.toolbarGroupLeft = toolbarGroupLeft;
-	}
-
 	public List<Perfil> getPerfis() {
 		return perfis;
 	}
@@ -190,5 +139,21 @@ public class UsuarioControlador {
 
 	public void setColunas(int colunas) {
 		this.colunas = colunas;
+	}
+
+	public Sistema getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(Sistema sistema) {
+		this.sistema = sistema;
+	}
+
+	public SistemaServico getSistemaServico() {
+		return sistemaServico;
+	}
+
+	public void setSistemaServico(SistemaServico sistemaServico) {
+		this.sistemaServico = sistemaServico;
 	}
 }
