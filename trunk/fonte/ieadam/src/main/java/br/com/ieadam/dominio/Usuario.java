@@ -14,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "saa_usuario")
@@ -30,11 +33,15 @@ public class Usuario implements Serializable {
 
 	private String senha;
 
-	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
-	private String situacao;
+	@Column(name = "status", length = 1, columnDefinition = "CHAR(1)", nullable = false)
+	private String status;
 	
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-	private List<UsuarioPerfil> perfilRotinas;
+	@Cascade( value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE,
+			org.hibernate.annotations.CascadeType.MERGE,
+			org.hibernate.annotations.CascadeType.DELETE, 
+			org.hibernate.annotations.CascadeType.PERSIST} )
+	@OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	private List<UsuarioPerfil> usuarioPerfils;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "membro_id", referencedColumnName = "id", unique = true)
@@ -44,6 +51,24 @@ public class Usuario implements Serializable {
 	@JoinColumn(name = "nivelpastoral_id", referencedColumnName = "id", unique = true)
 	private NivelPastoral nivelPastoral;
 
+
+	
+	@Transient
+	public UsuarioPerfil getUsuarioPerfilByPerfil( Perfil perfil ) {
+		for (UsuarioPerfil up : usuarioPerfils ) {
+			if (up.getPerfil().equals(perfil)) { 
+				return up;
+			}
+		}
+		return null;
+	}
+	
+	@Transient
+	public boolean containsPerfil( Perfil perfil ) {
+		return getUsuarioPerfilByPerfil(perfil) != null;
+	}
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -68,13 +93,6 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public String getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(String situacao) {
-		this.situacao = situacao;
-	}
 
 	public Membro getMembro() {
 		return membro;
@@ -92,12 +110,20 @@ public class Usuario implements Serializable {
 		this.nivelPastoral = nivelPastoral;
 	}
 
-	public List<UsuarioPerfil> getPerfilRotinas() {
-		return perfilRotinas;
+	public List<UsuarioPerfil> getUsuarioPerfils() {
+		return usuarioPerfils;
 	}
 
-	public void setPerfilRotinas(List<UsuarioPerfil> perfilRotinas) {
-		this.perfilRotinas = perfilRotinas;
+	public void setUsuarioPerfils(List<UsuarioPerfil> usuarioPerfils) {
+		this.usuarioPerfils = usuarioPerfils;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

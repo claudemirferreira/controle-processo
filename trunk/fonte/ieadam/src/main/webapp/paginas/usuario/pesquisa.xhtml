@@ -41,31 +41,37 @@
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15,20">
 
-			<p:column style="text-align:left" headerText="Nome"
-				sortBy="#{item.nome}">
-				<h:outputText value="#{item.nome}" />
-			</p:column>
-
 			<p:column style="text-align:left" headerText="CPF"
-				sortBy="#{item.cpf}">
-				<h:outputText value="#{item.cpf}" />
+				sortBy="#{item.login}">
+				<h:outputText value="#{item.login}" />
 			</p:column>
-
-			<p:column style="text-align:left" headerText="E-mail"
-				sortBy="#{item.email}">
-				<h:outputText value="#{item.email}" />
+			
+			<p:column style="text-align:left" headerText="CPF"
+				sortBy="#{item.status}">
+				<h:outputText value="#{item.status}" />
 			</p:column>
+				
+			<p:commandButton ajax="false" value="Detalhe"
+				action="#{usuarioPerfilControlador.manterUsuario(item)}"
+				styleClass="ui-priority-primary" icon="ui-icon-pencil"
+				update=":form" title="Manter Usuário" />
 
 			<p:column style="text-align:left" headerText="Detalhe">
 				<p:commandButton ajax="false" value="Detalhe"
 					action="#{usuarioControlador.detalhe(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-pencil"
 					update=":form" title="Detalhe" />
+					
+				<p:commandButton ajax="false" value="Perfil"
+					action="#{usuarioPerfilControlador.manterUsuario(item)}"
+					styleClass="ui-priority-primary" icon="ui-icon-trash"
+					update=":form" title="Perfil" />
+					
 
 				<p:commandButton ajax="false" value="Excluir"
 					action="#{usuarioControlador.excluir(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form" title="Detalhe" />
+					update=":form" title="Excluir" />
 
 			</p:column>
 
