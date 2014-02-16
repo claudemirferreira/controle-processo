@@ -1,4 +1,4 @@
-package br.com.ieadam.repositorio;
+package br.com.ieadam.servico;
 
 import java.util.List;
 

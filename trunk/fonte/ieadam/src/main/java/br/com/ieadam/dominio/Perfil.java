@@ -1,48 +1,54 @@
 package br.com.ieadam.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * The persistent class for the _perfil database table.
+ * 
+ */
 @Entity
-@Table(name = "ieadam_perfil")
+@Table(name = "saa_perfil")
 public class Perfil implements Serializable {
 
-	private static final long serialVersionUID = -5594956718599379597L;
+	private static final long serialVersionUID = -729781000696371926L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(length = 60, nullable = false)
+	@Column(length = 30, nullable = false)
 	private String nome;
 
-	@Column(length = 100, nullable = false)
-	private String descricao;
-
-	@Column(length = 100, nullable = false)
+	@Column(length = 60, nullable = false)
 	private String imagem;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "usuario_perfil", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "perfil_id", referencedColumnName = "id"))
-	private List<Usuario> usuarios;
+	@ManyToOne
+	@JoinColumn(name = "sistema_id")
+	private Sistema sistema;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "perfil_rotina", joinColumns = @JoinColumn(name = "rotina_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "perfil_id", referencedColumnName = "id"))
-	private List<Rotina> rotinas;
+	@OneToMany(mappedBy = "perfil")
+	private List<PerfilRotina> perfilRotinas;
+
+	@OneToMany(mappedBy = "perfil")
+	private List<UsuarioPerfil> usuarioPerfis;
+
+	public Perfil() {
+	}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(int id) {
@@ -50,35 +56,11 @@ public class Perfil implements Serializable {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public List<Rotina> getRotinas() {
-		return rotinas;
-	}
-
-	public void setRotinas(List<Rotina> rotinas) {
-		this.rotinas = rotinas;
 	}
 
 	public String getImagem() {
@@ -87,6 +69,58 @@ public class Perfil implements Serializable {
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+
+	public Sistema getSistema() {
+		return this.sistema;
+	}
+
+	public void setSistema(Sistema sistema) {
+		this.sistema = sistema;
+	}
+
+	public List<PerfilRotina> getPerfilRotinas() {
+		return this.perfilRotinas;
+	}
+
+	public void setPerfilRotinas(List<PerfilRotina> perfilRotinas) {
+		this.perfilRotinas = perfilRotinas;
+	}
+
+	public List<UsuarioPerfil> getUsuarioPerfis() {
+		return usuarioPerfis;
+	}
+
+	public PerfilRotina addPerfilRotina(PerfilRotina perfilRotina) {
+		getPerfilRotinas().add(perfilRotina);
+		perfilRotina.setPerfil(this);
+
+		return perfilRotina;
+	}
+
+	public PerfilRotina removePerfilRotina(PerfilRotina perfilRotina) {
+		getPerfilRotinas().remove(perfilRotina);
+		perfilRotina.setPerfil(null);
+
+		return perfilRotina;
+	}
+
+	public void setUsuarioPerfis(List<UsuarioPerfil> usuarioPerfis) {
+		this.usuarioPerfis = usuarioPerfis;
+	}
+
+	public UsuarioPerfil addUsuarioPerfil(UsuarioPerfil usuarioPerfil) {
+		getUsuarioPerfis().add(usuarioPerfil);
+		usuarioPerfil.setPerfil(this);
+
+		return usuarioPerfil;
+	}
+
+	public UsuarioPerfil removeUsuarioPerfil(UsuarioPerfil usuarioPerfil) {
+		getUsuarioPerfis().remove(usuarioPerfil);
+		usuarioPerfil.setPerfil(null);
+
+		return usuarioPerfil;
 	}
 
 }

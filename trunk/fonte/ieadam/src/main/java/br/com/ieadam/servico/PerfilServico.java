@@ -13,5 +13,8 @@ public interface PerfilServico {
 	public void remover(Perfil perfil);
 
 	public List<Perfil> findByNomeLike(String nome);
+	
+	public List<Perfil> listaPerfilPorSistemaPorUsuario(int sistemaId,
+			int usuarioId);
 
 }

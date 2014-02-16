@@ -18,19 +18,19 @@ public class NivelPastoral {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
-	
+
 	@Column
-	private int zona_id;
-	
+	private Boolean zona_id;
+
 	@Column
-	private int nucleo_id;
-	
+	private Boolean nucleo_id;
+
 	@Column
-	private int area_id;
+	private Boolean area_id;
 
 	public int getId() {
 		return id;
@@ -48,27 +48,27 @@ public class NivelPastoral {
 		this.usuario = usuario;
 	}
 
-	public int getZona_id() {
+	public Boolean getZona_id() {
 		return zona_id;
 	}
 
-	public void setZona_id(int zona_id) {
+	public void setZona_id(Boolean zona_id) {
 		this.zona_id = zona_id;
 	}
 
-	public int getNucleo_id() {
+	public Boolean getNucleo_id() {
 		return nucleo_id;
 	}
 
-	public void setNucleo_id(int nucleo_id) {
+	public void setNucleo_id(Boolean nucleo_id) {
 		this.nucleo_id = nucleo_id;
 	}
 
-	public int getArea_id() {
+	public Boolean getArea_id() {
 		return area_id;
 	}
 
-	public void setArea_id(int area_id) {
+	public void setArea_id(Boolean area_id) {
 		this.area_id = area_id;
 	}
 }
