@@ -16,12 +16,13 @@
 				<div align="center">
 					<h:panelGrid id="panelRelatorio" style="border: 0px solid #a8a8a8;">
 
-						<h:commandLink actionListener="#{pageController.parseUrl(rotina.path)}"
+						<h:commandLink
+							actionListener="#{pageController.parseUrl(rotina.path)}"
 							title="#{rotina.nome}" update=":form">
 							<p:graphicImage value="#{rotina.imagem}" />
 						</h:commandLink>
 
-						<p:outputLabel value="#{rotina.path}"
+						<p:outputLabel value="#{rotina.nome}"
 							styleClass="ui-priority-primary" />
 
 					</h:panelGrid>
