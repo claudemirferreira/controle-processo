@@ -311,7 +311,7 @@ CREATE TABLE `saa_perfil_rotina` (
   KEY `FK_b4qhf2u8hd4rbyjcnbfk78e56` (`rotina_id`),
   CONSTRAINT `FK_b4qhf2u8hd4rbyjcnbfk78e56` FOREIGN KEY (`rotina_id`) REFERENCES `saa_rotina` (`id`),
   CONSTRAINT `FK_sgaieigex2pn1t80bmv5w75pb` FOREIGN KEY (`perfil_id`) REFERENCES `saa_perfil` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `saa_perfil_rotina`
@@ -333,7 +333,8 @@ INSERT INTO `saa_perfil_rotina` (`id`,`data`,`perfil_id`,`rotina_id`) VALUES
  (13,NULL,4,15),
  (14,NULL,4,9),
  (15,NULL,2,10),
- (16,NULL,3,7);
+ (16,NULL,3,7),
+ (17,NULL,4,16);
 /*!40000 ALTER TABLE `saa_perfil_rotina` ENABLE KEYS */;
 
 
@@ -352,7 +353,7 @@ CREATE TABLE `saa_rotina` (
   PRIMARY KEY (`id`),
   KEY `FK_3qi4824aom5c61wnyln08wijl` (`sistema_id`),
   CONSTRAINT `FK_3qi4824aom5c61wnyln08wijl` FOREIGN KEY (`sistema_id`) REFERENCES `saa_sistema` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `saa_rotina`
@@ -360,21 +361,22 @@ CREATE TABLE `saa_rotina` (
 
 /*!40000 ALTER TABLE `saa_rotina` DISABLE KEYS */;
 INSERT INTO `saa_rotina` (`id`,`imagem`,`nome`,`path`,`status`,`sistema_id`) VALUES 
- (1,'resources/imagens/rotina/banknote.png','SALDO DA CONGREGAÇÃO','paginas/relatorio/saldocongregacao.xhtml',0,2),
- (2,'resources/imagens/rotina/bar_chart.png','PROVENTO PASTORAL','paginas/relatorio/proventopastoral.xhtml',0,2),
- (3,'resources/imagens/rotina/calculator.png','DÉBITO FINANCEIRO','paginas/relatorio/debitofinanceiro.xhtml',0,2),
- (4,'resources/imagens/rotina/cash_register.png','CENTRO DE CUSTO','relatorioDebitoSecretaria.teste',0,2),
- (5,'resources/imagens/rotina/coins.png','NADA CONSTA','relatorioDebitoSecretaria.teste',0,2),
- (6,'resources/imagens/rotina/credit_card.png','SALDO DEPARTAMENTAL','relatorioDebitoSecretaria.teste',0,2),
- (7,'resources/imagens/rotina/gold_bullion.png','BALANCETE ANALITICO','relatorioDebitoSecretaria.teste',0,2),
- (8,'resources/imagens/rotina/invoice.png','BALANCETE SINTÉTICO','relatorioDebitoSecretaria.teste',0,2),
- (9,'resources/imagens/rotina/invoice.png','CADASTRO DE MEMBROS','relatorioDebitoSecretaria.teste',0,2),
- (10,'resources/imagens/rotina/invoice.png','DÉBITO PASTORAL','relatorioDebitoSecretaria.teste',0,2),
- (11,'resources/imagens/rotina/gold_bullion.png','ESTATISTICO','relatorioDebitoFinanceiro.teste',0,2),
- (12,'resources/imagens/rotina/credit_card.png','DÉBITO SECRETARIA','relatorioDebitoFinanceiro.teste',0,2),
- (13,'resources/imagens/rotina/credit_card.png','MEMBROS','relatorioDebitoFinanceiro.teste',0,2),
- (14,'resources/imagens/rotina/credit_card.png','CADASTRO DE ROTINAS','relatorioDebitoFinanceiro.teste',0,2),
- (15,'resources/imagens/rotina/gold_bullion.png','CADASTRO DE PERFIL','relatorioDebitoFinanceiro.teste',0,2);
+ (1,'resources/imagens/rotina/banknote.png','SALDO DA CONGREGAÇÃO','relatorioSaldoCongregacao.init',0,2),
+ (2,'resources/imagens/rotina/bar_chart.png','PROVENTO PASTORAL','relatorioProventoPastoral.init',0,2),
+ (3,'resources/imagens/rotina/calculator.png','DÉBITO FINANCEIRO','relatorioDebitoFinanceiro.init',0,2),
+ (4,'resources/imagens/rotina/cash_register.png','CENTRO DE CUSTO','relatorioCentoCusto.init',0,2),
+ (5,'resources/imagens/rotina/coins.png','NADA CONSTA','relatorioNadaConsta.init',0,2),
+ (6,'resources/imagens/rotina/credit_card.png','SALDO DEPARTAMENTAL','relatorioSaldoDepartamento.init',0,2),
+ (7,'resources/imagens/rotina/gold_bullion.png','BALANCETE ANALITICO','relatorioBalanceteAnalitico.init',0,2),
+ (8,'resources/imagens/rotina/invoice.png','BALANCETE SINTÉTICO','relatorioBalanceteSintetico.init',0,2),
+ (9,'resources/imagens/rotina/invoice.png','CADASTRO DE MEMBROS','usuarioControlador.init',0,2),
+ (10,'resources/imagens/rotina/invoice.png','DÉBITO PASTORAL','relatorioDebitoPastoral.init',0,2),
+ (11,'resources/imagens/rotina/gold_bullion.png','ESTATISTICO','relatorioEstatistico.init',0,2),
+ (12,'resources/imagens/rotina/credit_card.png','DÉBITO SECRETARIA','relatorioDebitoSecretaria.init',0,2),
+ (13,'resources/imagens/rotina/credit_card.png','MEMBROS','relatorioMembro.init',0,2),
+ (14,'resources/imagens/rotina/credit_card.png','CADASTRO DE ROTINAS','rotinaControlador.init',0,2),
+ (15,'resources/imagens/rotina/gold_bullion.png','CADASTRO DE PERFIL','perfilControlador.init',0,2),
+ (16,'resources/imagens/rotina/gold_bullion.png','CADASTRO DE USUARIO','usuarioControlador.init',0,2);
 /*!40000 ALTER TABLE `saa_rotina` ENABLE KEYS */;
 
 
