@@ -39,12 +39,10 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 	private RelatorioUtil relatorioUtil;
 
 	List<Usuario> usuarios;
-	
+
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
-
-	@PostConstruct
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 		this.filtroRelatorioDTO
@@ -62,6 +60,9 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 		usuario.setLogin("eeeeeee");
 		usuarios.add(usuario);
 
+		this.paginaCentralControladorBean
+				.setPaginaCentral("paginas/relatorio/debitofinanceiro.xhtml");
+
 	}
 
 	public void imprimir() {
@@ -72,7 +73,7 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(this.usuarios);
-		
+
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("ano", this.parametro.getMes().getMes());
 		params.put("mes", this.parametro.getAno());
@@ -80,9 +81,10 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
 
 	}
-	
+
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
+		paginaCentralControladorBean
+				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {

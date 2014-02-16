@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -33,19 +32,24 @@ public class RelatorioBalanceteAnalitico implements Serializable {
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
+	@ManagedProperty(value = "#{paginaCentralControladorBean}")
+	private PaginaCentralControladorBean paginaCentralControladorBean;
+
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
 
 	List<Usuario> usuarios;
 
-	@PostConstruct
+	public RelatorioBalanceteAnalitico() {
+		this.parametro = new Parametro();
+
+	}
+
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 		this.filtroRelatorioDTO
 				.setUsuarioLogado((Usuario) SecurityContextHolder.getContext()
 						.getAuthentication().getPrincipal());
-
-		this.parametro = new Parametro();
 
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
 		this.parametro.setMes(DataUtil.pegarMescorrente());
@@ -55,6 +59,9 @@ public class RelatorioBalanceteAnalitico implements Serializable {
 
 		usuario.setLogin("eeeeeee");
 		usuarios.add(usuario);
+
+		this.paginaCentralControladorBean
+				.setPaginaCentral("paginas/relatorio/balanceteanalitico.xhtml");
 
 	}
 
@@ -101,6 +108,15 @@ public class RelatorioBalanceteAnalitico implements Serializable {
 
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
+		return paginaCentralControladorBean;
+	}
+
+	public void setPaginaCentralControladorBean(
+			PaginaCentralControladorBean paginaCentralControladorBean) {
+		this.paginaCentralControladorBean = paginaCentralControladorBean;
 	}
 
 }

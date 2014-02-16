@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -41,8 +40,7 @@ public class RelatorioNadaConsta implements Serializable {
 
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
-	
-	@PostConstruct
+
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 		this.filtroRelatorioDTO
@@ -56,6 +54,9 @@ public class RelatorioNadaConsta implements Serializable {
 
 		usuario.setLogin("eeeeeee");
 		usuarios.add(usuario);
+
+		this.paginaCentralControladorBean
+				.setPaginaCentral("paginas/relatorio/nadaconsta.xhtml");
 
 	}
 
@@ -71,15 +72,16 @@ public class RelatorioNadaConsta implements Serializable {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("dataIncio", this.parametro.getDataInicio());
 		params.put("dataFim", this.parametro.getDataFim());
-		
+
 		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
 
 	}
 
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
+		paginaCentralControladorBean
+				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
-	
+
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
 		return filtroRelatorioDTO;
 	}
@@ -95,7 +97,7 @@ public class RelatorioNadaConsta implements Serializable {
 	public void setParametro(Parametro parametro) {
 		this.parametro = parametro;
 	}
-	
+
 	public RelatorioUtil getRelatorioUtil() {
 		return relatorioUtil;
 	}
@@ -103,7 +105,7 @@ public class RelatorioNadaConsta implements Serializable {
 	public void setRelatorioUtil(RelatorioUtil relatorioUtil) {
 		this.relatorioUtil = relatorioUtil;
 	}
-	
+
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
@@ -115,7 +117,7 @@ public class RelatorioNadaConsta implements Serializable {
 	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
 		return paginaCentralControladorBean;
 	}
-	
+
 	public void setPaginaCentralControladorBean(
 			PaginaCentralControladorBean paginaCentralControladorBean) {
 		this.paginaCentralControladorBean = paginaCentralControladorBean;

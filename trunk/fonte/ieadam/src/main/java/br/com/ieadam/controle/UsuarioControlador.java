@@ -3,7 +3,6 @@ package br.com.ieadam.controle;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -55,18 +54,19 @@ public class UsuarioControlador {
 	@ManagedProperty(value = "#{IEADAMAuthenticationManager}")
 	private IEADAMAuthenticationManager IEADAMAuthenticationManager;
 
-	@ManagedProperty(value = "#{paginaCentralControlador}")
-	private PaginaCentralControladorBean paginaCentralControlador;
-
 	private final String TELA_CADASTRO = "paginas/usuario/cadastro.xhtml";
 	private final String TELA_PESQUISA = "paginas/usuario/pesquisa.xhtml";
 
-	@PostConstruct
 	public void init() {
+		this.sistema = sistemaServico.findByCodigo("IEADAM");
+		this.telaPesquisa();
+
+	}
+
+	public UsuarioControlador() {
 		this.usuario = new Usuario();
 		this.entidade = new Usuario();
 		this.pesquisa = new Usuario();
-		this.sistema = sistemaServico.findByCodigo("IEADAM");
 
 	}
 
@@ -98,11 +98,11 @@ public class UsuarioControlador {
 	}
 
 	public void telaCadastro() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
+		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
 	public void telaPesquisa() {
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
+		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public Usuario getEntidade() {
@@ -242,11 +242,11 @@ public class UsuarioControlador {
 	}
 
 	public PaginaCentralControladorBean getPaginaCentralControlador() {
-		return paginaCentralControlador;
+		return paginaCentralControladorBean;
 	}
 
 	public void setPaginaCentralControlador(
-			PaginaCentralControladorBean paginaCentralControlador) {
-		this.paginaCentralControlador = paginaCentralControlador;
+			PaginaCentralControladorBean paginaCentralControladorBean) {
+		this.paginaCentralControladorBean = paginaCentralControladorBean;
 	}
 }
