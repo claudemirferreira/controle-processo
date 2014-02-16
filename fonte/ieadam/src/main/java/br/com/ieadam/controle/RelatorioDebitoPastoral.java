@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -37,11 +36,10 @@ public class RelatorioDebitoPastoral implements Serializable {
 
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
-	
+
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
-	@PostConstruct
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 		this.filtroRelatorioDTO
@@ -52,12 +50,17 @@ public class RelatorioDebitoPastoral implements Serializable {
 
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
 		this.parametro.setMes(DataUtil.pegarMescorrente());
+
+		this.paginaCentralControladorBean
+				.setPaginaCentral("paginas/relatorio/debitopastoral.xhtml");
+		
 	}
-	
+
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
+		paginaCentralControladorBean
+				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
-	
+
 	public void imprimir() {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
@@ -69,13 +72,13 @@ public class RelatorioDebitoPastoral implements Serializable {
 		Usuario u = new Usuario();
 		u.setLogin("login");
 		usuarios.add(u);
-		
+
 		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("dataInicio", this.parametro.getDataInicio());
 		params.put("dataFim", this.parametro.getDataFim());
-		
+
 		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
 	}
 

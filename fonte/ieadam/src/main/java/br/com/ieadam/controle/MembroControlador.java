@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -55,16 +54,23 @@ public class MembroControlador implements Serializable {
 	private final String TELA_CADASTRO = "paginas/membro/cadastro.xhtml";
 	private final String TELA_PESQUISA = "paginas/membro/pesquisa.xhtml";
 
-	@PostConstruct
 	public void init() {
 		this.lista = servico.listarTodos();
 		this.congregacoes = congregacaoServico.listarTodos();
+		this.cidades = cidadeServico.listarTodos();
+		
+		this.telaPesquisa();
+		
+	}
+	
+	public MembroControlador() {
 		this.entidade = new Membro();
 		this.pesquisa = new Membro();
 		this.congregacao = new Congregacao();
 		this.cidade = new Cidade();
-		this.cidades = cidadeServico.listarTodos();
-
+		
+		this.telaPesquisa();
+		
 	}
 
 	public void pesquisar() {

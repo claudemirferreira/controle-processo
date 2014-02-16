@@ -10,7 +10,6 @@ import javax.faces.bean.SessionScoped;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import br.com.ieadam.componentes.Util;
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Rotina;
 import br.com.ieadam.dominio.Sistema;
@@ -33,19 +32,19 @@ public class PerfilControlador implements Serializable {
 	private Perfil pesquisa;
 
 	private List<Perfil> lista;
-	
+
 	private List<Perfil> listaPerfilUsuario;
-	
+
 	private Usuario usuario;
-	
+
 	private Sistema sistema;
 
 	private int colunas;
 
 	private String TELA_LISTA = "paginas/perfil/lista.xhtml";
-	
+
 	private final String TELA_CADASTRO = "paginas/perfil/cadastro.xhtml";
-	
+
 	private final String TELA_PESQUISA = "paginas/perfil/pesquisa.xhtml";
 
 	@ManagedProperty(value = "#{perfilServicoImpl}")
@@ -53,7 +52,7 @@ public class PerfilControlador implements Serializable {
 
 	@ManagedProperty(value = "#{rotinaServicoImpl}")
 	private RotinaServico rotinaServico;
-	
+
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
@@ -63,12 +62,13 @@ public class PerfilControlador implements Serializable {
 		this.lista = servico.listarTodos();
 		this.entidade = new Perfil();
 		this.pesquisa = new Perfil();
-		
+
 		this.listaPerfilPorSistemaPorUsuario();
 	}
-	
+
 	public void pesquisar() {
-//		this.lista = servico.findBySistemaByNomeLike(this.sistema,this.pesquisa.getNome());
+		// this.lista =
+		// servico.findBySistemaByNomeLike(this.sistema,this.pesquisa.getNome());
 	}
 
 	public void detalhe(Perfil perfil) {
@@ -98,18 +98,18 @@ public class PerfilControlador implements Serializable {
 	}
 
 	public void telaPerfis() {
-		this.paginaCentralControladorBean
-				.setPaginaCentral(this.TELA_LISTA);
+		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_LISTA);
 	}
-	
-	public void listaPerfilPorSistemaPorUsuario(){
+
+	public void listaPerfilPorSistemaPorUsuario() {
 		this.usuario = (Usuario) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
-		
-		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario(2, usuario.getId());
-		
+
+		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario(
+				2, usuario.getId());
+
 		this.telaPerfis();
-		
+
 	}
 
 	public Perfil getPerfil() {

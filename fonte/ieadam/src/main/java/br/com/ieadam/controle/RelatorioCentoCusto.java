@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -42,8 +41,7 @@ public class RelatorioCentoCusto implements Serializable {
 
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
-	
-	@PostConstruct
+
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 		this.filtroRelatorioDTO
@@ -61,6 +59,9 @@ public class RelatorioCentoCusto implements Serializable {
 		usuario.setLogin("eeeeeee");
 		usuarios.add(usuario);
 
+		this.paginaCentralControladorBean
+				.setPaginaCentral("paginas/relatorio/centrocusto.xhtml");
+
 	}
 
 	public void imprimir() {
@@ -71,7 +72,7 @@ public class RelatorioCentoCusto implements Serializable {
 		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
 
 		JRDataSource jrRS = new JRBeanCollectionDataSource(this.usuarios);
-		
+
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("mes", parametro.getMes().getMes());
 		params.put("ano", parametro.getAno());
@@ -81,9 +82,10 @@ public class RelatorioCentoCusto implements Serializable {
 	}
 
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
+		paginaCentralControladorBean
+				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
-	
+
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
 		return filtroRelatorioDTO;
 	}

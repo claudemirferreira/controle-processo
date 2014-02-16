@@ -37,7 +37,7 @@ public class RelatorioMembro implements Serializable {
 
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
-	
+
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
@@ -52,12 +52,17 @@ public class RelatorioMembro implements Serializable {
 
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
 		this.parametro.setMes(DataUtil.pegarMescorrente());
+
+		this.paginaCentralControladorBean
+				.setPaginaCentral("paginas/relatorio/membro.xhtml");
+
 	}
-	
+
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
+		paginaCentralControladorBean
+				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
-	
+
 	public void imprimir() {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
@@ -69,12 +74,12 @@ public class RelatorioMembro implements Serializable {
 		Usuario u = new Usuario();
 		u.setLogin("login");
 		usuarios.add(u);
-		
+
 		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
-		
+
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("membro", this.parametro.getUsuario());
-		
+
 		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
 	}
 

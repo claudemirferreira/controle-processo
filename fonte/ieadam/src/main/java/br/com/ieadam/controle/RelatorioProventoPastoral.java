@@ -42,8 +42,7 @@ public class RelatorioProventoPastoral implements Serializable {
 
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
-	
-	@PostConstruct
+
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 		this.filtroRelatorioDTO
@@ -61,6 +60,9 @@ public class RelatorioProventoPastoral implements Serializable {
 		usuario.setLogin("eeeeeee");
 		usuarios.add(usuario);
 
+		this.paginaCentralControladorBean
+				.setPaginaCentral("paginas/relatorio/proventopastoral.xhtml");
+
 	}
 
 	public void imprimir() {
@@ -75,13 +77,14 @@ public class RelatorioProventoPastoral implements Serializable {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("mes", this.parametro.getMes().getMes());
 		params.put("ano", this.parametro.getAno());
-		
+
 		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
 
 	}
-	
+
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
+		paginaCentralControladorBean
+				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {

@@ -40,10 +40,9 @@ public class RelatorioBalanceteSintetico implements Serializable {
 
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
-	
+
 	List<Usuario> usuarios;
 
-	@PostConstruct
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 		this.filtroRelatorioDTO
@@ -61,6 +60,9 @@ public class RelatorioBalanceteSintetico implements Serializable {
 		usuario.setLogin("eeeeeee");
 		usuarios.add(usuario);
 
+		this.paginaCentralControladorBean
+				.setPaginaCentral("paginas/relatorio/balancetesintetico.xhtml");
+
 	}
 
 	public void imprimir() {
@@ -69,9 +71,9 @@ public class RelatorioBalanceteSintetico implements Serializable {
 				.getExternalContext();
 		ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
-		
+
 		JRDataSource jrRS = new JRBeanCollectionDataSource(this.usuarios);
-		
+
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("mes", parametro.getMes().getMes());
 		params.put("ano", parametro.getAno());
@@ -79,11 +81,11 @@ public class RelatorioBalanceteSintetico implements Serializable {
 		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
 	}
 
-	
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
+		paginaCentralControladorBean
+				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
-	
+
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
 		return filtroRelatorioDTO;
 	}

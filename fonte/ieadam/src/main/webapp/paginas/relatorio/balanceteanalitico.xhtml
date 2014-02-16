@@ -9,20 +9,22 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form" target="_blank">
-		<p:panel header="RELATÓRIO DE BALANCETE SINTÉTICO" style="width:99%;">
+		<p:panel header="RELATÓRIO DE BALANCETE ANALITICO" style="width:99%;">
 
 			<h:panelGrid id="panelPesquisa" columns="4">
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu styleClass="ui-priority-primary" value="#{relatorioDebitoSintetico.parametro.mes}" 
-						effect="fold" editable="true"  style="width:100%;">
-					<f:selectItems value="#{relatorioDebitoSintetico.parametro.meses}" />
+				<p:selectOneMenu styleClass="ui-priority-primary"
+					value="#{relatorioBalanceteAnalitico.parametro.mes}" effect="fold"
+					editable="true" style="width:100%;">
+					<f:selectItems
+						value="#{relatorioBalanceteAnalitico.parametro.meses}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
 				<p:inputText id="ano" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
-					value="#{relatorioDebitoSintetico.parametro.ano}" />
+					value="#{relatorioBalanceteAnalitico.parametro.ano}" />
 			</h:panelGrid>
 
 			<f:facet name="footer">

@@ -41,8 +41,7 @@ public class RelatorioSaldoDepartamento implements Serializable {
 
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
-	
-	@PostConstruct
+
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 		this.filtroRelatorioDTO
@@ -56,6 +55,9 @@ public class RelatorioSaldoDepartamento implements Serializable {
 
 		usuario.setLogin("eeeeeee");
 		usuarios.add(usuario);
+
+		this.paginaCentralControladorBean
+				.setPaginaCentral("paginas/relatorio/saldodepartamental.xhtml");
 
 	}
 
@@ -71,15 +73,16 @@ public class RelatorioSaldoDepartamento implements Serializable {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("mes", this.parametro.getMes().getMes());
 		params.put("ano", this.parametro.getAno());
-		
+
 		relatorioUtil.gerarRelatorioWeb(jrRS, null, arquivo);
 
 	}
 
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControladorBean.setPaginaCentral("paginas/perfil/lista.xhtml");
+		paginaCentralControladorBean
+				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
-	
+
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
 		return filtroRelatorioDTO;
 	}
@@ -103,7 +106,7 @@ public class RelatorioSaldoDepartamento implements Serializable {
 	public void setRelatorioUtil(RelatorioUtil relatorioUtil) {
 		this.relatorioUtil = relatorioUtil;
 	}
-	
+
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
