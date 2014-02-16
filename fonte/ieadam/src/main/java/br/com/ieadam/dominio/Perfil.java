@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * The persistent class for the _perfil database table.
@@ -44,6 +45,10 @@ public class Perfil implements Serializable {
 	@OneToMany(mappedBy = "perfil")
 	private List<UsuarioPerfil> usuarioPerfis;
 
+	@Transient
+	private boolean checked;
+	
+	
 	public Perfil() {
 	}
 
@@ -121,6 +126,15 @@ public class Perfil implements Serializable {
 		usuarioPerfil.setPerfil(null);
 
 		return usuarioPerfil;
+	}
+	
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
 }

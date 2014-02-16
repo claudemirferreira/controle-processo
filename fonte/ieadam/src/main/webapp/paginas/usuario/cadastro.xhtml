@@ -8,21 +8,17 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
+
+<h:form id="form">
 	<p:panel header="FORMULÁRIO DE CADASTRO DE USUÁRIO">
 		<h:panelGrid id="panelCadastro" columns="4" cellpadding="8">
 
-			<p:outputLabel value="Nome*:" styleClass="ui-priority-primary" />
-			<p:inputText id="nome" value="#{usuarioControlador.entidade.nome}" />
-
 			<p:outputLabel value="CPF*:" styleClass="ui-priority-primary" />
-			<p:inputText id="cpf" value="#{usuarioControlador.entidade.cpf}" />
+			<p:inputText id="cpf" value="#{usuarioControlador.entidade.login}" />
 
 			<p:outputLabel value="Senha*:" styleClass="ui-priority-primary" />
 			<p:password id="senha" value="#{usuarioControlador.entidade.senha}" />
 
-			<p:outputLabel value="Email*:" styleClass="ui-priority-primary" />
-			<p:inputText id="email" value="#{usuarioControlador.entidade.email}" />
-			
 			<p:outputLabel value="Situação*:" styleClass="ui-priority-primary" />
 			<p:selectOneMenu id="Situação"
 				value="#{usuarioControlador.entidade.status}">
@@ -42,5 +38,6 @@
 		</f:facet>
 
 	</p:panel>
+</h:form>
 
 </ui:component>
