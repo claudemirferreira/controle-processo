@@ -3,6 +3,7 @@ package br.com.ieadam.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,33 +20,34 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "saa_usuario_perfil")
-public class UsuarioPerfil implements Serializable {
+public class UsuarioPerfil extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = 5273026133885032236L;
 
 	@Id
+	@Column(name = "id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 
 	@ManyToOne
-	@JoinColumn(name = "usuario_id")
+	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
 	@ManyToOne
-	@JoinColumn(name = "perfil_id")
+	@JoinColumn(name = "perfil_id", nullable = false)
 	private Perfil perfil;
 
 	public UsuarioPerfil() {
 	}
 
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

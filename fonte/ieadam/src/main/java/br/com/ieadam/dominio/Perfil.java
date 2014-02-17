@@ -1,7 +1,6 @@
 package br.com.ieadam.dominio;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -21,13 +20,14 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "saa_perfil")
-public class Perfil implements Serializable {
+public class Perfil extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -729781000696371926L;
 
 	@Id
+	@Column(name = "id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 
 	@Column(length = 30, nullable = false)
 	private String nome;
@@ -52,11 +52,11 @@ public class Perfil implements Serializable {
 	public Perfil() {
 	}
 
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

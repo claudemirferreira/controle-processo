@@ -17,7 +17,7 @@ public class RotinaRepositorioSqlImpl implements RotinaRepositorioSql {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Rotina> listaRotinasPorPerfil(int id) {
+	public List<Rotina> listaRotinasPorPerfil(Long id) {
 		return entityManager
 				.createNativeQuery(
 						"SELECT i.* FROM saa_rotina i, saa_perfil_rotina b where i.id = b.rotina_id and perfil_id = " + id,
