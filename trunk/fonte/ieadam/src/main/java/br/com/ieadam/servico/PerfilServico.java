@@ -15,6 +15,6 @@ public interface PerfilServico {
 	public List<Perfil> findByNomeLike(String nome);
 	
 	public List<Perfil> listaPerfilPorSistemaPorUsuario(int sistemaId,
-			int usuarioId);
+			Long usuarioId);
 
 }

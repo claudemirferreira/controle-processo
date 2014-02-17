@@ -1,5 +1,7 @@
 package br.com.ieadam.dominio;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +15,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ieadam_nivel_pastoral")
-public class NivelPastoral {
+public class NivelPastoral implements Serializable {
+	
+	private static final long serialVersionUID = -4244923733467345224L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

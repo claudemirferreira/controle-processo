@@ -12,6 +12,7 @@ import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.UsuarioPerfil;
 import br.com.ieadam.servico.PerfilServico;
+import br.com.ieadam.servico.UsuarioPerfilServico;
 import br.com.ieadam.servico.UsuarioServico;
 
 @ManagedBean
@@ -25,10 +26,13 @@ public class UsuarioPerfilControlador {
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
 	@ManagedProperty(value = "#{perfilServicoImpl}")
-	private PerfilServico servicoPerfil;
+	private PerfilServico perfilServico;
 
 	@ManagedProperty(value = "#{usuarioServicoImpl}")
-	private UsuarioServico servicoUsuario;
+	private UsuarioServico usuarioServico;
+
+	@ManagedProperty(value = "#{usuarioPerfilServicoImpl}")
+	private UsuarioPerfilServico usuarioPerfilServico;
 	
 	private List<Perfil> listaPerfis;
 	
@@ -37,7 +41,7 @@ public class UsuarioPerfilControlador {
 	
 	@PostConstruct
 	public void init() {
-		listaPerfis = servicoPerfil.listarTodos();
+		listaPerfis = perfilServico.listarTodos();
 	}
 	
 
@@ -61,22 +65,24 @@ public class UsuarioPerfilControlador {
 	public void salvar() {
 		
 		for (Perfil perfil : listaPerfis ) {
+			UsuarioPerfil usuarioPerfil = usuario.getUsuarioPerfilByPerfil(perfil);
 			if (!usuario.containsPerfil(perfil)) {
 				if (perfil.isChecked()) {
 					usuario.getUsuarioPerfils().add(createUsuarioPerfil(perfil));
-				} else {
-					usuario.getUsuarioPerfils().remove(usuario.getUsuarioPerfilByPerfil(perfil));
+				} else if ( usuarioPerfil != null && usuarioPerfil.getId() != null ) {
+						usuarioPerfilServico.remover(usuarioPerfil);
+						usuario.getUsuarioPerfils().remove(usuarioPerfil);
 				}
+			} else if (!perfil.isChecked()) {
+				usuarioPerfilServico.remover(usuarioPerfil);
+				usuario.getUsuarioPerfils().remove(usuarioPerfil);
 			}
 		}
 
-		this.servicoUsuario.salvar(usuario);
+		this.usuarioServico.salvar(usuario);
 		retornar();
 		
 		// TODO mostrar msg sucesso: GrowMessage
-		
-		// TODO id de usuarioPerfil esta vindo zerado
-		// estah incluindo novo inves de atualizar
 	}
 
 	
@@ -104,32 +110,34 @@ public class UsuarioPerfilControlador {
 		return paginaCentralControladorBean;
 	}
 
-
 	public void setPaginaCentralControladorBean(
 			PaginaCentralControladorBean paginaCentralControladorBean) {
 		this.paginaCentralControladorBean = paginaCentralControladorBean;
 	}
 
+	public UsuarioServico getUsuarioServico() {
+		return usuarioServico;
+	}
 
-	public PerfilServico getServicoPerfil() {
-		return servicoPerfil;
+	public void setUsuarioServico(UsuarioServico usuarioServico) {
+		this.usuarioServico = usuarioServico;
 	}
 
 
-	public void setServicoPerfil(PerfilServico servicoPerfil) {
-		this.servicoPerfil = servicoPerfil;
+	public PerfilServico getPerfilServico() {
+		return perfilServico;
 	}
 
-
-	public UsuarioServico getServicoUsuario() {
-		return servicoUsuario;
+	public void setPerfilServico(PerfilServico perfilServico) {
+		this.perfilServico = perfilServico;
 	}
 
-
-	public void setServicoUsuario(UsuarioServico servicoUsuario) {
-		this.servicoUsuario = servicoUsuario;
+	public UsuarioPerfilServico getUsuarioPerfilServico() {
+		return usuarioPerfilServico;
 	}
-	
-	
+
+	public void setUsuarioPerfilServico(UsuarioPerfilServico usuarioPerfilServico) {
+		this.usuarioPerfilServico = usuarioPerfilServico;
+	}
 
 }

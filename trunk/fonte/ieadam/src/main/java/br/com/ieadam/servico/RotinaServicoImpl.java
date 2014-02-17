@@ -41,7 +41,7 @@ public class RotinaServicoImpl implements RotinaServico, Serializable {
 	}
 
 	@Override
-	public List<Rotina> listaRotinasPorPerfil(int id) {
+	public List<Rotina> listaRotinasPorPerfil(Long id) {
 		return rotinaRepositorioSql.listaRotinasPorPerfil(id);
 	}
 

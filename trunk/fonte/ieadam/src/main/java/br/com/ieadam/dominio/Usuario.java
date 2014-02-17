@@ -20,13 +20,14 @@ import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "saa_usuario")
-public class Usuario implements Serializable {
+public class Usuario extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -3267682267159820805L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
 
 	@Column(unique = true, length = 30)
 	private String login;
@@ -36,11 +37,10 @@ public class Usuario implements Serializable {
 	@Column(name = "status", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String status;
 	
-	@Cascade( value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-			org.hibernate.annotations.CascadeType.MERGE,
-			org.hibernate.annotations.CascadeType.DELETE, 
-			org.hibernate.annotations.CascadeType.PERSIST} )
-	@OneToMany(mappedBy = "usuario", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	
+	@Cascade( value = {org.hibernate.annotations.CascadeType.ALL} )
+	@OneToMany( cascade = { CascadeType.ALL}, 
+				fetch = FetchType.EAGER, mappedBy = "usuario" )
 	private List<UsuarioPerfil> usuarioPerfils;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -69,11 +69,11 @@ public class Usuario implements Serializable {
 	}
 	
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
