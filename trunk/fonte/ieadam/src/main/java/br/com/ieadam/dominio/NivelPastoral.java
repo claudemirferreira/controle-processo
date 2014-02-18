@@ -23,9 +23,9 @@ public class NivelPastoral implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
-	private Usuario usuario;
+//	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+//	private Usuario usuario;
 
 	@Column
 	private Boolean zona_id;
@@ -44,13 +44,13 @@ public class NivelPastoral implements Serializable {
 		this.id = id;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+//	public Usuario getUsuario() {
+//		return usuario;
+//	}
+//
+//	public void setUsuario(Usuario usuario) {
+//		this.usuario = usuario;
+//	}
 
 	public Boolean getZona_id() {
 		return zona_id;

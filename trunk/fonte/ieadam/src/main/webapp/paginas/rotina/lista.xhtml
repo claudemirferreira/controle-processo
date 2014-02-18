@@ -17,7 +17,7 @@
 					<h:panelGrid id="panelRelatorio" style="border: 0px solid #a8a8a8;">
 
 						<h:commandLink
-							actionListener="#{pageController.parseUrl(rotina.path)}"
+							actionListener="#{pageController.parseUrl(rotina.acao)}"
 							title="#{rotina.nome}" update=":form">
 							<p:graphicImage value="#{rotina.imagem}" />
 						</h:commandLink>

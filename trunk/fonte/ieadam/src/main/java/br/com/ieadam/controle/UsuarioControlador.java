@@ -59,6 +59,7 @@ public class UsuarioControlador {
 
 	public void init() {
 		this.sistema = sistemaServico.findByCodigo("IEADAM");
+		this.lista = servico.listarTodos();
 		this.telaPesquisa();
 
 	}
@@ -71,7 +72,7 @@ public class UsuarioControlador {
 	}
 
 	public void pesquisar() {
-		// this.lista = this.servico.findByNomeLike(this.pesquisa.getNome());
+		this.lista = this.servico.findByNomeLike(this.pesquisa.getNome());
 	}
 
 	public void detalhe(Usuario usuario) {

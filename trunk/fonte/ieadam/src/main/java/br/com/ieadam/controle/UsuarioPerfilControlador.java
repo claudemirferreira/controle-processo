@@ -41,14 +41,14 @@ public class UsuarioPerfilControlador {
 	
 	@PostConstruct
 	public void init() {
-		listaPerfis = perfilServico.listarTodos();
+		this.listaPerfis = perfilServico.listarTodos();
 	}
 	
 
 	public void manterUsuario(Usuario usuario) {
 		this.usuario = usuario;
 		
-		for (Perfil perfil : listaPerfis ) {
+		for (Perfil perfil : this.listaPerfis ) {
 			// marca os perfis existentes
 			perfil.setChecked(usuario.containsPerfil(perfil));
 		}
@@ -68,14 +68,14 @@ public class UsuarioPerfilControlador {
 			UsuarioPerfil usuarioPerfil = usuario.getUsuarioPerfilByPerfil(perfil);
 			if (!usuario.containsPerfil(perfil)) {
 				if (perfil.isChecked()) {
-					usuario.getUsuarioPerfils().add(createUsuarioPerfil(perfil));
-				} else if ( usuarioPerfil != null && usuarioPerfil.getId() != null ) {
+					usuario.getUsuarioPerfil().add(createUsuarioPerfil(perfil));
+				} else if ( usuarioPerfil != null && usuarioPerfil.getUsuarioPerfilPk() != null ) {
 						usuarioPerfilServico.remover(usuarioPerfil);
-						usuario.getUsuarioPerfils().remove(usuarioPerfil);
+						usuario.getUsuarioPerfil().remove(usuarioPerfil);
 				}
 			} else if (!perfil.isChecked()) {
 				usuarioPerfilServico.remover(usuarioPerfil);
-				usuario.getUsuarioPerfils().remove(usuarioPerfil);
+				usuario.getUsuarioPerfil().remove(usuarioPerfil);
 			}
 		}
 

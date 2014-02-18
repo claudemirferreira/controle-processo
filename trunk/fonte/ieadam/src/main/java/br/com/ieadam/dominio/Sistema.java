@@ -17,13 +17,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "saa_sistema")
-public class Sistema implements Serializable {
+public class Sistema extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -1348896933495695497L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long idSistema;
 
 	@Column(length = 6, nullable = false, unique = true)
 	private String codigo;
@@ -42,18 +42,23 @@ public class Sistema implements Serializable {
 	private List<Perfil> perfils;
 
 	// bi-directional many-to-one association to Rotina
-	@OneToMany(mappedBy = "sistema")
-	private List<Rotina> rotinas;
+//	@OneToMany(mappedBy = "sistema")
+//	private List<Rotina> rotinas;
 
 	public Sistema() {
 	}
 
-	public int getId() {
-		return this.id;
+	@Override
+	public Long getId() {
+		return this.idSistema;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Long getIdSistema() {
+		return idSistema;
+	}
+
+	public void setIdSistema(Long idSistema) {
+		this.idSistema = idSistema;
 	}
 
 	public String getDescricao() {
@@ -110,26 +115,26 @@ public class Sistema implements Serializable {
 		return perfil;
 	}
 
-	public List<Rotina> getRotinas() {
-		return this.rotinas;
-	}
+//	public List<Rotina> getRotinas() {
+//		return this.rotinas;
+//	}
+//
+//	public void setRotinas(List<Rotina> rotinas) {
+//		this.rotinas = rotinas;
+//	}
 
-	public void setRotinas(List<Rotina> rotinas) {
-		this.rotinas = rotinas;
-	}
-
-	public Rotina addRotina(Rotina rotina) {
-		getRotinas().add(rotina);
-		rotina.setSistema(this);
-
-		return rotina;
-	}
-
-	public Rotina removeRotina(Rotina rotina) {
-		getRotinas().remove(rotina);
-		rotina.setSistema(null);
-
-		return rotina;
-	}
+//	public Rotina addRotina(Rotina rotina) {
+//		getRotinas().add(rotina);
+//		rotina.setSistema(this);
+//
+//		return rotina;
+//	}
+//
+//	public Rotina removeRotina(Rotina rotina) {
+//		getRotinas().remove(rotina);
+//		rotina.setSistema(null);
+//
+//		return rotina;
+//	}
 
 }

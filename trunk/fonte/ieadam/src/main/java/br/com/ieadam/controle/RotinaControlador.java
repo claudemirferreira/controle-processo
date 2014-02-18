@@ -98,7 +98,7 @@ public class RotinaControlador implements Serializable {
 	}
 
 	public void telaRelatorio(Rotina rotina) {
-		this.paginaCentralControladorBean.setPaginaCentral(rotina.getPath());
+		this.paginaCentralControladorBean.setPaginaCentral(rotina.getAcao());
 	}
 
 	public Rotina getEntidade() {
@@ -156,7 +156,7 @@ public class RotinaControlador implements Serializable {
 
 	public void telaRotinas(Rotina rotina) {
 
-		this.paginaCentralControladorBean.setPaginaCentral(rotina.getPath());
+		this.paginaCentralControladorBean.setPaginaCentral(rotina.getAcao());
 
 	}
 

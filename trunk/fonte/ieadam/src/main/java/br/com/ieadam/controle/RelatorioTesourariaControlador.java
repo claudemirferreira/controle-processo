@@ -28,7 +28,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
-import br.com.ieadam.servico.RelatorioTesourariaServico;
 
 @ManagedBean
 @SessionScoped
@@ -40,9 +39,6 @@ public class RelatorioTesourariaControlador {
 	private Parametro parametro;
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
-
-	@ManagedProperty(value = "#{relatorioTesourariaServicoImpl}")
-	private RelatorioTesourariaServico relatorioTesourariaServico;
 
 	private DriverManagerDataSource dataSource;
 
@@ -184,8 +180,8 @@ public class RelatorioTesourariaControlador {
 	}
 
 	public void gerarRelatorio() {
-		this.relatorioTesourariaServico
-				.gerarRelatorioTesouraria(this.filtroRelatorioDTO);
+		// TODO implements
+		throw new RuntimeException("TODO implements...");
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
@@ -196,14 +192,6 @@ public class RelatorioTesourariaControlador {
 		this.filtroRelatorioDTO = filtroRelatorioDTO;
 	}
 
-	public RelatorioTesourariaServico getRelatorioTesourariaServico() {
-		return relatorioTesourariaServico;
-	}
-
-	public void setRelatorioTesourariaServico(
-			RelatorioTesourariaServico relatorioTesourariaServico) {
-		this.relatorioTesourariaServico = relatorioTesourariaServico;
-	}
 
 	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
 		return paginaCentralControladorBean;

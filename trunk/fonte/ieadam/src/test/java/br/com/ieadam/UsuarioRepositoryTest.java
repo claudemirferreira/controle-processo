@@ -1,22 +1,13 @@
 package br.com.ieadam;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import br.com.ieadam.dominio.Membro;
 import br.com.ieadam.dominio.NivelPastoral;
-import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Usuario;
-import br.com.ieadam.repositorio.MembroRepositorio;
 import br.com.ieadam.repositorio.UsuarioRepositorio;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,9 +18,6 @@ public class UsuarioRepositoryTest {
 	@Autowired
 	UsuarioRepositorio repository;
 	
-	@Autowired
-	MembroRepositorio membroRepository;
-
 	@Test
 	public void test() {
 //		Usuario usuario = new Usuario();
@@ -57,7 +45,7 @@ public class UsuarioRepositoryTest {
 		
 		NivelPastoral nivel = new NivelPastoral();
 		nivel.setId(5);
-		u.setNivelPastoral(nivel);
+//		u.setNivelPastoral(nivel);
 
 		repository.saveAndFlush(u);
 

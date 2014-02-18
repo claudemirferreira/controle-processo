@@ -17,7 +17,8 @@ public class UsuarioServicoImpl implements UsuarioServico {
 	private UsuarioRepositorio usuarioRepositorio;
 
 	@Override
-	public Usuario findByLoginAndSenha(String login, String senha) throws NoResultException {
+	public Usuario findByLoginAndSenha(String login, String senha)
+			throws NoResultException {
 		return this.usuarioRepositorio.findByLoginAndSenha(login, senha);
 	}
 
@@ -39,6 +40,11 @@ public class UsuarioServicoImpl implements UsuarioServico {
 	@Override
 	public void remover(Usuario usuario) {
 		this.usuarioRepositorio.delete(usuario);
-
 	}
+
+	@Override
+	public List<Usuario> findByNomeLike(String nome) throws NoResultException {
+		return this.usuarioRepositorio.findByNomeLike(nome);
+	}
+
 }
