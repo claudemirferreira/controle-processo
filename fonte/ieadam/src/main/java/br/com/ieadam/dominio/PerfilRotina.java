@@ -3,75 +3,72 @@ package br.com.ieadam.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
- * The persistent class for the _perfil_rotina database table.
  * 
+ * @author altitdb
  */
 @Entity
-@Table(name = "saa_perfil_rotina")
+@AssociationOverrides({
+		@AssociationOverride(name = "perfilRotinaPk.rotina", joinColumns = @JoinColumn(name = "idRotina")),
+		@AssociationOverride(name = "perfilRotinaPk.perfil", joinColumns = @JoinColumn(name = "idPerfil")) })
+@Table( name = "saa_perfil_rotina" )
 public class PerfilRotina implements Serializable {
 
-	private static final long serialVersionUID = -7000133381800494391L;
+	private static final long serialVersionUID = -1220797610390530939L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	@EmbeddedId
+	private PerfilRotinaPk perfilRotinaPk = new PerfilRotinaPk();
+
+	@Transient
+	private Rotina rotina;
+
+	@Transient
+	private Perfil perfil;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 
-	@ManyToOne
-	@JoinColumn(name = "rotina_id")
-	private Rotina rotina;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "perfil_id")
-	private Perfil perfil;
-
-	public PerfilRotina() {
+	
+	public Perfil getPerfil() {
+		return perfilRotinaPk.getPerfil();
 	}
 
-	public int getId() {
-		return this.id;
+	public void setPerfil(Perfil perfil) {
+		perfilRotinaPk.setPerfil(perfil);
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Rotina getRotina() {
+		return perfilRotinaPk.getRotina();
+	}
+
+	public void setRotina(Rotina rotina) {
+		perfilRotinaPk.setRotina(rotina);
+	}
+
+	public PerfilRotinaPk getPerfilRotinaPk() {
+		return perfilRotinaPk;
+	}
+
+	public void setPerfilRotinaPk(PerfilRotinaPk perfilRotinaPk) {
+		this.perfilRotinaPk = perfilRotinaPk;
 	}
 
 	public Date getData() {
-		return this.data;
+		return data;
 	}
 
 	public void setData(Date data) {
 		this.data = data;
-	}
-
-	public Rotina getRotina() {
-		return this.rotina;
-	}
-
-	public void setRotina(Rotina rotina) {
-		this.rotina = rotina;
-	}
-
-	public Perfil getPerfil() {
-		return this.perfil;
-	}
-
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
 	}
 
 }

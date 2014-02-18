@@ -24,7 +24,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
-import br.com.ieadam.servico.RelatorioSecretariaServico;
 
 @ManagedBean
 @SessionScoped
@@ -34,9 +33,6 @@ public class RelatorioSecretariaControlador {
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 	
 	private FiltroRelatorioDTO filtroRelatorioDTO;
-
-	@ManagedProperty(value = "#{relatorioSecretariaServicoImpl}")
-	private RelatorioSecretariaServico relatorioSecretariaServico;
 
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 
@@ -94,8 +90,10 @@ public class RelatorioSecretariaControlador {
 	}
 
 	public void gerarRelatorio() {
-		this.relatorioSecretariaServico
-				.gerarRelatorioSecretaria(this.filtroRelatorioDTO);
+//		this.relatorioSecretariaServico
+//				.gerarRelatorioSecretaria(this.filtroRelatorioDTO);
+		// TODO implements
+		throw new RuntimeException("TODO implements...");
 	}
 
 	public String relatorioSecretaria() {
@@ -117,15 +115,6 @@ public class RelatorioSecretariaControlador {
 
 	public void setFiltroRelatorioDTO(FiltroRelatorioDTO filtroRelatorioDTO) {
 		this.filtroRelatorioDTO = filtroRelatorioDTO;
-	}
-
-	public RelatorioSecretariaServico getRelatorioSecretariaServico() {
-		return relatorioSecretariaServico;
-	}
-
-	public void setRelatorioSecretariaServico(
-			RelatorioSecretariaServico relatorioSecretariaServico) {
-		this.relatorioSecretariaServico = relatorioSecretariaServico;
 	}
 
 	public List<Usuario> getUsuarios() {

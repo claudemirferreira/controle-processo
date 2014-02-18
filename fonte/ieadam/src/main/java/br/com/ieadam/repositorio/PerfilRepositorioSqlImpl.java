@@ -21,8 +21,8 @@ public class PerfilRepositorioSqlImpl implements PerfilRepositorioSql {
 			Long usuarioId) {
 		return entityManager.createNativeQuery(
 				"SELECT distinct i.* FROM saa_perfil i, saa_usuario_perfil b "
-						+ "where i.id = b.perfil_id and i.sistema_id = "
-						+ sistemaId + " and b.usuario_id =  " + usuarioId,
+						+ "where i.id_perfil = b.id_perfil and i.id_sistema = "
+						+ sistemaId + " and b.id_usuario =  " + usuarioId,
 				Perfil.class).getResultList();
 	}
 }

@@ -106,7 +106,7 @@ public class PerfilControlador implements Serializable {
 				.getAuthentication().getPrincipal();
 
 		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario(
-				2, usuario.getId());
+				1, usuario.getId());
 
 		this.telaPerfis();
 

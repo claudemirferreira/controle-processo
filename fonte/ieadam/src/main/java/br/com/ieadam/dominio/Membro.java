@@ -31,10 +31,6 @@ public class Membro implements Serializable {
 	@JoinColumn(name = "funcao_id", referencedColumnName = "id")
 	private Funcao funcao;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
-	private Usuario usuario;
-
 	@ManyToOne
 	@JoinColumn(name = "congregacao_id", referencedColumnName = "id")
 	private Congregacao congregacao;
@@ -405,11 +401,4 @@ public class Membro implements Serializable {
 		this.formacaoTeologico = formacaoTeologico;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 }

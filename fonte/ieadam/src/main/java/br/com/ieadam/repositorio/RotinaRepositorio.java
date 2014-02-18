@@ -12,11 +12,11 @@ import br.com.ieadam.dominio.Rotina;
 import br.com.ieadam.dominio.Sistema;
 
 @Repository
-public interface RotinaRepositorio extends JpaRepository<Rotina, Integer> {
+public interface RotinaRepositorio extends JpaRepository<Rotina, Long> {
 
 	public final static String LISTAR_ROTINA_POR_PERFIL = "SELECT a "
-			+ "FROM PerfilRotina p LEFT JOIN p.rotina a "
-			+ "WHERE p.perfil = :perfil";
+			+ "FROM PerfilRotina p LEFT JOIN p.perfilRotinaPk.rotina a "
+			+ "WHERE p.perfilRotinaPk.perfil = :perfil";
 
 	@Query(LISTAR_ROTINA_POR_PERFIL)
 	public List<Rotina> findByPerfil(@Param("perfil") Perfil perfil);

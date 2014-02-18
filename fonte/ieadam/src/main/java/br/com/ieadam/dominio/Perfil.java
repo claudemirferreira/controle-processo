@@ -1,10 +1,12 @@
 package br.com.ieadam.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,20 +17,23 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
- * The persistent class for the _perfil database table.
  * 
+ * @author altitdb
  */
 @Entity
-@Table(name = "saa_perfil")
-public class Perfil extends AbstractEntity implements Serializable {
-
-	private static final long serialVersionUID = -729781000696371926L;
+@Table( name = "saa_perfil" )
+public class Perfil  extends AbstractEntity implements Serializable {
 
 	@Id
-	@Column(name = "id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Long idPerfil;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioPerfilPk.perfil")
+	private List<UsuarioPerfil> usuarioPerfil = new ArrayList<UsuarioPerfil>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "perfilRotinaPk.rotina")
+	private List<PerfilRotina> perfilRotina = new ArrayList<PerfilRotina>();
+	
 	@Column(length = 30, nullable = false)
 	private String nome;
 
@@ -36,36 +41,49 @@ public class Perfil extends AbstractEntity implements Serializable {
 	private String imagem;
 
 	@ManyToOne
-	@JoinColumn(name = "sistema_id")
+	@JoinColumn(name = "id_sistema")
 	private Sistema sistema;
-
-	@OneToMany(mappedBy = "perfil")
-	private List<PerfilRotina> perfilRotinas;
-
-	@OneToMany(mappedBy = "perfil")
-	private List<UsuarioPerfil> usuarioPerfis;
-
+	
 	@Transient
 	private boolean checked;
 	
 	
-	public Perfil() {
+	@Override
+	public Long getId(){
+		return idPerfil;
 	}
 
-	public Long getId() {
-		return this.id;
+	public Long getIdPerfil() {
+		return idPerfil;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdPerfil(Long idPerfil) {
+		this.idPerfil = idPerfil;
+	}
+
+	public List<UsuarioPerfil> getUsuarioPerfil() {
+		return usuarioPerfil;
+	}
+
+	public void setUsuarioPerfil(List<UsuarioPerfil> usuarioPerfil) {
+		this.usuarioPerfil = usuarioPerfil;
 	}
 
 	public String getNome() {
-		return this.nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
 	public String getImagem() {
@@ -77,64 +95,19 @@ public class Perfil extends AbstractEntity implements Serializable {
 	}
 
 	public Sistema getSistema() {
-		return this.sistema;
+		return sistema;
 	}
 
 	public void setSistema(Sistema sistema) {
 		this.sistema = sistema;
 	}
 
-	public List<PerfilRotina> getPerfilRotinas() {
-		return this.perfilRotinas;
-	}
-
-	public void setPerfilRotinas(List<PerfilRotina> perfilRotinas) {
-		this.perfilRotinas = perfilRotinas;
-	}
-
-	public List<UsuarioPerfil> getUsuarioPerfis() {
-		return usuarioPerfis;
-	}
-
-	public PerfilRotina addPerfilRotina(PerfilRotina perfilRotina) {
-		getPerfilRotinas().add(perfilRotina);
-		perfilRotina.setPerfil(this);
-
+	public List<PerfilRotina> getPerfilRotina() {
 		return perfilRotina;
 	}
 
-	public PerfilRotina removePerfilRotina(PerfilRotina perfilRotina) {
-		getPerfilRotinas().remove(perfilRotina);
-		perfilRotina.setPerfil(null);
-
-		return perfilRotina;
-	}
-
-	public void setUsuarioPerfis(List<UsuarioPerfil> usuarioPerfis) {
-		this.usuarioPerfis = usuarioPerfis;
-	}
-
-	public UsuarioPerfil addUsuarioPerfil(UsuarioPerfil usuarioPerfil) {
-		getUsuarioPerfis().add(usuarioPerfil);
-		usuarioPerfil.setPerfil(this);
-
-		return usuarioPerfil;
-	}
-
-	public UsuarioPerfil removeUsuarioPerfil(UsuarioPerfil usuarioPerfil) {
-		getUsuarioPerfis().remove(usuarioPerfil);
-		usuarioPerfil.setPerfil(null);
-
-		return usuarioPerfil;
+	public void setPerfilRotina(List<PerfilRotina> perfilRotina) {
+		this.perfilRotina = perfilRotina;
 	}
 	
-
-	public boolean isChecked() {
-		return checked;
-	}
-
-	public void setChecked(boolean checked) {
-		this.checked = checked;
-	}
-
 }

@@ -20,7 +20,7 @@ public class RotinaRepositorioSqlImpl implements RotinaRepositorioSql {
 	public List<Rotina> listaRotinasPorPerfil(Long id) {
 		return entityManager
 				.createNativeQuery(
-						"SELECT i.* FROM saa_rotina i, saa_perfil_rotina b where i.id = b.rotina_id and perfil_id = " + id,
+						"SELECT i.* FROM saa_rotina i, saa_perfil_rotina b where i.id_rotina = b.id_rotina and id_perfil = " + id,
 						Rotina.class).getResultList();
 
 	}
