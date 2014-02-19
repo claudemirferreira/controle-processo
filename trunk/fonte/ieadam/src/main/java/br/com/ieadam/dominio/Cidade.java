@@ -5,23 +5,20 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import br.com.ieadam.dominio.enumerated.Situacao;
-
 @Entity
 @Table(name = "ieadam_cidade")
-public class Cidade implements Serializable{
+public class Cidade extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = 4441249403117836236L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long idCidade;
 
 	@Column(length = 60, nullable = false)
 	private String Nome;
@@ -34,12 +31,17 @@ public class Cidade implements Serializable{
 
 	private Date dataUltimaAtualizacao;
 
-	public int getId() {
-		return id;
+	@Override
+	public Long getId() {
+		return idCidade;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Long getIdCidade() {
+		return idCidade;
+	}
+
+	public void setIdCidade(Long idCidade) {
+		this.idCidade = idCidade;
 	}
 
 	public String getNome() {
@@ -73,5 +75,5 @@ public class Cidade implements Serializable{
 	public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao) {
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
-	
+
 }

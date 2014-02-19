@@ -5,35 +5,30 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.ieadam.dominio.enumerated.Situacao;
-
 @Entity
 @Table(name = "ieadam_nucleo")
-public class Nucleo implements Serializable{
+public class Nucleo extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = 1724329521623025890L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private int id;
+	private Long idNucleo;
 
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
 
-	@OneToOne
-	@JoinColumn(name="id", referencedColumnName="coordenador_id")
+	@ManyToOne
+	@JoinColumn(name = "id_coordenador", nullable = false)
 	private Membro coordenador;
 
 	@Column(length = 60, nullable = false)
@@ -43,15 +38,20 @@ public class Nucleo implements Serializable{
 	private Date dataUltimaAtualizacao;
 
 	@ManyToOne
-	@JoinColumn(name="zona_id", referencedColumnName="id", nullable = false)
+	@JoinColumn(name = "id_zona", nullable = false)
 	private Zona zona;
 
-	public int getId() {
-		return id;
+	@Override
+	public Long getId() {
+		return idNucleo;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Long getIdNucleo() {
+		return idNucleo;
+	}
+
+	public void setIdNucleo(Long idNucleo) {
+		this.idNucleo = idNucleo;
 	}
 
 	public String getSituacao() {
@@ -60,14 +60,6 @@ public class Nucleo implements Serializable{
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
-	}
-
-	public Membro getCoordenador() {
-		return coordenador;
-	}
-
-	public void setCoordenador(Membro coordenador) {
-		this.coordenador = coordenador;
 	}
 
 	public String getNome() {
@@ -92,5 +84,13 @@ public class Nucleo implements Serializable{
 
 	public void setZona(Zona zona) {
 		this.zona = zona;
+	}
+
+	public Membro getCoordenador() {
+		return coordenador;
+	}
+
+	public void setCoordenador(Membro coordenador) {
+		this.coordenador = coordenador;
 	}
 }

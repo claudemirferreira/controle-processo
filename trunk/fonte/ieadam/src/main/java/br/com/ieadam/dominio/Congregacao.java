@@ -2,7 +2,6 @@ package br.com.ieadam.dominio;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,31 +10,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "ieadam_congregacao")
-public class Congregacao implements Serializable {
+public class Congregacao extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = 7686113032375136921L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long idCongregacao;
 
-	@OneToMany
-	@JoinColumn(name = "congregacao_id", referencedColumnName = "id")
-	private Set<Membro> membros;
+	// @OneToMany
+	// @JoinColumn(name = "id_membro", referencedColumnName = "id_membro")
+	// private Set<Membro> membros;
 
 	@ManyToOne
-	@JoinColumn(name = "cidade_id", referencedColumnName = "id", unique = true)
+	@JoinColumn(name = "id_cidade")
 	private Cidade cidade;
 
 	@ManyToOne
-	@JoinColumn(name = "area_id", referencedColumnName = "id", unique = true)
+	@JoinColumn(name = "id_area", nullable = false)
 	private Area area;
 
 	@Column(length = 60, nullable = false)
@@ -65,22 +63,27 @@ public class Congregacao implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 
-	public int getId() {
-		return id;
+	@Override
+	public Long getId() {
+		return idCongregacao;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Long getIdCongregacao() {
+		return idCongregacao;
 	}
 
-	public Set<Membro> getMembros() {
-		return membros;
+	public void setIdCongregacao(Long idCongregacao) {
+		this.idCongregacao = idCongregacao;
 	}
 
-	public void setMembro(Set<Membro> membros) {
-		this.membros = membros;
-	}
-
+	// public Set<Membro> getMembros() {
+	// return membros;
+	// }
+	//
+	// public void setMembro(Set<Membro> membros) {
+	// this.membros = membros;
+	// }
+	//
 	public Cidade getCidade() {
 		return cidade;
 	}
@@ -89,10 +92,11 @@ public class Congregacao implements Serializable {
 		this.cidade = cidade;
 	}
 
-	public void setMembros(Set<Membro> membros) {
-		this.membros = membros;
-	}
-
+	//
+	// public void setMembros(Set<Membro> membros) {
+	// this.membros = membros;
+	// }
+	//
 	public Area getArea() {
 		return area;
 	}

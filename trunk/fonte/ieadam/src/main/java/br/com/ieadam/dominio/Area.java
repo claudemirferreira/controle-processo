@@ -12,27 +12,26 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "ieadam_area")
-public class Area implements Serializable{
+public class Area implements Serializable {
 
 	private static final long serialVersionUID = -6455533571538685292L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-
-	@OneToOne
-	@JoinColumn(name = "pastor_id", referencedColumnName = "id", unique = true)
-	private Membro pastor;
+	private Long idArea;
 
 	@ManyToOne
-	@JoinColumn(name = "nucleo_id", referencedColumnName = "id", unique = true)
+	@JoinColumn(name = "id_pastor", nullable = false)
+	private Pastor pastor;
+
+	@ManyToOne
+	@JoinColumn(name = "id_nucleo", nullable = false)
 	private Nucleo nucleo;
 
 	@Column(length = 60, nullable = false)
@@ -45,31 +44,19 @@ public class Area implements Serializable{
 	private Date dataUltimaAtualizacao;
 
 	@OneToMany
-	@JoinColumn(name="area_id", referencedColumnName = "id")
+	@JoinColumn(name = "id_area")
 	private List<Congregacao> congregacoes;
 
-	public int getId() {
-		return id;
+	public Long getId() {
+		return idArea;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Long getIdArea() {
+		return idArea;
 	}
 
-	public Membro getPastor() {
-		return pastor;
-	}
-
-	public void setPastor(Membro pastor) {
-		this.pastor = pastor;
-	}
-
-	public Nucleo getNucleo() {
-		return nucleo;
-	}
-
-	public void setNucleo(Nucleo nucleo) {
-		this.nucleo = nucleo;
+	public void setIdArea(Long idArea) {
+		this.idArea = idArea;
 	}
 
 	public String getNome() {
@@ -103,4 +90,21 @@ public class Area implements Serializable{
 	public void setCongregacoes(List<Congregacao> congregacoes) {
 		this.congregacoes = congregacoes;
 	}
+
+	public Nucleo getNucleo() {
+		return nucleo;
+	}
+
+	public void setNucleo(Nucleo nucleo) {
+		this.nucleo = nucleo;
+	}
+
+	public Pastor getPastor() {
+		return pastor;
+	}
+
+	public void setPastor(Pastor pastor) {
+		this.pastor = pastor;
+	}
+
 }
