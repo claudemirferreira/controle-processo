@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,21 +21,21 @@ import javax.persistence.Transient;
  * @author altitdb
  */
 @Entity
-@Table( name = "saa_perfil" )
-public class Perfil  extends AbstractEntity implements Serializable {
+@Table(name = "saa_perfil")
+public class Perfil extends AbstractEntity implements Serializable {
+
+	private static final long serialVersionUID = 7371241296081749393L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idPerfil;
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioPerfilPk.perfil")
-	@OneToMany( cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }, 
-			fetch = FetchType.LAZY, mappedBy = "perfil" )
-    private List<UsuarioPerfil> usuarioPerfil = new ArrayList<UsuarioPerfil>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioPerfilPk.perfil")
+	private List<UsuarioPerfil> usuarioPerfil = new ArrayList<UsuarioPerfil>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "perfilRotinaPk.rotina")
 	private List<PerfilRotina> perfilRotina = new ArrayList<PerfilRotina>();
-	
+
 	@Column(length = 30, nullable = false)
 	private String nome;
 
@@ -46,13 +45,12 @@ public class Perfil  extends AbstractEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_sistema")
 	private Sistema sistema;
-	
+
 	@Transient
 	private boolean checked;
-	
-	
+
 	@Override
-	public Long getId(){
+	public Long getId() {
 		return idPerfil;
 	}
 
@@ -79,8 +77,7 @@ public class Perfil  extends AbstractEntity implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
+
 	public boolean isChecked() {
 		return checked;
 	}
@@ -112,5 +109,5 @@ public class Perfil  extends AbstractEntity implements Serializable {
 	public void setPerfilRotina(List<PerfilRotina> perfilRotina) {
 		this.perfilRotina = perfilRotina;
 	}
-	
+
 }
