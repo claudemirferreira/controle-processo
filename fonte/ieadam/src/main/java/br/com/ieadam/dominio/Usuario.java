@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,7 +29,9 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idUsuario;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuarioPerfilPk.usuario")
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuarioPerfilPk.usuario")
+	@OneToMany( cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }, 
+			fetch = FetchType.LAZY, mappedBy = "usuario" )
 	private List<UsuarioPerfil> usuarioPerfil = new ArrayList<UsuarioPerfil>();
 
 	@Column(nullable = false, length = 30)
@@ -50,7 +53,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@Transient
 	public UsuarioPerfil getUsuarioPerfilByPerfil(Perfil perfil) {
 		for (UsuarioPerfil up : usuarioPerfil) {
-			if (up.getUsuarioPerfilPk().getPerfil().equals(perfil)) {
+			if (up.getPerfil().equals(perfil)) {
 				return up;
 			}
 		}

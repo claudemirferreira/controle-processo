@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import br.com.ieadam.dominio.Usuario;
 
-public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
+public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
 
 	@Query("select u from Usuario u where u.login = :login")
 	public Usuario findByLogin(@Param("login") String login);

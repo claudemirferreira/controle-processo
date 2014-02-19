@@ -1,5 +1,6 @@
 package br.com.ieadam;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,22 @@ public class UsuarioRepositoryTest {
 	@Autowired
 	UsuarioRepositorio repository;
 	
+	@Test
+	public void testInsert() {
+		Usuario usuario = new Usuario();
+		usuario.setLogin("teste");
+		usuario.setSenha("teste");
+		usuario.setNome("TESTE");
+		usuario.setStatus("A");
+
+		repository.saveAndFlush(usuario);
+		
+	}
+	
+	/**
+	 * 
+	 */
+	@Ignore
 	@Test
 	public void test() {
 //		Usuario usuario = new Usuario();
@@ -41,7 +58,7 @@ public class UsuarioRepositoryTest {
 //
 //		usuario.setPerfis(list);
 		
-		Usuario u = repository.findOne(16);
+		Usuario u = repository.findOne(16L);
 		
 		NivelPastoral nivel = new NivelPastoral();
 		nivel.setId(5);
