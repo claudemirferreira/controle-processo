@@ -7,6 +7,6 @@ import br.com.ieadam.dominio.UsuarioPerfil;
 
 @Repository
 public interface UsuarioPerfilRepositorio extends
-		JpaRepository<UsuarioPerfil, Integer> {
+		JpaRepository<UsuarioPerfil, Long> {
 
 }
