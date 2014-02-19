@@ -78,7 +78,7 @@ public class RotinaControlador implements Serializable {
 	public void telaRotinas(Perfil perfil) {
 		this.perfil = perfil;
 		this.lista = servico.listaRotinasPorPerfil(perfil.getId());
-		this.colunas = 3; // Util.definirTamanhoColuna(rotinas.size());
+		this.colunas = 4; // Util.definirTamanhoColuna(rotinas.size());
 		
 		this.paginaCentralControladorBean
 				.setPaginaCentral(this.TELA_LISTA_ROTINAS);
@@ -115,6 +115,14 @@ public class RotinaControlador implements Serializable {
 
 	public void setPesquisa(Rotina pesquisa) {
 		this.pesquisa = pesquisa;
+	}
+
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 
 	public List<Rotina> getLista() {
