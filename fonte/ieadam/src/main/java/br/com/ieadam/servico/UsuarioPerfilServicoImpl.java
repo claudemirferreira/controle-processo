@@ -21,13 +21,13 @@ public class UsuarioPerfilServicoImpl implements UsuarioPerfilServico {
 	}
 
 	@Override
-	public UsuarioPerfil salvar(UsuarioPerfil usuario) {
-		return this.repositorio.save(usuario);
+	public UsuarioPerfil salvar(UsuarioPerfil usuarioPerfil) {
+		return this.repositorio.save(usuarioPerfil);
 	}
 
 	@Override
-	public void remover(UsuarioPerfil usuario) {
-		this.repositorio.delete(usuario);
+	public void remover(UsuarioPerfil usuarioPerfil) {
+		this.repositorio.delete(usuarioPerfil);
 
 	}
 }
