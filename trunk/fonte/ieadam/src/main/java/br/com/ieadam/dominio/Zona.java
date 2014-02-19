@@ -5,53 +5,55 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.ieadam.dominio.enumerated.Situacao;
-
 @Entity
-@Table(name="ieadam_zona")
-public class Zona implements Serializable{
+@Table(name = "ieadam_zona")
+public class Zona extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -6148396536721220451L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long idZona;
+
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
-	
-	@Column(nullable = false, length=60)
+
+	@Column(nullable = false, length = 60)
 	private String nome;
-	
+
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
-	
-	@OneToOne
-	@JoinColumn(name="primeiro_resp_id", referencedColumnName="id")
-	private Membro primeiroResponsavel;
-	
-	@OneToOne
-	@JoinColumn(name="segundo_resp_id", referencedColumnName="id")
-	private Membro segundoResponsavel;
-	
+
+//	@ManyToOne
+//	 @JoinColumn(name = "id_primeiro_resp")
+//	 private Pastor primeiroResponsavel;
+	//
+	// @OneToOne
+	// @JoinColumn(name = "id_segundo_resp", referencedColumnName = "id_pastor")
+	// private Pastor segundoResponsavel;
+
 	private int cd_ZonaArgo;
 
-	public int getId() {
-		return id;
+	@Override
+	public Long getId() {
+		return idZona;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Long getIdZona() {
+		return idZona;
+	}
+
+	public void setIdZona(Long idZona) {
+		this.idZona = idZona;
 	}
 
 	public Date getDataUltimaAtualizacao() {
@@ -78,21 +80,21 @@ public class Zona implements Serializable{
 		this.situacao = situacao;
 	}
 
-	public Membro getPrimeiroResponsavel() {
-		return primeiroResponsavel;
-	}
-
-	public void setPrimeiroResponsavel(Membro primeiroResponsavel) {
-		this.primeiroResponsavel = primeiroResponsavel;
-	}
-
-	public Membro getSegundoResponsavel() {
-		return segundoResponsavel;
-	}
-
-	public void setSegundoResponsavel(Membro segundoResponsavel) {
-		this.segundoResponsavel = segundoResponsavel;
-	}
+	// public Pastor getPrimeiroResponsavel() {
+	// return primeiroResponsavel;
+	// }
+	//
+	// public void setPrimeiroResponsavel(Pastor primeiroResponsavel) {
+	// this.primeiroResponsavel = primeiroResponsavel;
+	// }
+	//
+	// public Pastor getSegundoResponsavel() {
+	// return segundoResponsavel;
+	// }
+	//
+	// public void setSegundoResponsavel(Pastor segundoResponsavel) {
+	// this.segundoResponsavel = segundoResponsavel;
+	// }
 
 	public int getCd_ZonaArgo() {
 		return cd_ZonaArgo;
