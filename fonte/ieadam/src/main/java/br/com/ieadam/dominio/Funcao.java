@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,17 +12,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.ieadam.dominio.enumerated.Situacao;
-
 @Entity
 @Table(name = "ieadam_funcao")
-public class Funcao implements Serializable{
+public class Funcao extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -4234806507925687300L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long idFuncao;
 
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
@@ -34,12 +31,17 @@ public class Funcao implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
 
-	public int getId() {
-		return id;
+	@Override
+	public Long getId() {
+		return idFuncao;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Long getIdFuncao() {
+		return idFuncao;
+	}
+
+	public void setIdFuncao(Long idFuncao) {
+		this.idFuncao = idFuncao;
 	}
 
 	public String getSituacao() {

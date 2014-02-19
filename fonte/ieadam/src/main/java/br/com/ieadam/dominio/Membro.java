@@ -3,37 +3,26 @@ package br.com.ieadam.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "ieadam_membro")
-public class Membro implements Serializable {
+public class Membro extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -3975677754400788911L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-
-	@OneToOne
-	@JoinColumn(name = "funcao_id", referencedColumnName = "id")
-	private Funcao funcao;
-
-	@ManyToOne
-	@JoinColumn(name = "congregacao_id", referencedColumnName = "id")
-	private Congregacao congregacao;
+	private Long idMembro;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
@@ -69,7 +58,15 @@ public class Membro implements Serializable {
 	private String fatorRH;
 
 	@ManyToOne
-	@JoinColumn(name = "cidade_id", referencedColumnName = "id")
+	@JoinColumn(name = "id_funcao", nullable = false)
+	private Funcao funcao;
+
+	@ManyToOne
+	@JoinColumn(name = "id_congregacao", nullable = false)
+	private Congregacao congregacao;
+
+	@ManyToOne
+	@JoinColumn(name = "id_cidade", nullable = false)
 	private Cidade cidade;
 
 	@Column(length = 2, nullable = false)
@@ -129,12 +126,17 @@ public class Membro implements Serializable {
 	@Column(length = 60)
 	private String formacaoTeologico;
 
-	public int getId() {
-		return id;
+	@Override
+	public Long getId() {
+		return idMembro;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Long getIdMembro() {
+		return idMembro;
+	}
+
+	public void setId(Long idMembro) {
+		this.idMembro = idMembro;
 	}
 
 	public Funcao getFuncao() {
