@@ -11,7 +11,7 @@ import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Sistema;
 
 @Repository
-public interface PerfilRepositorio extends JpaRepository<Perfil, Integer> {
+public interface PerfilRepositorio extends JpaRepository<Perfil, Long> {
 
 	@Query("select r from Perfil r where r.nome like :nome")
 	public List<Perfil> findByNomeLike(@Param("nome") String nome);

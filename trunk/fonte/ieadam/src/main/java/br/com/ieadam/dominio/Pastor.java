@@ -25,11 +25,11 @@ public class Pastor extends AbstractEntity implements Serializable {
 	private String nome;
 
 	@OneToOne
-	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
 	// @OneToOne
-	// @JoinColumn(name = "membro_id", referencedColumnName = "id")
+	// @JoinColumn(name = "membro_id")
 	// private Membro membro;
 
 	public Long getId() {

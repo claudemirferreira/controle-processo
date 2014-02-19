@@ -69,7 +69,7 @@ public class UsuarioPerfilControlador {
 			if (!usuario.containsPerfil(perfil)) {
 				if (perfil.isChecked()) {
 					usuario.getUsuarioPerfil().add(createUsuarioPerfil(perfil));
-				} else if ( usuarioPerfil != null && usuarioPerfil.getUsuarioPerfilPk() != null ) {
+				} else if ( usuarioPerfil != null ) {
 						usuarioPerfilServico.remover(usuarioPerfil);
 						usuario.getUsuarioPerfil().remove(usuarioPerfil);
 				}
