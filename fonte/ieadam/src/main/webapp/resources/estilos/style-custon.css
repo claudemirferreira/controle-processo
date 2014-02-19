@@ -867,9 +867,10 @@ body .ui-tooltip {
 }
 .ui-widget-header {
 	border: 1px solid #aaaaaa;
-	background: #ea654a url(images/ui-bg_highlight-soft_75_ea654a_1x100.png) 50% 50% repeat-x;
-	color: #222222;
-	font-weight: bold;
+	background: #8B0000;
+/* 	color: #222222; */
+	color: #FFD700;
+	font-weight: normal;
 }
 .ui-widget-header a {
 	color: #222222;

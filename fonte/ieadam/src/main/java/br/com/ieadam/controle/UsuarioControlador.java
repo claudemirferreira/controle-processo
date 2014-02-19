@@ -159,7 +159,7 @@ public class UsuarioControlador {
 			this.usuario = (Usuario) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
 
-			this.colunas = 3;
+			this.colunas = 4;
 			// Util .definirTamanhoColuna(usuario.getPerfis().size());
 
 			return "/index.xhtml?faces-redirect=true";
