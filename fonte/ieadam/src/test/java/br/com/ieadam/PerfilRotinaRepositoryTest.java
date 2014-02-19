@@ -1,5 +1,6 @@
 package br.com.ieadam;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import br.com.ieadam.repositorio.PerfilRotinaRepositorio;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
 // @ContextConfiguration(locations="classpath:META-INF/test-context.xml")
+@Ignore
 public class PerfilRotinaRepositoryTest {
 
 	@Autowired
