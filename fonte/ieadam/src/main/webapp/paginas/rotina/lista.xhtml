@@ -12,17 +12,18 @@
 		<p:panel header="MÓDULO DE #{rotinaControlador.perfil.nome}">
 			<p:dataGrid id="rotinaousel" value="#{rotinaControlador.lista}"
 				var="rotina" headerText="Administrativo" columns="3"
-				style="width:100%; height:100%; border: 0px solid #a8a8a8;" >
+				style="width:100%; height:100%; border: 0px solid #a8a8a8;">
 				<div align="center">
-					<h:panelGrid id="panelRelatorio" style="border: 0px solid #a8a8a8;" title="Teste">
+					<h:panelGrid id="panelRelatorio" style="border: 0px solid #a8a8a8;"
+						title="Teste">
 						<h:commandLink
 							actionListener="#{pageController.parseUrl(rotina.acao)}"
 							title="#{rotina.nome}" update=":form">
-							<p:graphicImage value="#{rotina.imagem}" width="100%"/>
+							<p:graphicImage value="#{rotina.imagem}" width="100%" />
 						</h:commandLink>
 
-<!-- 						<p:outputLabel value="#{rotina.nome}" -->
-<!-- 							styleClass="ui-priority-primary" /> -->
+						<p:outputLabel value="#{rotina.nome}"
+							styleClass="ui-priority-primary" />
 
 					</h:panelGrid>
 				</div>
