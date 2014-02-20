@@ -16,7 +16,7 @@ import br.com.ieadam.repositorio.UsuarioPerfilRepositorio;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
 // @ContextConfiguration(locations="classpath:META-INF/test-context.xml")
-@Ignore
+//@Ignore
 public class UsuarioPerfilRepositoryTest {
 
 	@Autowired
@@ -25,7 +25,7 @@ public class UsuarioPerfilRepositoryTest {
 	@Test
 	public void test() {
 		Perfil p = new Perfil();
-		p.setIdPerfil(1l);
+		p.setIdPerfil(4l);
 		
 		Usuario u = new Usuario();
 		u.setIdUsuario(1l);
@@ -37,7 +37,7 @@ public class UsuarioPerfilRepositoryTest {
 		UsuarioPerfil up = new UsuarioPerfil();
 		up.setUsuarioPerfilPk(upk);
 		
-		repository.delete(up);
+		repository.save(up);
 		
 		
 	}
