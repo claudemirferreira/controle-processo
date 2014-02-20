@@ -23,6 +23,9 @@ import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
+import br.com.ieadam.servico.AreaServico;
+import br.com.ieadam.servico.NucleoServico;
+import br.com.ieadam.servico.ZonaServico;
 
 @ManagedBean
 @SessionScoped
@@ -37,6 +40,15 @@ public class RelatorioDebitoPastoral implements Serializable {
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
 
+	@ManagedProperty(value = "#{zonaServicoImpl}")
+	private ZonaServico zonaServico;
+
+	@ManagedProperty(value = "#{areaServicoImpl}")
+	private AreaServico areaServico;
+
+	@ManagedProperty(value = "#{nucleoServicoImpl}")
+	private NucleoServico nucleoServico;
+
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
@@ -46,6 +58,10 @@ public class RelatorioDebitoPastoral implements Serializable {
 				.setUsuarioLogado((Usuario) SecurityContextHolder.getContext()
 						.getAuthentication().getPrincipal());
 
+		this.filtroRelatorioDTO.setAreas(areaServico.listarTodos());
+		this.filtroRelatorioDTO.setZonas(zonaServico.listarTodos());
+		this.filtroRelatorioDTO.setNucleos(nucleoServico.listarTodos());
+
 		this.parametro = new Parametro();
 
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
@@ -53,7 +69,7 @@ public class RelatorioDebitoPastoral implements Serializable {
 
 		this.paginaCentralControladorBean
 				.setPaginaCentral("paginas/relatorio/debitopastoral.xhtml");
-		
+
 	}
 
 	public void redirecionarModuloPrincipalSecretaria() {
@@ -113,5 +129,29 @@ public class RelatorioDebitoPastoral implements Serializable {
 	public void setPaginaCentralControladorBean(
 			PaginaCentralControladorBean paginaCentralControladorBean) {
 		this.paginaCentralControladorBean = paginaCentralControladorBean;
+	}
+
+	public ZonaServico getZonaServico() {
+		return zonaServico;
+	}
+
+	public void setZonaServico(ZonaServico zonaServico) {
+		this.zonaServico = zonaServico;
+	}
+
+	public AreaServico getAreaServico() {
+		return areaServico;
+	}
+
+	public void setAreaServico(AreaServico areaServico) {
+		this.areaServico = areaServico;
+	}
+
+	public NucleoServico getNucleoServico() {
+		return nucleoServico;
+	}
+
+	public void setNucleoServico(NucleoServico nucleoServico) {
+		this.nucleoServico = nucleoServico;
 	}
 }

@@ -23,6 +23,12 @@ public class Pastor extends AbstractEntity implements Serializable {
 
 	@Column(nullable = false, length = 60)
 	private String nome;
+	
+	private Boolean zona;
+	
+	private Boolean area;
+	
+	private Boolean nucleo;
 
 	@OneToOne
 	@JoinColumn(name = "id_usuario")
@@ -67,6 +73,30 @@ public class Pastor extends AbstractEntity implements Serializable {
 
 	public void setMembro(Membro membro) {
 		this.membro = membro;
+	}
+
+	public Boolean getZona() {
+		return zona;
+	}
+
+	public void setZona(Boolean zona) {
+		this.zona = zona;
+	}
+
+	public Boolean getArea() {
+		return area;
+	}
+
+	public void setArea(Boolean area) {
+		this.area = area;
+	}
+
+	public Boolean getNucleo() {
+		return nucleo;
+	}
+
+	public void setNucleo(Boolean nucleo) {
+		this.nucleo = nucleo;
 	}
 
 }
