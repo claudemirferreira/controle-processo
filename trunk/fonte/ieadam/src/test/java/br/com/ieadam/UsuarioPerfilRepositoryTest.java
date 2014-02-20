@@ -1,6 +1,7 @@
 package br.com.ieadam;
 
-import org.junit.Ignore;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,34 +12,38 @@ import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.UsuarioPerfil;
 import br.com.ieadam.dominio.UsuarioPerfilPk;
-import br.com.ieadam.repositorio.UsuarioPerfilRepositorio;
+import br.com.ieadam.repositorio.UsuarioPerfilRepositorioSql;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
 // @ContextConfiguration(locations="classpath:META-INF/test-context.xml")
-//@Ignore
+// @Ignore
 public class UsuarioPerfilRepositoryTest {
 
 	@Autowired
-	UsuarioPerfilRepositorio repository;
+	UsuarioPerfilRepositorioSql repository;
 
 	@Test
 	public void test() {
 		Perfil p = new Perfil();
-		p.setIdPerfil(4l);
-		
+		p.setIdPerfil(1l);
+
 		Usuario u = new Usuario();
 		u.setIdUsuario(1l);
-		
+
 		UsuarioPerfilPk upk = new UsuarioPerfilPk();
 		upk.setPerfil(p);
 		upk.setUsuario(u);
-		
+
 		UsuarioPerfil up = new UsuarioPerfil();
 		up.setUsuarioPerfilPk(upk);
-		
-		repository.save(up);
-		
-		
+
+		List<Perfil> lista = repository.listaPerfilNotInUsuario(u.getIdUsuario());
+		for (Perfil usuarioPerfil : lista) {
+
+			System.out.println(usuarioPerfil.getNome());
+
+		}
+
 	}
 }
