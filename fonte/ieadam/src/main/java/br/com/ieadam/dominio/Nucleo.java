@@ -28,9 +28,9 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	private String situacao;
 
 	@ManyToOne
-	@JoinColumn(name = "id_coordenador", nullable = false)
-	private Membro coordenador;
-
+	@JoinColumn(name = "id_membro", nullable = false)
+	private Membro membro;
+	
 	@Column(length = 60, nullable = false)
 	private String nome;
 
@@ -86,11 +86,11 @@ public class Nucleo extends AbstractEntity implements Serializable {
 		this.zona = zona;
 	}
 
-	public Membro getCoordenador() {
-		return coordenador;
+	public Membro getMembro() {
+		return membro;
 	}
 
-	public void setCoordenador(Membro coordenador) {
-		this.coordenador = coordenador;
+	public void setMembro(Membro membro) {
+		this.membro = membro;
 	}
 }

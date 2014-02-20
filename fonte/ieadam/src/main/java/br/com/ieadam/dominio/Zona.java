@@ -33,13 +33,9 @@ public class Zona extends AbstractEntity implements Serializable {
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
 
-//	@ManyToOne
-//	 @JoinColumn(name = "id_primeiro_resp")
-//	 private Pastor primeiroResponsavel;
-	//
-	// @OneToOne
-	// @JoinColumn(name = "id_segundo_resp", referencedColumnName = "id_pastor")
-	// private Pastor segundoResponsavel;
+	@ManyToOne
+	@JoinColumn(name = "id_membro", nullable = false)
+	private Membro membro;
 
 	private int cd_ZonaArgo;
 
@@ -80,27 +76,19 @@ public class Zona extends AbstractEntity implements Serializable {
 		this.situacao = situacao;
 	}
 
-	// public Pastor getPrimeiroResponsavel() {
-	// return primeiroResponsavel;
-	// }
-	//
-	// public void setPrimeiroResponsavel(Pastor primeiroResponsavel) {
-	// this.primeiroResponsavel = primeiroResponsavel;
-	// }
-	//
-	// public Pastor getSegundoResponsavel() {
-	// return segundoResponsavel;
-	// }
-	//
-	// public void setSegundoResponsavel(Pastor segundoResponsavel) {
-	// this.segundoResponsavel = segundoResponsavel;
-	// }
-
 	public int getCd_ZonaArgo() {
 		return cd_ZonaArgo;
 	}
 
 	public void setCd_ZonaArgo(int cd_ZonaArgo) {
 		this.cd_ZonaArgo = cd_ZonaArgo;
+	}
+
+	public Membro getMembro() {
+		return membro;
+	}
+
+	public void setMembro(Membro membro) {
+		this.membro = membro;
 	}
 }

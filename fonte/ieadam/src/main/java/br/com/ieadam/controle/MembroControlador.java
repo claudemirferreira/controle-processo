@@ -9,13 +9,11 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import br.com.ieadam.dominio.Cidade;
 import br.com.ieadam.dominio.Congregacao;
 import br.com.ieadam.dominio.Membro;
 import br.com.ieadam.dominio.enumerated.FatorRH;
 import br.com.ieadam.dominio.enumerated.Sexo;
 import br.com.ieadam.dominio.enumerated.Situacao;
-import br.com.ieadam.servico.CidadeServico;
 import br.com.ieadam.servico.CongregacaoServico;
 import br.com.ieadam.servico.MembroServico;
 
@@ -31,11 +29,7 @@ public class MembroControlador implements Serializable {
 
 	private Congregacao congregacao;
 
-	private Cidade cidade;
-
 	private List<Congregacao> congregacoes;
-
-	private List<Cidade> cidades;
 
 	private List<Membro> lista;
 
@@ -44,9 +38,6 @@ public class MembroControlador implements Serializable {
 
 	@ManagedProperty(value = "#{congregacaoServicoImpl}")
 	private CongregacaoServico congregacaoServico;
-
-	@ManagedProperty(value = "#{cidadeServicoImpl}")
-	private CidadeServico cidadeServico;
 
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
@@ -57,20 +48,18 @@ public class MembroControlador implements Serializable {
 	public void init() {
 		this.lista = servico.listarTodos();
 		this.congregacoes = congregacaoServico.listarTodos();
-		this.cidades = cidadeServico.listarTodos();
-		
+
 		this.telaPesquisa();
-		
+
 	}
-	
+
 	public MembroControlador() {
 		this.entidade = new Membro();
 		this.pesquisa = new Membro();
 		this.congregacao = new Congregacao();
-		this.cidade = new Cidade();
-		
+
 		this.telaPesquisa();
-		
+
 	}
 
 	public void pesquisar() {
@@ -80,8 +69,6 @@ public class MembroControlador implements Serializable {
 	public void detalhe(Membro membro) {
 
 		this.congregacoes = congregacaoServico.listarTodos();
-		this.cidades = cidadeServico.listarTodos();
-
 		this.entidade = membro;
 		telaCadastro();
 
@@ -102,10 +89,8 @@ public class MembroControlador implements Serializable {
 	public void novo() {
 		this.entidade = new Membro();
 		this.congregacao = new Congregacao();
-		this.cidade = new Cidade();
 
 		this.congregacoes = congregacaoServico.listarTodos();
-		this.cidades = cidadeServico.listarTodos();
 		this.telaCadastro();
 
 	}
@@ -206,30 +191,6 @@ public class MembroControlador implements Serializable {
 	public void setPaginaCentralControladorBean(
 			PaginaCentralControladorBean paginaCentralControladorBean) {
 		this.paginaCentralControladorBean = paginaCentralControladorBean;
-	}
-
-	public Cidade getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
-	}
-
-	public List<Cidade> getCidades() {
-		return cidades;
-	}
-
-	public void setCidades(List<Cidade> cidades) {
-		this.cidades = cidades;
-	}
-
-	public CidadeServico getCidadeServico() {
-		return cidadeServico;
-	}
-
-	public void setCidadeServico(CidadeServico cidadeServico) {
-		this.cidadeServico = cidadeServico;
 	}
 
 }

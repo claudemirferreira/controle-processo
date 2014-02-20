@@ -24,13 +24,7 @@ public class Congregacao extends AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idCongregacao;
 
-	// @OneToMany
-	// @JoinColumn(name = "id_membro", referencedColumnName = "id_membro")
-	// private Set<Membro> membros;
-
-	@ManyToOne
-	@JoinColumn(name = "id_cidade")
-	private Cidade cidade;
+	private String cidade;
 
 	@ManyToOne
 	@JoinColumn(name = "id_area", nullable = false)
@@ -76,27 +70,14 @@ public class Congregacao extends AbstractEntity implements Serializable {
 		this.idCongregacao = idCongregacao;
 	}
 
-	// public Set<Membro> getMembros() {
-	// return membros;
-	// }
-	//
-	// public void setMembro(Set<Membro> membros) {
-	// this.membros = membros;
-	// }
-	//
-	public Cidade getCidade() {
+	public String getCidade() {
 		return cidade;
 	}
 
-	public void setCidade(Cidade cidade) {
+	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
 
-	//
-	// public void setMembros(Set<Membro> membros) {
-	// this.membros = membros;
-	// }
-	//
 	public Area getArea() {
 		return area;
 	}

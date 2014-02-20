@@ -65,9 +65,7 @@ public class Membro extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_congregacao", nullable = false)
 	private Congregacao congregacao;
 
-	@ManyToOne
-	@JoinColumn(name = "id_cidade", nullable = false)
-	private Cidade cidade;
+	private String cidade;
 
 	@Column(length = 2, nullable = false)
 	private String uf;
@@ -227,11 +225,11 @@ public class Membro extends AbstractEntity implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public Cidade getCidade() {
+	public String getCidade() {
 		return cidade;
 	}
 
-	public void setCidade(Cidade cidade) {
+	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
 
