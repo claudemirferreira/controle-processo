@@ -19,7 +19,7 @@ public class Pastor extends AbstractEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Long idPastor;
 
 	@Column(nullable = false, length = 60)
 	private String nome;
@@ -28,16 +28,21 @@ public class Pastor extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
-	// @OneToOne
-	// @JoinColumn(name = "membro_id")
-	// private Membro membro;
+	@OneToOne
+	@JoinColumn(name = "id_membro")
+	private Membro membro;
 
+	@Override
 	public Long getId() {
-		return id;
+		return idPastor;
+	}
+	
+	public Long getIdPastor() {
+		return idPastor;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdPastor(Long idPastor) {
+		this.idPastor = idPastor;
 	}
 
 	public String getNome() {
@@ -56,6 +61,12 @@ public class Pastor extends AbstractEntity implements Serializable {
 		this.usuario = usuario;
 	}
 
-	
+	public Membro getMembro() {
+		return membro;
+	}
+
+	public void setMembro(Membro membro) {
+		this.membro = membro;
+	}
 
 }

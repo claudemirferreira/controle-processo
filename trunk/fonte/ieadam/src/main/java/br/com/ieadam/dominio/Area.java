@@ -27,8 +27,8 @@ public class Area implements Serializable {
 	private Long idArea;
 
 	@ManyToOne
-	@JoinColumn(name = "id_pastor", nullable = false)
-	private Pastor pastor;
+	@JoinColumn(name = "id_membro", nullable = false)
+	private Membro membro;
 
 	@ManyToOne
 	@JoinColumn(name = "id_nucleo", nullable = false)
@@ -99,12 +99,12 @@ public class Area implements Serializable {
 		this.nucleo = nucleo;
 	}
 
-	public Pastor getPastor() {
-		return pastor;
+	public Membro getMembro() {
+		return membro;
 	}
 
-	public void setPastor(Pastor pastor) {
-		this.pastor = pastor;
+	public void setMembro(Membro membro) {
+		this.membro = membro;
 	}
 
 }
