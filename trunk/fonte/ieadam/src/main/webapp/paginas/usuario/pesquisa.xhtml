@@ -62,6 +62,13 @@
 					styleClass="ui-priority-primary" icon="ui-icon-pencil"
 					update=":form" title="Detalhe" />
 					
+					
+				<p:commandButton id="modalDialogButton" 
+						value="Modal" 
+						onclick="PF('dlg2').show();" 
+						type="button"/>  
+				
+					
 				<p:commandButton ajax="false" value="Perfil"
 					action="#{usuarioPerfilControlador.manterUsuario(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-trash"
@@ -82,5 +89,44 @@
 		</p:dataTable>
 
 	</h:form>
+
+	<p:dialog id="basicDialog" header="Basic Dialog" widgetVar="dlg2">
+
+		<h:outputText value="Perfil..." />
+
+		<h:form>
+
+			<p:growl id="msg" showDetail="true" escape="false" />
+
+			<h3 style="margin-top: 0">Basic PickList</h3>
+
+			<p:pickList id="plUsuPerf" 
+						value="#{usuarioPerfilControlador.dualListPerfil}" 
+						var="up"
+						effect="bounce"
+						itemLabel="#{up.perfil.nome}" 
+						itemValue="#{up.perfil}"
+						showSourceControls="true" 
+						showTargetControls="true" 
+						showCheckbox="true"  
+                    	showSourceFilter="true" 
+                    	showTargetFilter="true" >
+                    	
+                <f:facet name="sourceCaption">Disponíveis</f:facet>  
+        		<f:facet name="targetCaption">Atribuídos</f:facet>  
+                    	
+		        <p:ajax event="transfer" listener="#{UsuarioPerfilControlador.onTransfer}" update="msg" />  
+        
+        		 <p:column style="width:75%;">  
+		            #{up.perfil.nome}  
+		        </p:column>  
+        
+        
+             </p:pickList>
+
+		</h:form>
+
+
+	</p:dialog>
 
 </ui:component>
