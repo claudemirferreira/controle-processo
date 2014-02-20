@@ -4,9 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.event.TransferEvent;
+import org.primefaces.model.DualListModel;
 
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Usuario;
@@ -33,18 +38,46 @@ public class UsuarioPerfilControlador {
 
 	@ManagedProperty(value = "#{usuarioPerfilServicoImpl}")
 	private UsuarioPerfilServico usuarioPerfilServico;
-	
+
 	private List<Perfil> listaPerfis;
 	
 	private Usuario usuario;
 
-	
+    private DualListModel<UsuarioPerfil> dualListPerfil;  
+    
+
+	private List<UsuarioPerfil> listaUsuPerfilNotInUsuario;
+  
 	@PostConstruct
 	public void init() {
 		this.listaPerfis = perfilServico.listarTodos();
+		
+		listaUsuPerfilNotInUsuario = usuarioPerfilServico.listarTodos();
+//				usuarioPerfilServico.listaPerfisDiferentesUsuario(usuario); // TODO
+		
+		usuario = usuarioServico.findByLogin("admin");	// TODO
+		
+		dualListPerfil = new DualListModel<UsuarioPerfil>(listaUsuPerfilNotInUsuario, usuario.getUsuarioPerfil());
+		
 	}
 	
 
+	public void onTransfer(TransferEvent event) {  
+		
+		// TODO
+		
+		FacesMessage msg = new FacesMessage();  
+        msg.setSeverity(FacesMessage.SEVERITY_INFO);  
+        msg.setSummary("Items Transferred");  
+        msg.setDetail(">>>>");  
+          
+        FacesContext.getCurrentInstance().addMessage(null, msg);  
+		
+		
+	}
+	
+	
+	
 	public void manterUsuario(Usuario usuario) {
 		this.usuario = usuario;
 		
@@ -140,4 +173,11 @@ public class UsuarioPerfilControlador {
 		this.usuarioPerfilServico = usuarioPerfilServico;
 	}
 
+    public DualListModel<UsuarioPerfil> getDualListPerfil() {
+		return dualListPerfil;
+	}
+
+	public void setDualListPerfil(DualListModel<UsuarioPerfil> dualListPerfil) {
+		this.dualListPerfil = dualListPerfil;
+	}
 }
