@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.UsuarioPerfil;
 import br.com.ieadam.repositorio.UsuarioPerfilRepositorio;
+import br.com.ieadam.repositorio.UsuarioPerfilRepositorioSql;
 
 @Service
 public class UsuarioPerfilServicoImpl implements UsuarioPerfilServico {
@@ -14,6 +16,8 @@ public class UsuarioPerfilServicoImpl implements UsuarioPerfilServico {
 	@Autowired
 	private UsuarioPerfilRepositorio repositorio;
 
+	@Autowired
+	private UsuarioPerfilRepositorioSql repositorioSql;
 
 	@Override
 	public List<UsuarioPerfil> listarTodos() {
@@ -29,5 +33,10 @@ public class UsuarioPerfilServicoImpl implements UsuarioPerfilServico {
 	public void remover(UsuarioPerfil usuarioPerfil) {
 		this.repositorio.delete(usuarioPerfil);
 
+	}
+
+	@Override
+	public List<Perfil> listaPerfilNotInUsuario(Long idUsuario) {
+		return repositorioSql.listaPerfilNotInUsuario(idUsuario);
 	}
 }
