@@ -32,49 +32,22 @@ CREATE TABLE `ieadam_area` (
   `nome` varchar(60) NOT NULL,
   `situacao` char(1) NOT NULL,
   `id_nucleo` bigint(20) NOT NULL,
-  `id_membro` bigint(20) NOT NULL,
+  `id_membro` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_area`),
   KEY `FK_heafiodiodfp1d8it6lputiu` (`id_nucleo`),
   KEY `FK_l41diku8ic3tavviqtgxrmkha` (`id_membro`),
-  CONSTRAINT `FK_l41diku8ic3tavviqtgxrmkha` FOREIGN KEY (`id_membro`) REFERENCES `ieadam_membro` (`id_membro`),
-  CONSTRAINT `FK_heafiodiodfp1d8it6lputiu` FOREIGN KEY (`id_nucleo`) REFERENCES `ieadam_nucleo` (`id_nucleo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_heafiodiodfp1d8it6lputiu` FOREIGN KEY (`id_nucleo`) REFERENCES `ieadam_nucleo` (`id_nucleo`),
+  CONSTRAINT `FK_l41diku8ic3tavviqtgxrmkha` FOREIGN KEY (`id_membro`) REFERENCES `ieadam_membro` (`id_membro`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ieadam_area`
 --
 
 /*!40000 ALTER TABLE `ieadam_area` DISABLE KEYS */;
+INSERT INTO `ieadam_area` (`id_area`,`data_ultima_atualizacao`,`nome`,`situacao`,`id_nucleo`,`id_membro`) VALUES 
+ (1,NULL,'33','1',1,2);
 /*!40000 ALTER TABLE `ieadam_area` ENABLE KEYS */;
-
-
---
--- Definition of table `ieadam_cidade`
---
-
-DROP TABLE IF EXISTS `ieadam_cidade`;
-CREATE TABLE `ieadam_cidade` (
-  `id_cidade` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(60) NOT NULL,
-  `uf` varchar(2) NOT NULL,
-  `data_ultima_atualizacao` datetime DEFAULT NULL,
-  `situacao` char(1) NOT NULL,
-  PRIMARY KEY (`id_cidade`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `ieadam_cidade`
---
-
-/*!40000 ALTER TABLE `ieadam_cidade` DISABLE KEYS */;
-INSERT INTO `ieadam_cidade` (`id_cidade`,`nome`,`uf`,`data_ultima_atualizacao`,`situacao`) VALUES 
- (1,'Manaus','AM',NULL,'A'),
- (2,'Manaus','AM',NULL,'A'),
- (3,'Manaus','AM',NULL,'A'),
- (4,'Manaus','AM',NULL,'A'),
- (5,'Manaus','AM',NULL,'A'),
- (6,'Manaus','AM',NULL,'A');
-/*!40000 ALTER TABLE `ieadam_cidade` ENABLE KEYS */;
 
 
 --
@@ -94,20 +67,19 @@ CREATE TABLE `ieadam_congregacao` (
   `situacao` char(1) NOT NULL,
   `telefone` varchar(30) DEFAULT NULL,
   `id_area` bigint(20) NOT NULL,
-  `id_cidade` bigint(20) DEFAULT NULL,
-  `cidade` varchar(255) DEFAULT NULL,
+  `cidade` varchar(60) NOT NULL,
   PRIMARY KEY (`id_congregacao`),
   KEY `FK_sedg9bm0l7hij9t49c0mpju8k` (`id_area`),
-  KEY `FK_skg0v8k0v0h0pbt1rthbvyec6` (`id_cidade`),
-  CONSTRAINT `FK_sedg9bm0l7hij9t49c0mpju8k` FOREIGN KEY (`id_area`) REFERENCES `ieadam_area` (`id_area`),
-  CONSTRAINT `FK_skg0v8k0v0h0pbt1rthbvyec6` FOREIGN KEY (`id_cidade`) REFERENCES `ieadam_cidade` (`id_cidade`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_sedg9bm0l7hij9t49c0mpju8k` FOREIGN KEY (`id_area`) REFERENCES `ieadam_area` (`id_area`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ieadam_congregacao`
 --
 
 /*!40000 ALTER TABLE `ieadam_congregacao` DISABLE KEYS */;
+INSERT INTO `ieadam_congregacao` (`id_congregacao`,`bairro`,`cep`,`data_cadastro`,`data_fundacao`,`data_ultima_atualizacao`,`endereco`,`nome`,`situacao`,`telefone`,`id_area`,`cidade`) VALUES 
+ (1,'1111','11111',NULL,NULL,NULL,'1111','1111','1','1111',1,'11111');
 /*!40000 ALTER TABLE `ieadam_congregacao` ENABLE KEYS */;
 
 
@@ -122,13 +94,15 @@ CREATE TABLE `ieadam_funcao` (
   `descricao` varchar(60) NOT NULL,
   `situacao` char(1) NOT NULL,
   PRIMARY KEY (`id_funcao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ieadam_funcao`
 --
 
 /*!40000 ALTER TABLE `ieadam_funcao` DISABLE KEYS */;
+INSERT INTO `ieadam_funcao` (`id_funcao`,`data_ultima_atualizacao`,`descricao`,`situacao`) VALUES 
+ (1,NULL,'22','1');
 /*!40000 ALTER TABLE `ieadam_funcao` ENABLE KEYS */;
 
 
@@ -169,24 +143,23 @@ CREATE TABLE `ieadam_membro` (
   `titulo_secao` varchar(6) DEFAULT NULL,
   `titulo_zona` varchar(10) DEFAULT NULL,
   `uf` varchar(2) NOT NULL,
-  `id_cidade` bigint(20) NOT NULL,
   `id_congregacao` bigint(20) NOT NULL,
   `id_funcao` bigint(20) NOT NULL,
-  `cidade` varchar(255) DEFAULT NULL,
+  `cidade` varchar(60) DEFAULT NULL,
   PRIMARY KEY (`id_membro`),
-  KEY `FK_1ajujekxj1eqyfld6tav7ucqb` (`id_cidade`),
   KEY `FK_ey8cd94hrolqg38kesplym5e1` (`id_congregacao`),
   KEY `FK_qt9ap98s6d89r8wremafgyopp` (`id_funcao`),
-  CONSTRAINT `FK_1ajujekxj1eqyfld6tav7ucqb` FOREIGN KEY (`id_cidade`) REFERENCES `ieadam_cidade` (`id_cidade`),
   CONSTRAINT `FK_ey8cd94hrolqg38kesplym5e1` FOREIGN KEY (`id_congregacao`) REFERENCES `ieadam_congregacao` (`id_congregacao`),
   CONSTRAINT `FK_qt9ap98s6d89r8wremafgyopp` FOREIGN KEY (`id_funcao`) REFERENCES `ieadam_funcao` (`id_funcao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ieadam_membro`
 --
 
 /*!40000 ALTER TABLE `ieadam_membro` DISABLE KEYS */;
+INSERT INTO `ieadam_membro` (`id_membro`,`cep`,`cert_casamento`,`conjuge`,`cpf`,`data_bat_espirito`,`data_batismo`,`data_cadastro`,`data_decisao`,`data_nascimento`,`data_recebimento`,`email`,`endereco`,`estado_civil`,`fatorrh`,`formacao_teologico`,`nacionalidade`,`nome`,`nome_mae`,`nome_pai`,`procedencia`,`qtde_filhos`,`rg`,`rg_orgao_emissor`,`sexo`,`situacao`,`telefone`,`titulo_eleitor`,`titulo_secao`,`titulo_zona`,`uf`,`id_congregacao`,`id_funcao`,`cidade`) VALUES 
+ (2,'1',NULL,'1','11',NULL,NULL,NULL,NULL,NULL,NULL,'111','111','SO','O+','UUU','UUU','UUUU','UUU','UUU','UUU',7,'7777','777','M','1','888888','88888','888','8888','AM',1,1,'11111');
 /*!40000 ALTER TABLE `ieadam_membro` ENABLE KEYS */;
 
 
@@ -201,19 +174,21 @@ CREATE TABLE `ieadam_nucleo` (
   `nome` varchar(60) NOT NULL,
   `situacao` char(1) NOT NULL,
   `id_zona` bigint(20) NOT NULL,
-  `id_membro` bigint(20) NOT NULL,
+  `id_membro` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_nucleo`),
   KEY `FK_neghkrgnkjr9gp4rsaocjs132` (`id_zona`),
   KEY `FK_8b3s8x6sdsvwpq4u10s74f6pw` (`id_membro`),
   CONSTRAINT `FK_8b3s8x6sdsvwpq4u10s74f6pw` FOREIGN KEY (`id_membro`) REFERENCES `ieadam_membro` (`id_membro`),
   CONSTRAINT `FK_neghkrgnkjr9gp4rsaocjs132` FOREIGN KEY (`id_zona`) REFERENCES `ieadam_zona` (`id_zona`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ieadam_nucleo`
 --
 
 /*!40000 ALTER TABLE `ieadam_nucleo` DISABLE KEYS */;
+INSERT INTO `ieadam_nucleo` (`id_nucleo`,`data_ultima_atualizacao`,`nome`,`situacao`,`id_zona`,`id_membro`) VALUES 
+ (1,NULL,'222111','1',1,2);
 /*!40000 ALTER TABLE `ieadam_nucleo` ENABLE KEYS */;
 
 
@@ -224,24 +199,26 @@ CREATE TABLE `ieadam_nucleo` (
 DROP TABLE IF EXISTS `ieadam_pastor`;
 CREATE TABLE `ieadam_pastor` (
   `id_pastor` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(60) NOT NULL,
+  `id_membro` bigint(20) DEFAULT NULL,
+  `id_usuario` bigint(20) DEFAULT NULL,
   `area` tinyint(1) DEFAULT NULL,
   `nucleo` tinyint(1) DEFAULT NULL,
   `zona` tinyint(1) DEFAULT NULL,
-  `id_usuario` bigint(20) NOT NULL,
-  `nome` varchar(60) NOT NULL,
-  `id_membro` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_pastor`),
-  KEY `FK_ptdwfl1759psooqf3633y3x56` (`id_usuario`),
   KEY `FK_mirs17ya4t5vmbtk76viae21n` (`id_membro`),
+  KEY `FK_ptdwfl1759psooqf3633y3x56` (`id_usuario`),
   CONSTRAINT `FK_mirs17ya4t5vmbtk76viae21n` FOREIGN KEY (`id_membro`) REFERENCES `ieadam_membro` (`id_membro`),
   CONSTRAINT `FK_ptdwfl1759psooqf3633y3x56` FOREIGN KEY (`id_usuario`) REFERENCES `saa_usuario` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ieadam_pastor`
 --
 
 /*!40000 ALTER TABLE `ieadam_pastor` DISABLE KEYS */;
+INSERT INTO `ieadam_pastor` (`id_pastor`,`nome`,`id_membro`,`id_usuario`,`area`,`nucleo`,`zona`) VALUES 
+ (2,'WWWW',2,1,1,1,1);
 /*!40000 ALTER TABLE `ieadam_pastor` ENABLE KEYS */;
 
 
@@ -256,17 +233,19 @@ CREATE TABLE `ieadam_zona` (
   `data_ultima_atualizacao` date DEFAULT NULL,
   `nome` varchar(60) NOT NULL,
   `situacao` char(1) NOT NULL,
-  `id_membro` bigint(20) NOT NULL,
+  `id_membro` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_zona`),
   KEY `FK_mac8maxfe5i33twpgb8uw479e` (`id_membro`),
   CONSTRAINT `FK_mac8maxfe5i33twpgb8uw479e` FOREIGN KEY (`id_membro`) REFERENCES `ieadam_membro` (`id_membro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ieadam_zona`
 --
 
 /*!40000 ALTER TABLE `ieadam_zona` DISABLE KEYS */;
+INSERT INTO `ieadam_zona` (`id_zona`,`cd_zona_argo`,`data_ultima_atualizacao`,`nome`,`situacao`,`id_membro`) VALUES 
+ (1,111,NULL,'111','1',2);
 /*!40000 ALTER TABLE `ieadam_zona` ENABLE KEYS */;
 
 
@@ -455,9 +434,7 @@ CREATE TABLE `saa_usuario_perfil` (
 /*!40000 ALTER TABLE `saa_usuario_perfil` DISABLE KEYS */;
 INSERT INTO `saa_usuario_perfil` (`data`,`id_perfil`,`id_usuario`) VALUES 
  (NULL,1,1),
- (NULL,2,1),
- (NULL,3,1),
- (NULL,4,1);
+ (NULL,2,1);
 /*!40000 ALTER TABLE `saa_usuario_perfil` ENABLE KEYS */;
 
 
