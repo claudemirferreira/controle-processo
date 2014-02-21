@@ -24,6 +24,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
+import br.com.ieadam.servico.AreaServico;
+import br.com.ieadam.servico.NucleoServico;
+import br.com.ieadam.servico.PastorServico;
+import br.com.ieadam.servico.ZonaServico;
 
 @ManagedBean
 @SessionScoped
@@ -31,8 +35,20 @@ public class RelatorioSecretariaControlador {
 
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
-	
+
 	private FiltroRelatorioDTO filtroRelatorioDTO;
+
+	@ManagedProperty(value = "#{zonaServicoImpl}")
+	private ZonaServico zonaServico;
+
+	@ManagedProperty(value = "#{areaServicoImpl}")
+	private AreaServico areaServico;
+
+	@ManagedProperty(value = "#{nucleoServicoImpl}")
+	private NucleoServico nucleoServico;
+
+	@ManagedProperty(value = "#{pastorServicoImpl}")
+	private PastorServico pastorServico;
 
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 
@@ -50,9 +66,10 @@ public class RelatorioSecretariaControlador {
 	}
 
 	public void redirecionarModuloSecretaria() {
-		paginaCentralControladorBean.setPaginaCentral("paginas/relatorio/secretaria/pesquisa.xhtml");
+		paginaCentralControladorBean
+				.setPaginaCentral("paginas/relatorio/secretaria/pesquisa.xhtml");
 	}
-	
+
 	public void imprimir() {
 		try {
 
@@ -90,8 +107,8 @@ public class RelatorioSecretariaControlador {
 	}
 
 	public void gerarRelatorio() {
-//		this.relatorioSecretariaServico
-//				.gerarRelatorioSecretaria(this.filtroRelatorioDTO);
+		// this.relatorioSecretariaServico
+		// .gerarRelatorioSecretaria(this.filtroRelatorioDTO);
 		// TODO implements
 		throw new RuntimeException("TODO implements...");
 	}

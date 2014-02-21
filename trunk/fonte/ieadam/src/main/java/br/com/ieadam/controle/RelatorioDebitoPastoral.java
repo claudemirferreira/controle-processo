@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -21,10 +22,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
+import br.com.ieadam.dominio.Nucleo;
+import br.com.ieadam.dominio.Pastor;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
+import br.com.ieadam.servico.PastorServico;
 import br.com.ieadam.servico.ZonaServico;
 
 @ManagedBean
@@ -34,6 +38,8 @@ public class RelatorioDebitoPastoral implements Serializable {
 	private static final long serialVersionUID = 4085044268094923889L;
 
 	private Parametro parametro;
+
+	private Pastor pastor;
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
@@ -49,6 +55,9 @@ public class RelatorioDebitoPastoral implements Serializable {
 	@ManagedProperty(value = "#{nucleoServicoImpl}")
 	private NucleoServico nucleoServico;
 
+	@ManagedProperty(value = "#{pastorServicoImpl}")
+	private PastorServico pastorServico;
+
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
@@ -58,9 +67,13 @@ public class RelatorioDebitoPastoral implements Serializable {
 				.setUsuarioLogado((Usuario) SecurityContextHolder.getContext()
 						.getAuthentication().getPrincipal());
 
-		this.filtroRelatorioDTO.setAreas(areaServico.listarTodos());
-		this.filtroRelatorioDTO.setZonas(zonaServico.listarTodos());
-		this.filtroRelatorioDTO.setNucleos(nucleoServico.listarTodos());
+		this.pastor = pastorServico.findByUsuario(this.filtroRelatorioDTO
+				.getUsuarioLogado());
+
+		// chamada responsavel por preencher os combos de acordo com o nivel de
+		// acesso do pastor
+		this.filtroRelatorioDTO.preencherCombos(this.pastor, zonaServico,
+				nucleoServico, areaServico);
 
 		this.parametro = new Parametro();
 
@@ -70,6 +83,31 @@ public class RelatorioDebitoPastoral implements Serializable {
 		this.paginaCentralControladorBean
 				.setPaginaCentral("paginas/relatorio/debitopastoral.xhtml");
 
+	}
+
+	private Nucleo nucleo;
+
+	public Nucleo getNucleo() {
+		return nucleo;
+	}
+
+	public void setNucleo(Nucleo nucleo) {
+		this.nucleo = nucleo;
+	}
+
+	public void atualizarArea() {
+		// this.filtroRelatorioDTO.setNucleos(this.nucleoServico.findByZona(zona));
+		System.out.println(nucleo);
+
+	}
+
+	public void handleCityChange() {
+		System.out.println("wwwwwwwwwwwwwwwwwwww");
+	}
+
+	public void displayLocation() {
+		FacesMessage msg = new FacesMessage("Selected", "City:");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void redirecionarModuloPrincipalSecretaria() {
@@ -153,5 +191,21 @@ public class RelatorioDebitoPastoral implements Serializable {
 
 	public void setNucleoServico(NucleoServico nucleoServico) {
 		this.nucleoServico = nucleoServico;
+	}
+
+	public PastorServico getPastorServico() {
+		return pastorServico;
+	}
+
+	public void setPastorServico(PastorServico pastorServico) {
+		this.pastorServico = pastorServico;
+	}
+
+	public Pastor getPastor() {
+		return pastor;
+	}
+
+	public void setPastor(Pastor pastor) {
+		this.pastor = pastor;
 	}
 }

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -22,8 +21,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
+import br.com.ieadam.dominio.Pastor;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
+import br.com.ieadam.servico.AreaServico;
+import br.com.ieadam.servico.NucleoServico;
+import br.com.ieadam.servico.PastorServico;
+import br.com.ieadam.servico.ZonaServico;
 
 @ManagedBean
 @SessionScoped
@@ -38,6 +42,18 @@ public class RelatorioProventoPastoral implements Serializable {
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
 
+	@ManagedProperty(value = "#{zonaServicoImpl}")
+	private ZonaServico zonaServico;
+
+	@ManagedProperty(value = "#{areaServicoImpl}")
+	private AreaServico areaServico;
+
+	@ManagedProperty(value = "#{nucleoServicoImpl}")
+	private NucleoServico nucleoServico;
+
+	@ManagedProperty(value = "#{pastorServicoImpl}")
+	private PastorServico pastorServico;
+
 	List<Usuario> usuarios;
 
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
@@ -48,6 +64,12 @@ public class RelatorioProventoPastoral implements Serializable {
 		this.filtroRelatorioDTO
 				.setUsuarioLogado((Usuario) SecurityContextHolder.getContext()
 						.getAuthentication().getPrincipal());
+		
+		Pastor pastor = pastorServico.findByUsuario(this.filtroRelatorioDTO
+				.getUsuarioLogado());
+
+		// chamada responsavel por preencher os combos de acordo com o nivel de acesso do pastor
+		this.filtroRelatorioDTO.preencherCombos(pastor, zonaServico, nucleoServico, areaServico);
 
 		this.parametro = new Parametro();
 

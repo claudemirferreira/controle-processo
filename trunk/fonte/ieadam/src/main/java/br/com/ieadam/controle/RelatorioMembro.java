@@ -1,3 +1,4 @@
+
 package br.com.ieadam.controle;
 
 import java.io.Serializable;
@@ -22,8 +23,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
+import br.com.ieadam.dominio.Pastor;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
+import br.com.ieadam.servico.AreaServico;
+import br.com.ieadam.servico.NucleoServico;
+import br.com.ieadam.servico.PastorServico;
+import br.com.ieadam.servico.ZonaServico;
 
 @ManagedBean
 @SessionScoped
@@ -38,6 +44,18 @@ public class RelatorioMembro implements Serializable {
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
 
+	@ManagedProperty(value = "#{zonaServicoImpl}")
+	private ZonaServico zonaServico;
+
+	@ManagedProperty(value = "#{areaServicoImpl}")
+	private AreaServico areaServico;
+
+	@ManagedProperty(value = "#{nucleoServicoImpl}")
+	private NucleoServico nucleoServico;
+
+	@ManagedProperty(value = "#{pastorServicoImpl}")
+	private PastorServico pastorServico;
+
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
@@ -47,6 +65,12 @@ public class RelatorioMembro implements Serializable {
 		this.filtroRelatorioDTO
 				.setUsuarioLogado((Usuario) SecurityContextHolder.getContext()
 						.getAuthentication().getPrincipal());
+		
+		Pastor pastor = pastorServico.findByUsuario(this.filtroRelatorioDTO
+				.getUsuarioLogado());
+
+		// chamada responsavel por preencher os combos de acordo com o nivel de acesso do pastor
+		this.filtroRelatorioDTO.preencherCombos(pastor, zonaServico, nucleoServico, areaServico);
 
 		this.parametro = new Parametro();
 
@@ -115,4 +139,37 @@ public class RelatorioMembro implements Serializable {
 			PaginaCentralControladorBean paginaCentralControladorBean) {
 		this.paginaCentralControladorBean = paginaCentralControladorBean;
 	}
+
+	public ZonaServico getZonaServico() {
+		return zonaServico;
+	}
+
+	public void setZonaServico(ZonaServico zonaServico) {
+		this.zonaServico = zonaServico;
+	}
+
+	public AreaServico getAreaServico() {
+		return areaServico;
+	}
+
+	public void setAreaServico(AreaServico areaServico) {
+		this.areaServico = areaServico;
+	}
+
+	public NucleoServico getNucleoServico() {
+		return nucleoServico;
+	}
+
+	public void setNucleoServico(NucleoServico nucleoServico) {
+		this.nucleoServico = nucleoServico;
+	}
+
+	public PastorServico getPastorServico() {
+		return pastorServico;
+	}
+
+	public void setPastorServico(PastorServico pastorServico) {
+		this.pastorServico = pastorServico;
+	}
+
 }
