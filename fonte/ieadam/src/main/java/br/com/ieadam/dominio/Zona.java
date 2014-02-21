@@ -34,8 +34,12 @@ public class Zona extends AbstractEntity implements Serializable {
 	private String situacao;
 
 	@ManyToOne
-	@JoinColumn(name = "id_membro", nullable = false)
-	private Membro membro;
+	@JoinColumn(name = "id_primeiro_resp")
+	private Membro primeiroResponsavel;
+
+	@ManyToOne
+	@JoinColumn(name = "id_segundo_resp")
+	private Membro segundoResponsavel;
 
 	private int cd_ZonaArgo;
 
@@ -84,11 +88,4 @@ public class Zona extends AbstractEntity implements Serializable {
 		this.cd_ZonaArgo = cd_ZonaArgo;
 	}
 
-	public Membro getMembro() {
-		return membro;
-	}
-
-	public void setMembro(Membro membro) {
-		this.membro = membro;
-	}
 }
