@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ieadam.dominio.Membro;
 import br.com.ieadam.dominio.Nucleo;
+import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.repositorio.NucleoRepositorio;
 
 @Service
@@ -31,5 +33,15 @@ public class NucleoServicoImpl implements NucleoServico, Serializable {
 	public void remover(Nucleo nucleo) {
 		this.repositorio.delete(nucleo);
 
+	}
+
+	@Override
+	public List<Nucleo> findByZona(Zona zona) {
+		return this.repositorio.findByZona(zona);
+	}
+
+	@Override
+	public List<Nucleo> findByMembro(Membro membro) {
+		return this.repositorio.findByMembro(membro);
 	}
 }
