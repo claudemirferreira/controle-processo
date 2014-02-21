@@ -62,23 +62,15 @@
 					styleClass="ui-priority-primary" icon="ui-icon-pencil"
 					update=":form" title="Detalhe" />
 					
+				<p:commandButton value="Perfil"
+						action="#{usuarioPerfilControlador.showModalPerfil(item)}"
+						update=":formDlg"
+						oncomplete="PF('dlgPerfil').show();" />
 					
-				<p:commandButton id="modalDialogButton" 
-						value="Modal" 
-						onclick="PF('dlg2').show();" 
-						type="button"/>  
-				
-					
-				<p:commandButton ajax="false" value="Perfil"
-					action="#{usuarioPerfilControlador.manterUsuario(item)}"
-					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form" title="Perfil" />
-					
-
 				<p:commandButton ajax="false" value="Excluir"
-					action="#{usuarioControlador.excluir(item)}"
-					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form" title="Excluir" />
+						action="#{usuarioControlador.excluir(item)}"
+						styleClass="ui-priority-primary" icon="ui-icon-trash"
+						update=":form" title="Excluir" />
 
 			</p:column>
 
@@ -90,22 +82,21 @@
 
 	</h:form>
 
-	<p:dialog id="basicDialog" header="Basic Dialog" widgetVar="dlg2">
 
-		<h:outputText value="Perfil..." />
+	<h:form id="formDlg">
+		<p:dialog id="basicDialog" header="Perfil" widgetVar="dlgPerfil" >
 
-		<h:form>
+			<p:growl id="msg" showDetail="false" escape="false" globalOnly="false"/>
 
-			<p:growl id="msg" showDetail="true" escape="false" />
-
-			<h3 style="margin-top: 0">Basic PickList</h3>
+			<h4 style="margin-top: 0">Selecione os Perfis do Usuário</h4>
 
 			<p:pickList id="plUsuPerf" 
 						value="#{usuarioPerfilControlador.dualListPerfil}" 
-						var="up"
 						effect="bounce"
+						converter="usuarioPerfilConverter"
+						var="up"
 						itemLabel="#{up.perfil.nome}" 
-						itemValue="#{up.perfil}"
+						itemValue="#{up}"
 						showSourceControls="true" 
 						showTargetControls="true" 
 						showCheckbox="true"  
@@ -115,18 +106,18 @@
                 <f:facet name="sourceCaption">Disponíveis</f:facet>  
         		<f:facet name="targetCaption">Atribuídos</f:facet>  
                     	
-		        <p:ajax event="transfer" listener="#{UsuarioPerfilControlador.onTransfer}" update="msg" />  
+		        <p:ajax event="transfer" listener="#{usuarioPerfilControlador.onTransfer}" update="msg" />  
         
         		 <p:column style="width:75%;">  
 		            #{up.perfil.nome}  
 		        </p:column>  
         
-        
              </p:pickList>
+             
+             <p:commandButton value="Fechar" onclick="PF('dlgPerfil').hide();" />  
+	
+		</p:dialog>
 
-		</h:form>
-
-
-	</p:dialog>
+	</h:form>
 
 </ui:component>

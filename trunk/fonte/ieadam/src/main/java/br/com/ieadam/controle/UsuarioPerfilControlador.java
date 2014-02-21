@@ -1,10 +1,12 @@
 package br.com.ieadam.controle;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -16,7 +18,6 @@ import org.primefaces.model.DualListModel;
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.UsuarioPerfil;
-import br.com.ieadam.servico.PerfilServico;
 import br.com.ieadam.servico.UsuarioPerfilServico;
 import br.com.ieadam.servico.UsuarioServico;
 
@@ -24,14 +25,10 @@ import br.com.ieadam.servico.UsuarioServico;
 @SessionScoped
 public class UsuarioPerfilControlador {
 
-	private final String TELA_MANUTENCAO = "paginas/usuario/manutencao.xhtml";
-	private final String TELA_PESQUISA = "paginas/usuario/pesquisa.xhtml";
+	private static final String MSG_ADICIONAR = "Perfil adicionado com sucesso.";
+	private static final String MSG_REMOVER = "Perfil removido com sucesso.";
 
-	@ManagedProperty(value = "#{paginaCentralControladorBean}")
-	private PaginaCentralControladorBean paginaCentralControladorBean;
-
-	@ManagedProperty(value = "#{perfilServicoImpl}")
-	private PerfilServico perfilServico;
+	private static final String MSG_ERRO = "Ocorreu um erro ao executar a operação!";
 
 	@ManagedProperty(value = "#{usuarioServicoImpl}")
 	private UsuarioServico usuarioServico;
@@ -39,130 +36,90 @@ public class UsuarioPerfilControlador {
 	@ManagedProperty(value = "#{usuarioPerfilServicoImpl}")
 	private UsuarioPerfilServico usuarioPerfilServico;
 
-	private List<Perfil> listaPerfis;
-	
-	private Usuario usuario;
-
     private DualListModel<UsuarioPerfil> dualListPerfil;  
     
-
 	private List<UsuarioPerfil> listaUsuPerfilNotInUsuario;
   
 	@PostConstruct
 	public void init() {
-		this.listaPerfis = perfilServico.listarTodos();
+		dualListPerfil = new DualListModel<UsuarioPerfil>();
+	}
+
+
+	public void showModalPerfil( Usuario usuario ) {
 		
-		listaUsuPerfilNotInUsuario = usuarioPerfilServico.listarTodos();
-//				usuarioPerfilServico.listaPerfisDiferentesUsuario(usuario); // TODO
+		listaUsuPerfilNotInUsuario = new ArrayList<UsuarioPerfil>();
+		List<Perfil> listaPerfilNotInUsuario = usuarioPerfilServico.listaPerfilNotInUsuario(usuario.getId());
 		
-		usuario = usuarioServico.findByLogin("admin");	// TODO
+		for ( Perfil perfil : listaPerfilNotInUsuario ) {
+			UsuarioPerfil usuarioPerfil = createUsuarioPerfil(perfil, usuario);
+			listaUsuPerfilNotInUsuario.add(usuarioPerfil);
+		}
 		
 		dualListPerfil = new DualListModel<UsuarioPerfil>(listaUsuPerfilNotInUsuario, usuario.getUsuarioPerfil());
-		
-	}
-	
-
-	public void onTransfer(TransferEvent event) {  
-		
-		// TODO
-		
-		FacesMessage msg = new FacesMessage();  
-        msg.setSeverity(FacesMessage.SEVERITY_INFO);  
-        msg.setSummary("Items Transferred");  
-        msg.setDetail(">>>>");  
-          
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-		
-		
-	}
-	
-	
-	
-	public void manterUsuario(Usuario usuario) {
-		this.usuario = usuario;
-		
-		for (Perfil perfil : this.listaPerfis ) {
-			// marca os perfis existentes
-			perfil.setChecked(usuario.containsPerfil(perfil));
-		}
-		
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_MANUTENCAO);
-	}
-	
-
-	public void retornar() {
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	
-	public void salvar() {
-		
-		for (Perfil perfil : listaPerfis ) {
-			UsuarioPerfil usuarioPerfil = usuario.getUsuarioPerfilByPerfil(perfil);
-			if (!usuario.containsPerfil(perfil)) {
-				if (perfil.isChecked()) {
-					usuario.getUsuarioPerfil().add(createUsuarioPerfil(perfil));
-				} else if ( usuarioPerfil != null ) {
-						usuarioPerfilServico.remover(usuarioPerfil);
-						usuario.getUsuarioPerfil().remove(usuarioPerfil);
-				}
-			} else if (!perfil.isChecked()) {
-				usuarioPerfilServico.remover(usuarioPerfil);
-				usuario.getUsuarioPerfil().remove(usuarioPerfil);
-			}
-		}
-
-		this.usuarioServico.salvar(usuario);
-		retornar();
-		
-		// TODO mostrar msg sucesso: GrowMessage
-	}
-
-	
-	private UsuarioPerfil createUsuarioPerfil(Perfil perfil) {
+	private UsuarioPerfil createUsuarioPerfil(Perfil perfil, Usuario usuario) {
 		UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
 		usuarioPerfil.setData(new Date());
 		usuarioPerfil.setPerfil(perfil);
-		usuarioPerfil.setUsuario(usuario);
+		usuarioPerfil.setUsuario(usuario);	// TODO validar relacionamento qdo o item for excluido/adicionado..
 		return usuarioPerfil;
+	}
+
+	
+	public void onTransfer(TransferEvent event) {  
+		
+		UsuarioPerfil usuarioPerfil = (UsuarioPerfil)  event.getItems().get(0);
+		
+		salvarUsuario(usuarioPerfil, event.isAdd());
+		
+	}
+	
+	
+	private void salvarUsuario(UsuarioPerfil usuarioPerfil, boolean add ) {
+
+		String msg;
+		Usuario usuario = usuarioPerfil.getUsuario();
+		
+		if ( add ) {
+			usuario.getUsuarioPerfil().add(usuarioPerfil);
+	        msg = MSG_ADICIONAR;
+		} else {
+			usuario.getUsuarioPerfil().remove(usuarioPerfil);
+			msg = MSG_REMOVER;		
+		}
+		
+		try {
+			
+			this.usuarioServico.salvar(usuario);
+			showMessage(msg, FacesMessage.SEVERITY_INFO);	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			showMessage(MSG_ERRO, FacesMessage.SEVERITY_ERROR);
+		}
+		
+	}
+
+
+	private void showMessage(String msg, Severity severityInfo) {
+		FacesMessage facesMessage = new FacesMessage();  
+        facesMessage.setSeverity(severityInfo);  
+        facesMessage.setSummary(msg);  
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage); 		
 	}
 
 
 	/* ---------- Gets/Sets --------------- */
-
-	public List<Perfil> getListaPerfis() {
-		return listaPerfis;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-
-	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
-		return paginaCentralControladorBean;
-	}
-
-	public void setPaginaCentralControladorBean(
-			PaginaCentralControladorBean paginaCentralControladorBean) {
-		this.paginaCentralControladorBean = paginaCentralControladorBean;
-	}
-
+	
 	public UsuarioServico getUsuarioServico() {
 		return usuarioServico;
 	}
 
 	public void setUsuarioServico(UsuarioServico usuarioServico) {
 		this.usuarioServico = usuarioServico;
-	}
-
-
-	public PerfilServico getPerfilServico() {
-		return perfilServico;
-	}
-
-	public void setPerfilServico(PerfilServico perfilServico) {
-		this.perfilServico = perfilServico;
 	}
 
 	public UsuarioPerfilServico getUsuarioPerfilServico() {
