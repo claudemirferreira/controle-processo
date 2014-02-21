@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ieadam.dominio.Membro;
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.repositorio.ZonaRepositorio;
 
@@ -31,5 +32,10 @@ public class ZonaServicoImpl implements ZonaServico, Serializable {
 	public void remover(Zona zona) {
 		this.zonaRepositorio.delete(zona);
 
+	}
+
+	@Override
+	public List<Zona> findByMembro(Membro membro) {
+		return this.zonaRepositorio.findByMembro(membro);
 	}
 }
