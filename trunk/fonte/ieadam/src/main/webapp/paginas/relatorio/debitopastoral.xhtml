@@ -8,57 +8,28 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<h:form id="form" target="_blank">
-		<p:panel header="RELATÓRIO DE DÉBITO PASTORAL" style="width:99%;">
+	<h:form id="form">
 
-			<h:panelGrid id="panelPesquisa" columns="2" cellspacing="4">
-				<p:outputLabel value="Data Início: "
-					styleClass="ui-priority-primary" />
-				<p:inputMask value="#{relatorioDebitoPastoral.parametro.dataInicio}"
-					mask="99/9999" />
+		<p:growl id="msgs" showDetail="true" />
 
-				<p:outputLabel value="Data Fim: " styleClass="ui-priority-primary" />
-				<p:inputMask value="#{relatorioDebitoPastoral.parametro.dataFim}"
-					mask="99/9999" />
-
-				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona}">
-					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
-					<f:selectItems
-						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
-						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.id}" />
+		<p:panel header="Double Combo" style="margin-bottom:10px;">
+			<h:panelGrid columns="2" cellpadding="5">
+				<p:selectOneMenu id="city" value="#{pPRBean.city}">
+					<f:selectItem itemLabel="Select City" itemValue="" />
+					<f:selectItems value="#{pPRBean.cities}" />
+					<p:ajax update="suburbs" listener="#{pPRBean.handleCityChange}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Area: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area}">
-					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
-					<f:selectItems
-						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.areas}"
-						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				<p:selectOneMenu id="suburbs" value="#{pPRBean.suburb}">
+					<f:selectItem itemLabel="Select Suburb" itemValue="" />
+					<f:selectItems value="#{pPRBean.suburbs}" />
 				</p:selectOneMenu>
-				
-				<p:outputLabel value="Nucleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo}">
-					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
-					<f:selectItems
-						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
-						var="nucleo" itemLabel="#{nucleo.nome}" itemValue="#{nucleo.id}" />
-				</p:selectOneMenu>
-
 			</h:panelGrid>
 
-			<f:facet name="footer">
-				<p:commandButton value="Gerar Relatório" ajax="false"
-					icon="ui-icon-gear" styleClass="ui-priority-primary"
-					actionListener="#{relatorioDebitoPastoral.imprimir}" />
+			<p:separator />
 
-				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-					icon="ui-icon-search" styleClass="ui-priority-primary"
-					actionListener="#{relatorioDebitoPastoral.redirecionarModuloPrincipalSecretaria}" />
-			</f:facet>
+			<p:commandButton value="Submit" update="msgs"
+				actionListener="#{pPRBean.displayLocation}" id="btnSubmit" />
 
 		</p:panel>
 
