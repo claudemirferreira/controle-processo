@@ -8,10 +8,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<h:form id="form" target="_blank">
-		<p:panel header="RELATÓRIO DE DÉBITO FINANCEIRO" style="width:99%;">
+	<h:form id="form">
+		<p:panel header="RELATÓRIO DE DÉBITO PASTORAL" style="width:99%;">
 
-			<h:panelGrid id="panelPesquisa" columns="6">
+			<h:panelGrid id="panelPesquisa" columns="6" cellspacing="6">
 
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu
@@ -19,17 +19,19 @@
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.id}" />
+					<p:ajax update="nucleo"
+						listener="#{relatorioDebitoPastoral.atualizarNucleo}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo}">
+				<p:selectOneMenu id="nucleo"
+					value="#{relatorioDebitoPastoral.nucleo}">
 					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}" itemValue="#{nucleo.id}" />
 					<p:ajax update="area"
-						listener="#{relatorioDebitoPastoral.atualizarArea}" />
+						listener="#{relatorioDebitoPastoral.atualizarNucleo}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
@@ -40,34 +42,49 @@
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
-				
-				
-				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu styleClass="ui-priority-primary"
-					style="width:100%;"
-					value="#{relatorioDebitoFinanceiro.parametro.mes}" effect="fold"
-					editable="true">
-					<f:selectItems value="#{relatorioDebitoFinanceiro.parametro.meses}" />
-				</p:selectOneMenu>
 
-				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
-				<p:inputText id="ano" styleClass="ui-priority-primary"
-					style="width:50px;" required="true"
-					requiredMessage="O ano deve ser informado"
-					value="#{relatorioDebitoFinanceiro.parametro.ano}" />
+				<p:outputLabel value="Data Início: "
+					styleClass="ui-priority-primary" />
+				<p:inputMask value="#{relatorioDebitoPastoral.parametro.dataInicio}"
+					mask="99/9999" />
 
+				<p:outputLabel value="Data Fim: " styleClass="ui-priority-primary" />
+				<p:inputMask value="#{relatorioDebitoPastoral.parametro.dataFim}"
+					mask="99/9999" />
 			</h:panelGrid>
 
 			<f:facet name="footer">
-				<p:commandButton value="Gerar relatorio" ajax="false"
+				<p:commandButton value="Gerar Relatório" ajax="false"
 					icon="ui-icon-gear" styleClass="ui-priority-primary"
-					actionListener="#{relatorioDebitoFinanceiro.imprimir}" />
+					actionListener="#{relatorioDebitoPastoral.imprimir}" />
 
 				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
 					icon="ui-icon-search" styleClass="ui-priority-primary"
-					actionListener="#{relatorioDebitoFinanceiro.redirecionarModuloPrincipalSecretaria}" />
-
+					actionListener="#{relatorioDebitoPastoral.redirecionarModuloPrincipalSecretaria}" />
 			</f:facet>
+
+		</p:panel>
+
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:panel header="Double Combo" style="margin-bottom:10px;">
+			<h:panelGrid columns="2" cellpadding="5">
+				<p:selectOneMenu id="city" value="#{pprBean.city}">
+					<f:selectItem itemLabel="Select City" itemValue="" />
+					<f:selectItems value="#{pprBean.cities}" />
+					<p:ajax update="suburbs" listener="#{pprBean.handleCityChange}" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu id="suburbs" value="#{pprBean.suburb}">
+					<f:selectItem itemLabel="Select Suburb" itemValue="" />
+					<f:selectItems value="#{pprBean.suburbs}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+			<p:separator />
+
+			<p:commandButton value="Submit" update="msgs"
+				actionListener="#{pprBean.displayLocation}" id="btnSubmit" />
 
 		</p:panel>
 

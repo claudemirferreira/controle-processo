@@ -11,12 +11,41 @@
 	<h:form id="form" target="_blank">
 		<p:panel header="RELATÓRIO DE NADA CONSTA" style="width:99%;">
 
-			<h:panelGrid columns="2" cellspacing="4">
-				<p:outputLabel value="Data Início: " styleClass="ui-priority-primary"/>
-				<p:inputMask value="#{relatorioNadaConsta.parametro.dataInicio}" mask="99/9999"/>
-				
-				<p:outputLabel value="Data Fim: " styleClass="ui-priority-primary"/>
-				<p:inputMask value="#{relatorioNadaConsta.parametro.dataFim}" mask="99/9999"/>
+			<h:panelGrid id="panelPesquisa" columns="6">
+
+				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona}">
+					<f:selectItems
+						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo}">
+					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItems
+						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
+						var="nucleo" itemLabel="#{nucleo.nome}" itemValue="#{nucleo.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area}">
+					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
+					<f:selectItems
+						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
+				<p:outputLabel value="Data Início: "
+					styleClass="ui-priority-primary" />
+				<p:inputMask value="#{relatorioNadaConsta.parametro.dataInicio}"
+					mask="99/9999" />
+
+				<p:outputLabel value="Data Fim: " styleClass="ui-priority-primary" />
+				<p:inputMask value="#{relatorioNadaConsta.parametro.dataFim}"
+					mask="99/9999" />
 			</h:panelGrid>
 
 			<f:facet name="footer">
@@ -26,7 +55,7 @@
 
 				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
 					icon="ui-icon-search" styleClass="ui-priority-primary"
-					actionListener="#{relatorioNadaConsta.redirecionarModuloPrincipalSecretaria}" />		
+					actionListener="#{relatorioNadaConsta.redirecionarModuloPrincipalSecretaria}" />
 			</f:facet>
 
 		</p:panel>

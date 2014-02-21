@@ -11,12 +11,38 @@
 	<h:form id="form" target="_blank">
 		<p:panel header="RELATÓRIO DE CENTRO DE CUSTO" style="width:99%;">
 
-			<h:panelGrid id="panelPesquisa" columns="4">
+			<h:panelGrid id="panelPesquisa" columns="6">
+
+				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona}">
+					<f:selectItems
+						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo}">
+					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItems
+						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
+						var="nucleo" itemLabel="#{nucleo.nome}" itemValue="#{nucleo.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area}">
+					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
+					<f:selectItems
+						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
 
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu styleClass="ui-priority-primary" style="width:100%;"
-					value="#{relatorioCentoCusto.parametro.mes}" effect="fold"
-					editable="true">
+				<p:selectOneMenu styleClass="ui-priority-primary"
+					style="width:100%;" value="#{relatorioCentoCusto.parametro.mes}"
+					effect="fold" editable="true">
 					<f:selectItems value="#{relatorioCentoCusto.parametro.meses}" />
 				</p:selectOneMenu>
 
@@ -33,7 +59,7 @@
 				<p:commandButton value="Gerar relatorio" ajax="false"
 					icon="ui-icon-gear" styleClass="ui-priority-primary"
 					actionListener="#{relatorioCentoCusto.imprimir}" />
-				
+
 				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
 					icon="ui-icon-search" styleClass="ui-priority-primary"
 					actionListener="#{relatorioCentoCusto.redirecionarModuloPrincipalSecretaria}" />
