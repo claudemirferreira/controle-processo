@@ -36,6 +36,10 @@ import br.com.ieadam.servico.ZonaServico;
 public class RelatorioDebitoPastoral implements Serializable {
 
 	private static final long serialVersionUID = 4085044268094923889L;
+	
+	private String valor1;
+	
+	private String valor2;
 
 	private Parametro parametro;
 
@@ -60,6 +64,11 @@ public class RelatorioDebitoPastoral implements Serializable {
 
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
+	
+	public void teste(){
+		System.out.println("teste");
+		this.valor2 = this.valor1;
+	}
 
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
@@ -207,5 +216,21 @@ public class RelatorioDebitoPastoral implements Serializable {
 
 	public void setPastor(Pastor pastor) {
 		this.pastor = pastor;
+	}
+
+	public String getValor1() {
+		return valor1;
+	}
+
+	public void setValor1(String valor1) {
+		this.valor1 = valor1;
+	}
+
+	public String getValor2() {
+		return valor2;
+	}
+
+	public void setValor2(String valor2) {
+		this.valor2 = valor2;
 	}
 }

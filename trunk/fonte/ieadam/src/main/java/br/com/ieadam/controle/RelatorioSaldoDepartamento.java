@@ -81,7 +81,7 @@ public class RelatorioSaldoDepartamento implements Serializable {
 		usuarios.add(usuario);
 
 		this.paginaCentralControladorBean
-				.setPaginaCentral("paginas/relatorio/saldodepartamental.xhtml");
+				.setPaginaCentral("paginas/relatorio/saldopartamental.xhtml");
 
 	}
 
