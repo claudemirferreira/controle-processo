@@ -16,27 +16,27 @@
 
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona}">
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.zona}">
 					<f:selectItems
-						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
+						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.id}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo}">
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.nucleo}">
 					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
 					<f:selectItems
-						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
+						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}" itemValue="#{nucleo.id}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area}">
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.area}">
 					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
-						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.areas}"
+						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
 

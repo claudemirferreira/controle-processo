@@ -31,7 +31,7 @@ import br.com.ieadam.servico.ZonaServico;
 
 @ManagedBean
 @SessionScoped
-public class RelatorioCentoCusto implements Serializable {
+public class RelatorioCentroCusto implements Serializable {
 
 	private static final long serialVersionUID = 4085044268094923889L;
 

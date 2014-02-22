@@ -15,42 +15,42 @@
 
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona}">
+					value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.zona}">
 					<f:selectItems
-						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
+						value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.id}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo}">
+					value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.nucleo}">
 					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
 					<f:selectItems
-						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
+						value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}" itemValue="#{nucleo.id}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area}">
+					value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.area}">
 					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
-						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.areas}"
+						value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioDebitoSintetico.parametro.mes}" effect="fold"
+					value="#{relatorioBalanceteSintetico.parametro.mes}" effect="fold"
 					editable="true" style="width:100%;">
-					<f:selectItems value="#{relatorioDebitoSintetico.parametro.meses}" />
+					<f:selectItems value="#{relatorioBalanceteSintetico.parametro.meses}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
 				<p:inputText id="ano" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
-					value="#{relatorioDebitoSintetico.parametro.ano}" />
+					value="#{relatorioBalanceteSintetico.parametro.ano}"/>
 			</h:panelGrid>
 
 			<f:facet name="footer">

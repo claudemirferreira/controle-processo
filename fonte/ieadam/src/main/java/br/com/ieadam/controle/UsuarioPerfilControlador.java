@@ -36,84 +36,82 @@ public class UsuarioPerfilControlador {
 	@ManagedProperty(value = "#{usuarioPerfilServicoImpl}")
 	private UsuarioPerfilServico usuarioPerfilServico;
 
-    private DualListModel<UsuarioPerfil> dualListPerfil;  
-    
+	private DualListModel<UsuarioPerfil> dualListPerfil;
+
 	private List<UsuarioPerfil> listaUsuPerfilNotInUsuario;
-  
+
 	@PostConstruct
 	public void init() {
 		dualListPerfil = new DualListModel<UsuarioPerfil>();
 	}
 
+	public void showModalPerfil(Usuario usuario) {
+		System.out.println("showModalPerfil");
 
-	public void showModalPerfil( Usuario usuario ) {
-		
 		listaUsuPerfilNotInUsuario = new ArrayList<UsuarioPerfil>();
-		List<Perfil> listaPerfilNotInUsuario = usuarioPerfilServico.listaPerfilNotInUsuario(usuario.getId());
-		
-		for ( Perfil perfil : listaPerfilNotInUsuario ) {
+		List<Perfil> listaPerfilNotInUsuario = usuarioPerfilServico
+				.listaPerfilNotInUsuario(usuario.getId());
+
+		for (Perfil perfil : listaPerfilNotInUsuario) {
 			UsuarioPerfil usuarioPerfil = createUsuarioPerfil(perfil, usuario);
 			listaUsuPerfilNotInUsuario.add(usuarioPerfil);
 		}
-		
-		dualListPerfil = new DualListModel<UsuarioPerfil>(listaUsuPerfilNotInUsuario, usuario.getUsuarioPerfil());
+
+		dualListPerfil = new DualListModel<UsuarioPerfil>(
+				listaUsuPerfilNotInUsuario, usuario.getUsuarioPerfil());
 	}
 
-	
 	private UsuarioPerfil createUsuarioPerfil(Perfil perfil, Usuario usuario) {
 		UsuarioPerfil usuarioPerfil = new UsuarioPerfil();
 		usuarioPerfil.setData(new Date());
 		usuarioPerfil.setPerfil(perfil);
-		usuarioPerfil.setUsuario(usuario);	// TODO validar relacionamento qdo o item for excluido/adicionado..
+		usuarioPerfil.setUsuario(usuario); // TODO validar relacionamento qdo o
+											// item for excluido/adicionado..
 		return usuarioPerfil;
 	}
 
-	
-	public void onTransfer(TransferEvent event) {  
-		
-		UsuarioPerfil usuarioPerfil = (UsuarioPerfil)  event.getItems().get(0);
-		
+	public void onTransfer(TransferEvent event) {
+
+		UsuarioPerfil usuarioPerfil = (UsuarioPerfil) event.getItems().get(0);
+
 		salvarUsuario(usuarioPerfil, event.isAdd());
-		
+
 	}
-	
-	
-	private void salvarUsuario(UsuarioPerfil usuarioPerfil, boolean add ) {
+
+	private void salvarUsuario(UsuarioPerfil usuarioPerfil, boolean add) {
 
 		String msg;
 		Usuario usuario = usuarioPerfil.getUsuario();
-		
-		if ( add ) {
+
+		if (add) {
 			usuario.getUsuarioPerfil().add(usuarioPerfil);
-	        msg = MSG_ADICIONAR;
+			msg = MSG_ADICIONAR;
 		} else {
 			usuario.getUsuarioPerfil().remove(usuarioPerfil);
-			msg = MSG_REMOVER;		
+			msg = MSG_REMOVER;
 		}
-		
+
 		try {
-			
+
 			this.usuarioServico.salvar(usuario);
-			showMessage(msg, FacesMessage.SEVERITY_INFO);	
-			
+			showMessage(msg, FacesMessage.SEVERITY_INFO);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			showMessage(MSG_ERRO, FacesMessage.SEVERITY_ERROR);
 		}
-		
-	}
 
+	}
 
 	private void showMessage(String msg, Severity severityInfo) {
-		FacesMessage facesMessage = new FacesMessage();  
-        facesMessage.setSeverity(severityInfo);  
-        facesMessage.setSummary(msg);  
-        FacesContext.getCurrentInstance().addMessage(null, facesMessage); 		
+		FacesMessage facesMessage = new FacesMessage();
+		facesMessage.setSeverity(severityInfo);
+		facesMessage.setSummary(msg);
+		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 	}
 
-
 	/* ---------- Gets/Sets --------------- */
-	
+
 	public UsuarioServico getUsuarioServico() {
 		return usuarioServico;
 	}
@@ -126,11 +124,12 @@ public class UsuarioPerfilControlador {
 		return usuarioPerfilServico;
 	}
 
-	public void setUsuarioPerfilServico(UsuarioPerfilServico usuarioPerfilServico) {
+	public void setUsuarioPerfilServico(
+			UsuarioPerfilServico usuarioPerfilServico) {
 		this.usuarioPerfilServico = usuarioPerfilServico;
 	}
 
-    public DualListModel<UsuarioPerfil> getDualListPerfil() {
+	public DualListModel<UsuarioPerfil> getDualListPerfil() {
 		return dualListPerfil;
 	}
 
