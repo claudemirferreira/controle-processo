@@ -40,18 +40,13 @@ public class UsuarioPerfilControlador {
     
 	private List<UsuarioPerfil> listaUsuPerfilNotInUsuario;
 	
-	public int count;	// TODO teste render
-	
 	@PostConstruct
 	public void init() {
 		dualListPerfil = new DualListModel<UsuarioPerfil>();
-		
-		count = 0;
 	}
 
 
 	public void showModalPerfil( Usuario usuario ) {
-		count++;
 		listaUsuPerfilNotInUsuario = new ArrayList<UsuarioPerfil>();
 		List<Perfil> listaPerfilNotInUsuario = usuarioPerfilServico.listaPerfilNotInUsuario(usuario.getId());
 		
@@ -89,15 +84,20 @@ public class UsuarioPerfilControlador {
 		
 		if ( add ) {
 			usuario.getUsuarioPerfil().add(usuarioPerfil);
+			
+			usuarioPerfilServico.salvar(usuarioPerfil);
+			
 	        msg = MSG_ADICIONAR;
 		} else {
 			usuario.getUsuarioPerfil().remove(usuarioPerfil);
+			
+			usuarioPerfilServico.remover(usuarioPerfil);
+			
 			msg = MSG_REMOVER;		
 		}
 		
 		try {
-			
-			this.usuarioServico.salvar(usuario);
+//			this.usuarioServico.salvar(usuario);	// TODO com erro.. 
 			showMessage(msg, FacesMessage.SEVERITY_INFO);
 			
 		} catch (Exception e) {
@@ -140,10 +140,5 @@ public class UsuarioPerfilControlador {
 
 	public void setDualListPerfil(DualListModel<UsuarioPerfil> dualListPerfil) {
 		this.dualListPerfil = dualListPerfil;
-	}
-
-
-	public int getCount() {
-		return count;
 	}
 }

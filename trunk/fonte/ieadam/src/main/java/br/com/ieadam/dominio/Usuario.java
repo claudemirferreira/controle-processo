@@ -30,15 +30,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	private Long idUsuario;
 
 	
-//	@Cascade( value = {
-//			org.hibernate.annotations.CascadeType.MERGE,
-//			org.hibernate.annotations.CascadeType.DELETE,
-//			org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-//			org.hibernate.annotations.CascadeType.PERSIST,
-//			org.hibernate.annotations.CascadeType.REMOVE 
-//			} )
 	@OneToMany(fetch = FetchType.EAGER,
-//			cascade = { CascadeType.ALL },
 			cascade = { CascadeType.MERGE, CascadeType.REMOVE },
 			mappedBy = "usuarioPerfilPk.usuario"
 			)
