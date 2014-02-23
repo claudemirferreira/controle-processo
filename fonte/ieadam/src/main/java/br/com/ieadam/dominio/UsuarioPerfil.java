@@ -71,4 +71,14 @@ public class UsuarioPerfil implements Serializable {
 		this.data = data;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return usuarioPerfilPk.equals( ( ( UsuarioPerfil ) obj ).getUsuarioPerfilPk() );
+	}
+
+	@Override
+	public int hashCode() {
+		return usuarioPerfilPk.hashCode();
+	}
+	
 }
