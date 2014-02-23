@@ -86,8 +86,6 @@
 	<h:form id="formDlg">
 		<p:dialog id="dialogPerfil" header="Perfil" widgetVar="dlgPerfil" >
 		
-			<h:outputText value="Contador: #{usuarioPerfilControlador.count}"/>	<!-- TODO remover -->
-
 			<p:growl id="msg" showDetail="false" escape="false" globalOnly="false"/>
 
 			<h4 style="margin-top: 0">Selecione os Perfis do Usuário</h4>
@@ -99,9 +97,9 @@
 						var="up"
 						itemLabel="#{up.perfil.nome}" 
 						itemValue="#{up}"
-						showSourceControls="true" 
-						showTargetControls="true" 
-						showCheckbox="true"  
+						showSourceControls="false" 
+						showTargetControls="false" 
+						showCheckbox="false"  
                     	showSourceFilter="true" 
                     	showTargetFilter="true" >
                     	
