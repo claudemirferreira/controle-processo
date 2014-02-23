@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,7 +29,19 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idUsuario;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "usuarioPerfilPk.usuario")
+	
+//	@Cascade( value = {
+//			org.hibernate.annotations.CascadeType.MERGE,
+//			org.hibernate.annotations.CascadeType.DELETE,
+//			org.hibernate.annotations.CascadeType.SAVE_UPDATE,
+//			org.hibernate.annotations.CascadeType.PERSIST,
+//			org.hibernate.annotations.CascadeType.REMOVE 
+//			} )
+	@OneToMany(fetch = FetchType.EAGER,
+//			cascade = { CascadeType.ALL },
+			cascade = { CascadeType.MERGE, CascadeType.REMOVE },
+			mappedBy = "usuarioPerfilPk.usuario"
+			)
 	private List<UsuarioPerfil> usuarioPerfil = new ArrayList<UsuarioPerfil>();
 
 	@Column(nullable = false, length = 30)

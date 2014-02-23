@@ -46,6 +46,11 @@ public class UsuarioPerfilPk implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
+
+		if (!( obj instanceof UsuarioPerfilPk)) {
+			return false;
+		}
+		
 		final UsuarioPerfilPk other = (UsuarioPerfilPk) obj;
 		if (this.usuario != other.usuario
 				&& (this.usuario == null || !this.usuario.equals(other.usuario))) {

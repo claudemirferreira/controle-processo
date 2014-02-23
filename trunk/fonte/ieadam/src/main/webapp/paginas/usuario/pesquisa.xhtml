@@ -16,8 +16,7 @@
 			<h:panelGrid id="panelPesquisa" columns="1">
 
 				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
-				<p:inputText id="nome" style="width:300px"
-					value="#{usuarioControlador.pesquisa.login}" />
+				<p:inputText id="nome" style="width:300px" value="#{usuarioControlador.pesquisa.login}" />
 
 			</h:panelGrid>
 
@@ -45,31 +44,33 @@
 				sortBy="#{item.login}">
 				<h:outputText value="#{item.login}" />
 			</p:column>
-
+			
 			<p:column style="text-align:left" headerText="CPF"
 				sortBy="#{item.status}">
 				<h:outputText value="#{item.status}" />
 			</p:column>
-
+				
 			<p:commandButton ajax="false" value="Detalhe"
 				action="#{usuarioPerfilControlador.manterUsuario(item)}"
 				styleClass="ui-priority-primary" icon="ui-icon-pencil"
 				update=":form" title="Manter Usuário" />
 
 			<p:column style="text-align:left" headerText="Detalhe">
-				<p:commandButton value="Detalhe"
+				<p:commandButton ajax="false" value="Detalhe"
 					action="#{usuarioControlador.detalhe(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-pencil"
 					update=":form" title="Detalhe" />
-
-				<p:commandButton value="Perfil" ajax="true"
-					actionListener="#{usuarioPerfilControlador.showModalPerfil(item)}"
-					update=":formDlg:panelDialog" oncomplete="dlgPerfil.show();" />
-
+					
+				<p:commandButton value="Perfil"
+						action="#{usuarioPerfilControlador.showModalPerfil(item)}"
+						oncomplete="PF('dlgPerfil').show();"
+						update=":formDlg"
+						 />
+					
 				<p:commandButton ajax="false" value="Excluir"
-					action="#{usuarioControlador.excluir(item)}"
-					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form" title="Excluir" />
+						action="#{usuarioControlador.excluir(item)}"
+						styleClass="ui-priority-primary" icon="ui-icon-trash"
+						update=":form" title="Excluir" />
 
 			</p:column>
 
@@ -81,40 +82,44 @@
 
 	</h:form>
 
-	<p:dialog id="basicDialog" header="Perfil" widgetVar="dlgPerfil">
-		<h:form id="formDlg">
-			<p:panel id="panelDialog">
 
-				<p:growl id="msg" showDetail="false" escape="false"
-					globalOnly="false" />
+	<h:form id="formDlg">
+		<p:dialog id="dialogPerfil" header="Perfil" widgetVar="dlgPerfil" >
+		
+			<h:outputText value="Contador: #{usuarioPerfilControlador.count}"/>	<!-- TODO remover -->
 
-				<h4 style="margin-top: 0">Selecione os Perfis do Usuário</h4>
+			<p:growl id="msg" showDetail="false" escape="false" globalOnly="false"/>
 
-				<p:pickList id="plUsuPerf"
-					value="#{usuarioPerfilControlador.dualListPerfil}" effect="bounce"
-					converter="usuarioPerfilConverter" var="up"
-					itemLabel="#{up.perfil.nome}" itemValue="#{up}"
-					showSourceControls="true" showTargetControls="true"
-					showCheckbox="true" showSourceFilter="true" showTargetFilter="true">
+			<h4 style="margin-top: 0">Selecione os Perfis do Usuário</h4>
 
-					<f:facet name="sourceCaption">Disponíveis</f:facet>
-					<f:facet name="targetCaption">Atribuídos</f:facet>
-
-					<p:ajax event="transfer"
-						listener="#{usuarioPerfilControlador.onTransfer}" update="msg" />
-
-					<p:column style="width:75%;">  
+			<p:pickList id="plUsuPerf" 
+						value="#{usuarioPerfilControlador.dualListPerfil}" 
+						effect="bounce"
+						converter="usuarioPerfilConverter"
+						var="up"
+						itemLabel="#{up.perfil.nome}" 
+						itemValue="#{up}"
+						showSourceControls="true" 
+						showTargetControls="true" 
+						showCheckbox="true"  
+                    	showSourceFilter="true" 
+                    	showTargetFilter="true" >
+                    	
+                <f:facet name="sourceCaption">Disponíveis</f:facet>  
+        		<f:facet name="targetCaption">Atribuídos</f:facet>  
+                    	
+		        <p:ajax event="transfer" listener="#{usuarioPerfilControlador.onTransfer}" update="msg" />  
+        
+        		 <p:column style="width:75%;">  
 		            #{up.perfil.nome}  
-		        </p:column>
+		        </p:column>  
+        
+             </p:pickList>
+             
+             <p:commandButton value="Fechar" onclick="PF('dlgPerfil').hide();" />  
+	
+		</p:dialog>
 
-				</p:pickList>
-
-				<p:commandButton value="Fechar" onclick="PF('dlgPerfil').hide();" />
-			</p:panel>
-		</h:form>
-
-	</p:dialog>
-
-
+	</h:form>
 
 </ui:component>

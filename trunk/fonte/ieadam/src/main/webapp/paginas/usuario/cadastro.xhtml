@@ -30,6 +30,8 @@
 		<f:facet name="footer">
 			<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
 				icon="ui-icon-search" styleClass="ui-icon-circle-arrow-w"
+				ajax="true" 
+				immediate="true"
 				action="#{usuarioControlador.telaPesquisa}" />
 
 			<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
