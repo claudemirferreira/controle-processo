@@ -75,17 +75,19 @@ public class UsuarioControlador {
 		this.lista = this.servico.findByNomeLike(this.pesquisa.getNome());
 	}
 
-	public void detalhe(Usuario usuario) {
+	public String detalhe(Usuario usuario) {
 		this.entidade = usuario;
 		this.telaCadastro();
+		return this.paginaCentralControladorBean.index();
 
 	}
 
-	public void salvar() {
+	public String salvar() {
 
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
 		this.telaPesquisa();
+		return this.paginaCentralControladorBean.index();
 	}
 
 	public void excluir(Usuario usuario) {
@@ -98,12 +100,14 @@ public class UsuarioControlador {
 		this.telaCadastro();
 	}
 
-	public void telaCadastro() {
+	public String telaCadastro() {
 		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
+		return this.paginaCentralControladorBean.index();
 	}
 
-	public void telaPesquisa() {
+	public String telaPesquisa() {
 		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
+		return this.paginaCentralControladorBean.index();
 	}
 
 	public Usuario getEntidade() {
@@ -154,6 +158,7 @@ public class UsuarioControlador {
 			this.usuario = new Usuario();
 
 			return "/login.xhtml?faces-redirect=true";
+
 		} else {
 
 			this.usuario = (Usuario) SecurityContextHolder.getContext()
@@ -161,6 +166,12 @@ public class UsuarioControlador {
 
 			this.colunas = 4;
 			// Util .definirTamanhoColuna(usuario.getPerfis().size());
+
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Sample error message",
+							"PrimeFaces makes no mistakes"));
 
 			return "/index.xhtml?faces-redirect=true";
 		}

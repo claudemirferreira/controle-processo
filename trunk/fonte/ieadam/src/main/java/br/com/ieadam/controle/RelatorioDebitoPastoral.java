@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -22,9 +21,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
+import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Pastor;
 import br.com.ieadam.dominio.Usuario;
+import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
@@ -36,10 +37,6 @@ import br.com.ieadam.servico.ZonaServico;
 public class RelatorioDebitoPastoral implements Serializable {
 
 	private static final long serialVersionUID = 4085044268094923889L;
-	
-	private String valor1;
-	
-	private String valor2;
 
 	private Parametro parametro;
 
@@ -65,13 +62,13 @@ public class RelatorioDebitoPastoral implements Serializable {
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 	
-	public void teste(){
-		System.out.println("teste");
-		this.valor2 = this.valor1;
-	}
-
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
+
+		this.filtroRelatorioDTO.setZona(new Zona());
+		this.filtroRelatorioDTO.setNucleo(new Nucleo());
+		this.filtroRelatorioDTO.setArea(new Area());
+
 		this.filtroRelatorioDTO
 				.setUsuarioLogado((Usuario) SecurityContextHolder.getContext()
 						.getAuthentication().getPrincipal());
@@ -94,31 +91,20 @@ public class RelatorioDebitoPastoral implements Serializable {
 
 	}
 
-	private Nucleo nucleo;
+	public void atualizarNucleo() {
+		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
+				.findByZona(this.filtroRelatorioDTO.getZona()));
+		System.out.println(" nucleo = "
+				+ this.filtroRelatorioDTO.getNucleos().size());
 
-	public Nucleo getNucleo() {
-		return nucleo;
-	}
-
-	public void setNucleo(Nucleo nucleo) {
-		this.nucleo = nucleo;
 	}
 
 	public void atualizarArea() {
-		// this.filtroRelatorioDTO.setNucleos(this.nucleoServico.findByZona(zona));
-		System.out.println(nucleo);
+		this.filtroRelatorioDTO.setAreas(this.areaServico
+				.findByNucleo(this.filtroRelatorioDTO.getNucleo()));
 
 	}
-
-	public void handleCityChange() {
-		System.out.println("wwwwwwwwwwwwwwwwwwww");
-	}
-
-	public void displayLocation() {
-		FacesMessage msg = new FacesMessage("Selected", "City:");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
+	
 	public void redirecionarModuloPrincipalSecretaria() {
 		paginaCentralControladorBean
 				.setPaginaCentral("paginas/perfil/lista.xhtml");
@@ -216,21 +202,5 @@ public class RelatorioDebitoPastoral implements Serializable {
 
 	public void setPastor(Pastor pastor) {
 		this.pastor = pastor;
-	}
-
-	public String getValor1() {
-		return valor1;
-	}
-
-	public void setValor1(String valor1) {
-		this.valor1 = valor1;
-	}
-
-	public String getValor2() {
-		return valor2;
-	}
-
-	public void setValor2(String valor2) {
-		this.valor2 = valor2;
 	}
 }

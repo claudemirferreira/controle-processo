@@ -21,8 +21,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
+import br.com.ieadam.dominio.Area;
+import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Pastor;
 import br.com.ieadam.dominio.Usuario;
+import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
@@ -36,6 +39,8 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 	private static final long serialVersionUID = 4085044268094923889L;
 
 	private Parametro parametro;
+
+	private Pastor pastor;
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
@@ -54,23 +59,26 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 	@ManagedProperty(value = "#{pastorServicoImpl}")
 	private PastorServico pastorServico;
 
-	List<Usuario> usuarios;
-
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
+
+		this.filtroRelatorioDTO.setZona(new Zona());
+		this.filtroRelatorioDTO.setNucleo(new Nucleo());
+		this.filtroRelatorioDTO.setArea(new Area());
+
 		this.filtroRelatorioDTO
 				.setUsuarioLogado((Usuario) SecurityContextHolder.getContext()
 						.getAuthentication().getPrincipal());
 
-		Pastor pastor = pastorServico.findByUsuario(this.filtroRelatorioDTO
+		this.pastor = pastorServico.findByUsuario(this.filtroRelatorioDTO
 				.getUsuarioLogado());
 
 		// chamada responsavel por preencher os combos de acordo com o nivel de
 		// acesso do pastor
-		this.filtroRelatorioDTO.preencherCombos(pastor, zonaServico,
+		this.filtroRelatorioDTO.preencherCombos(this.pastor, zonaServico,
 				nucleoServico, areaServico);
 
 		this.parametro = new Parametro();
@@ -78,15 +86,28 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
 		this.parametro.setMes(DataUtil.pegarMescorrente());
 
-		this.usuarios = new ArrayList<Usuario>();
-		Usuario usuario = new Usuario();
-
-		usuario.setLogin("eeeeeee");
-		usuarios.add(usuario);
-
 		this.paginaCentralControladorBean
-				.setPaginaCentral("paginas/relatorio/debitofinanceiro.xhtml");
+				.setPaginaCentral("paginas/relatorio/centrocusto.xhtml");
 
+	}
+
+	public void atualizarNucleo() {
+		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
+				.findByZona(this.filtroRelatorioDTO.getZona()));
+		System.out.println(" nucleo = "
+				+ this.filtroRelatorioDTO.getNucleos().size());
+
+	}
+
+	public void atualizarArea() {
+		this.filtroRelatorioDTO.setAreas(this.areaServico
+				.findByNucleo(this.filtroRelatorioDTO.getNucleo()));
+
+	}
+
+	public void redirecionarModuloPrincipalSecretaria() {
+		paginaCentralControladorBean
+				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
 	public void imprimir() {
@@ -96,19 +117,18 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 		ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
 
-		JRDataSource jrRS = new JRBeanCollectionDataSource(this.usuarios);
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		Usuario u = new Usuario();
+		u.setLogin("login");
+		usuarios.add(u);
 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("ano", this.parametro.getMes().getMes());
-		params.put("mes", this.parametro.getAno());
+		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
+
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("dataInicio", this.parametro.getDataInicio());
+		params.put("dataFim", this.parametro.getDataFim());
 
 		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
-
-	}
-
-	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControladorBean
-				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
@@ -133,14 +153,6 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 
 	public void setRelatorioUtil(RelatorioUtil relatorioUtil) {
 		this.relatorioUtil = relatorioUtil;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
 	}
 
 	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
@@ -182,5 +194,13 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 
 	public void setPastorServico(PastorServico pastorServico) {
 		this.pastorServico = pastorServico;
+	}
+
+	public Pastor getPastor() {
+		return pastor;
+	}
+
+	public void setPastor(Pastor pastor) {
+		this.pastor = pastor;
 	}
 }
