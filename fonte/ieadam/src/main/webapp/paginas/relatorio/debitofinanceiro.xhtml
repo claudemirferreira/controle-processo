@@ -11,42 +11,43 @@
 	<h:form id="form" target="_blank">
 		<p:panel header="RELATÓRIO DE DÉBITO FINANCEIRO" style="width:99%;">
 
-			<h:panelGrid id="panelPesquisa" columns="6">
-
+			<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.zona}">
+				<p:selectOneMenu id="zona"
+					value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.zona.idZona}">
+					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.zonas}"
-						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.id}" />
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioDebitoFinanceiro.atualizarNucleo}"
+						update=":form" event="change" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.nucleo}">
+				<p:selectOneMenu id="nucleo"
+					value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.nucleo.idNucleo}">
 					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.nucleos}"
-						var="nucleo" itemLabel="#{nucleo.nome}" itemValue="#{nucleo.id}" />
-					<p:ajax update="area"
-						listener="#{relatorioDebitoFinanceiro.atualizarArea}" />
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioDebitoFinanceiro.atualizarArea}"
+						update=":form" event="change" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="area"
 					value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.area}">
-					<f:selectItem itemLabel="Selecione a area" itemValue="" />
+					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
 						value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
 
-
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					style="width:100%;"
 					value="#{relatorioDebitoFinanceiro.parametro.mes}" effect="fold"
-					editable="true">
+					editable="true" style="width:100%;">
 					<f:selectItems value="#{relatorioDebitoFinanceiro.parametro.meses}" />
 				</p:selectOneMenu>
 
@@ -55,7 +56,6 @@
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
 					value="#{relatorioDebitoFinanceiro.parametro.ano}" />
-
 			</h:panelGrid>
 
 			<f:facet name="footer">

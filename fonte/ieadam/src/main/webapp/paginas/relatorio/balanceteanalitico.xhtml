@@ -11,27 +11,32 @@
 	<h:form id="form" target="_blank">
 		<p:panel header="RELATÓRIO DE BALANCETE ANALITICO" style="width:99%;">
 
-			<h:panelGrid id="panelPesquisa" columns="6">
-
+			<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zona}">
+				<p:selectOneMenu id="zona"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zona.idZona}">
+					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zonas}"
-						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.id}" />
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioBalanceteAnalitico.atualizarNucleo}"
+						update=":form" event="change" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleo}">
+				<p:selectOneMenu id="nucleo"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleo.idNucleo}">
 					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleos}"
-						var="nucleo" itemLabel="#{nucleo.nome}" itemValue="#{nucleo.id}" />
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioBalanceteAnalitico.atualizarArea}"
+						update=":form" event="change" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
+				<p:selectOneMenu id="area"
 					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.area}">
 					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems

@@ -11,27 +11,32 @@
 	<h:form id="form">
 		<p:panel header="RELATÓRIO DE SALDO CONGREGAÇÃO" style="width:99%;">
 
-			<h:panelGrid id="panelPesquisa" columns="6">
-
+			<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona}">
+				<p:selectOneMenu id="zona"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}">
+					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zonas}"
-						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.id}" />
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarNucleo}"
+						update=":form" event="change" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleo}">
+				<p:selectOneMenu id="nucleo"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleo.idNucleo}">
 					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos}"
-						var="nucleo" itemLabel="#{nucleo.nome}" itemValue="#{nucleo.id}" />
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarArea}"
+						update=":form" event="change" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu
+				<p:selectOneMenu id="area"
 					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.area}">
 					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
@@ -41,9 +46,8 @@
 
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					style="width:100%;"
 					value="#{relatorioSaldoCongregacao.parametro.mes}" effect="fold"
-					editable="true">
+					editable="true" style="width:100%;">
 					<f:selectItems value="#{relatorioSaldoCongregacao.parametro.meses}" />
 				</p:selectOneMenu>
 

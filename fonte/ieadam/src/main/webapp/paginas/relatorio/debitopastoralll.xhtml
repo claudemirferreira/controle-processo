@@ -14,22 +14,19 @@
 
 		<p:panel header="Double Combo" style="margin-bottom:10px;">
 			<h:panelGrid columns="2" cellpadding="5">
-				<p:selectOneMenu id="city" value="#{pPRBean.city}">
-					<f:selectItem itemLabel="valor 1" itemValue="1" />
-					<f:selectItem itemLabel="valor 2" itemValue="1" />
-					<p:ajax update="suburbs" listener="#{pPRBean.handleCityChange}" />
+				<p:selectOneMenu id="city" value="#{relatorioDebitoPastoral.valor1}">
+					<f:selectItem itemLabel="valor1" itemValue="valor1" />
+					<f:selectItem itemLabel="valor2" itemValue="valor2" >
+					</f:selectItem>
+					<p:ajax update="teste"
+						listener="#{relatorioDebitoPastoral.teste()}" />					
 				</p:selectOneMenu>
 
-				<p:selectOneMenu id="suburbs" value="#{pPRBean.suburb}">
-					<f:selectItem itemLabel="Select Suburb" itemValue="" />
-					<f:selectItems value="#{pPRBean.suburbs}" />
-				</p:selectOneMenu>
+				<p:inputText id="teste" value="#{relatorioDebitoPastoral.valor2}" />
 			</h:panelGrid>
 
 			<p:separator />
 
-			<p:commandButton value="Submit" update="msgs"
-				actionListener="#{pPRBean.displayLocation}" id="btnSubmit" />
 
 		</p:panel>
 
