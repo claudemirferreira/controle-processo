@@ -11,9 +11,49 @@
 	<h:form id="form" target="_blank">
 		<p:panel header="RELATÓRIO DE MEMBROS" style="width:99%;">
 
-			<h:panelGrid id="panelPesquisa" columns="6">
-				<p:outputLabel value="Nome do Membro:" styleClass="ui-priority-primary" />
-				<p:inputText value="#{relatorioMembro.parametro.usuario}" />
+			<h:panelGrid columns="6" cellpadding="5">
+				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu id="zona"
+					value="#{relatorioMembro.filtroRelatorioDTO.zona.idZona}">
+					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItems value="#{relatorioMembro.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioMembro.atualizarNucleo}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu id="nucleo"
+					value="#{relatorioMembro.filtroRelatorioDTO.nucleo.idNucleo}">
+					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItems
+						value="#{relatorioMembro.filtroRelatorioDTO.nucleos}" var="nucleo"
+						itemLabel="#{nucleo.nome}" itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioMembro.atualizarArea}" update=":form"
+						event="change" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
+				<p:selectOneMenu id="area"
+					value="#{relatorioMembro.filtroRelatorioDTO.area}">
+					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
+					<f:selectItems value="#{relatorioMembro.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu styleClass="ui-priority-primary"
+					value="#{relatorioMembro.parametro.mes}" effect="fold"
+					editable="true" style="width:100%;">
+					<f:selectItems value="#{relatorioMembro.parametro.meses}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
+				<p:inputText id="ano" styleClass="ui-priority-primary"
+					style="width:50px;" required="true"
+					requiredMessage="O ano deve ser informado"
+					value="#{relatorioMembro.parametro.ano}" />
+
 			</h:panelGrid>
 
 			<f:facet name="footer">
