@@ -1,4 +1,3 @@
-
 package br.com.ieadam.controle;
 
 import java.io.Serializable;
@@ -7,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -23,8 +21,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
+import br.com.ieadam.dominio.Area;
+import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Pastor;
 import br.com.ieadam.dominio.Usuario;
+import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
@@ -38,6 +39,8 @@ public class RelatorioMembro implements Serializable {
 	private static final long serialVersionUID = 4085044268094923889L;
 
 	private Parametro parametro;
+
+	private Pastor pastor;
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
@@ -59,18 +62,24 @@ public class RelatorioMembro implements Serializable {
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
-	@PostConstruct
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
+
+		this.filtroRelatorioDTO.setZona(new Zona());
+		this.filtroRelatorioDTO.setNucleo(new Nucleo());
+		this.filtroRelatorioDTO.setArea(new Area());
+
 		this.filtroRelatorioDTO
 				.setUsuarioLogado((Usuario) SecurityContextHolder.getContext()
 						.getAuthentication().getPrincipal());
-		
-		Pastor pastor = pastorServico.findByUsuario(this.filtroRelatorioDTO
+
+		this.pastor = pastorServico.findByUsuario(this.filtroRelatorioDTO
 				.getUsuarioLogado());
 
-		// chamada responsavel por preencher os combos de acordo com o nivel de acesso do pastor
-		this.filtroRelatorioDTO.preencherCombos(pastor, zonaServico, nucleoServico, areaServico);
+		// chamada responsavel por preencher os combos de acordo com o nivel de
+		// acesso do pastor
+		this.filtroRelatorioDTO.preencherCombos(this.pastor, zonaServico,
+				nucleoServico, areaServico);
 
 		this.parametro = new Parametro();
 
@@ -78,7 +87,21 @@ public class RelatorioMembro implements Serializable {
 		this.parametro.setMes(DataUtil.pegarMescorrente());
 
 		this.paginaCentralControladorBean
-				.setPaginaCentral("paginas/relatorio/membro.xhtml");
+				.setPaginaCentral("paginas/relatorio/debitosecretaria.xhtml");
+
+	}
+
+	public void atualizarNucleo() {
+		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
+				.findByZona(this.filtroRelatorioDTO.getZona()));
+		System.out.println(" nucleo = "
+				+ this.filtroRelatorioDTO.getNucleos().size());
+
+	}
+
+	public void atualizarArea() {
+		this.filtroRelatorioDTO.setAreas(this.areaServico
+				.findByNucleo(this.filtroRelatorioDTO.getNucleo()));
 
 	}
 
@@ -102,7 +125,8 @@ public class RelatorioMembro implements Serializable {
 		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
 
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("membro", this.parametro.getUsuario());
+		params.put("dataInicio", this.parametro.getDataInicio());
+		params.put("dataFim", this.parametro.getDataFim());
 
 		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
 	}
@@ -172,4 +196,11 @@ public class RelatorioMembro implements Serializable {
 		this.pastorServico = pastorServico;
 	}
 
+	public Pastor getPastor() {
+		return pastor;
+	}
+
+	public void setPastor(Pastor pastor) {
+		this.pastor = pastor;
+	}
 }

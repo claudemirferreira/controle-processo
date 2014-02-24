@@ -25,9 +25,8 @@ public class PaginaCentralControladorBean implements Serializable{
 		this.paginaCentral = paginaCentral;
 	}
 	
-	public void teste(){
-		
-		System.out.println("www");
+	public String index(){
+		return "index.xhtml";
 	}
 	
 }

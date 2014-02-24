@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -34,14 +35,14 @@ import br.com.ieadam.servico.ZonaServico;
 
 @ManagedBean
 @SessionScoped
-public class RelatorioSaldoCongregacao implements Serializable {
+public class RelatorioGenerico implements Serializable {
 
 	private static final long serialVersionUID = 4085044268094923889L;
 
 	private Parametro parametro;
 
 	private Pastor pastor;
-
+	
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
 	@ManagedProperty(value = "#{relatorioUtil}")
@@ -87,27 +88,26 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		this.parametro.setMes(DataUtil.pegarMescorrente());
 
 		this.paginaCentralControladorBean
-				.setPaginaCentral("paginas/relatorio/debitosecretaria.xhtml");
+				.setPaginaCentral("paginas/relatorio/debitopastoral.xhtml");
 
 	}
 
 	public void atualizarNucleo() {
 		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
 				.findByZona(this.filtroRelatorioDTO.getZona()));
-		System.out.println(" nucleo = "
-				+ this.filtroRelatorioDTO.getNucleos().size());
+		System.out.println(" nucleo = " + this.filtroRelatorioDTO.getNucleos().size());
 
 	}
 
 	public void atualizarArea() {
-		this.filtroRelatorioDTO.setAreas(this.areaServico
-				.findByNucleo(this.filtroRelatorioDTO.getNucleo()));
+		this.filtroRelatorioDTO.setAreas(this.areaServico.findByNucleo(this.filtroRelatorioDTO.getNucleo()));
+		System.out.println(this.filtroRelatorioDTO.getAreas().size());
 
 	}
 
-	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControladorBean
-				.setPaginaCentral("paginas/perfil/lista.xhtml");
+	public void displayLocation() {
+		FacesMessage msg = new FacesMessage("Selected", "City:");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void imprimir() {
@@ -203,4 +203,6 @@ public class RelatorioSaldoCongregacao implements Serializable {
 	public void setPastor(Pastor pastor) {
 		this.pastor = pastor;
 	}
+
+	
 }
