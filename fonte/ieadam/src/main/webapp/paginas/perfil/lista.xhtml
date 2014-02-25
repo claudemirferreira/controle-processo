@@ -23,10 +23,13 @@
 							<p:graphicImage width="100px" height="100px"
 								value="#{perfil.imagem}" />
 						</h:commandLink>
-						
+
 					</h:panelGrid>
 				</div>
 			</p:dataGrid>
+			<p:commandButton
+				action="#{perfilControlador.listaPerfilPorSistemaPorUsuario}"
+				id="home" icon="ui-icon-home" value="Retornar" update=":form" />
 		</p:panel>
 
 	</h:form>
