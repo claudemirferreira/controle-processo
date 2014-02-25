@@ -3,7 +3,6 @@ package br.com.ieadam.controle;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -20,6 +19,8 @@ import br.com.ieadam.servico.RotinaServico;
 @ManagedBean
 @SessionScoped
 public class PerfilControlador implements Serializable {
+
+	private static final int SISTEMA_IEADAM = 2;
 
 	private static final long serialVersionUID = -6832271293709421841L;
 
@@ -56,14 +57,17 @@ public class PerfilControlador implements Serializable {
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
-	@PostConstruct
 	public void init() {
 
 		this.lista = servico.listarTodos();
+		
+		this.listaPerfilPorSistemaPorUsuario();
+		telaPesquisa();
+	}
+	
+	public PerfilControlador() {
 		this.entidade = new Perfil();
 		this.pesquisa = new Perfil();
-
-		this.listaPerfilPorSistemaPorUsuario();
 	}
 
 	public void pesquisar() {
@@ -102,14 +106,16 @@ public class PerfilControlador implements Serializable {
 	}
 
 	public void listaPerfilPorSistemaPorUsuario() {
-		this.usuario = (Usuario) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
+		this.usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario(
-				2, usuario.getId());
+		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario( SISTEMA_IEADAM, usuario.getId() );
 
 		this.telaPerfis();
 
+	}
+
+	public void telaPesquisa() {
+		 paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public Perfil getPerfil() {

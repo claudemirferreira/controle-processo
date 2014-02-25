@@ -70,5 +70,15 @@ public class PerfilRotina implements Serializable {
 	public void setData(Date data) {
 		this.data = data;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return perfilRotinaPk.equals(obj);
+	}
 
+	@Override
+	public int hashCode() {
+		return perfilRotinaPk.hashCode();
+	}
+	
 }

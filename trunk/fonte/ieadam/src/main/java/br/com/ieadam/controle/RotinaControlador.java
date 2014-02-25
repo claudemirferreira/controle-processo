@@ -43,11 +43,13 @@ public class RotinaControlador implements Serializable {
 	@PostConstruct
 	public void init() {
 		this.lista = servico.listarTodos();
+		telaPesquisa();
+	}
+	
+	public RotinaControlador() {
 		this.entidade = new Rotina();
 		this.pesquisa = new Rotina();
-
 		this.perfil = new Perfil();
-
 	}
 
 	public void pesquisar() {
@@ -80,17 +82,8 @@ public class RotinaControlador implements Serializable {
 		this.lista = servico.listaRotinasPorPerfil(perfil.getId());
 		this.colunas = 4; // Util.definirTamanhoColuna(rotinas.size());
 		
-		this.paginaCentralControladorBean
-				.setPaginaCentral(this.TELA_LISTA_ROTINAS);
+		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_LISTA_ROTINAS);
 
-	}
-	
-	public void teste(){
-		
-		
-		System.out.println("teste###########################");
-		
-		
 	}
 
 	public void retornar() {

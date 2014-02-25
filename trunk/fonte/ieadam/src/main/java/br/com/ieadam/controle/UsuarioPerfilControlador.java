@@ -30,6 +30,7 @@ public class UsuarioPerfilControlador {
 
 	private static final String MSG_ERRO = "Ocorreu um erro ao executar a operação!";
 
+
 	@ManagedProperty(value = "#{usuarioServicoImpl}")
 	private UsuarioServico usuarioServico;
 
@@ -79,24 +80,24 @@ public class UsuarioPerfilControlador {
 	
 	private void salvarUsuario(UsuarioPerfil usuarioPerfil, boolean add ) {
 
-		String msg;
-		Usuario usuario = usuarioPerfil.getUsuario();
-		
-		if ( add ) {
-			usuario.getUsuarioPerfil().add(usuarioPerfil);
-			
-			usuarioPerfilServico.salvar(usuarioPerfil);
-			
-	        msg = MSG_ADICIONAR;
-		} else {
-			usuario.getUsuarioPerfil().remove(usuarioPerfil);
-			
-			usuarioPerfilServico.remover(usuarioPerfil);
-			
-			msg = MSG_REMOVER;		
-		}
-		
 		try {
+			String msg;
+			Usuario usuario = usuarioPerfil.getUsuario();
+			
+			if ( add ) {
+				usuario.getUsuarioPerfil().add(usuarioPerfil);
+				
+				usuarioPerfilServico.salvar(usuarioPerfil);
+				
+				msg = MSG_ADICIONAR;
+			} else {
+				usuario.getUsuarioPerfil().remove(usuarioPerfil);
+				
+				usuarioPerfilServico.remover(usuarioPerfil);
+				
+				msg = MSG_REMOVER;		
+			}
+			
 //			this.usuarioServico.salvar(usuario);	// TODO com erro.. 
 			showMessage(msg, FacesMessage.SEVERITY_INFO);
 			

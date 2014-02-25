@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +34,9 @@ public class Perfil extends AbstractEntity implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioPerfilPk.perfil")
 	private List<UsuarioPerfil> usuarioPerfil = new ArrayList<UsuarioPerfil>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "perfilRotinaPk.rotina")
+	@OneToMany(fetch = FetchType.EAGER,
+			cascade = { CascadeType.MERGE, CascadeType.REMOVE },
+			mappedBy = "perfilRotinaPk.perfil")
 	private List<PerfilRotina> perfilRotina = new ArrayList<PerfilRotina>();
 
 	@Column(length = 30, nullable = false)
