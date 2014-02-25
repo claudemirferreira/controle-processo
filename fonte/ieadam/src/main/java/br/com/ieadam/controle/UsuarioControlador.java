@@ -14,10 +14,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import br.com.ieadam.dominio.Pastor;
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Sistema;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.servico.MembroServico;
+import br.com.ieadam.servico.PastorServico;
 import br.com.ieadam.servico.SistemaServico;
 import br.com.ieadam.servico.UsuarioServico;
 import br.com.ieadam.utils.IEADAMAuthenticationManager;
@@ -36,6 +38,8 @@ public class UsuarioControlador {
 
 	private List<Usuario> lista;
 
+	private List<Pastor> pastores;
+
 	private List<Perfil> perfis = new ArrayList<Perfil>();
 
 	@ManagedProperty(value = "#{usuarioServicoImpl}")
@@ -46,6 +50,9 @@ public class UsuarioControlador {
 
 	@ManagedProperty(value = "#{membroServicoImpl}")
 	private MembroServico membroServico;
+
+	@ManagedProperty(value = "#{pastorServicoImpl}")
+	private PastorServico pastorServico;
 
 	@ManagedProperty(value = "#{sistemaServicoImpl}")
 	private SistemaServico sistemaServico;
@@ -76,19 +83,19 @@ public class UsuarioControlador {
 		this.lista = this.servico.findByNomeLike(this.pesquisa.getNome());
 	}
 
-	public String detalhe(Usuario usuario) {
+	public void detalhe(Usuario usuario) {
 		this.entidade = usuario;
+		
+		this.entidade.setPastor(pastorServico.findByUsuario(usuario));
+		this.pastores = pastorServico.listarTodos();
 		this.telaCadastro();
-		return this.paginaCentralControladorBean.index();
-
 	}
 
-	public String salvar() {
+	public void salvar() {
 
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
 		this.telaPesquisa();
-		return this.paginaCentralControladorBean.index();
 	}
 
 	public void excluir(Usuario usuario) {
@@ -151,12 +158,12 @@ public class UsuarioControlador {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Sample error message",
-							"PrimeFaces makes no mistakes"));
+							"Login e Senha invalido",
+							"Login e Senha inválidos, tente novamente"));
 
 			this.usuario = new Usuario();
 
-			return "/login.xhtml?faces-redirect=true";
+			return "";
 
 		} else {
 
@@ -165,12 +172,6 @@ public class UsuarioControlador {
 
 			this.colunas = 4;
 			// Util .definirTamanhoColuna(usuario.getPerfis().size());
-
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Sample error message",
-							"PrimeFaces makes no mistakes"));
 
 			return "/index.xhtml?faces-redirect=true";
 		}
@@ -261,5 +262,21 @@ public class UsuarioControlador {
 	public void setPaginaCentralControlador(
 			PaginaCentralControladorBean paginaCentralControladorBean) {
 		this.paginaCentralControladorBean = paginaCentralControladorBean;
+	}
+
+	public List<Pastor> getPastores() {
+		return pastores;
+	}
+
+	public void setPastores(List<Pastor> pastores) {
+		this.pastores = pastores;
+	}
+
+	public PastorServico getPastorServico() {
+		return pastorServico;
+	}
+
+	public void setPastorServico(PastorServico pastorServico) {
+		this.pastorServico = pastorServico;
 	}
 }
