@@ -54,6 +54,12 @@
 					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
 					update=":form" title="Detalhe" />
 
+				<p:commandButton value="Rotina"
+					action="#{perfilRotinaControlador.showModalRotina(item)}"
+					oncomplete="PF('dlgRotina').show();"
+					update=":formDlg"
+					 />
+
 				<p:commandButton ajax="false"
 					action="#{perfilControlador.excluir(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-trash"
@@ -66,6 +72,44 @@
         </f:facet>
 
 		</p:dataTable>
+
+	</h:form>
+
+
+	<h:form id="formDlg">
+		<p:dialog id="dialogRotina" header="Rotina" widgetVar="dlgRotina" >
+		
+			<p:growl id="msg" showDetail="false" escape="false" globalOnly="false"/>
+
+			<h4 style="margin-top: 0">Selecione as Rotinas para associar ao Perfil</h4>
+
+			<p:pickList id="plUsuPerf" 
+						value="#{perfilRotinaControlador.dualListRotina}" 
+						effect="bounce"
+						converter="perfilRotinaConverter"
+						var="pr"
+						itemLabel="#{pr.rotina.nome}" 
+						itemValue="#{pr}"
+						showSourceControls="false" 
+						showTargetControls="false" 
+						showCheckbox="false"  
+                    	showSourceFilter="true" 
+                    	showTargetFilter="true" >
+                    	
+                <f:facet name="sourceCaption">Disponíveis</f:facet>  
+        		<f:facet name="targetCaption">Atribuídos</f:facet>  
+                    	
+		        <p:ajax event="transfer" listener="#{perfilRotinaControlador.onTransfer}" update="msg" />  
+        
+        		 <p:column style="width:75%;">  
+		            #{pr.rotina.nome}  
+		        </p:column>  
+        
+             </p:pickList>
+             
+             <p:commandButton value="Fechar" onclick="PF('dlgRotina').hide();" />  
+	
+		</p:dialog>
 
 	</h:form>
 

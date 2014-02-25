@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -100,14 +101,12 @@ public class UsuarioControlador {
 		this.telaCadastro();
 	}
 
-	public String telaCadastro() {
+	public void telaCadastro() {
 		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
-		return this.paginaCentralControladorBean.index();
 	}
 
-	public String telaPesquisa() {
+	public void telaPesquisa() {
 		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
-		return this.paginaCentralControladorBean.index();
 	}
 
 	public Usuario getEntidade() {
@@ -180,10 +179,12 @@ public class UsuarioControlador {
 	public String logout() {
 		SecurityContextHolder.clearContext();
 		this.usuario = new Usuario();
-
-		this.paginaCentralControladorBean
-				.setPaginaCentral("paginacentral.xhtml");
-		;
+		this.paginaCentralControladorBean.setPaginaCentral("paginacentral.xhtml");
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		request.getSession().invalidate();
+		
 		return "login.xhtml?faces-redirect=true";
 	}
 
