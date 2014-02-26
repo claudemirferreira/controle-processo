@@ -30,7 +30,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	private Long idUsuario;
 
 	
-	@OneToMany(fetch = FetchType.EAGER,
+	@OneToMany(fetch = FetchType.LAZY,
 			cascade = { CascadeType.MERGE, CascadeType.REMOVE },
 			mappedBy = "usuarioPerfilPk.usuario"
 			)
