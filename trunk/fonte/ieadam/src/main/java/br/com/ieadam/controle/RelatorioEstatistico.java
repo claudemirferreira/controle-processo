@@ -1,7 +1,10 @@
 package br.com.ieadam.controle;
 
+import java.io.FileInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +19,8 @@ import javax.servlet.ServletContext;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ieadam.componentes.DataUtil;
@@ -63,6 +68,8 @@ public class RelatorioEstatistico implements
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
+	private StreamedContent streamedContent;
+	
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 
@@ -88,7 +95,7 @@ public class RelatorioEstatistico implements
 		this.parametro.setMes(DataUtil.pegarMescorrente());
 
 		this.paginaCentralControladorBean
-				.setPaginaCentral("paginas/relatorio/debitosecretaria.xhtml");
+				.setPaginaCentral("paginas/relatorio/estatistico.xhtml");
 
 	}
 
@@ -105,7 +112,7 @@ public class RelatorioEstatistico implements
 				.findByNucleo(this.filtroRelatorioDTO.getNucleo()));
 
 	}
-
+	
 	public void redirecionarModuloPrincipalSecretaria() {
 		paginaCentralControladorBean
 				.setPaginaCentral("paginas/perfil/lista.xhtml");
@@ -118,18 +125,28 @@ public class RelatorioEstatistico implements
 		ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
 
+		// BLOCO USADO PARA TESTES
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		Usuario u = new Usuario();
 		u.setLogin("login");
 		usuarios.add(u);
-
+		// BLOCO USADO PARA TESTES
+		
+		Calendar dataInicio = new GregorianCalendar(this.parametro.getAnoInicio(), this.parametro.getMesInicio().getMes(), 1);
+		Calendar dataFim = new GregorianCalendar(this.parametro.getAnoFim(), this.parametro.getMesFim().getMes(), 1);
+		
 		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
 
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("dataInicio", this.parametro.getDataInicio());
-		params.put("dataFim", this.parametro.getDataFim());
-
-		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("DATA_INICIO", dataInicio.getTime());
+		params.put("DATA_FIM", dataFim.getTime());
+		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
+		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
+		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
+		
+		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
+			
+		this.streamedContent = new DefaultStreamedContent(fis, "application/pdf");
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
@@ -204,4 +221,12 @@ public class RelatorioEstatistico implements
 	public void setPastor(Pastor pastor) {
 		this.pastor = pastor;
 	}
+	
+    public StreamedContent getStreamedContent() {
+       return streamedContent;
+    }
+
+    public void setStreamedContent(StreamedContent streamedContent) {
+        this.streamedContent = streamedContent;
+    }
 }

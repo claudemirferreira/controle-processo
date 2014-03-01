@@ -18,7 +18,7 @@
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="zona"
 					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona.idZona}">
-					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
@@ -40,26 +40,39 @@
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="area"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area}">
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area.idArea}">
 					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
-
-				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
+			</h:panelGrid>
+			<h:panelGrid columns="4" cellpadding="5">
+				<p:outputLabel value="Mês Início:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioDebitoPastoral.parametro.mes}" effect="fold"
+					value="#{relatorioDebitoPastoral.parametro.mesInicio}" effect="fold"
 					editable="true" style="width:100%;">
 					<f:selectItems value="#{relatorioDebitoPastoral.parametro.meses}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
-				<p:inputText id="ano" styleClass="ui-priority-primary"
+				<p:outputLabel value="Ano Inicio:" styleClass="ui-priority-primary" />
+				<p:inputText id="anoInicio" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
-					value="#{relatorioDebitoPastoral.parametro.ano}" />
+					value="#{relatorioDebitoPastoral.parametro.anoInicio}" />
 
+				<p:outputLabel value="Mês Fim:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu styleClass="ui-priority-primary"
+					value="#{relatorioDebitoPastoral.parametro.mesFim}" effect="fold"
+					editable="true" style="width:100%;">
+					<f:selectItems value="#{relatorioDebitoPastoral.parametro.meses}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Ano Fim:" styleClass="ui-priority-primary" />
+				<p:inputText id="anoFim" styleClass="ui-priority-primary"
+					style="width:50px;" required="true"
+					requiredMessage="O ano deve ser informado"
+					value="#{relatorioDebitoPastoral.parametro.anoFim}" />
 			</h:panelGrid>
 
 			<f:facet name="footer">
@@ -78,10 +91,9 @@
 		
 		</p:blockUI>
 
-		<p:panel header="RELATÓRIO">
-			<p:media value="/resources/CONTRATO.pdf" width="99%" height="250px"></p:media>
+		<p:panel header="RELATÓRIO GERADO" rendered="#{relatorioDebitoPastoral.streamedContent!=null}">
+			<p:media value="#{relatorioDebitoPastoral.streamedContent}" player="pdf" width="100%" height="300"></p:media>
 		</p:panel>
-
 	</h:form>
 
 </ui:component>

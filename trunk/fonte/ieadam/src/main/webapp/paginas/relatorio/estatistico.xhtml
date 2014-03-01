@@ -12,13 +12,13 @@
 
 		<p:growl id="msgs" showDetail="true" />
 
-		<p:panel header="RELATÓRIO ESTATISTICO" style="margin-bottom:10px;">
-
+		<p:panel id="painel" header="RELATÓRIO ESTATÍSTICO" style="margin-bottom:10px;">
+			
 			<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="zona"
 					value="#{relatorioEstatistico.filtroRelatorioDTO.zona.idZona}">
-					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
 						value="#{relatorioEstatistico.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
@@ -29,7 +29,7 @@
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="nucleo"
 					value="#{relatorioEstatistico.filtroRelatorioDTO.nucleo.idNucleo}">
-					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioEstatistico.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
@@ -40,30 +40,42 @@
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="area"
-					value="#{relatorioEstatistico.filtroRelatorioDTO.area}">
-					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
+					value="#{relatorioEstatistico.filtroRelatorioDTO.area.idArea}">
+					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioEstatistico.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
-
-				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
+			</h:panelGrid>
+			<h:panelGrid columns="4" cellpadding="5">
+				<p:outputLabel value="Mês Início:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioEstatistico.parametro.mes}" effect="fold"
+					value="#{relatorioEstatistico.parametro.mesInicio}" effect="fold"
 					editable="true" style="width:100%;">
 					<f:selectItems value="#{relatorioEstatistico.parametro.meses}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
-				<p:inputText id="ano" styleClass="ui-priority-primary"
+				<p:outputLabel value="Ano Inicio:" styleClass="ui-priority-primary" />
+				<p:inputText id="anoInicio" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
-					value="#{relatorioEstatistico.parametro.ano}" />
+					value="#{relatorioEstatistico.parametro.anoInicio}" />
 
+				<p:outputLabel value="Mês Fim:" styleClass="ui-priority-primary" />
+				<p:selectOneMenu styleClass="ui-priority-primary"
+					value="#{relatorioEstatistico.parametro.mesFim}" effect="fold"
+					editable="true" style="width:100%;">
+					<f:selectItems value="#{relatorioEstatistico.parametro.meses}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Ano Fim:" styleClass="ui-priority-primary" />
+				<p:inputText id="anoFim" styleClass="ui-priority-primary"
+					style="width:50px;" required="true"
+					requiredMessage="O ano deve ser informado"
+					value="#{relatorioEstatistico.parametro.anoFim}" />
 			</h:panelGrid>
 
 			<f:facet name="footer">
-
 				<p:commandButton value="Gerar relatorio" ajax="false"
 					icon="ui-icon-gear" styleClass="ui-priority-primary"
 					actionListener="#{relatorioEstatistico.imprimir}" />
@@ -74,7 +86,14 @@
 			</f:facet>
 
 		</p:panel>
+		
+		<p:blockUI block="painel" trigger="zona" blocked="painel">
+		
+		</p:blockUI>
 
+		<p:panel header="RELATÓRIO GERADO" rendered="#{relatorioEstatistico.streamedContent!=null}">
+			<p:media value="#{relatorioEstatistico.streamedContent}" player="pdf" width="100%" height="300"></p:media>
+		</p:panel>
 	</h:form>
 
 </ui:component>

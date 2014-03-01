@@ -86,7 +86,7 @@ public class UsuarioControlador {
 	public void detalhe(Usuario usuario) {
 		this.entidade = usuario;
 		
-		this.entidade.setPastor(pastorServico.findByUsuario(usuario));
+//		this.entidade.setPastor(pastorServico.findByUsuario(usuario));
 		this.pastores = pastorServico.listarTodos();
 		this.telaCadastro();
 	}

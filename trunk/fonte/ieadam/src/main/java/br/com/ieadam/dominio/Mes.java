@@ -1,8 +1,8 @@
 package br.com.ieadam.dominio;
 
 public enum Mes {
-	JANEIRO(1), FEVEREIRO(2), MARCO(3), ABRIL(4), MAIO(5), JUNHO(6), JULHO(7), AGOSTO(
-			8), SETEMBRO(9), OUTUBRO(10), NOVEMBRO(11), DEZEMBRO(12);
+	JANEIRO(0), FEVEREIRO(1), MARCO(2), ABRIL(3), MAIO(4), JUNHO(5), JULHO(6), AGOSTO(7), 
+	SETEMBRO(8), OUTUBRO(9), NOVEMBRO(10), DEZEMBRO(11);
 
 	private int mes;
 
