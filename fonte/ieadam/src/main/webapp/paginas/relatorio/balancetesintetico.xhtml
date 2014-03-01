@@ -8,14 +8,17 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<h:form id="form" target="_blank">
-		<p:panel header="RELATÓRIO DE BALANCETE SINTÉTICO" style="width:99%;">
+	<h:form id="form">
 
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:panel id="painel" header="RELATÓRIO DE BALANCETE SINTÉTICO" style="margin-bottom:10px;">
+			
 			<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="zona"
 					value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.zona.idZona}">
-					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
 						value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
@@ -26,7 +29,7 @@
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="nucleo"
 					value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.nucleo.idNucleo}">
-					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
@@ -37,23 +40,23 @@
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="area"
-					value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.area}">
-					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
+					value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.area.idArea}">
+					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
-
+			</h:panelGrid>
+			<h:panelGrid columns="4" cellpadding="5">
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
 					value="#{relatorioBalanceteSintetico.parametro.mes}" effect="fold"
 					editable="true" style="width:100%;">
-					<f:selectItems
-						value="#{relatorioBalanceteSintetico.parametro.meses}" />
+					<f:selectItems value="#{relatorioBalanceteSintetico.parametro.meses}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
-				<p:inputText id="ano" styleClass="ui-priority-primary"
+				<p:inputText id="anoInicio" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
 					value="#{relatorioBalanceteSintetico.parametro.ano}" />
@@ -70,7 +73,14 @@
 			</f:facet>
 
 		</p:panel>
+		
+		<p:blockUI block="painel" trigger="zona" blocked="painel">
+		
+		</p:blockUI>
 
+		<p:panel header="RELATÓRIO GERADO" rendered="#{relatorioBalanceteSintetico.streamedContent!=null}">
+			<p:media value="#{relatorioBalanceteSintetico.streamedContent}" player="pdf" width="100%" height="300"></p:media>
+		</p:panel>
 	</h:form>
 
 </ui:component>

@@ -2,17 +2,21 @@ package br.com.ieadam.componentes;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -34,26 +38,31 @@ public class RelatorioUtil {
 
 	}
 
-	public void gerarRelatorioWeb(JRDataSource jrRS, Map parametros,
+	public FileInputStream gerarRelatorioWeb(JRDataSource jrRS, Map parametros,
 			String arquivo) {
-		ServletOutputStream servletOutputStream = null;
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletResponse response = (HttpServletResponse) context
-				.getExternalContext().getResponse();
-
+		
+		FileInputStream fis = null;
+		
 		try {
-			servletOutputStream = response.getOutputStream();
-			JasperRunManager.runReportToPdfStream(new FileInputStream(new File(
-					arquivo)), response.getOutputStream(), parametros,
-					this.dataSource.getConnection());
+			JasperPrint print = JasperFillManager.fillReport(new FileInputStream(new File(arquivo)), 
+					parametros, this.dataSource.getConnection());
+			
+			File arquivoGerado = File.createTempFile("relatorio.", ".pdf");
 
-			response.setContentType("application/pdf");
-			servletOutputStream.flush();
-			servletOutputStream.close();
-			context.renderResponse();
-			context.responseComplete();
-		} catch (Exception e) {
+			JasperExportManager.exportReportToPdfStream(print, new FileOutputStream(arquivoGerado));
+			
+			fis = new FileInputStream(arquivoGerado);
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return fis;
 	}
 }
