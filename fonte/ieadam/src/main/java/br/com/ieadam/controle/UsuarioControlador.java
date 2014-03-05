@@ -14,12 +14,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import br.com.ieadam.dominio.Pastor;
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Sistema;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.servico.MembroServico;
-import br.com.ieadam.servico.PastorServico;
 import br.com.ieadam.servico.SistemaServico;
 import br.com.ieadam.servico.UsuarioServico;
 import br.com.ieadam.utils.IEADAMAuthenticationManager;
@@ -38,8 +36,6 @@ public class UsuarioControlador {
 
 	private List<Usuario> lista;
 
-	private List<Pastor> pastores;
-
 	private List<Perfil> perfis = new ArrayList<Perfil>();
 
 	@ManagedProperty(value = "#{usuarioServicoImpl}")
@@ -51,11 +47,11 @@ public class UsuarioControlador {
 	@ManagedProperty(value = "#{membroServicoImpl}")
 	private MembroServico membroServico;
 
-	@ManagedProperty(value = "#{pastorServicoImpl}")
-	private PastorServico pastorServico;
-
 	@ManagedProperty(value = "#{sistemaServicoImpl}")
 	private SistemaServico sistemaServico;
+
+	@ManagedProperty(value = "#{perfilControlador}")
+	private PerfilControlador perfilControlador;
 
 	private int colunas;
 
@@ -85,9 +81,9 @@ public class UsuarioControlador {
 
 	public void detalhe(Usuario usuario) {
 		this.entidade = usuario;
-		
-//		this.entidade.setPastor(pastorServico.findByUsuario(usuario));
-		this.pastores = pastorServico.listarTodos();
+
+		// this.entidade.setPastor(pastorServico.findByUsuario(usuario));
+		// this.pastores = pastorServico.listarTodos();
 		this.telaCadastro();
 	}
 
@@ -173,6 +169,8 @@ public class UsuarioControlador {
 			this.colunas = 4;
 			// Util .definirTamanhoColuna(usuario.getPerfis().size());
 
+			this.perfilControlador.listaPerfilPorSistemaPorUsuario();
+
 			return "/index.xhtml?faces-redirect=true";
 		}
 	}
@@ -180,12 +178,14 @@ public class UsuarioControlador {
 	public String logout() {
 		SecurityContextHolder.clearContext();
 		this.usuario = new Usuario();
-		this.paginaCentralControladorBean.setPaginaCentral("paginacentral.xhtml");
-		
+		this.paginaCentralControladorBean
+				.setPaginaCentral("paginacentral.xhtml");
+
 		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		HttpServletRequest request = (HttpServletRequest) context
+				.getExternalContext().getRequest();
 		request.getSession().invalidate();
-		
+
 		return "login.xhtml?faces-redirect=true";
 	}
 
@@ -264,19 +264,11 @@ public class UsuarioControlador {
 		this.paginaCentralControladorBean = paginaCentralControladorBean;
 	}
 
-	public List<Pastor> getPastores() {
-		return pastores;
+	public PerfilControlador getPerfilControlador() {
+		return perfilControlador;
 	}
 
-	public void setPastores(List<Pastor> pastores) {
-		this.pastores = pastores;
-	}
-
-	public PastorServico getPastorServico() {
-		return pastorServico;
-	}
-
-	public void setPastorServico(PastorServico pastorServico) {
-		this.pastorServico = pastorServico;
+	public void setPerfilControlador(PerfilControlador perfilControlador) {
+		this.perfilControlador = perfilControlador;
 	}
 }
