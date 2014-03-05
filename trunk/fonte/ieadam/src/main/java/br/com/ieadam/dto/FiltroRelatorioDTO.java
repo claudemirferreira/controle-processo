@@ -6,7 +6,6 @@ import java.util.List;
 
 import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Nucleo;
-import br.com.ieadam.dominio.Pastor;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.servico.AreaServico;
@@ -26,17 +25,17 @@ public class FiltroRelatorioDTO implements Serializable {
 	private Usuario usuarioLogado;
 
 	private Usuario membro;
-	
+
 	private Zona zona;
-	
+
 	private Nucleo nucleo;
-	
+
 	private Area area;
-	
+
 	private List<Zona> zonas;
-	
+
 	private List<Area> areas;
-	
+
 	private List<Nucleo> nucleos;
 
 	public String getTipoRelatorio() {
@@ -126,55 +125,48 @@ public class FiltroRelatorioDTO implements Serializable {
 	public void setNucleos(List<Nucleo> nucleos) {
 		this.nucleos = nucleos;
 	}
-	
-	public void preencherCombos(Pastor pastor, ZonaServico zonaServico, NucleoServico nucleoServico, AreaServico areaServico) {
-		if (pastor.getZona()) {
+
+	public void preencherCombos(Usuario usuario, ZonaServico zonaServico,
+			NucleoServico nucleoServico, AreaServico areaServico) {
+		if (usuario.isZona()) {
 			this.setZonas(new ArrayList<Zona>());
-			
-			this.setZonas(zonaServico
-					.findByMembro(pastor.getMembro()));
+
+			this.setZonas(zonaServico.findByMembro(usuario.getMembro()));
 
 			if (this.getZonas().size() == 1) {
-				this.setNucleos(nucleoServico
-						.findByZona(this.getZonas()
-								.iterator().next()));
+				this.setNucleos(nucleoServico.findByZona(this.getZonas()
+						.iterator().next()));
 			}
-		} else if (pastor.getNucleo()) {
+		} else if (usuario.isNucleo()) {
 			this.setNucleos(new ArrayList<Nucleo>());
 
-			this.setNucleos(nucleoServico
-					.findByMembro(pastor.getMembro()));
+			this.setNucleos(nucleoServico.findByMembro(usuario.getMembro()));
 
 			if (this.getNucleos().size() > 0) {
 				this.setZonas(new ArrayList<Zona>());
 				this.getZonas().add(
-						this.getNucleos().iterator().next()
-								.getZona());
+						this.getNucleos().iterator().next().getZona());
 			}
 
-			this.setNucleos(nucleoServico
-					.findByMembro(pastor.getMembro()));
+			this.setNucleos(nucleoServico.findByMembro(usuario.getMembro()));
 
 			if (this.getNucleos().size() == 1) {
-				this.setAreas(areaServico
-						.findByNucleo(this.getNucleos()
-								.iterator().next()));
+				this.setAreas(areaServico.findByNucleo(this.getNucleos()
+						.iterator().next()));
 			}
-		} else if (pastor.getArea()) {
+		} else if (usuario.isArea()) {
 			this.setAreas(new ArrayList<Area>());
-			this.setAreas(areaServico.findByMembro(pastor.getMembro()));
-			
+			this.setAreas(areaServico.findByMembro(usuario.getMembro()));
+
 			if (this.getAreas().size() > 0) {
 				this.setNucleos(new ArrayList<Nucleo>());
 				this.getNucleos().add(
-						this.getAreas().iterator().next()
-								.getNucleo());
-				
+						this.getAreas().iterator().next().getNucleo());
+
 				if (this.getNucleos().size() > 0) {
 					this.setZonas(new ArrayList<Zona>());
 					this.getZonas().add(
-							this.getNucleos().iterator().next()
-									.getZona());
+							this.getNucleos().iterator().next().getZona());
 				}
 			}
 		}

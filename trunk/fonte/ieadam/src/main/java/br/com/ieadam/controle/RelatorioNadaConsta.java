@@ -23,13 +23,11 @@ import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
 import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Nucleo;
-import br.com.ieadam.dominio.Pastor;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
-import br.com.ieadam.servico.PastorServico;
 import br.com.ieadam.servico.ZonaServico;
 
 @ManagedBean
@@ -39,8 +37,6 @@ public class RelatorioNadaConsta implements Serializable {
 	private static final long serialVersionUID = 4085044268094923889L;
 
 	private Parametro parametro;
-
-	private Pastor pastor;
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
@@ -56,9 +52,6 @@ public class RelatorioNadaConsta implements Serializable {
 	@ManagedProperty(value = "#{nucleoServicoImpl}")
 	private NucleoServico nucleoServico;
 
-	@ManagedProperty(value = "#{pastorServicoImpl}")
-	private PastorServico pastorServico;
-
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
@@ -73,12 +66,10 @@ public class RelatorioNadaConsta implements Serializable {
 				.setUsuarioLogado((Usuario) SecurityContextHolder.getContext()
 						.getAuthentication().getPrincipal());
 
-		this.pastor = pastorServico.findByUsuario(this.filtroRelatorioDTO
-				.getUsuarioLogado());
-
 		// chamada responsavel por preencher os combos de acordo com o nivel de
 		// acesso do pastor
-		this.filtroRelatorioDTO.preencherCombos(this.pastor, zonaServico,
+		this.filtroRelatorioDTO.preencherCombos(
+				this.filtroRelatorioDTO.getUsuarioLogado(), zonaServico,
 				nucleoServico, areaServico);
 
 		this.parametro = new Parametro();
@@ -188,19 +179,4 @@ public class RelatorioNadaConsta implements Serializable {
 		this.nucleoServico = nucleoServico;
 	}
 
-	public PastorServico getPastorServico() {
-		return pastorServico;
-	}
-
-	public void setPastorServico(PastorServico pastorServico) {
-		this.pastorServico = pastorServico;
-	}
-
-	public Pastor getPastor() {
-		return pastor;
-	}
-
-	public void setPastor(Pastor pastor) {
-		this.pastor = pastor;
-	}
 }

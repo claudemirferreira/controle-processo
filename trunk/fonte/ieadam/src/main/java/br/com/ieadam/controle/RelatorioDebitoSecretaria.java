@@ -21,20 +21,17 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
 import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Nucleo;
-import br.com.ieadam.dominio.Pastor;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
-import br.com.ieadam.servico.PastorServico;
 import br.com.ieadam.servico.ZonaServico;
 
 @ManagedBean
@@ -44,8 +41,6 @@ public class RelatorioDebitoSecretaria implements Serializable {
 	private static final long serialVersionUID = 4085044268094923889L;
 
 	private Parametro parametro;
-
-	private Pastor pastor;
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
@@ -61,14 +56,11 @@ public class RelatorioDebitoSecretaria implements Serializable {
 	@ManagedProperty(value = "#{nucleoServicoImpl}")
 	private NucleoServico nucleoServico;
 
-	@ManagedProperty(value = "#{pastorServicoImpl}")
-	private PastorServico pastorServico;
-
 	@ManagedProperty(value = "#{paginaCentralControladorBean}")
 	private PaginaCentralControladorBean paginaCentralControladorBean;
 
 	private StreamedContent streamedContent;
-	
+
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 
@@ -76,16 +68,10 @@ public class RelatorioDebitoSecretaria implements Serializable {
 		this.filtroRelatorioDTO.setNucleo(new Nucleo());
 		this.filtroRelatorioDTO.setArea(new Area());
 
-		this.filtroRelatorioDTO
-				.setUsuarioLogado((Usuario) SecurityContextHolder.getContext()
-						.getAuthentication().getPrincipal());
-
-		this.pastor = pastorServico.findByUsuario(this.filtroRelatorioDTO
-				.getUsuarioLogado());
-
 		// chamada responsavel por preencher os combos de acordo com o nivel de
 		// acesso do pastor
-		this.filtroRelatorioDTO.preencherCombos(this.pastor, zonaServico,
+		this.filtroRelatorioDTO.preencherCombos(
+				this.filtroRelatorioDTO.getUsuarioLogado(), zonaServico,
 				nucleoServico, areaServico);
 
 		this.parametro = new Parametro();
@@ -111,7 +97,7 @@ public class RelatorioDebitoSecretaria implements Serializable {
 				.findByNucleo(this.filtroRelatorioDTO.getNucleo()));
 
 	}
-	
+
 	public void redirecionarModuloPrincipalSecretaria() {
 		paginaCentralControladorBean
 				.setPaginaCentral("paginas/perfil/lista.xhtml");
@@ -130,10 +116,13 @@ public class RelatorioDebitoSecretaria implements Serializable {
 		u.setLogin("login");
 		usuarios.add(u);
 		// BLOCO USADO PARA TESTES
-		
-		Calendar dataInicio = new GregorianCalendar(this.parametro.getAnoInicio(), this.parametro.getMesInicio().getMes(), 1);
-		Calendar dataFim = new GregorianCalendar(this.parametro.getAnoFim(), this.parametro.getMesFim().getMes(), 1);
-		
+
+		Calendar dataInicio = new GregorianCalendar(
+				this.parametro.getAnoInicio(), this.parametro.getMesInicio()
+						.getMes(), 1);
+		Calendar dataFim = new GregorianCalendar(this.parametro.getAnoFim(),
+				this.parametro.getMesFim().getMes(), 1);
+
 		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
 
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -142,10 +131,12 @@ public class RelatorioDebitoSecretaria implements Serializable {
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
-		
-		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
-			
-		this.streamedContent = new DefaultStreamedContent(fis, "application/pdf");
+
+		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(jrRS, params,
+				arquivo);
+
+		this.streamedContent = new DefaultStreamedContent(fis,
+				"application/pdf");
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
@@ -205,27 +196,11 @@ public class RelatorioDebitoSecretaria implements Serializable {
 		this.nucleoServico = nucleoServico;
 	}
 
-	public PastorServico getPastorServico() {
-		return pastorServico;
+	public StreamedContent getStreamedContent() {
+		return streamedContent;
 	}
 
-	public void setPastorServico(PastorServico pastorServico) {
-		this.pastorServico = pastorServico;
+	public void setStreamedContent(StreamedContent streamedContent) {
+		this.streamedContent = streamedContent;
 	}
-
-	public Pastor getPastor() {
-		return pastor;
-	}
-
-	public void setPastor(Pastor pastor) {
-		this.pastor = pastor;
-	}
-	
-    public StreamedContent getStreamedContent() {
-       return streamedContent;
-    }
-
-    public void setStreamedContent(StreamedContent streamedContent) {
-        this.streamedContent = streamedContent;
-    }
 }

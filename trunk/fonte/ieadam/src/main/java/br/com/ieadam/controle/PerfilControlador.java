@@ -107,9 +107,7 @@ public class PerfilControlador implements Serializable {
 
 	public void listaPerfilPorSistemaPorUsuario() {
 		this.usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
 		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario( SISTEMA_IEADAM, usuario.getId() );
-
 		this.telaPerfis();
 
 	}

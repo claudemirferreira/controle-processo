@@ -11,7 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -29,11 +31,8 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idUsuario;
 
-	
-	@OneToMany(fetch = FetchType.LAZY,
-			cascade = { CascadeType.MERGE, CascadeType.REMOVE },
-			mappedBy = "usuarioPerfilPk.usuario"
-			)
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
+			CascadeType.REMOVE }, mappedBy = "usuarioPerfilPk.usuario")
 	private List<UsuarioPerfil> usuarioPerfil = new ArrayList<UsuarioPerfil>();
 
 	@Column(nullable = false, length = 30)
@@ -46,6 +45,16 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	@Column(name = "status", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String status;
+
+	private boolean zona;
+
+	private boolean area;
+
+	private boolean nucleo;
+
+	@OneToOne
+	@JoinColumn(name = "id_membro")
+	private Membro membro;
 
 	@Override
 	public Long getId() {
@@ -113,6 +122,38 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public boolean isZona() {
+		return zona;
+	}
+
+	public void setZona(boolean zona) {
+		this.zona = zona;
+	}
+
+	public boolean isArea() {
+		return area;
+	}
+
+	public void setArea(boolean area) {
+		this.area = area;
+	}
+
+	public boolean isNucleo() {
+		return nucleo;
+	}
+
+	public void setNucleo(boolean nucleo) {
+		this.nucleo = nucleo;
+	}
+
+	public Membro getMembro() {
+		return membro;
+	}
+
+	public void setMembro(Membro membro) {
+		this.membro = membro;
 	}
 
 }
