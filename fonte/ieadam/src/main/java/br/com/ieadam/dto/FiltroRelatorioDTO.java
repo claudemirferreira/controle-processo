@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.dominio.Area;
+import br.com.ieadam.dominio.Mes;
 import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.Zona;
@@ -37,6 +39,25 @@ public class FiltroRelatorioDTO implements Serializable {
 	private List<Area> areas;
 
 	private List<Nucleo> nucleos;
+
+	private List<Integer> anos;
+
+	private int anoInicio;
+
+	private int anoFim;
+
+	private Mes mesInicio = Mes.JANEIRO;
+
+	private Mes mesFim = Mes.JANEIRO;
+
+	private Mes[] meses;
+
+	public FiltroRelatorioDTO() {
+		this.anos = DataUtil.pegarAnos();
+		this.anoInicio = DataUtil.pegarAnocorrente();
+		this.anoFim = DataUtil.pegarAnocorrente();
+
+	}
 
 	public String getTipoRelatorio() {
 		return tipoRelatorio;
@@ -124,6 +145,50 @@ public class FiltroRelatorioDTO implements Serializable {
 
 	public void setNucleos(List<Nucleo> nucleos) {
 		this.nucleos = nucleos;
+	}
+
+	public List<Integer> getAnos() {
+		return anos;
+	}
+
+	public void setAnos(List<Integer> anos) {
+		this.anos = anos;
+	}
+
+	public int getAnoInicio() {
+		return anoInicio;
+	}
+
+	public void setAnoInicio(int anoInicio) {
+		this.anoInicio = anoInicio;
+	}
+
+	public int getAnoFim() {
+		return anoFim;
+	}
+
+	public void setAnoFim(int anoFim) {
+		this.anoFim = anoFim;
+	}
+
+	public Mes[] getMeses() {
+		return Mes.values();
+	}
+
+	public Mes getMesInicio() {
+		return mesInicio;
+	}
+
+	public void setMesInicio(Mes mesInicio) {
+		this.mesInicio = mesInicio;
+	}
+
+	public Mes getMesFim() {
+		return mesFim;
+	}
+
+	public void setMesFim(Mes mesFim) {
+		this.mesFim = mesFim;
 	}
 
 	public void preencherCombos(Usuario usuario, ZonaServico zonaServico,
