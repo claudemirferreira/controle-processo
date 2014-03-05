@@ -50,29 +50,29 @@
 			<h:panelGrid columns="4" cellpadding="5">
 				<p:outputLabel value="Mês Início:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioDebitoPastoral.parametro.mesInicio}" effect="fold"
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.mesInicio}" effect="fold"
 					editable="true" style="width:100%;">
-					<f:selectItems value="#{relatorioDebitoPastoral.parametro.meses}" />
+					<f:selectItems value="#{relatorioDebitoPastoral.filtroRelatorioDTO.meses}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Ano Inicio:" styleClass="ui-priority-primary" />
 				<p:inputText id="anoInicio" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
-					value="#{relatorioDebitoPastoral.parametro.anoInicio}" />
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.anoInicio}" />
 
 				<p:outputLabel value="Mês Fim:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioDebitoPastoral.parametro.mesFim}" effect="fold"
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.mesFim}" effect="fold"
 					editable="true" style="width:100%;">
-					<f:selectItems value="#{relatorioDebitoPastoral.parametro.meses}" />
+					<f:selectItems value="#{relatorioDebitoPastoral.filtroRelatorioDTO.meses}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Ano Fim:" styleClass="ui-priority-primary" />
 				<p:inputText id="anoFim" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
-					value="#{relatorioDebitoPastoral.parametro.anoFim}" />
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.anoFim}" />
 			</h:panelGrid>
 
 			<f:facet name="footer">

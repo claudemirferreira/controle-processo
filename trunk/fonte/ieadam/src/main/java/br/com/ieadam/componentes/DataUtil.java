@@ -2,8 +2,10 @@ package br.com.ieadam.componentes;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import br.com.ieadam.dominio.Mes;
 
@@ -26,10 +28,20 @@ public class DataUtil {
 	public static int pegarAnocorrente() {
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
-
-		System.out.println(year);
-
 		return year;
+	}
+
+	public static List<Integer> pegarAnos(){
+		
+		int anoCorrente = pegarAnocorrente();
+		List<Integer> lista = new ArrayList<Integer>();
+		
+		for (int anoInicio = 2012; anoInicio <= anoCorrente; anoCorrente --) {
+			System.out.println(anoCorrente);
+			lista.add(anoCorrente);
+		}
+		
+		return lista;
 	}
 
 	private static Mes pegarMes(int mes) {
