@@ -46,7 +46,6 @@ public class UsuarioPerfilControlador {
 		dualListPerfil = new DualListModel<UsuarioPerfil>();
 	}
 
-
 	public void showModalPerfil( Usuario usuario ) {
 		listaUsuPerfilNotInUsuario = new ArrayList<UsuarioPerfil>();
 		List<Perfil> listaPerfilNotInUsuario = usuarioPerfilServico.listaPerfilNotInUsuario(usuario.getId());
@@ -55,7 +54,9 @@ public class UsuarioPerfilControlador {
 			UsuarioPerfil usuarioPerfil = createUsuarioPerfil(perfil, usuario);
 			listaUsuPerfilNotInUsuario.add(usuarioPerfil);
 		}
-		
+		// faz o fetch de UsuarioPerfil
+		List<UsuarioPerfil> usuPerfis = usuarioPerfilServico.findByUsuario(usuario);
+		usuario.setUsuarioPerfil(usuPerfis);
 		dualListPerfil = new DualListModel<UsuarioPerfil>(listaUsuPerfilNotInUsuario, usuario.getUsuarioPerfil());
 	}
 

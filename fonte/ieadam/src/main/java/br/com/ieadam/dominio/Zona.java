@@ -5,8 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +19,6 @@ public class Zona extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = -6148396536721220451L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idZona;
 
 	@Temporal(TemporalType.DATE)
@@ -40,8 +37,6 @@ public class Zona extends AbstractEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_segundo_resp")
 	private Membro segundoResponsavel;
-
-	private int cd_ZonaArgo;
 
 	@Override
 	public Long getId() {
@@ -78,14 +73,6 @@ public class Zona extends AbstractEntity implements Serializable {
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
-	}
-
-	public int getCd_ZonaArgo() {
-		return cd_ZonaArgo;
-	}
-
-	public void setCd_ZonaArgo(int cd_ZonaArgo) {
-		this.cd_ZonaArgo = cd_ZonaArgo;
 	}
 
 }

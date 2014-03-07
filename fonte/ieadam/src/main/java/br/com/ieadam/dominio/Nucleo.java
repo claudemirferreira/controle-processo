@@ -5,8 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,14 +19,13 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1724329521623025890L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idNucleo;
 
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
 
 	@ManyToOne
-	@JoinColumn(name = "id_membro", nullable = false)
+	@JoinColumn(name = "id_coordenador")
 	private Membro membro;
 	
 	@Column(length = 60, nullable = false)
@@ -38,7 +35,7 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	private Date dataUltimaAtualizacao;
 
 	@ManyToOne
-	@JoinColumn(name = "id_zona", nullable = false)
+	@JoinColumn(name = "id_zona")
 	private Zona zona;
 
 	@Override

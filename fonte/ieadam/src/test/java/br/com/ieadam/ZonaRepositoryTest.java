@@ -30,8 +30,6 @@ public class ZonaRepositoryTest {
 		zona.setNome("ADMINISTRADOR");
 		zona.setSituacao("A");
 
-		zona.setCd_ZonaArgo(1);
-
 		repository.save(zona);
 
 		Zona dbpost = repository.findOne(zona.getId());
