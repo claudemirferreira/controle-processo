@@ -52,8 +52,8 @@ public class RelatorioNadaConsta implements Serializable {
 	@ManagedProperty(value = "#{nucleoServicoImpl}")
 	private NucleoServico nucleoServico;
 
-	@ManagedProperty(value = "#{paginaCentralControladorBean}")
-	private PaginaCentralControladorBean paginaCentralControladorBean;
+	@ManagedProperty(value = "#{paginaCentralControlador}")
+	private PaginaCentralControlador paginaCentralControlador;
 
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
@@ -77,7 +77,7 @@ public class RelatorioNadaConsta implements Serializable {
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
 		this.parametro.setMes(DataUtil.pegarMescorrente());
 
-		this.paginaCentralControladorBean
+		this.paginaCentralControlador
 				.setPaginaCentral("paginas/relatorio/debitosecretaria.xhtml");
 
 	}
@@ -97,7 +97,7 @@ public class RelatorioNadaConsta implements Serializable {
 	}
 
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControladorBean
+		paginaCentralControlador
 				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
@@ -146,13 +146,13 @@ public class RelatorioNadaConsta implements Serializable {
 		this.relatorioUtil = relatorioUtil;
 	}
 
-	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
-		return paginaCentralControladorBean;
+	public PaginaCentralControlador getpaginaCentralControlador() {
+		return paginaCentralControlador;
 	}
 
-	public void setPaginaCentralControladorBean(
-			PaginaCentralControladorBean paginaCentralControladorBean) {
-		this.paginaCentralControladorBean = paginaCentralControladorBean;
+	public void setpaginaCentralControlador(
+			PaginaCentralControlador paginaCentralControlador) {
+		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
 	public ZonaServico getZonaServico() {

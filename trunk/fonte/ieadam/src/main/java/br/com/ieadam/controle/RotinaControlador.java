@@ -37,8 +37,8 @@ public class RotinaControlador implements Serializable {
 	@ManagedProperty(value = "#{rotinaServicoImpl}")
 	private RotinaServico servico;
 
-	@ManagedProperty(value = "#{paginaCentralControladorBean}")
-	private PaginaCentralControladorBean paginaCentralControladorBean;
+	@ManagedProperty(value = "#{paginaCentralControlador}")
+	private PaginaCentralControlador paginaCentralControlador;
 
 	@PostConstruct
 	public void init() {
@@ -58,13 +58,13 @@ public class RotinaControlador implements Serializable {
 
 	public void detalhe(Rotina rotina) {
 		this.entidade = rotina;
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
 	public void salvar() {
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public void excluir(Rotina rotina) {
@@ -74,7 +74,7 @@ public class RotinaControlador implements Serializable {
 
 	public void novo() {
 		this.entidade = new Rotina();
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
 	public void telaRotinas(Perfil perfil) {
@@ -82,16 +82,16 @@ public class RotinaControlador implements Serializable {
 		this.lista = servico.listaRotinasPorPerfil(perfil.getId());
 		this.colunas = 4; // Util.definirTamanhoColuna(rotinas.size());
 		
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_LISTA_ROTINAS);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_LISTA_ROTINAS);
 
 	}
 
 	public void retornar() {
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public void telaRelatorio(Rotina rotina) {
-		this.paginaCentralControladorBean.setPaginaCentral(rotina.getAcao());
+		this.paginaCentralControlador.setPaginaCentral(rotina.getAcao());
 	}
 
 	public Rotina getEntidade() {
@@ -134,13 +134,13 @@ public class RotinaControlador implements Serializable {
 		this.colunas = colunas;
 	}
 
-	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
-		return paginaCentralControladorBean;
+	public PaginaCentralControlador getpaginaCentralControlador() {
+		return paginaCentralControlador;
 	}
 
-	public void setPaginaCentralControladorBean(
-			PaginaCentralControladorBean paginaCentralControladorBean) {
-		this.paginaCentralControladorBean = paginaCentralControladorBean;
+	public void setpaginaCentralControlador(
+			PaginaCentralControlador paginaCentralControlador) {
+		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
 	public RotinaServico getServico() {
@@ -152,12 +152,12 @@ public class RotinaControlador implements Serializable {
 	}
 
 	public void telaPesquisa() {
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public void telaRotinas(Rotina rotina) {
 
-		this.paginaCentralControladorBean.setPaginaCentral(rotina.getAcao());
+		this.paginaCentralControlador.setPaginaCentral(rotina.getAcao());
 
 	}
 

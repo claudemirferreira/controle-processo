@@ -15,13 +15,13 @@
 			<p:submenu label="RELATÓRIOS">
 				<p:menuitem value="Secretaria" update=":paginaCentral">
 					<f:setPropertyActionListener
-						target="#{paginaCentralControladorBean.paginaCentral}"
+						target="#{paginaCentralControlador.paginaCentral}"
 						value="paginas/relatorio/secretaria/pesquisa.xhtml" />
 				</p:menuitem>
 
 				<p:menuitem value="Tesouraria" update=":paginaCentral">
 					<f:setPropertyActionListener
-						target="#{paginaCentralControladorBean.paginaCentral}"
+						target="#{paginaCentralControlador.paginaCentral}"
 						value="paginas/relatorio/tesouraria/pesquisa.xhtml" />
 				</p:menuitem>
 
@@ -30,7 +30,7 @@
 			<p:submenu label="ADMINISTRATIVO">
 				<p:menuitem value="Tesouraria" update=":paginaCentral">
 					<f:setPropertyActionListener
-						target="#{paginaCentralControladorBean.paginaCentral}"
+						target="#{paginaCentralControlador.paginaCentral}"
 						value="paginas/relatorio/teste/pesquisa.xhtml" />
 				</p:menuitem>
 

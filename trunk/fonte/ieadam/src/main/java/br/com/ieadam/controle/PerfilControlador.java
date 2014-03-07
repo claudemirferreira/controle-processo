@@ -54,8 +54,8 @@ public class PerfilControlador implements Serializable {
 	@ManagedProperty(value = "#{rotinaServicoImpl}")
 	private RotinaServico rotinaServico;
 
-	@ManagedProperty(value = "#{paginaCentralControladorBean}")
-	private PaginaCentralControladorBean paginaCentralControladorBean;
+	@ManagedProperty(value = "#{paginaCentralControlador}")
+	private PaginaCentralControlador paginaCentralControlador;
 
 	public void init() {
 
@@ -77,13 +77,13 @@ public class PerfilControlador implements Serializable {
 
 	public void detalhe(Perfil perfil) {
 		this.entidade = perfil;
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
 	public void salvar() {
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public void excluir(Perfil perfil) {
@@ -93,16 +93,16 @@ public class PerfilControlador implements Serializable {
 
 	public void novo() {
 		this.entidade = new Perfil();
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 
 	}
 
 	public void retornar() {
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public void telaPerfis() {
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_LISTA);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_LISTA);
 	}
 
 	public void listaPerfilPorSistemaPorUsuario() {
@@ -113,7 +113,7 @@ public class PerfilControlador implements Serializable {
 	}
 
 	public void telaPesquisa() {
-		 paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
+		 paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public Perfil getPerfil() {
@@ -124,13 +124,13 @@ public class PerfilControlador implements Serializable {
 		this.perfil = perfil;
 	}
 
-	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
-		return paginaCentralControladorBean;
+	public PaginaCentralControlador getpaginaCentralControlador() {
+		return paginaCentralControlador;
 	}
 
-	public void setPaginaCentralControladorBean(
-			PaginaCentralControladorBean paginaCentralControladorBean) {
-		this.paginaCentralControladorBean = paginaCentralControladorBean;
+	public void setpaginaCentralControlador(
+			PaginaCentralControlador paginaCentralControlador) {
+		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
 	public PerfilServico getServico() {
