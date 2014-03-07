@@ -7,13 +7,13 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class PaginaCentralControladorBean implements Serializable{
+public class PaginaCentralControlador implements Serializable{
 
 	private static final long serialVersionUID = -1155931039018244331L;
 	
 	private String paginaCentral;
 	
-	public PaginaCentralControladorBean() {
+	public PaginaCentralControlador() {
 		setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 

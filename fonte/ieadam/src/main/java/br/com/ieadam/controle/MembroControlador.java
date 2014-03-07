@@ -39,8 +39,8 @@ public class MembroControlador implements Serializable {
 	@ManagedProperty(value = "#{congregacaoServicoImpl}")
 	private CongregacaoServico congregacaoServico;
 
-	@ManagedProperty(value = "#{paginaCentralControladorBean}")
-	private PaginaCentralControladorBean paginaCentralControladorBean;
+	@ManagedProperty(value = "#{paginaCentralControlador}")
+	private PaginaCentralControlador paginaCentralControlador;
 
 	private final String TELA_CADASTRO = "paginas/membro/cadastro.xhtml";
 	private final String TELA_PESQUISA = "paginas/membro/pesquisa.xhtml";
@@ -96,11 +96,11 @@ public class MembroControlador implements Serializable {
 	}
 
 	public void telaPesquisa() {
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public void telaCadastro() {
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
 	// get e set
@@ -184,13 +184,13 @@ public class MembroControlador implements Serializable {
 		this.congregacaoServico = congregacaoServico;
 	}
 
-	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
-		return paginaCentralControladorBean;
+	public PaginaCentralControlador getpaginaCentralControlador() {
+		return paginaCentralControlador;
 	}
 
-	public void setPaginaCentralControladorBean(
-			PaginaCentralControladorBean paginaCentralControladorBean) {
-		this.paginaCentralControladorBean = paginaCentralControladorBean;
+	public void setpaginaCentralControlador(
+			PaginaCentralControlador paginaCentralControlador) {
+		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
 }

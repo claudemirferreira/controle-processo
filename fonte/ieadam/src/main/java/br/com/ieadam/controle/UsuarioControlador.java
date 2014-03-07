@@ -41,8 +41,8 @@ public class UsuarioControlador {
 	@ManagedProperty(value = "#{usuarioServicoImpl}")
 	private UsuarioServico servico;
 
-	@ManagedProperty(value = "#{paginaCentralControladorBean}")
-	private PaginaCentralControladorBean paginaCentralControladorBean;
+	@ManagedProperty(value = "#{paginaCentralControlador}")
+	private PaginaCentralControlador paginaCentralControlador;
 
 	@ManagedProperty(value = "#{membroServicoImpl}")
 	private MembroServico membroServico;
@@ -105,11 +105,11 @@ public class UsuarioControlador {
 	}
 
 	public void telaCadastro() {
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_CADASTRO);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
 	public void telaPesquisa() {
-		this.paginaCentralControladorBean.setPaginaCentral(this.TELA_PESQUISA);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public Usuario getEntidade() {
@@ -178,7 +178,7 @@ public class UsuarioControlador {
 	public String logout() {
 		SecurityContextHolder.clearContext();
 		this.usuario = new Usuario();
-		this.paginaCentralControladorBean
+		this.paginaCentralControlador
 				.setPaginaCentral("paginacentral.xhtml");
 
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -197,13 +197,13 @@ public class UsuarioControlador {
 		this.usuario = usuario;
 	}
 
-	public PaginaCentralControladorBean getPaginaCentralControladorBean() {
-		return paginaCentralControladorBean;
+	public PaginaCentralControlador getpaginaCentralControlador() {
+		return paginaCentralControlador;
 	}
 
-	public void setPaginaCentralControladorBean(
-			PaginaCentralControladorBean paginaCentralControladorBean) {
-		this.paginaCentralControladorBean = paginaCentralControladorBean;
+	public void setpaginaCentralControlador(
+			PaginaCentralControlador paginaCentralControlador) {
+		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
 	public IEADAMAuthenticationManager getIEADAMAuthenticationManager() {
@@ -255,13 +255,13 @@ public class UsuarioControlador {
 		this.sistemaServico = sistemaServico;
 	}
 
-	public PaginaCentralControladorBean getPaginaCentralControlador() {
-		return paginaCentralControladorBean;
+	public PaginaCentralControlador getPaginaCentralControlador() {
+		return paginaCentralControlador;
 	}
 
 	public void setPaginaCentralControlador(
-			PaginaCentralControladorBean paginaCentralControladorBean) {
-		this.paginaCentralControladorBean = paginaCentralControladorBean;
+			PaginaCentralControlador paginaCentralControlador) {
+		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
 	public PerfilControlador getPerfilControlador() {
