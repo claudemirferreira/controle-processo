@@ -5,8 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +19,6 @@ public class Membro extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = -3975677754400788911L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idMembro;
 
 	@Temporal(TemporalType.DATE)
@@ -45,7 +42,7 @@ public class Membro extends AbstractEntity implements Serializable {
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
 
-	@Column(name = "estadoCivil")
+	@Column(name = "estadoCivil", length=3)
 	private String estadoCivil;
 
 	@Column(length = 60, nullable = false)
@@ -56,10 +53,6 @@ public class Membro extends AbstractEntity implements Serializable {
 
 	@Column(length = 3, columnDefinition = "CHAR(3)", nullable = false)
 	private String fatorRH;
-
-	@ManyToOne
-	@JoinColumn(name = "id_funcao", nullable = false)
-	private Funcao funcao;
 
 	@ManyToOne
 	@JoinColumn(name = "id_congregacao", nullable = false)
@@ -135,14 +128,6 @@ public class Membro extends AbstractEntity implements Serializable {
 
 	public void setId(Long idMembro) {
 		this.idMembro = idMembro;
-	}
-
-	public Funcao getFuncao() {
-		return funcao;
-	}
-
-	public void setFuncao(Funcao funcao) {
-		this.funcao = funcao;
 	}
 
 	public Congregacao getCongregacao() {

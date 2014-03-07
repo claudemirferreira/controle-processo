@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,20 +16,19 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "ieadam_area")
-public class Area implements Serializable {
+public class Area extends AbstractEntity implements Serializable {
 
 	private static final long serialVersionUID = -6455533571538685292L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idArea;
 
 	@ManyToOne
-	@JoinColumn(name = "id_membro", nullable = false)
+	@JoinColumn(name = "id_membro")
 	private Membro membro;
 
 	@ManyToOne
-	@JoinColumn(name = "id_nucleo", nullable = false)
+	@JoinColumn(name = "id_nucleo")
 	private Nucleo nucleo;
 
 	@Column(length = 60, nullable = false)
@@ -47,6 +44,7 @@ public class Area implements Serializable {
 	@JoinColumn(name = "id_area")
 	private List<Congregacao> congregacoes;
 
+	@Override
 	public Long getId() {
 		return idArea;
 	}

@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import br.com.ieadam.dominio.Perfil;
-import br.com.ieadam.dominio.UsuarioPerfil;
 
 @Repository
 public class UsuarioPerfilRepositorioSqlImpl implements

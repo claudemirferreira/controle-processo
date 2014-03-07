@@ -34,8 +34,6 @@ CREATE TABLE `ieadam_area` (
   `id_nucleo` bigint(20) NOT NULL,
   `id_membro` bigint(20) DEFAULT NULL,
   `id` int(11) NOT NULL,
-  `nucleo` int(11) DEFAULT NULL,
-  `pastor` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_area`),
   KEY `FK_heafiodiodfp1d8it6lputiu` (`id_nucleo`),
   KEY `FK_l41diku8ic3tavviqtgxrmkha` (`id_membro`),

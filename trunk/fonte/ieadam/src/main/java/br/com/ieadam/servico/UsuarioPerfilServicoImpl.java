@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ieadam.dominio.Perfil;
+import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.UsuarioPerfil;
 import br.com.ieadam.repositorio.UsuarioPerfilRepositorio;
 import br.com.ieadam.repositorio.UsuarioPerfilRepositorioSql;
@@ -38,5 +39,10 @@ public class UsuarioPerfilServicoImpl implements UsuarioPerfilServico {
 	@Override
 	public List<Perfil> listaPerfilNotInUsuario(Long idUsuario) {
 		return repositorioSql.listaPerfilNotInUsuario(idUsuario);
+	}
+
+	@Override
+	public List<UsuarioPerfil> findByUsuario(Usuario usuario) {
+		return repositorio.findByUsuario(usuario);
 	}
 }
