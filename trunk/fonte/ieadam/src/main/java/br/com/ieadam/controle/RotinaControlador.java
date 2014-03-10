@@ -79,9 +79,12 @@ public class RotinaControlador implements Serializable {
 
 	public void telaRotinas(Perfil perfil) {
 		this.perfil = perfil;
-		this.lista = servico.listaRotinasPorPerfil(perfil.getId());
+		telaRotinas();
+	}
+	
+	public void telaRotinas() {
+		this.lista = servico.listaRotinasPorPerfil(this.perfil.getId());
 		this.colunas = 4; // Util.definirTamanhoColuna(rotinas.size());
-		
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_LISTA_ROTINAS);
 
 	}
