@@ -58,13 +58,14 @@
 
 			<f:facet name="footer">
 
+				<p:commandButton value="Retornar" ajax="false" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					actionListener="#{rotinaControlador.telaRotinas()}" />
+
 				<p:commandButton value="Gerar relatorio" ajax="false"
 					icon="ui-icon-gear" styleClass="ui-priority-primary"
 					actionListener="#{relatorioMembro.imprimir}" />
 
-				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-					icon="ui-icon-search" styleClass="ui-priority-primary"
-					actionListener="#{relatorioMembro.redirecionarModuloPrincipalSecretaria}" />
 			</f:facet>
 
 		</p:panel>

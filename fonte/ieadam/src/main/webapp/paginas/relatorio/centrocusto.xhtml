@@ -12,16 +12,17 @@
 
 		<p:growl id="msgs" showDetail="true" />
 
-		<p:panel id="painel" header="RELATÓRIO DE CENTRO DE CUSTO" style="margin-bottom:10px;">
-			
+		<p:panel id="painel" header="RELATÓRIO DE CENTRO DE CUSTO"
+			style="margin-bottom:10px;">
+
 			<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="zona"
 					value="#{relatorioCentoCusto.filtroRelatorioDTO.zona.idZona}">
 					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
-						value="#{relatorioCentoCusto.filtroRelatorioDTO.zonas}"
-						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+						value="#{relatorioCentoCusto.filtroRelatorioDTO.zonas}" var="zona"
+						itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
 					<p:ajax listener="#{relatorioCentoCusto.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
@@ -43,8 +44,8 @@
 					value="#{relatorioCentoCusto.filtroRelatorioDTO.area.idArea}">
 					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
-						value="#{relatorioCentoCusto.filtroRelatorioDTO.areas}"
-						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+						value="#{relatorioCentoCusto.filtroRelatorioDTO.areas}" var="area"
+						itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
 			</h:panelGrid>
 			<h:panelGrid columns="4" cellpadding="5">
@@ -63,23 +64,26 @@
 			</h:panelGrid>
 
 			<f:facet name="footer">
+
+				<p:commandButton value="Retornar" ajax="false" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					actionListener="#{rotinaControlador.telaRotinas()}" />
+
 				<p:commandButton value="Gerar relatorio" ajax="false"
 					icon="ui-icon-gear" styleClass="ui-priority-primary"
 					actionListener="#{relatorioCentoCusto.imprimir}" />
-
-				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-					icon="ui-icon-search" styleClass="ui-priority-primary"
-					actionListener="#{relatorioCentoCusto.redirecionarModuloPrincipalSecretaria}" />
 			</f:facet>
 
 		</p:panel>
-		
+
 		<p:blockUI block="painel" trigger="zona" blocked="painel">
-		
+
 		</p:blockUI>
 
-		<p:panel header="RELATÓRIO GERADO" rendered="#{relatorioCentoCusto.streamedContent!=null}">
-			<p:media value="#{relatorioCentoCusto.streamedContent}" player="pdf" width="100%" height="300"></p:media>
+		<p:panel header="RELATÓRIO GERADO"
+			rendered="#{relatorioCentoCusto.streamedContent!=null}">
+			<p:media value="#{relatorioCentoCusto.streamedContent}" player="pdf"
+				width="100%" height="300"></p:media>
 		</p:panel>
 	</h:form>
 
