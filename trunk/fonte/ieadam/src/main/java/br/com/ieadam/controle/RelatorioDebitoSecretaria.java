@@ -21,6 +21,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
@@ -68,6 +69,10 @@ public class RelatorioDebitoSecretaria implements Serializable {
 		this.filtroRelatorioDTO.setNucleo(new Nucleo());
 		this.filtroRelatorioDTO.setArea(new Area());
 
+		this.filtroRelatorioDTO
+				.setUsuarioLogado((Usuario) SecurityContextHolder.getContext()
+						.getAuthentication().getPrincipal());
+
 		// chamada responsavel por preencher os combos de acordo com o nivel de
 		// acesso do pastor
 		this.filtroRelatorioDTO.preencherCombos(
@@ -99,8 +104,7 @@ public class RelatorioDebitoSecretaria implements Serializable {
 	}
 
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControlador
-				.setPaginaCentral("paginas/perfil/lista.xhtml");
+		paginaCentralControlador.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
 	public void imprimir() {
