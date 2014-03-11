@@ -19,6 +19,11 @@
 			</h:panelGrid>
 
 			<f:facet name="footer">
+
+				<p:commandButton value="Retornar" ajax="false" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					actionListener="#{rotinaControlador.telaRotinas()}" />
+
 				<p:commandButton id="buttonPesquisar" value="Pesquisar"
 					update=":form:gridPesquisa" icon="ui-icon-search"
 					styleClass="ui-priority-primary"
@@ -42,12 +47,12 @@
 				sortBy="#{item.nome}">
 				<h:outputText value="#{item.nome}" />
 			</p:column>
-			
+
 			<p:column style="text-align:left" headerText="Ação"
 				sortBy="#{item.acao}">
 				<h:outputText value="#{item.acao}" />
 			</p:column>
-			
+
 			<p:column style="text-align:left" headerText="Imagem"
 				sortBy="#{item.imagem}">
 				<h:outputText value="#{item.imagem}" />
