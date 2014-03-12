@@ -2,6 +2,7 @@ package br.com.ieadam.controle;
 
 import java.io.FileInputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -34,6 +35,8 @@ import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
 import br.com.ieadam.servico.ZonaServico;
+import br.com.ieadam.utils.IEADAMUtils;
+import br.com.ieadam.utils.PathRelatorios;
 
 @ManagedBean
 @SessionScoped
@@ -113,7 +116,7 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
 		ServletContext context = (ServletContext) externalContext.getContext();
-		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
+		String arquivo = context.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_SALDO_CONGREGACAO.getNome());
 
 		// BLOCO USADO PARA TESTES
 		List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -125,10 +128,13 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
 				this.parametro.getMes().getMes(), 1);
 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
 		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
 
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("DATA_INICIO", dataInicio.getTime());
+		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
+		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());

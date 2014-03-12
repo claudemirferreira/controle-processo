@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Rotina;
-import br.com.ieadam.dominio.Sistema;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.servico.PerfilServico;
 import br.com.ieadam.servico.RotinaServico;
@@ -37,8 +36,6 @@ public class PerfilControlador implements Serializable {
 	private List<Perfil> listaPerfilUsuario;
 
 	private Usuario usuario;
-
-	private Sistema sistema;
 
 	private int colunas;
 
