@@ -48,7 +48,7 @@ public class PrimeFacesPickListConverter implements Converter {
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
 		String str = "";
 		if (arg2 instanceof AbstractEntity) {
-			str = ((AbstractEntity) arg2).getId().toString();
+			str = ((AbstractEntity) arg2).getId()+"";
 		}
 		return str;
 	}
