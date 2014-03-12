@@ -52,22 +52,22 @@
 				sortBy="#{item.acao}">
 				<h:outputText value="#{item.acao}" />
 			</p:column>
-
+			
 			<p:column style="text-align:left" headerText="Imagem"
 				sortBy="#{item.imagem}">
 				<h:outputText value="#{item.imagem}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Detalhe">
+			<p:column style="text-align:left" headerText="Opções">
 				<p:commandButton ajax="false"
 					action="#{rotinaControlador.detalhe(item)}"
-					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
+					styleClass="ui-priority-primary" icon="	ui-icon-pencil"
 					update=":form" title="Detalhe" />
 
 				<p:commandButton ajax="false"
 					action="#{rotinaControlador.excluir(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form:gridPesquisa" title="Detalhe" />
+					update=":form:gridPesquisa" title="Excluir" />
 
 			</p:column>
 
