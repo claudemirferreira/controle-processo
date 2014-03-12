@@ -38,7 +38,7 @@ public class RelatorioUtil {
 				.getBean("datasource");
 	}
 
-	public FileInputStream gerarRelatorioWeb(JRDataSource jrRS, Map parametros,
+	public FileInputStream gerarRelatorioWeb(Map parametros,
 			String arquivo) {
 		
 		FileInputStream fis = null;

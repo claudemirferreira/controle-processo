@@ -19,5 +19,5 @@ public interface UsuarioServico {
 	public Usuario findByLoginAndSenha(String login, String senha)
 			throws NoResultException;
 
-	public List<Usuario> findByNomeLike(String nome) throws NoResultException;
+//	public List<Usuario> findByNomeLike(String nome) throws NoResultException;
 }

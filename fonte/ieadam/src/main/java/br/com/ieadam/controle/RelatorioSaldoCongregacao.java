@@ -118,20 +118,11 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_SALDO_CONGREGACAO.getNome());
 
-		// BLOCO USADO PARA TESTES
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		Usuario u = new Usuario();
-		u.setLogin("login");
-		usuarios.add(u);
-		// BLOCO USADO PARA TESTES
-
 		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
 				this.parametro.getMes().getMes(), 1);
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
-		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
-
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
 		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
@@ -139,7 +130,7 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
 
-		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(jrRS, params,
+		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
 				arquivo);
 
 		this.streamedContent = new DefaultStreamedContent(fis,
