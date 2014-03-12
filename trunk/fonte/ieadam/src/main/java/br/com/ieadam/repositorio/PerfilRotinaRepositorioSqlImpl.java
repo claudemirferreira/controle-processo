@@ -18,7 +18,7 @@ public class PerfilRotinaRepositorioSqlImpl implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Rotina> listaRotinaNotInPerfil(Long idPerfil) {
+	public List<Rotina> listaRotinaNotInPerfil(int idPerfil) {
 		return entityManager.createNativeQuery(
 				"select r.* from saa_rotina r "
 				+ "where r.id_rotina not in ( "

@@ -6,6 +6,6 @@ import br.com.ieadam.dominio.Perfil;
 
 public interface UsuarioPerfilRepositorioSql {
 
-	public List<Perfil> listaPerfilNotInUsuario(Long idUsuario);
+	public List<Perfil> listaPerfilNotInUsuario(int idUsuario);
 
 }

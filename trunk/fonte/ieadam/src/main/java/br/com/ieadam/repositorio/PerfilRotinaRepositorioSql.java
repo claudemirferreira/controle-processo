@@ -6,6 +6,6 @@ import br.com.ieadam.dominio.Rotina;
 
 public interface PerfilRotinaRepositorioSql {
 
-	public List<Rotina> listaRotinaNotInPerfil(Long idPerfil);
+	public List<Rotina> listaRotinaNotInPerfil(int idPerfil);
 
 }
