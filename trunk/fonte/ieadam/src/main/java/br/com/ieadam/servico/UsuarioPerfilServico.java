@@ -14,7 +14,7 @@ public interface UsuarioPerfilServico {
 
 	public void remover(UsuarioPerfil usuarioPerfil);
 
-	public List<Perfil> listaPerfilNotInUsuario(Long idUsuario);
+	public List<Perfil> listaPerfilNotInUsuario(int idUsuario);
 
 	public List<UsuarioPerfil> findByUsuario(Usuario usuario);
 }

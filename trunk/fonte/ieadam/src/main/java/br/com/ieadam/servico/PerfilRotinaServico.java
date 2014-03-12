@@ -13,6 +13,6 @@ public interface PerfilRotinaServico {
 
 	public void remover(PerfilRotina usuarioPerfil);
 
-	public List<Rotina> listaRotinaNotInPerfil(Long idPerfil);
+	public List<Rotina> listaRotinaNotInPerfil(int idPerfil);
 	
 }

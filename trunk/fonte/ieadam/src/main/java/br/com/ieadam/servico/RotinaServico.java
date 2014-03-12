@@ -12,7 +12,7 @@ public interface RotinaServico {
 
 	public void remover(Rotina rotina);
 
-	public List<Rotina> listaRotinasPorPerfil(Long id);
+	public List<Rotina> listaRotinasPorPerfil(int id);
 
 	public List<Rotina> findByNomeLike(String nome);
 

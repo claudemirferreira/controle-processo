@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Usuario;
@@ -13,7 +12,6 @@ import br.com.ieadam.repositorio.UsuarioPerfilRepositorio;
 import br.com.ieadam.repositorio.UsuarioPerfilRepositorioSql;
 
 @Service
-@Transactional
 public class UsuarioPerfilServicoImpl implements UsuarioPerfilServico {
 
 	@Autowired
@@ -39,7 +37,7 @@ public class UsuarioPerfilServicoImpl implements UsuarioPerfilServico {
 	}
 
 	@Override
-	public List<Perfil> listaPerfilNotInUsuario(Long idUsuario) {
+	public List<Perfil> listaPerfilNotInUsuario(int idUsuario) {
 		return repositorioSql.listaPerfilNotInUsuario(idUsuario);
 	}
 

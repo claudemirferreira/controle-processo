@@ -40,7 +40,7 @@ public class PerfilServicoImpl implements PerfilServico {
 
 	@Override
 	public List<Perfil> listaPerfilPorSistemaPorUsuario(int sistemaId,
-			Long usuarioId) {
+			int usuarioId) {
 		return this.perfilRepositorioSql.listaPerfilPorSistemaPorUsuario(
 				sistemaId, usuarioId);
 	}
