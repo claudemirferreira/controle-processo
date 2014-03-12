@@ -19,7 +19,7 @@ public class Zona extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = -6148396536721220451L;
 
 	@Id
-	private Long idZona;
+	private int idZona;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
@@ -39,15 +39,15 @@ public class Zona extends AbstractEntity implements Serializable {
 	private Membro segundoResponsavel;
 
 	@Override
-	public Long getId() {
+	public int getId() {
 		return idZona;
 	}
 
-	public Long getIdZona() {
+	public int getIdZona() {
 		return idZona;
 	}
 
-	public void setIdZona(Long idZona) {
+	public void setIdZona(int idZona) {
 		this.idZona = idZona;
 	}
 

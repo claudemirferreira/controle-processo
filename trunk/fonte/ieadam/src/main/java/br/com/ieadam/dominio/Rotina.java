@@ -24,7 +24,7 @@ public class Rotina extends AbstractEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idRotina;
+	private int idRotina;
 
 	@Column(length = 100, nullable = false)
 	private String imagem;
@@ -46,15 +46,15 @@ public class Rotina extends AbstractEntity implements Serializable {
 	private boolean checked;
 
 	@Override
-	public Long getId() {
+	public int getId() {
 		return idRotina;
 	}
 
-	public Long getIdRotina() {
+	public int getIdRotina() {
 		return idRotina;
 	}
 
-	public void setIdRotina(Long idRotina) {
+	public void setIdRotina(int idRotina) {
 		this.idRotina = idRotina;
 	}
 
