@@ -15,16 +15,12 @@
 
 		<p:panel header="FORMULÁRIO DE CADASTRO DE PERFIL">
 
-			<h:panelGrid id="panelCadastro" columns="4">
+			<h:panelGrid id="panelCadastro" columns="2">
 
 				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" style="width:300px;" required="true"
 					requiredMessage="nome deve ser informado"
 					value="#{perfilControlador.entidade.nome}" />
-
-				<p:outputLabel value="Descrição:" styleClass="ui-priority-primary" />
-				<p:inputText id="descricao" style="width:300px;"
-					value="#{perfilControlador.entidade.descricao}" />
 
 				<p:outputLabel value="Imagem:" styleClass="ui-priority-primary" />
 				<p:inputText id="imagem" style="width:300px;"
@@ -40,7 +36,7 @@
 					action="#{perfilControlador.telaPesquisa}" />
 
 				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					icon="ui-icon-disk" styleClass="ui-priority-primary"
 					action="#{perfilControlador.salvar}" />
 
 			</f:facet>
