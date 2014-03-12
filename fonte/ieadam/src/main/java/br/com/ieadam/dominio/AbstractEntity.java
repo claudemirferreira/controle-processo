@@ -19,7 +19,7 @@ public abstract class AbstractEntity implements Serializable {
 	private boolean checked;
 
 	@Transient
-	private Long id = null;
+	private int id = 0;
 
 	public AbstractEntity() {
 	}
@@ -30,14 +30,14 @@ public abstract class AbstractEntity implements Serializable {
 			Field field = ReflectionsUtil.findAnnotatedFields(this.getClass(),
 					Id.class)[0];
 			field.setAccessible(true);
-			id = new Long(field.get(this).toString());
+			id = new Integer(field.get(this).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public boolean isPersistent() {
-		return getId() != null;
+		return getId() != 0;
 	}
 
 	/** HashCode. */
@@ -45,7 +45,7 @@ public abstract class AbstractEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = (int) (prime * result + ((id == null) ? 0 : id));
+		result = (int) (prime * result + ((id == 0) ? 0 : id));
 		return result;
 	}
 
@@ -60,11 +60,11 @@ public abstract class AbstractEntity implements Serializable {
 		}
 		final AbstractEntity other = (AbstractEntity) obj;
 
-		if ((this.id == null) || (other.id == null)) {
+		if ((this.id == 0) || (other.id == 0)) {
 			return false;
 		}
 
-		if (this.id.intValue() != other.id.intValue()) {
+		if (this.id != other.id) {
 			return false;
 		}
 
@@ -79,7 +79,7 @@ public abstract class AbstractEntity implements Serializable {
 		this.checked = checked;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 

@@ -29,14 +29,11 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idUsuario;
+	private int idUsuario;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
 			CascadeType.REMOVE }, mappedBy = "usuarioPerfilPk.usuario")
 	private List<UsuarioPerfil> usuarioPerfil = new ArrayList<UsuarioPerfil>();
-
-	@Column(nullable = false, length = 30)
-	private String nome;
 
 	@Column(unique = true, length = 30)
 	private String login;
@@ -57,7 +54,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	private Membro membro;
 
 	@Override
-	public Long getId() {
+	public int getId() {
 		return idUsuario;
 	}
 
@@ -84,11 +81,11 @@ public class Usuario extends AbstractEntity implements Serializable {
 		this.usuarioPerfil = usuarioPerfil;
 	}
 
-	public Long getIdUsuario() {
+	public int getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(Long idUsuario) {
+	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
@@ -114,14 +111,6 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public boolean isZona() {

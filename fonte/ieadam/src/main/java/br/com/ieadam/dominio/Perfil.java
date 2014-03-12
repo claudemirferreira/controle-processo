@@ -29,7 +29,7 @@ public class Perfil extends AbstractEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idPerfil;
+	private int idPerfil;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioPerfilPk.perfil")
 	private List<UsuarioPerfil> usuarioPerfil = new ArrayList<UsuarioPerfil>();
@@ -53,15 +53,15 @@ public class Perfil extends AbstractEntity implements Serializable {
 	private boolean checked;
 
 	@Override
-	public Long getId() {
+	public int getId() {
 		return idPerfil;
 	}
 
-	public Long getIdPerfil() {
+	public int getIdPerfil() {
 		return idPerfil;
 	}
 
-	public void setIdPerfil(Long idPerfil) {
+	public void setIdPerfil(int idPerfil) {
 		this.idPerfil = idPerfil;
 	}
 

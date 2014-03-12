@@ -19,7 +19,7 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1724329521623025890L;
 
 	@Id
-	private Long idNucleo;
+	private int idNucleo;
 
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
@@ -39,15 +39,15 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	private Zona zona;
 
 	@Override
-	public Long getId() {
+	public int getId() {
 		return idNucleo;
 	}
 
-	public Long getIdNucleo() {
+	public int getIdNucleo() {
 		return idNucleo;
 	}
 
-	public void setIdNucleo(Long idNucleo) {
+	public void setIdNucleo(int idNucleo) {
 		this.idNucleo = idNucleo;
 	}
 

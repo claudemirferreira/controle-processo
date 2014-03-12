@@ -19,11 +19,11 @@ public class Membro extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = -3975677754400788911L;
 
 	@Id
-	private Long idMembro;
+	private int idMembro;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
-
+	
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 
@@ -42,7 +42,7 @@ public class Membro extends AbstractEntity implements Serializable {
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
 
-	@Column(name = "estadoCivil", length=3)
+	@Column(name = "estadoCivil", length=20)
 	private String estadoCivil;
 
 	@Column(length = 60, nullable = false)
@@ -50,9 +50,6 @@ public class Membro extends AbstractEntity implements Serializable {
 
 	@Column(name = "sexo", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String sexo;
-
-	@Column(length = 3, columnDefinition = "CHAR(3)", nullable = false)
-	private String fatorRH;
 
 	@ManyToOne
 	@JoinColumn(name = "id_congregacao", nullable = false)
@@ -66,17 +63,14 @@ public class Membro extends AbstractEntity implements Serializable {
 	@Column(length = 60, nullable = false)
 	private String nacionalidade;
 
-	@Column(length = 10)
+	@Column(length = 15)
 	private String rg;
 
-	@Column(length = 11)
+	@Column(length = 20)
 	private String cpf;
 
 	@Column(length = 10)
 	private String rgOrgaoEmissor;
-
-	@Column(length = 60)
-	private String email;
 
 	@Column(length = 10)
 	private String tituloEleitor;
@@ -102,14 +96,11 @@ public class Membro extends AbstractEntity implements Serializable {
 	@Column(length = 60)
 	private String endereco;
 
-	@Column(length = 8)
+	@Column(length = 15)
 	private String cep;
 
 	@Column(length = 40)
 	private String telefone;
-
-	@Column(length = 10)
-	private String certCasamento;
 
 	@Column(length = 60)
 	private String procedencia;
@@ -118,15 +109,15 @@ public class Membro extends AbstractEntity implements Serializable {
 	private String formacaoTeologico;
 
 	@Override
-	public Long getId() {
+	public int getId() {
 		return idMembro;
 	}
 
-	public Long getIdMembro() {
+	public int getIdMembro() {
 		return idMembro;
 	}
 
-	public void setId(Long idMembro) {
+	public void setId(int idMembro) {
 		this.idMembro = idMembro;
 	}
 
@@ -258,14 +249,6 @@ public class Membro extends AbstractEntity implements Serializable {
 		this.rgOrgaoEmissor = rgOrgaoEmissor;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getTituloEleitor() {
 		return tituloEleitor;
 	}
@@ -330,14 +313,6 @@ public class Membro extends AbstractEntity implements Serializable {
 		this.estadoCivil = estadoCivil;
 	}
 
-	public String getFatorRH() {
-		return fatorRH;
-	}
-
-	public void setFatorRH(String fatorRH) {
-		this.fatorRH = fatorRH;
-	}
-
 	public String getEndereco() {
 		return endereco;
 	}
@@ -360,14 +335,6 @@ public class Membro extends AbstractEntity implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-
-	public String getCertCasamento() {
-		return certCasamento;
-	}
-
-	public void setCertCasamento(String certCasamento) {
-		this.certCasamento = certCasamento;
 	}
 
 	public String getProcedencia() {

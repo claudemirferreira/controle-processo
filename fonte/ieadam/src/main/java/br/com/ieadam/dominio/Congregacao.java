@@ -19,7 +19,7 @@ public class Congregacao extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 7686113032375136921L;
 
 	@Id
-	private Long idCongregacao;
+	private int idCongregacao;
 
 	private String cidade;
 
@@ -55,15 +55,15 @@ public class Congregacao extends AbstractEntity implements Serializable {
 	private Date dataCadastro;
 
 	@Override
-	public Long getId() {
+	public int getId() {
 		return idCongregacao;
 	}
 
-	public Long getIdCongregacao() {
+	public int getIdCongregacao() {
 		return idCongregacao;
 	}
 
-	public void setIdCongregacao(Long idCongregacao) {
+	public void setIdCongregacao(int idCongregacao) {
 		this.idCongregacao = idCongregacao;
 	}
 

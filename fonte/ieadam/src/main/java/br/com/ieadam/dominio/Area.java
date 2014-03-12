@@ -21,7 +21,7 @@ public class Area extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = -6455533571538685292L;
 
 	@Id
-	private Long idArea;
+	private int idArea;
 
 	@ManyToOne
 	@JoinColumn(name = "id_membro")
@@ -45,15 +45,15 @@ public class Area extends AbstractEntity implements Serializable {
 	private List<Congregacao> congregacoes;
 
 	@Override
-	public Long getId() {
+	public int getId() {
 		return idArea;
 	}
 
-	public Long getIdArea() {
+	public int getIdArea() {
 		return idArea;
 	}
 
-	public void setIdArea(Long idArea) {
+	public void setIdArea(int idArea) {
 		this.idArea = idArea;
 	}
 

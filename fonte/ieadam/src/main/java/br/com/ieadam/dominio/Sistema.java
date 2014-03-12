@@ -23,7 +23,7 @@ public class Sistema extends AbstractEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idSistema;
+	private int idSistema;
 
 	@Column(length = 6, nullable = false, unique = true)
 	private String codigo;
@@ -49,15 +49,15 @@ public class Sistema extends AbstractEntity implements Serializable {
 	}
 
 	@Override
-	public Long getId() {
+	public int getId() {
 		return this.idSistema;
 	}
 
-	public Long getIdSistema() {
+	public int getIdSistema() {
 		return idSistema;
 	}
 
-	public void setIdSistema(Long idSistema) {
+	public void setIdSistema(int idSistema) {
 		this.idSistema = idSistema;
 	}
 
