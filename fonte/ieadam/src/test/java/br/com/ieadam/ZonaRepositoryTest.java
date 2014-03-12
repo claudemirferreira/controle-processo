@@ -32,7 +32,7 @@ public class ZonaRepositoryTest {
 
 		repository.save(zona);
 
-		Zona dbpost = repository.findOne(zona.getId());
+		Zona dbpost = repository.findOne(new Long(zona.getId()));
 		assertNotNull(dbpost);
 		System.out.println(dbpost.getNome());
 	}

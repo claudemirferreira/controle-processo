@@ -31,13 +31,13 @@ public class NucleoRepositoryTest {
 		nucleo.setSituacao("A");
 
 		Zona zona = new Zona();
-		zona.setIdZona(1l);
+		zona.setIdZona(1);
 
 		nucleo.setZona(zona);
 
 		repository.save(nucleo);
 
-		Nucleo dbpost = repository.findOne(zona.getId());
+		Nucleo dbpost = repository.findOne(new Long(zona.getId()));
 		assertNotNull(dbpost);
 		System.out.println(dbpost.getNome());
 	}
