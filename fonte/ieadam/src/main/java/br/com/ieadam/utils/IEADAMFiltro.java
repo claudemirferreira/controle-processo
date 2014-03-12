@@ -12,35 +12,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class IEADAMFiltro implements Filter {
-	
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-	}
 
-	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest)req;
-		HttpServletResponse response = (HttpServletResponse)resp;
-		
+
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) resp;
+
 		if (isAjaxRequest(request) && !request.isRequestedSessionIdValid()) {
 			String xml = getXmlPartialResponse();
 			response.getWriter().write(xml);
 		} else {
-			chain.doFilter(request, response);
+			chain.doFilter(req, resp);
 		}
 	}
-	
+
 	private boolean isAjaxRequest(HttpServletRequest request) {
 		return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 	}
 	
 	private String getXmlPartialResponse() {
-		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><partial-response><redirect url=\""
-				+ "j_spring_security_logout?faces-redirect=true" + "\"></redirect></partial-response>";
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><partial-response><redirect url=\"login.xhtml\"></redirect></partial-response>";
 	}
 
-	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+	}
+
 	public void destroy() {
 	}
 }
