@@ -27,15 +27,15 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 public class RelatorioUtil {
 
 	private DriverManagerDataSource dataSource;
+	private BeanFactory beanFactory;
 
 	@PostConstruct
 	public void init() {
-		BeanFactory beanFactory = new ClassPathXmlApplicationContext(
+		beanFactory = new ClassPathXmlApplicationContext(
 				"classpath*:META-INF/spring/applicationContext.xml");
 
 		this.dataSource = (DriverManagerDataSource) beanFactory
 				.getBean("datasource");
-
 	}
 
 	public FileInputStream gerarRelatorioWeb(JRDataSource jrRS, Map parametros,
@@ -52,6 +52,9 @@ public class RelatorioUtil {
 			JasperExportManager.exportReportToPdfStream(print, new FileOutputStream(arquivoGerado));
 			
 			fis = new FileInputStream(arquivoGerado);
+			
+			// Verificar
+			arquivoGerado.delete();
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
