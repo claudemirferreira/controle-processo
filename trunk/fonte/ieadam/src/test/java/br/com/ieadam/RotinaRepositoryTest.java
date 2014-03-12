@@ -29,7 +29,7 @@ public class RotinaRepositoryTest {
 		
 		Sistema sistema = new Sistema();
 		
-		sistema.setIdSistema(1L);
+		sistema.setIdSistema(1);
 		rotina.setSistema(sistema);
 		
 		Rotina u = repository.save(rotina);

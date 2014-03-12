@@ -31,13 +31,13 @@ public class AreaRepositoryTest {
 		area.setSituacao("A");
 
 		Nucleo n = new Nucleo();
-		n.setIdNucleo(1L);
+		n.setIdNucleo(1);
 
 		area.setNucleo(n);
 
 		repository.save(area);
 
-		Area dbpost = repository.findOne(area.getId());
+		Area dbpost = repository.findOne(new Long(area.getId()));
 		assertNotNull(dbpost);
 		System.out.println(dbpost.getNome());
 	}
