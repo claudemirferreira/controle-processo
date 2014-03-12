@@ -6,6 +6,6 @@ import br.com.ieadam.dominio.Rotina;
 
 public interface RotinaRepositorioSql {
 
-	public List<Rotina> listaRotinasPorPerfil(Long id);
+	public List<Rotina> listaRotinasPorPerfil(int id);
 
 }

@@ -18,7 +18,7 @@ public class PerfilRepositorioSqlImpl implements PerfilRepositorioSql {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Perfil> listaPerfilPorSistemaPorUsuario(int sistemaId,
-			Long usuarioId) {
+			int usuarioId) {
 		return entityManager.createNativeQuery(
 				"SELECT distinct i.* FROM saa_perfil i, saa_usuario_perfil b "
 						+ "where i.id_perfil = b.id_perfil and i.id_sistema = "

@@ -18,7 +18,7 @@ public class UsuarioPerfilRepositorioSqlImpl implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Perfil> listaPerfilNotInUsuario(Long idUsuario) {
+	public List<Perfil> listaPerfilNotInUsuario(int idUsuario) {
 		return entityManager.createNativeQuery(
 				"select p.* from saa_perfil p "
 				+ "where p.id_perfil not in ( "
