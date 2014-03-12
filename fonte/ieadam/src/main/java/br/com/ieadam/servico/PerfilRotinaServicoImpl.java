@@ -35,7 +35,7 @@ public class PerfilRotinaServicoImpl implements PerfilRotinaServico {
 		this.repositorio.delete(perfilRotina);
 	}
 
-	public List<Rotina> listaRotinaNotInPerfil(Long idPerfil) {
+	public List<Rotina> listaRotinaNotInPerfil(int idPerfil) {
 		return repositorioSql.listaRotinaNotInPerfil(idPerfil);
 	}
 
