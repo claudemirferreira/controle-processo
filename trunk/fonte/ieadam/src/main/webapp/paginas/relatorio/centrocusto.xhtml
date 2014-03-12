@@ -18,49 +18,49 @@
 			<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="zona"
-					value="#{relatorioCentoCusto.filtroRelatorioDTO.zona.idZona}">
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.zona.idZona}">
 					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
-						value="#{relatorioCentoCusto.filtroRelatorioDTO.zonas}" var="zona"
-						itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioCentoCusto.atualizarNucleo}"
+						value="#{relatorioCentroCusto.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioCentroCusto.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="nucleo"
-					value="#{relatorioCentoCusto.filtroRelatorioDTO.nucleo.idNucleo}">
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.nucleo.idNucleo}">
 					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
 					<f:selectItems
-						value="#{relatorioCentoCusto.filtroRelatorioDTO.nucleos}"
+						value="#{relatorioCentroCusto.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioCentoCusto.atualizarArea}"
+					<p:ajax listener="#{relatorioCentroCusto.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="area"
-					value="#{relatorioCentoCusto.filtroRelatorioDTO.area.idArea}">
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.area.idArea}">
 					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
-						value="#{relatorioCentoCusto.filtroRelatorioDTO.areas}" var="area"
-						itemLabel="#{area.nome}" itemValue="#{area.id}" />
+						value="#{relatorioCentroCusto.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
 			</h:panelGrid>
 			<h:panelGrid columns="4" cellpadding="5">
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioCentoCusto.parametro.mes}" effect="fold"
+					value="#{relatorioCentroCusto.parametro.mes}" effect="fold"
 					editable="true" style="width:100%;">
-					<f:selectItems value="#{relatorioCentoCusto.parametro.meses}" />
+					<f:selectItems value="#{relatorioCentroCusto.parametro.meses}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
 				<p:inputText id="anoInicio" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
-					value="#{relatorioCentoCusto.parametro.ano}" />
+					value="#{relatorioCentroCusto.parametro.ano}" />
 			</h:panelGrid>
 
 			<f:facet name="footer">
@@ -71,7 +71,7 @@
 
 				<p:commandButton value="Gerar relatorio" ajax="false"
 					icon="ui-icon-gear" styleClass="ui-priority-primary"
-					actionListener="#{relatorioCentoCusto.imprimir}" />
+					actionListener="#{relatorioCentroCusto.imprimir}" />
 			</f:facet>
 
 		</p:panel>
@@ -81,8 +81,8 @@
 		</p:blockUI>
 
 		<p:panel header="RELATÓRIO GERADO"
-			rendered="#{relatorioCentoCusto.streamedContent!=null}">
-			<p:media value="#{relatorioCentoCusto.streamedContent}" player="pdf"
+			rendered="#{relatorioCentroCusto.streamedContent!=null}">
+			<p:media value="#{relatorioCentroCusto.streamedContent}" player="pdf"
 				width="100%" height="300"></p:media>
 		</p:panel>
 	</h:form>

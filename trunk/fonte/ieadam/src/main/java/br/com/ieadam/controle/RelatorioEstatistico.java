@@ -137,7 +137,7 @@ public class RelatorioEstatistico implements Serializable {
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
 
-		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(jrRS, params,
+		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
 				arquivo);
 
 		this.streamedContent = new DefaultStreamedContent(fis,

@@ -119,7 +119,7 @@ public class RelatorioNadaConsta implements Serializable {
 		params.put("dataInicio", this.parametro.getDataInicio());
 		params.put("dataFim", this.parametro.getDataFim());
 
-		relatorioUtil.gerarRelatorioWeb(jrRS, params, arquivo);
+		relatorioUtil.gerarRelatorioWeb(params, arquivo);
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {

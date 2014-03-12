@@ -42,9 +42,9 @@ public class UsuarioServicoImpl implements UsuarioServico {
 		this.usuarioRepositorio.delete(usuario);
 	}
 
-	@Override
-	public List<Usuario> findByNomeLike(String nome) throws NoResultException {
-		return this.usuarioRepositorio.findByNomeLike(nome);
-	}
+//	@Override
+//	public List<Usuario> findByNomeLike(String nome) throws NoResultException {
+//		return this.usuarioRepositorio.findByNomeLike(nome);
+//	}
 
 }

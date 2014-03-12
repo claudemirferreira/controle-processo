@@ -76,7 +76,7 @@ public class UsuarioControlador {
 	}
 
 	public void pesquisar() {
-		this.lista = this.servico.findByNomeLike(this.pesquisa.getLogin());
+//		this.lista = this.servico.findBy(this.pesquisa.getLogin());
 	}
 
 	public void detalhe(Usuario usuario) {

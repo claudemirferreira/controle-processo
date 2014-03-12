@@ -24,7 +24,7 @@ public class Area extends AbstractEntity implements Serializable {
 	private int idArea;
 
 	@ManyToOne
-	@JoinColumn(name = "id_membro")
+	@JoinColumn(name = "id_pastor")
 	private Membro membro;
 
 	@ManyToOne
