@@ -31,29 +31,30 @@ public class PerfilRotinaControlador {
 
 	@ManagedProperty(value = "#{perfilRotinaServicoImpl}")
 	private PerfilRotinaServico perfilRotinaServico;
-	
-    private DualListModel<PerfilRotina> dualListRotina;  
-    
+
+	private DualListModel<PerfilRotina> dualListRotina;
+
 	private List<PerfilRotina> listaPerfilRotinaNotInPerfil;
-	
+
 	@PostConstruct
 	public void init() {
 		dualListRotina = new DualListModel<PerfilRotina>();
 	}
 
-	public void showModalRotina( Perfil perfil ) {
+	public void showModalRotina(Perfil perfil) {
 		listaPerfilRotinaNotInPerfil = new ArrayList<PerfilRotina>();
-		List<Rotina> listaRotinaNotInPerfil = perfilRotinaServico.listaRotinaNotInPerfil(perfil.getId());
-		
-		for ( Rotina rot : listaRotinaNotInPerfil ) {
+		List<Rotina> listaRotinaNotInPerfil = perfilRotinaServico
+				.listaRotinaNotInPerfil(perfil.getId());
+
+		for (Rotina rot : listaRotinaNotInPerfil) {
 			PerfilRotina perfilRotina = createPerfilRotina(rot, perfil);
 			listaPerfilRotinaNotInPerfil.add(perfilRotina);
 		}
-		
-		dualListRotina = new DualListModel<PerfilRotina>(listaPerfilRotinaNotInPerfil, perfil.getPerfilRotina());
+
+		dualListRotina = new DualListModel<PerfilRotina>(
+				listaPerfilRotinaNotInPerfil, perfil.getPerfilRotina());
 	}
 
-	
 	private PerfilRotina createPerfilRotina(Rotina rotina, Perfil perfil) {
 		PerfilRotina usuarioRotina = new PerfilRotina();
 		usuarioRotina.setData(new Date());
@@ -62,24 +63,19 @@ public class PerfilRotinaControlador {
 		return usuarioRotina;
 	}
 
-	
-	public void onTransfer(TransferEvent event) {  
-		PerfilRotina usuarioRotina = (PerfilRotina)  event.getItems().get(0);
+	public void onTransfer(TransferEvent event) {
+		PerfilRotina usuarioRotina = (PerfilRotina) event.getItems().get(0);
 		salvarUsuario(usuarioRotina, event.isAdd());
 	}
-	
-	
+
 	private void salvarUsuario(PerfilRotina perfilRotina, boolean add) {
 		try {
 			String msg;
-			Perfil perfil = perfilRotina.getPerfil();
 
 			if (add) {
-				perfil.getPerfilRotina().add(perfilRotina);
 				perfilRotinaServico.salvar(perfilRotina);
 				msg = MSG_ADICIONAR;
 			} else {
-				perfil.getPerfilRotina().remove(perfilRotina);
 				perfilRotinaServico.remover(perfilRotina);
 				msg = MSG_REMOVER;
 			}
@@ -93,17 +89,15 @@ public class PerfilRotinaControlador {
 
 	}
 
-
 	private void showMessage(String msg, Severity severityInfo) {
-		FacesMessage facesMessage = new FacesMessage();  
-        facesMessage.setSeverity(severityInfo);  
-        facesMessage.setSummary(msg);  
-        FacesContext.getCurrentInstance().addMessage(null, facesMessage); 		
+		FacesMessage facesMessage = new FacesMessage();
+		facesMessage.setSeverity(severityInfo);
+		facesMessage.setSummary(msg);
+		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 	}
 
-
 	/* ---------- Gets/Sets --------------- */
-	
+
 	public PerfilRotinaServico getPerfilRotinaServico() {
 		return perfilRotinaServico;
 	}
