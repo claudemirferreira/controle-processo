@@ -6,8 +6,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,13 +28,19 @@ public class Zona extends AbstractEntity implements Serializable {
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
 
-	@ManyToOne
-	@JoinColumn(name = "id_primeiro_resp")
-	private Membro primeiroResponsavel;
+//	@ManyToOne
+//	@JoinColumn(name = "id_primeiro_resp")
+//	private Membro primeiroResponsavel;
+	
+	@Column
+	private int idPrimeiroResp;
 
-	@ManyToOne
-	@JoinColumn(name = "id_segundo_resp")
-	private Membro segundoResponsavel;
+//	@ManyToOne
+//	@JoinColumn(name = "id_segundo_resp")
+//	private Membro segundoResponsavel;
+	
+	@Column
+	private int idSegundoResp;
 
 	@Override
 	public int getId() {
@@ -73,6 +77,22 @@ public class Zona extends AbstractEntity implements Serializable {
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
+	}
+
+	public int getIdPrimeiroResp() {
+		return idPrimeiroResp;
+	}
+
+	public void setIdPrimeiroResp(int idPrimeiroResp) {
+		this.idPrimeiroResp = idPrimeiroResp;
+	}
+
+	public int getIdSegundoResp() {
+		return idSegundoResp;
+	}
+
+	public void setIdSegundoResp(int idSegundoResp) {
+		this.idSegundoResp = idSegundoResp;
 	}
 
 }

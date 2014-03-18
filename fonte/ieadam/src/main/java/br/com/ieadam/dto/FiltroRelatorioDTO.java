@@ -193,45 +193,43 @@ public class FiltroRelatorioDTO implements Serializable {
 
 	public void preencherCombos(Usuario usuario, ZonaServico zonaServico,
 			NucleoServico nucleoServico, AreaServico areaServico) {
+		
 		if (usuario.isZona()) {
 			this.setZonas(new ArrayList<Zona>());
 
-			this.setZonas(zonaServico.findByMembro(usuario.getMembro()));
+			this.setZonas(zonaServico.findByMembro(usuario.getIdMembro()));
 
 			if (this.getZonas().size() == 1) {
 				this.setNucleos(nucleoServico.findByZona(this.getZonas()
-						.iterator().next()));
+						.iterator().next().getIdZona()));
 			}
 		} else if (usuario.isNucleo()) {
 			this.setNucleos(new ArrayList<Nucleo>());
 
-			this.setNucleos(nucleoServico.findByMembro(usuario.getMembro()));
+			this.setNucleos(nucleoServico.findByMembro(usuario.getIdMembro()));
 
 			if (this.getNucleos().size() > 0) {
 				this.setZonas(new ArrayList<Zona>());
-				this.getZonas().add(
-						this.getNucleos().iterator().next().getZona());
-			}
-
-			this.setNucleos(nucleoServico.findByMembro(usuario.getMembro()));
-
-			if (this.getNucleos().size() == 1) {
+				this.getZonas().add(zonaServico.findOne(this.getNucleos().iterator().next().getIdZona()));
+			
+			} else if (this.getNucleos().size() == 1) {
 				this.setAreas(areaServico.findByNucleo(this.getNucleos()
-						.iterator().next()));
+						.iterator().next().getIdNucleo()));
 			}
+			
 		} else if (usuario.isArea()) {
 			this.setAreas(new ArrayList<Area>());
-			this.setAreas(areaServico.findByMembro(usuario.getMembro()));
+			this.setAreas(areaServico.findByMembro(usuario.getIdMembro()));
 
 			if (this.getAreas().size() > 0) {
 				this.setNucleos(new ArrayList<Nucleo>());
 				this.getNucleos().add(
-						this.getAreas().iterator().next().getNucleo());
+						nucleoServico.findOne(this.getAreas().iterator().next().getIdNucleo()));
 
 				if (this.getNucleos().size() > 0) {
 					this.setZonas(new ArrayList<Zona>());
 					this.getZonas().add(
-							this.getNucleos().iterator().next().getZona());
+							zonaServico.findOne(this.getNucleos().iterator().next().getIdZona()));
 				}
 			}
 		}

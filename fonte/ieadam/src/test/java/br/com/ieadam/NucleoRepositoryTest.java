@@ -33,7 +33,7 @@ public class NucleoRepositoryTest {
 		Zona zona = new Zona();
 		zona.setIdZona(1);
 
-		nucleo.setZona(zona);
+//		nucleo.setZona(zona);
 
 		repository.save(nucleo);
 

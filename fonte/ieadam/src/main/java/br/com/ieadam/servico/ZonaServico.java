@@ -2,7 +2,6 @@ package br.com.ieadam.servico;
 
 import java.util.List;
 
-import br.com.ieadam.dominio.Membro;
 import br.com.ieadam.dominio.Zona;
 
 public interface ZonaServico {
@@ -13,6 +12,8 @@ public interface ZonaServico {
 
 	public void remover(Zona zona);
 
-	public List<Zona> findByMembro(Membro membro);
+	public List<Zona> findByMembro(int membro);
+	
+	public Zona findOne(int id);
 
 }

@@ -11,9 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -49,9 +47,12 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	private boolean nucleo;
 
-	@OneToOne
-	@JoinColumn(name = "id_membro")
-	private Membro membro;
+//	@OneToOne
+//	@JoinColumn(name = "id_membro")
+//	private Membro membro;
+	
+	@Column
+	private int idMembro;
 
 	@Override
 	public int getId() {
@@ -137,12 +138,19 @@ public class Usuario extends AbstractEntity implements Serializable {
 		this.nucleo = nucleo;
 	}
 
-	public Membro getMembro() {
-		return membro;
+	public int getIdMembro() {
+		return idMembro;
 	}
 
-	public void setMembro(Membro membro) {
-		this.membro = membro;
+	public void setIdMembro(int idMembro) {
+		this.idMembro = idMembro;
 	}
 
+//	public Membro getMembro() {
+//		return membro;
+//	}
+//
+//	public void setMembro(Membro membro) {
+//		this.membro = membro;
+//	}
 }

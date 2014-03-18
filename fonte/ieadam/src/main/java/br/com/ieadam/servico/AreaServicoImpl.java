@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ieadam.dominio.Area;
-import br.com.ieadam.dominio.Membro;
-import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.repositorio.AreaRepositorio;
 
 @Service
@@ -36,12 +34,12 @@ public class AreaServicoImpl implements AreaServico, Serializable {
 	}
 
 	@Override
-	public List<Area> findByNucleo(Nucleo nucleo) {
+	public List<Area> findByNucleo(int nucleo) {
 		return this.repositorio.findByNucleo(nucleo);
 	}
 
 	@Override
-	public List<Area> findByMembro(Membro membro) {
+	public List<Area> findByMembro(int membro) {
 		return this.repositorio.findByMembro(membro);
 	}
 }
