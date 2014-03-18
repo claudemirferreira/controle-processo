@@ -3,11 +3,9 @@ package br.com.ieadam.controle;
 import java.io.FileInputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -16,9 +14,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -94,7 +89,7 @@ public class RelatorioSaldoCongregacao implements Serializable {
 
 	public void atualizarNucleo() {
 		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
-				.findByZona(this.filtroRelatorioDTO.getZona()));
+				.findByZona(this.filtroRelatorioDTO.getZona().getId()));
 		System.out.println(" nucleo = "
 				+ this.filtroRelatorioDTO.getNucleos().size());
 
@@ -102,7 +97,7 @@ public class RelatorioSaldoCongregacao implements Serializable {
 
 	public void atualizarArea() {
 		this.filtroRelatorioDTO.setAreas(this.areaServico
-				.findByNucleo(this.filtroRelatorioDTO.getNucleo()));
+				.findByNucleo(this.filtroRelatorioDTO.getNucleo().getId()));
 
 	}
 

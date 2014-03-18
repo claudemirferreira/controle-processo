@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import br.com.ieadam.repositorio.UsuarioRepositorio;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
 // @ContextConfiguration(locations="classpath:META-INF/test-context.xml")
-// @Ignore
+@Ignore
 public class UsuarioPerfilRepositoryTest {
 
 	private static final String SISTEMA_COD = "SISTST";
@@ -183,10 +184,11 @@ public class UsuarioPerfilRepositoryTest {
 	}
 
 	private Usuario getUsuario() {
-		List<Usuario> usuarios = repositoryUsuario.findByNomeLike(USUARIO_TESTE);
-		if ( usuarios.isEmpty() ) {
-			return createUsuario();
-		}
+		List<Usuario> usuarios = null;
+//				repositoryUsuario.findByNomeLike(USUARIO_TESTE);
+//		if ( usuarios.isEmpty() ) {
+//			return createUsuario();
+//		}
 		return usuarios.get(0);
 	}
 

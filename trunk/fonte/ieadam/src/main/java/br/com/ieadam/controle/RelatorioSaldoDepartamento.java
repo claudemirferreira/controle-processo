@@ -78,13 +78,13 @@ public class RelatorioSaldoDepartamento implements Serializable {
 		this.parametro.setMes(DataUtil.pegarMescorrente());
 
 		this.paginaCentralControlador
-				.setPaginaCentral("paginas/relatorio/debitosecretaria.xhtml");
+				.setPaginaCentral("paginas/relatorio/saldodepartamental.xhtml");
 
 	}
 
 	public void atualizarNucleo() {
 		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
-				.findByZona(this.filtroRelatorioDTO.getZona()));
+				.findByZona(this.filtroRelatorioDTO.getZona().getId()));
 		System.out.println(" nucleo = "
 				+ this.filtroRelatorioDTO.getNucleos().size());
 
@@ -92,7 +92,7 @@ public class RelatorioSaldoDepartamento implements Serializable {
 
 	public void atualizarArea() {
 		this.filtroRelatorioDTO.setAreas(this.areaServico
-				.findByNucleo(this.filtroRelatorioDTO.getNucleo()));
+				.findByNucleo(this.filtroRelatorioDTO.getNucleo().getId()));
 
 	}
 

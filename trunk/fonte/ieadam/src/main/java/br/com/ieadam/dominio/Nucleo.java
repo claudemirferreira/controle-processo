@@ -6,8 +6,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,9 +22,12 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
 
-	@ManyToOne
-	@JoinColumn(name = "id_coordenador")
-	private Membro membro;
+//	@ManyToOne
+//	@JoinColumn(name = "id_coordenador")
+//	private Membro membro;
+	
+	@Column
+	private int idCoordenador;
 	
 	@Column(length = 60, nullable = false)
 	private String nome;
@@ -34,9 +35,12 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
 
-	@ManyToOne
-	@JoinColumn(name = "id_zona")
-	private Zona zona;
+//	@ManyToOne
+//	@JoinColumn(name = "id_zona")
+//	private Zona zona;
+	
+	@Column
+	private int idZona;
 
 	@Override
 	public int getId() {
@@ -75,19 +79,35 @@ public class Nucleo extends AbstractEntity implements Serializable {
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
 
-	public Zona getZona() {
-		return zona;
+//	public Zona getZona() {
+//		return zona;
+//	}
+//
+//	public void setZona(Zona zona) {
+//		this.zona = zona;
+//	}
+	
+	public int getIdZona() {
+		return idZona;
 	}
 
-	public void setZona(Zona zona) {
-		this.zona = zona;
+	public void setIdZona(int idZona) {
+		this.idZona = idZona;
 	}
 
-	public Membro getMembro() {
-		return membro;
+	public int getIdCoordenador() {
+		return idCoordenador;
 	}
 
-	public void setMembro(Membro membro) {
-		this.membro = membro;
+	public void setIdCoordenador(int idCoordenador) {
+		this.idCoordenador = idCoordenador;
 	}
+
+//	public Membro getMembro() {
+//		return membro;
+//	}
+//
+//	public void setMembro(Membro membro) {
+//		this.membro = membro;
+//	}
 }

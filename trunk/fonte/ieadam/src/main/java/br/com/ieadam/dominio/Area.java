@@ -2,14 +2,10 @@ package br.com.ieadam.dominio;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,13 +19,19 @@ public class Area extends AbstractEntity implements Serializable {
 	@Id
 	private int idArea;
 
-	@ManyToOne
-	@JoinColumn(name = "id_pastor")
-	private Membro membro;
+//	@ManyToOne
+//	@JoinColumn(name = "id_pastor")
+//	private Membro membro;
+	
+	@Column
+	private int idPastor;
 
-	@ManyToOne
-	@JoinColumn(name = "id_nucleo")
-	private Nucleo nucleo;
+//	@ManyToOne
+//	@JoinColumn(name = "id_nucleo")
+//	private Nucleo nucleo;
+	
+	@Column
+	private int idNucleo;
 
 	@Column(length = 60, nullable = false)
 	private String nome;
@@ -40,10 +42,11 @@ public class Area extends AbstractEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
 
-	@OneToMany
-	@JoinColumn(name = "id_area")
-	private List<Congregacao> congregacoes;
+//	@OneToMany
+//	@JoinColumn(name = "id_area")
+//	private List<Congregacao> congregacoes;
 
+	
 	@Override
 	public int getId() {
 		return idArea;
@@ -55,6 +58,14 @@ public class Area extends AbstractEntity implements Serializable {
 
 	public void setIdArea(int idArea) {
 		this.idArea = idArea;
+	}
+
+	public int getIdPastor() {
+		return idPastor;
+	}
+
+	public void setIdPastor(int idPastor) {
+		this.idPastor = idPastor;
 	}
 
 	public String getNome() {
@@ -81,28 +92,35 @@ public class Area extends AbstractEntity implements Serializable {
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
 
-	public List<Congregacao> getCongregacoes() {
-		return congregacoes;
+//	public List<Congregacao> getCongregacoes() {
+//		return congregacoes;
+//	}
+//
+//	public void setCongregacoes(List<Congregacao> congregacoes) {
+//		this.congregacoes = congregacoes;
+//	}
+
+	public int getIdNucleo() {
+		return idNucleo;
 	}
 
-	public void setCongregacoes(List<Congregacao> congregacoes) {
-		this.congregacoes = congregacoes;
+	public void setIdNucleo(int idNucleo) {
+		this.idNucleo = idNucleo;
 	}
 
-	public Nucleo getNucleo() {
-		return nucleo;
-	}
+//	public Nucleo getNucleo() {
+//		return nucleo;
+//	}
+//
+//	public void setNucleo(Nucleo nucleo) {
+//		this.nucleo = nucleo;
+//	}
 
-	public void setNucleo(Nucleo nucleo) {
-		this.nucleo = nucleo;
-	}
-
-	public Membro getMembro() {
-		return membro;
-	}
-
-	public void setMembro(Membro membro) {
-		this.membro = membro;
-	}
-
+//	public Membro getMembro() {
+//		return membro;
+//	}
+//
+//	public void setMembro(Membro membro) {
+//		this.membro = membro;
+//	}
 }

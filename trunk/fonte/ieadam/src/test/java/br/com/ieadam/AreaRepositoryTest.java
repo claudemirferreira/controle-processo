@@ -33,7 +33,7 @@ public class AreaRepositoryTest {
 		Nucleo n = new Nucleo();
 		n.setIdNucleo(1);
 
-		area.setNucleo(n);
+//		area.setNucleo(n);
 
 		repository.save(area);
 

@@ -18,18 +18,9 @@
 			<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
 				
-				<p:selectOneMenu rendered="#{not relatorioSaldoCongregacao.filtroRelatorioDTO.usuarioLogado.isZona}"
+				<p:selectOneMenu
 					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}">
 					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
-					<f:selectItems
-						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zonas}"
-						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarNucleo}"
-						update=":form" event="change" />
-				</p:selectOneMenu>
-				
-				<p:selectOneMenu rendered="#{relatorioSaldoCongregacao.filtroRelatorioDTO.usuarioLogado.isZona == 0}"
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}">
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
@@ -87,10 +78,6 @@
 			</f:facet>
 
 		</p:panel>
-
-		<p:blockUI block="painel" trigger="zona" blocked="painel">
-
-		</p:blockUI>
 
 		<p:panel header="RELATÓRIO GERADO"
 			rendered="#{relatorioSaldoCongregacao.streamedContent!=null}">

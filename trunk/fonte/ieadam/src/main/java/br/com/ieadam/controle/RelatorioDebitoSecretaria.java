@@ -91,7 +91,7 @@ public class RelatorioDebitoSecretaria implements Serializable {
 
 	public void atualizarNucleo() {
 		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
-				.findByZona(this.filtroRelatorioDTO.getZona()));
+				.findByZona(this.filtroRelatorioDTO.getZona().getId()));
 		System.out.println(" nucleo = "
 				+ this.filtroRelatorioDTO.getNucleos().size());
 
@@ -99,7 +99,7 @@ public class RelatorioDebitoSecretaria implements Serializable {
 
 	public void atualizarArea() {
 		this.filtroRelatorioDTO.setAreas(this.areaServico
-				.findByNucleo(this.filtroRelatorioDTO.getNucleo()));
+				.findByNucleo(this.filtroRelatorioDTO.getNucleo().getId()));
 
 	}
 
