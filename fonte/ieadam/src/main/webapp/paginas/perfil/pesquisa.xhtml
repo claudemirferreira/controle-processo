@@ -77,9 +77,10 @@
 
 	</h:form>
 
+	<p:dialog id="dialogRotina" header="Rotina" widgetVar="dlgRotina"
+		modal="true" appendToBody="true">
 
-	<h:form id="formDlg">
-		<p:dialog id="dialogRotina" header="Rotina" widgetVar="dlgRotina">
+		<h:form id="formDlg">
 
 			<p:growl id="msg" showDetail="false" escape="false"
 				globalOnly="false" />
@@ -108,8 +109,8 @@
 
 			<p:commandButton value="Fechar" onclick="PF('dlgRotina').hide();" />
 
-		</p:dialog>
+		</h:form>
 
-	</h:form>
+	</p:dialog>
 
 </ui:component>
