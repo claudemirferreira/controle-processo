@@ -7,9 +7,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<h:form id="form">
+	<h:form id="form" prependId="false">
 
-		<p:panel>
+		<p:panel id="painel">
 			<p:dataGrid id="rotinaousel"
 				value="#{perfilControlador.listaPerfilUsuario}" var="perfil"
 				headerText="Administrativo" columns="#{usuarioControlador.colunas}"
@@ -17,17 +17,25 @@
 				<div align="center">
 					<h:panelGrid id="panelRelatorio">
 
-						<h:commandLink
+						<h:commandLink id="teste"
 							actionListener="#{rotinaControlador.telaRotinas(perfil)}"
 							title="#{perfil.nome}" update=":form">
 							<p:graphicImage width="100px" height="100px"
 								value="#{perfil.imagem}" />
 						</h:commandLink>
+						
+						<p:commandButton id="teste1" value="teste1"/>
 
 					</h:panelGrid>
 				</div>
 			</p:dataGrid>
 		</p:panel>
+
+		<p:commandButton id="teste2" value="teste2"/>
+
+		<p:blockUI block=":form" trigger=":form:rotinaousel" widgetVar="bui">
+
+		</p:blockUI>
 
 	</h:form>
 </ui:component>
