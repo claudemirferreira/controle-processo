@@ -15,10 +15,11 @@
 		<p:panel id="painel" header="RELATÓRIO DE PROVENTO PASTORAL"
 			style="margin-bottom:10px;">
 
-			<h:panelGrid columns="6" cellpadding="5">
+		<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="zona"
-					value="#{relatorioProventoPastoral.filtroRelatorioDTO.zona.idZona}">
+				
+				<p:selectOneMenu rendered="#{fn:length(relatorioProventoPastoral.filtroRelatorioDTO.zonas) > 1}"
+					value="#{relatorioProventoPastoral.filtroRelatorioDTO.zona.idZona}" >
 					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
 						value="#{relatorioProventoPastoral.filtroRelatorioDTO.zonas}"
@@ -26,11 +27,30 @@
 					<p:ajax listener="#{relatorioProventoPastoral.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
-
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioProventoPastoral.filtroRelatorioDTO.zonas) == 1}"
+					value="#{relatorioProventoPastoral.filtroRelatorioDTO.zona.idZona}" >
+					<f:selectItems
+						value="#{relatorioProventoPastoral.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioProventoPastoral.atualizarNucleo}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="nucleo"
-					value="#{relatorioProventoPastoral.filtroRelatorioDTO.nucleo.idNucleo}">
+				<p:selectOneMenu rendered="#{fn:length(relatorioProventoPastoral.filtroRelatorioDTO.nucleos) > 1}"
+					value="#{relatorioProventoPastoral.filtroRelatorioDTO.nucleo.idNucleo}" >
 					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
+					<f:selectItems
+						value="#{relatorioProventoPastoral.filtroRelatorioDTO.nucleos}"
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioProventoPastoral.atualizarArea}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioProventoPastoral.filtroRelatorioDTO.nucleos) == 1}"
+					value="#{relatorioProventoPastoral.filtroRelatorioDTO.nucleo.idNucleo}" >
 					<f:selectItems
 						value="#{relatorioProventoPastoral.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
@@ -40,14 +60,22 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="area"
-					value="#{relatorioProventoPastoral.filtroRelatorioDTO.area.idArea}">
+				<p:selectOneMenu rendered="#{fn:length(relatorioProventoPastoral.filtroRelatorioDTO.areas) > 1}"
+					value="#{relatorioProventoPastoral.filtroRelatorioDTO.area.idArea}" > 
 					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioProventoPastoral.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioProventoPastoral.filtroRelatorioDTO.areas) == 1}"
+					value="#{relatorioProventoPastoral.filtroRelatorioDTO.area.idArea}" >
+					<f:selectItems
+						value="#{relatorioProventoPastoral.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
 			</h:panelGrid>
+				
 			<h:panelGrid columns="4" cellpadding="5">
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
@@ -76,10 +104,6 @@
 			</f:facet>
 
 		</p:panel>
-
-		<p:blockUI block="painel" trigger="zona" blocked="painel">
-
-		</p:blockUI>
 
 		<p:panel header="RELATÓRIO GERADO"
 			rendered="#{relatorioProventoPastoral.streamedContent!=null}">

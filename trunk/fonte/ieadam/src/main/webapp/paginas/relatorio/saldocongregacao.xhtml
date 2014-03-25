@@ -18,8 +18,8 @@
 			<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
 				
-				<p:selectOneMenu
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}">
+				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.zonas) > 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}" >
 					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zonas}"
@@ -27,11 +27,30 @@
 					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
-
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.zonas) == 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}" >
+					<f:selectItems
+						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarNucleo}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="nucleo"
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleo.idNucleo}">
+				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos) > 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleo.idNucleo}" >
 					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
+					<f:selectItems
+						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos}"
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarArea}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos) == 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleo.idNucleo}" >
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
@@ -41,13 +60,21 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="area"
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.area.idArea}">
+				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.areas) > 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.area.idArea}" > 
 					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.areas) == 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.area.idArea}" >
+					<f:selectItems
+						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
+				
 			</h:panelGrid>
 			<h:panelGrid columns="4" cellpadding="5">
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
