@@ -194,45 +194,57 @@ public class FiltroRelatorioDTO implements Serializable {
 	public void preencherCombos(Usuario usuario, ZonaServico zonaServico,
 			NucleoServico nucleoServico, AreaServico areaServico) {
 		
+		this.setZonas(new ArrayList<Zona>());
+		this.setNucleos(new ArrayList<Nucleo>());
+		this.setAreas(new ArrayList<Area>());
+		
 		if (usuario.isZona()) {
-			this.setZonas(new ArrayList<Zona>());
-
 			this.setZonas(zonaServico.findByMembro(usuario.getIdMembro()));
 
 			if (this.getZonas().size() == 1) {
+				this.setZona(this.getZonas().iterator().next());
 				this.setNucleos(nucleoServico.findByZona(this.getZonas()
 						.iterator().next().getIdZona()));
+				
+				// TODO Verificar com Dryen se uma Zona poderah ter apenas um Nucleo e se um Nucleo poderah ter apenas uma area
+//				if (this.getNucleos().size() == 1) {
+//					this.setNucleo(this.getNucleos().iterator().next());
+//					this.setAreas(areaServico.findByNucleo(this.getNucleos()
+//						.iterator().next().getIdNucleo()));
+//				}
 			}
 		} else if (usuario.isNucleo()) {
-			this.setNucleos(new ArrayList<Nucleo>());
-
 			this.setNucleos(nucleoServico.findByMembro(usuario.getIdMembro()));
-
-			if (this.getNucleos().size() > 0) {
-				this.setZonas(new ArrayList<Zona>());
-				this.getZonas().add(zonaServico.findOne(this.getNucleos().iterator().next().getIdZona()));
 			
-			} else if (this.getNucleos().size() == 1) {
+			this.getZonas().add(zonaServico.findOne(this.getNucleos().iterator().next().getIdZona()));
+			this.setZona(this.getZonas().iterator().next());
+			
+			if (this.getNucleos().size() == 1) {
+				this.setNucleo(this.getNucleos().iterator().next());
 				this.setAreas(areaServico.findByNucleo(this.getNucleos()
 						.iterator().next().getIdNucleo()));
 			}
 			
 		} else if (usuario.isArea()) {
-			this.setAreas(new ArrayList<Area>());
+			
 			this.setAreas(areaServico.findByMembro(usuario.getIdMembro()));
 
 			if (this.getAreas().size() > 0) {
-				this.setNucleos(new ArrayList<Nucleo>());
+				
+				if (this.getAreas().size() == 1) {
+					this.setArea(this.getAreas().iterator().next());
+				}
+				
 				this.getNucleos().add(
 						nucleoServico.findOne(this.getAreas().iterator().next().getIdNucleo()));
+				this.setNucleo(this.getNucleos().iterator().next());
 
 				if (this.getNucleos().size() > 0) {
-					this.setZonas(new ArrayList<Zona>());
 					this.getZonas().add(
 							zonaServico.findOne(this.getNucleos().iterator().next().getIdZona()));
+					this.setZona(this.getZonas().iterator().next());
 				}
 			}
 		}
-
 	}
 }

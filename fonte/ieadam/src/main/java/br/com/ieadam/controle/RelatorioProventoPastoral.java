@@ -3,11 +3,9 @@ package br.com.ieadam.controle;
 import java.io.FileInputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -16,9 +14,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -117,20 +112,11 @@ public class RelatorioProventoPastoral implements Serializable {
 		ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
 
-		// BLOCO USADO PARA TESTES
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		Usuario u = new Usuario();
-		u.setLogin("login");
-		usuarios.add(u);
-		// BLOCO USADO PARA TESTES
-
 		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
 				this.parametro.getMes().getMes(), 1);
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
-		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
-
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
 		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
