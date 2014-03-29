@@ -14,12 +14,9 @@
 			style="width:100%; height:100%; ">
 			<div align="center">
 				<h:panelGrid id="panelRelatorio">
-
-					<h:commandLink
-						actionListener="#{rotinaControlador.telaRotinas(perfil)}"
-						title="#{perfil.nome}" update=":form">
-						<p:graphicImage width="100px" height="100px"
-							value="#{perfil.imagem}" />
+					<h:commandLink update=":form"
+							actionListener="#{rotinaControlador.telaRotinas(perfil)}" >
+						<p:graphicImage value="#{perfil.imagem}" />
 					</h:commandLink>
 
 				</h:panelGrid>
