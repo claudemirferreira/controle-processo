@@ -11,6 +11,14 @@
 /*     padding: 0px; */
 /* } */
 
+.tp_titulo {
+	background-image: url(images/bg_titulo.png); 
+	background-repeat: no-repeat;
+	font-weight: normal; 
+	color: #FFD700; 
+	font-size: large;
+}
+
 #principal{
     position:absolute;
     left:50%;
@@ -29,9 +37,10 @@
 }
 
 .body {
-  font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
-  color: #404040;
-  background: #396291;
+  	font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+  	color: #404040;
+ 	background-image: url(images/bg_login.png); 
+	background-repeat: no-repeat;
 }
 
 .login {
