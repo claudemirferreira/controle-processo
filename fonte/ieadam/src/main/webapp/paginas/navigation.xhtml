@@ -14,22 +14,23 @@
 		<p:toolbar style="background-image: url('resources/estilos/images/bg_titulo.png'); background-repeat: no-repeat;">
 			<p:toolbarGroup align="left">
 				<h:outputLabel value="SGR - Sistema de Geração de Relatórios"
-					style="font-weight: normal; color: #FFD700; font-size: large;"/>
+					style="color: #8B0000; font-size: xx-large;"/>
 			</p:toolbarGroup>
-
 
 			<p:toolbarGroup align="right">
-				<p:outputLabel value="#{usuarioControlador.usuario.login}"/>
-				<p:separator />
-				<p:commandButton action="#{perfilControlador.listaPerfilPorSistemaPorUsuario}" id="home"
-					icon="ui-icon-home" value="Home"  update=":form" />
-					
-				<p:separator />
-				<p:commandButton action="#{usuarioControlador.logout}" id="logoff"
-					icon="ui-icon-closethick" value="Logout"  update=":form" />
+				<p:outputLabel value="Usuário: " style="color: #000000; font-style: italic; font-size: large;"/>
+				<p:outputLabel value="#{usuarioControlador.usuario.login}" style="color: #000000; font-style: italic; font-size: large;
+					font-weight: 600; "/>
+				
+				<h:commandLink update=":form" actionListener="#{perfilControlador.listaPerfilPorSistemaPorUsuario}" >
+					<p:graphicImage value="resources/estilos/images/ico_home.png" title="Início" style="padding-top: 1.1%;"/>
+				</h:commandLink>
+				
+				<h:commandLink update=":form" action="#{usuarioControlador.logout}" >
+					<p:graphicImage value="resources/estilos/images/ico_sair.png" title="Sair" style="padding-left: 3%; padding-top: 1.1%;"/>
+				</h:commandLink>
 			</p:toolbarGroup>
 		</p:toolbar>
-
 
 	</h:form>
 

@@ -7,15 +7,23 @@
 /* Layout helpers
 ----------------------------------*/
 
-/* .ui-panel .ui-panel-content { */
-/*     padding: 0px; */
-/* } */
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.ui-priority-primary {
+	height: 30px!important;
+}
+
+.ui-panel .ui-panel-titlebar {
+	font-size: large;
+}
+
+.ui-toolbar-group-right {
+	width: 225px;
+}
 
 .tp_titulo {
 	background-image: url(images/bg_titulo.png); 
 	background-repeat: no-repeat;
-	font-weight: normal; 
-	color: #FFD700; 
+/* 	font-weight: normal;  */
+	color: #8B0000; 
 	font-size: large;
 }
 
@@ -962,20 +970,27 @@ body .ui-tooltip {
 	font-family: Verdana,Arial,sans-serif;
 	font-size: 1em;
 }
+
+.ui-datagrid-content.ui-widget-content {
+	border: none!important;
+}
+
 .ui-widget-content {
-	border: 1px solid #aaaaaa;
+/* 	border: 1px solid #aaaaaa; */
+	border: 1px solid #797979;
 	background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x;
 	color: #222222;
+/* 	height: 100%; */
 }
 .ui-widget-content a {
 	color: #222222;
 }
 .ui-widget-header {
 	border: 1px solid #aaaaaa;
-	background: #8B0000;
+	background: #EEE9E9;
 /* 	color: #222222; */
-	color: #FFD700;
-	font-weight: normal;
+	color: #8B0000;
+/* 	font-weight: normal; */
 }
 .ui-widget-header a {
 	color: #222222;
