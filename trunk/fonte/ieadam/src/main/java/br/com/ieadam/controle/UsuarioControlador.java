@@ -186,7 +186,7 @@ public class UsuarioControlador {
 				.getExternalContext().getRequest();
 		request.getSession().invalidate();
 
-		return "login.xhtml?faces-redirect=true";
+		return "/login.xhtml?faces-redirect=true";
 	}
 
 	public Usuario getUsuario() {

@@ -92,15 +92,15 @@
 			</h:panelGrid>
 
 			<f:facet name="footer">
-
-				<p:commandButton value="Retornar" ajax="false" update=":form"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					actionListener="#{rotinaControlador.telaRotinas()}" />
-
-				<p:commandButton value="Gerar relatorio" ajax="false"
-					icon="ui-icon-gear" styleClass="ui-priority-primary"
-					actionListener="#{relatorioProventoPastoral.imprimir}" />
-
+				<div align="right">
+					<p:commandButton value="Retornar" ajax="false" update=":form"
+						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+						actionListener="#{rotinaControlador.telaRotinas()}" />
+	
+					<p:commandButton value="Gerar relatorio" ajax="false"
+						icon="ui-icon-gear" styleClass="ui-priority-primary"
+						actionListener="#{relatorioProventoPastoral.imprimir}" />
+				</div>
 			</f:facet>
 
 		</p:panel>
