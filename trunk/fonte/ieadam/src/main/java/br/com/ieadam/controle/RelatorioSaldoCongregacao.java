@@ -81,6 +81,8 @@ public class RelatorioSaldoCongregacao implements Serializable {
 
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
 		this.parametro.setMes(DataUtil.pegarMescorrente());
+		
+		this.streamedContent = null;
 
 		this.paginaCentralControlador
 				.setPaginaCentral("paginas/relatorio/saldocongregacao.xhtml");
