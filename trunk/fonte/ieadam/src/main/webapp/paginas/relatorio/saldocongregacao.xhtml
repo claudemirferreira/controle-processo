@@ -10,16 +10,17 @@
 
 	<h:form id="form">
 
-		<p:growl id="msgs" showDetail="true" />
+		<p:growl id="growl" />
 
 		<p:panel id="painel" header="RELATÓRIO DE SALDO CONGREGAÇÃO"
 			style="margin-bottom:10px;">
 
 			<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
-				
-				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.zonas) > 1}"
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}" >
+
+				<p:selectOneMenu
+					rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.zonas) > 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}">
 					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zonas}"
@@ -27,19 +28,21 @@
 					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
-				
-				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.zonas) == 1}"
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}" >
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.zonas) == 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}">
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
 					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
-				
+
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos) > 1}"
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleo.idNucleo}" >
+				<p:selectOneMenu
+					rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos) > 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleo.idNucleo}">
 					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos}"
@@ -48,9 +51,10 @@
 					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
-				
-				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos) == 1}"
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleo.idNucleo}" >
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos) == 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleo.idNucleo}">
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
@@ -60,21 +64,23 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.areas) > 1}"
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.area.idArea}" > 
+				<p:selectOneMenu
+					rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.areas) > 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.area.idArea}">
 					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
-				
-				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.areas) == 1}"
-					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.area.idArea}" >
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.areas) == 1}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.area.idArea}">
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
-				
+
 			</h:panelGrid>
 			<h:panelGrid columns="4" cellpadding="5">
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
@@ -90,27 +96,33 @@
 					requiredMessage="O ano deve ser informado"
 					value="#{relatorioSaldoCongregacao.parametro.ano}" />
 
-			</h:panelGrid>
-
-			<f:facet name="footer">
-				<div align="right">
+				<f:facet name="footer">
 					<p:commandButton value="Retornar" ajax="false" update=":form"
 						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 						actionListener="#{rotinaControlador.telaRotinas()}" />
-	
-					<p:commandButton value="Gerar relatorio" ajax="false"
-						icon="ui-icon-gear" styleClass="ui-priority-primary"
+
+					<p:commandButton id="buttonImprimir" value="Gerar relatorio"
+						icon="ui-icon-print" style="margin:0" update="relatorio"
+						styleClass="ui-priority-primary" ajax="false"
 						actionListener="#{relatorioSaldoCongregacao.imprimir}" />
-				</div>
-			</f:facet>
+
+				</f:facet>
+
+				<p:blockUI block=":paginaCentral" trigger="buttonImprimir">
+			 		Processando....<br />
+					<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+				</p:blockUI>
+
+			</h:panelGrid>
+
+			<p:panel header="RELATÓRIO GERADO" id="relatorio"
+				rendered="#{relatorioSaldoCongregacao.streamedContent ne null}">
+				<p:media value="#{relatorioSaldoCongregacao.streamedContent}"
+					player="pdf" width="100%" height="300"></p:media>
+			</p:panel>
 
 		</p:panel>
 
-		<p:panel header="RELATÓRIO GERADO"
-			rendered="#{relatorioSaldoCongregacao.streamedContent!=null}">
-			<p:media value="#{relatorioSaldoCongregacao.streamedContent}"
-				player="pdf" width="100%" height="300"></p:media>
-		</p:panel>
 	</h:form>
 
 </ui:component>
