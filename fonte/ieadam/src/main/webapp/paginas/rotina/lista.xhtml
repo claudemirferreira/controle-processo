@@ -15,7 +15,7 @@
 				style="width:99%; height:100%; border-color:white;">
 				<div align="center">
 					<h:panelGrid id="panelRelatorio">
-						<h:commandLink update=":form"
+						<h:commandLink update=":form" title="#{rotina.nome}"
 								actionListener="#{pageController.parseUrl(rotina.acao)}">
 							<p:graphicImage value="#{rotina.imagem}"/>
 						</h:commandLink>

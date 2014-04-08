@@ -22,18 +22,21 @@
 
 			<f:facet name="footer">
 			
-				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					actionListener="#{rotinaControlador.telaRotinas(rotinaControlador.perfil)}" />
+				<div align="right">
+					<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+						actionListener="#{rotinaControlador.telaRotinas(rotinaControlador.perfil)}" />
+						
+					<p:commandButton id="buttonPesquisar" value="Pesquisar"
+						update=":form:gridPesquisa" icon="ui-icon-search"
+						styleClass="ui-priority-primary"
+						action="#{usuarioControlador.pesquisar}" />
+		
+					<p:commandButton id="buttonNovo" value="Novo" update=":form"
+						icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
+						action="#{usuarioControlador.novo}" />
+				</div>
 					
-				<p:commandButton id="buttonPesquisar" value="Pesquisar"
-					update=":form:gridPesquisa" icon="ui-icon-search"
-					styleClass="ui-priority-primary"
-					action="#{usuarioControlador.pesquisar}" />
-
-				<p:commandButton id="buttonNovo" value="Novo" update=":form"
-					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
-					action="#{usuarioControlador.novo}" />
 			</f:facet>
 
 		</p:panel>
@@ -61,6 +64,7 @@
 				update=":form" title="Manter Usuário" />
 
 			<p:column style="text-align:left" headerText="Detalhe">
+				
 				<p:commandButton ajax="false" value="Detalhe"
 					action="#{usuarioControlador.detalhe(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-pencil"
@@ -68,9 +72,8 @@
 					
 				<p:commandButton value="Perfil"
 						action="#{usuarioPerfilControlador.showModalPerfil(item)}"
-						oncomplete="PF('dlgPerfil').show();"
-						update=":formDlg"
-						 />
+						styleClass="ui-priority-primary" icon="ui-icon-person"
+						oncomplete="PF('dlgPerfil').show();" update=":formDlg" />
 					
 				<p:commandButton ajax="false" value="Excluir"
 						action="#{usuarioControlador.excluir(item)}"
