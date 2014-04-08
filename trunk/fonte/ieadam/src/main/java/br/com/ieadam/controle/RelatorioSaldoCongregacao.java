@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -131,8 +132,15 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
 				arquivo);
 
-		if (fis != null)
-			this.streamedContent = new DefaultStreamedContent(fis,
+		if (fis == null) {
+			
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Arquivo vazio!");
+			FacesContext.getCurrentInstance().addMessage(
+					"msgs", message);
+			return;
+		}
+
+		this.streamedContent = new DefaultStreamedContent(fis,
 				"application/pdf");
 	}
 
