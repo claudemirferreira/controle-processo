@@ -52,7 +52,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 //	private Membro membro;
 	
 	@Column
-	private int idMembro;
+	private Integer idMembro;
 
 	@Override
 	public int getId() {
@@ -138,11 +138,11 @@ public class Usuario extends AbstractEntity implements Serializable {
 		this.nucleo = nucleo;
 	}
 
-	public int getIdMembro() {
+	public Integer getIdMembro() {
 		return idMembro;
 	}
 
-	public void setIdMembro(int idMembro) {
+	public void setIdMembro(Integer idMembro) {
 		this.idMembro = idMembro;
 	}
 

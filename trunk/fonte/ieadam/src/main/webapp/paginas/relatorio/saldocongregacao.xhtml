@@ -80,8 +80,8 @@
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
-
 			</h:panelGrid>
+
 			<h:panelGrid columns="4" cellpadding="5">
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
@@ -95,33 +95,30 @@
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
 					value="#{relatorioSaldoCongregacao.parametro.ano}" />
+			</h:panelGrid>
 
-				<f:facet name="footer">
+			<f:facet name="footer">
+				<div align="right">	
 					<p:commandButton value="Retornar" ajax="false" update=":form"
 						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 						actionListener="#{rotinaControlador.telaRotinas()}" />
-
+	
 					<p:commandButton id="buttonImprimir" value="Gerar relatorio"
 						icon="ui-icon-print" style="margin:0" update="relatorio"
 						styleClass="ui-priority-primary" ajax="false"
 						actionListener="#{relatorioSaldoCongregacao.imprimir}" />
-
-				</f:facet>
-
-				<p:blockUI block=":paginaCentral" trigger="buttonImprimir">
-			 		Processando....<br />
-					<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
-				</p:blockUI>
-
-			</h:panelGrid>
-
-			<p:panel header="RELATÓRIO GERADO" id="relatorio"
-				rendered="#{relatorioSaldoCongregacao.streamedContent ne null}">
-				<p:media value="#{relatorioSaldoCongregacao.streamedContent}"
-					player="pdf" width="100%" height="300"></p:media>
-			</p:panel>
-
+				</div>	
+			</f:facet>
 		</p:panel>
+
+		<p:blockUI block="form" trigger="buttonImprimir">
+	 		Processando....<br />
+			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+		</p:blockUI>
+
+
+		<p:media value="#{relatorioSaldoCongregacao.streamedContent}"
+				player="pdf" width="100%" height="500" rendered="#{relatorioSaldoCongregacao.streamedContent ne null}"/>
 
 	</h:form>
 

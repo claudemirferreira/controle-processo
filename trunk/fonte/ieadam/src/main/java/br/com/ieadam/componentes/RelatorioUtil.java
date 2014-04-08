@@ -52,8 +52,12 @@ public class RelatorioUtil {
 			
 			fis = new FileInputStream(arquivoGerado);
 			
+			if (arquivoGerado.length() < 1024) {
+				return null;
+			}
+			
 			// Verificar
-//			arquivoGerado.delete();
+			arquivoGerado.delete();
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -38,14 +38,16 @@
 
 			</h:panelGrid>
 			<f:facet name="footer">
-				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-					icon="ui-icon-search" styleClass="ui-icon-circle-arrow-w"
-					ajax="true" immediate="true"
-					action="#{usuarioControlador.telaPesquisa}" />
-
-				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
-					icon="ui-icon-disk" styleClass="ui-priority-primary"
-					action="#{usuarioControlador.salvar}" />
+				<div align="right">
+					<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+						ajax="true" immediate="true"
+						action="#{usuarioControlador.telaPesquisa}" />
+	
+					<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
+						icon="ui-icon-disk" styleClass="ui-priority-primary"
+						action="#{usuarioControlador.salvar}" />
+				</div>
 			</f:facet>
 
 		</p:panel>

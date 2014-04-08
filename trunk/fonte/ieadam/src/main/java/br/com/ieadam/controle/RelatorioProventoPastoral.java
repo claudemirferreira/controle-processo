@@ -31,6 +31,7 @@ import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
 import br.com.ieadam.servico.ZonaServico;
 import br.com.ieadam.utils.IEADAMUtils;
+import br.com.ieadam.utils.PathRelatorios;
 
 @ManagedBean
 @SessionScoped
@@ -60,6 +61,7 @@ public class RelatorioProventoPastoral implements Serializable {
 	private StreamedContent streamedContent;
 
 	public void init() {
+		this.streamedContent = null;
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 
 		this.filtroRelatorioDTO.setZona(new Zona());
@@ -110,7 +112,7 @@ public class RelatorioProventoPastoral implements Serializable {
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
 		ServletContext context = (ServletContext) externalContext.getContext();
-		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
+		String arquivo = context.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_PROVENTOS_PASTORAL.getNome());
 
 		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
 				this.parametro.getMes().getMes(), 1);
@@ -127,8 +129,10 @@ public class RelatorioProventoPastoral implements Serializable {
 		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
 				arquivo);
 
-		this.streamedContent = new DefaultStreamedContent(fis,
+		if (fis != null) 
+			this.streamedContent = new DefaultStreamedContent(fis,
 				"application/pdf");
+		
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {

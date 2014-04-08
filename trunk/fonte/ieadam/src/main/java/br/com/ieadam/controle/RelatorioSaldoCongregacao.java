@@ -61,6 +61,7 @@ public class RelatorioSaldoCongregacao implements Serializable {
 	private StreamedContent streamedContent;
 
 	public void init() {
+		this.streamedContent = null;
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 
 		this.filtroRelatorioDTO.setZona(new Zona());
@@ -130,7 +131,8 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
 				arquivo);
 
-		this.streamedContent = new DefaultStreamedContent(fis,
+		if (fis != null)
+			this.streamedContent = new DefaultStreamedContent(fis,
 				"application/pdf");
 	}
 
