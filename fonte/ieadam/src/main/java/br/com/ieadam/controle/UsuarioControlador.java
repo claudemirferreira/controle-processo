@@ -76,7 +76,7 @@ public class UsuarioControlador {
 	}
 
 	public void pesquisar() {
-//		this.lista = this.servico.findBy(this.pesquisa.getLogin());
+		// this.lista = this.servico.findBy(this.pesquisa.getLogin());
 	}
 
 	public void detalhe(Usuario usuario) {
@@ -92,6 +92,10 @@ public class UsuarioControlador {
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
 		this.telaPesquisa();
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Operação realizada com sucesso!", "Hello "
+				+ "Operação realizada com sucesso!"));
 	}
 
 	public void excluir(Usuario usuario) {
@@ -178,8 +182,7 @@ public class UsuarioControlador {
 	public String logout() {
 		SecurityContextHolder.clearContext();
 		this.usuario = new Usuario();
-		this.paginaCentralControlador
-				.setPaginaCentral("paginacentral.xhtml");
+		this.paginaCentralControlador.setPaginaCentral("paginacentral.xhtml");
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
