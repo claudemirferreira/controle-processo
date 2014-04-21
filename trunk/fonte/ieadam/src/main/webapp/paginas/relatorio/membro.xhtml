@@ -12,10 +12,10 @@
 		<p:panel header="RELATÓRIO DE MEMBROS" style="width:99%;">
 
 			<h:panelGrid columns="6" cellpadding="5">
-				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
+				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="zona"
 					value="#{relatorioMembro.filtroRelatorioDTO.zona.idZona}">
-					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItem itemLabel="Selecione a Região" itemValue="" />
 					<f:selectItems value="#{relatorioMembro.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
 					<p:ajax listener="#{relatorioMembro.atualizarNucleo}"
@@ -25,7 +25,7 @@
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="nucleo"
 					value="#{relatorioMembro.filtroRelatorioDTO.nucleo.idNucleo}">
-					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItem itemLabel="Selecione o Núcleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioMembro.filtroRelatorioDTO.nucleos}" var="nucleo"
 						itemLabel="#{nucleo.nome}" itemValue="#{nucleo.idNucleo}" />
@@ -36,7 +36,7 @@
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="area"
 					value="#{relatorioMembro.filtroRelatorioDTO.area}">
-					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
+					<f:selectItem itemLabel="Selecione a Área" itemValue="" />
 					<f:selectItems value="#{relatorioMembro.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>

@@ -16,11 +16,11 @@
 			style="margin-bottom:10px;">
 
 			<h:panelGrid columns="6" cellpadding="5">
-				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
+				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
 				
 				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.zonas) > 1}"
 					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}" >
-					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
+					<f:selectItem itemLabel="Selecione a Região" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />

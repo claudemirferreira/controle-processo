@@ -16,21 +16,41 @@
 			style="margin-bottom:10px;">
 
 			<h:panelGrid columns="6" cellpadding="5">
-				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="zona"
-					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zona.idZona}">
-					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
+				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
+				
+				<p:selectOneMenu rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.zonas) > 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zona.idZona}" >
+					<f:selectItem itemLabel="Selecione a Região" itemValue="" />
 					<f:selectItems
 						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
 					<p:ajax listener="#{relatorioBalanceteAnalitico.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
-
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.zonas) == 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zona.idZona}" >
+					<f:selectItems
+						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioBalanceteAnalitico.atualizarNucleo}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="nucleo"
-					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleo.idNucleo}">
+				<p:selectOneMenu rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleos) > 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleo.idNucleo}" >
 					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
+					<f:selectItems
+						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleos}"
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioBalanceteAnalitico.atualizarArea}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleos) == 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleo.idNucleo}" >
 					<f:selectItems
 						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
@@ -40,21 +60,28 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="area"
-					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.area.idArea}">
+				<p:selectOneMenu rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.areas) > 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.area.idArea}" > 
 					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.areas) == 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.area.idArea}" >
+					<f:selectItems
+						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
 			</h:panelGrid>
+				
 			<h:panelGrid columns="4" cellpadding="5">
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
 					value="#{relatorioBalanceteAnalitico.parametro.mes}" effect="fold"
 					editable="true" style="width:100%;">
-					<f:selectItems
-						value="#{relatorioBalanceteAnalitico.parametro.meses}" />
+					<f:selectItems value="#{relatorioBalanceteAnalitico.parametro.meses}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
@@ -63,31 +90,28 @@
 					requiredMessage="O ano deve ser informado"
 					value="#{relatorioBalanceteAnalitico.parametro.ano}" />
 			</h:panelGrid>
-
+	
 			<f:facet name="footer">
-
-				<p:commandButton value="Retornar" ajax="false" update=":form"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					actionListener="#{rotinaControlador.telaRotinas()}" />
-					
-				<p:commandButton id="buttonImprimir" value="Gerar relatorio" icon="ui-icon-print"
-						style="margin:0" styleClass="ui-priority-primary"
-						actionListener="#{relatorioBalanceteAnalitico.imprimir}"/>
-
+				<div align="right">
+						<p:commandButton value="Retornar" ajax="false" update=":form"
+							icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+							actionListener="#{rotinaControlador.telaRotinas()}" />
+		
+						<p:commandButton id="buttonImprimir" value="Gerar relatorio" icon="ui-icon-print"
+								style="margin:0" styleClass="ui-priority-primary"
+								actionListener="#{relatorioBalanceteAnalitico.imprimir}" update=":form"/>
+				</div>
 			</f:facet>
-
 		</p:panel>
-
+		
 		<p:blockUI block="form" trigger="buttonImprimir" >
 			 Processando....<br />
 			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
 		</p:blockUI> 
 
-		<p:panel header="RELATÓRIO GERADO"
-			rendered="#{relatorioBalanceteAnalitico.streamedContent!=null}">
-			<p:media value="#{relatorioBalanceteAnalitico.streamedContent}"
-				player="pdf" width="100%" height="300"></p:media>
-		</p:panel>
+		<p:media value="#{relatorioBalanceteAnalitico.streamedContent}"
+				player="pdf" width="100%" height="500" rendered="#{relatorioBalanceteAnalitico.streamedContent ne null}"/>
+		
 	</h:form>
 
 </ui:component>
