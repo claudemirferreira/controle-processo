@@ -13,10 +13,10 @@
 			style="width:99%;">
 
 			<h:panelGrid columns="6" cellpadding="5">
-				<p:outputLabel value="Zona: " styleClass="ui-priority-primary" />
+				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="zona"
 					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.zona.idZona}">
-					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItem itemLabel="Selecione a Região" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
@@ -27,7 +27,7 @@
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="nucleo"
 					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.nucleo.idNucleo}">
-					<f:selectItem itemLabel="Selecione a nucleo" itemValue="" />
+					<f:selectItem itemLabel="Selecione o Núcleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
@@ -39,7 +39,7 @@
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="area"
 					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.area}">
-					<f:selectItem itemLabel="Selecione a zona" itemValue="" />
+					<f:selectItem itemLabel="Selecione a Área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />

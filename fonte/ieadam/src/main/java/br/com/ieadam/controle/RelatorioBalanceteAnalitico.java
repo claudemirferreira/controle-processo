@@ -2,22 +2,19 @@ package br.com.ieadam.controle;
 
 import java.io.FileInputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -34,11 +31,13 @@ import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
 import br.com.ieadam.servico.ZonaServico;
+import br.com.ieadam.utils.IEADAMUtils;
+import br.com.ieadam.utils.PathRelatorios;
 
 @ManagedBean
 @SessionScoped
 public class RelatorioBalanceteAnalitico implements Serializable {
-
+	
 	private static final long serialVersionUID = 4085044268094923889L;
 
 	private Parametro parametro;
@@ -63,6 +62,7 @@ public class RelatorioBalanceteAnalitico implements Serializable {
 	private StreamedContent streamedContent;
 
 	public void init() {
+		this.streamedContent = null;
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 
 		this.filtroRelatorioDTO.setZona(new Zona());
@@ -113,22 +113,16 @@ public class RelatorioBalanceteAnalitico implements Serializable {
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
 		ServletContext context = (ServletContext) externalContext.getContext();
-		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
-
-		// BLOCO USADO PARA TESTES
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		Usuario u = new Usuario();
-		u.setLogin("login");
-		usuarios.add(u);
-		// BLOCO USADO PARA TESTES
+		String arquivo = context.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_BALANCETE_ANALITICO.getNome());
 
 		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
 				this.parametro.getMes().getMes(), 1);
 
-		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
-
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("DATA_INICIO", dataInicio.getTime());
+		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
+		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
@@ -136,8 +130,17 @@ public class RelatorioBalanceteAnalitico implements Serializable {
 		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
 				arquivo);
 
+		if (fis == null) {
+		
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Arquivo vazio!");
+			FacesContext.getCurrentInstance().addMessage(
+					"msgs", message);
+			return;
+		}
+
 		this.streamedContent = new DefaultStreamedContent(fis,
 				"application/pdf");
+		
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {

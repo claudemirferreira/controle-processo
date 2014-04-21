@@ -88,7 +88,6 @@ public class UsuarioControlador {
 	}
 
 	public void salvar() {
-
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
 		this.telaPesquisa();
