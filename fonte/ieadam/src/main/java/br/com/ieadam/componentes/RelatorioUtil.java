@@ -41,6 +41,7 @@ public class RelatorioUtil {
 			String arquivo) {
 		
 		FileInputStream fis = null;
+		FileOutputStream fos = null;
 		
 		try {
 			JasperPrint print = JasperFillManager.fillReport(new FileInputStream(new File(arquivo)), 
@@ -48,7 +49,9 @@ public class RelatorioUtil {
 			
 			File arquivoGerado = File.createTempFile("relatorio.", ".pdf");
 
-			JasperExportManager.exportReportToPdfStream(print, new FileOutputStream(arquivoGerado));
+			fos = new FileOutputStream(arquivoGerado);
+			
+			JasperExportManager.exportReportToPdfStream(print, fos);
 			
 			fis = new FileInputStream(arquivoGerado);
 			
@@ -56,8 +59,10 @@ public class RelatorioUtil {
 				return null;
 			}
 			
+			System.out.println("\n\n INFO [RelatorioUtil.java]: Arquivo gerado como o nome = "+arquivoGerado.getName()+" \n\n");
+			
 			// Verificar
-			arquivoGerado.delete();
+//			arquivoGerado.deleteOnExit();
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -67,6 +72,13 @@ public class RelatorioUtil {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				fos.flush();
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return fis;
