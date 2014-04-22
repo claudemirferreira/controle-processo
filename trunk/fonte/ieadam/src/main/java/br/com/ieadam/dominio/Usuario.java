@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,6 +52,8 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@Column
 	private Integer idMembro;
 
+	private String nome;
+	
 	@Override
 	public int getId() {
 		return idUsuario;
@@ -145,6 +146,14 @@ public class Usuario extends AbstractEntity implements Serializable {
 		this.idMembro = idMembro;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 //	public Membro getMembro() {
 //		return membro;
 //	}

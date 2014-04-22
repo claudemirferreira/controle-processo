@@ -110,7 +110,7 @@ public class RelatorioSaldoCongregacao implements Serializable {
 				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
-	public void imprimir() {
+	public String imprimir() {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
@@ -134,14 +134,18 @@ public class RelatorioSaldoCongregacao implements Serializable {
 
 		if (fis == null) {
 			
+			System.out.println("\n\n INFO: Arquivo NULLO\n\n");
+			
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Arquivo vazio!");
 			FacesContext.getCurrentInstance().addMessage(
 					"msgs", message);
-			return;
+			return null;
 		}
 
 		this.streamedContent = new DefaultStreamedContent(fis,
 				"application/pdf");
+		
+		return "/index.xhtml?faces-redirect=true";
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
