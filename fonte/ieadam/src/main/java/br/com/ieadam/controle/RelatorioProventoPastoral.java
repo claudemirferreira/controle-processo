@@ -1,6 +1,7 @@
 package br.com.ieadam.controle;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,6 +16,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -108,7 +110,7 @@ public class RelatorioProventoPastoral implements Serializable {
 				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
-	public String imprimir() {
+	public void imprimir() {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
@@ -127,21 +129,48 @@ public class RelatorioProventoPastoral implements Serializable {
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
 
-		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
-				arquivo);
-
-		if (fis == null) {
+//		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
+//				arquivo);
+//
+//		if (fis == null) {
+//		
+//			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Arquivo vazio!");
+//			FacesContext.getCurrentInstance().addMessage(
+//					"msgs", message);
+//			return null;
+//		}
+//
+//		this.streamedContent = new DefaultStreamedContent(fis,
+//				"application/pdf");
 		
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Arquivo vazio!");
-			FacesContext.getCurrentInstance().addMessage(
-					"msgs", message);
-			return null;
+//		return "index.xhtml?faces-redirect=true";
+		
+		// Teste
+		 
+        byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params, arquivo);   
+
+        HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
+        res.setContentType("application/pdf");  
+        //Código abaixo gerar o relatório e disponibiliza diretamente na página   
+//        res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");  
+        //Código abaixo gerar o relatório e disponibiliza para o cliente baixar ou salvar   
+        res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");  
+        try {
+			res.getOutputStream().write(relatorio);
+			res.getCharacterEncoding();
+        } catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				res.getOutputStream().flush();
+				res.getOutputStream().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-
-		this.streamedContent = new DefaultStreamedContent(fis,
-				"application/pdf");
-		
-		return "index.xhtml?faces-redirect=true";
+        
+        
+        FacesContext.getCurrentInstance().responseComplete(); 
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {

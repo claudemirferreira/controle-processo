@@ -36,6 +36,29 @@ public class RelatorioUtil {
 		this.dataSource = (DriverManagerDataSource) beanFactory
 				.getBean("datasource");
 	}
+	
+	public byte[] gerarRelatorioWebBytes(Map parametros,
+			String arquivo) {
+		
+		JasperPrint print;
+		byte[] relatorio = null;
+		try {
+			print = JasperFillManager.fillReport(new FileInputStream(new File(arquivo)), 
+						parametros, this.dataSource.getConnection());
+			
+			relatorio = JasperExportManager.exportReportToPdf(print);
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return relatorio;
+			
+	}
 
 	public FileInputStream gerarRelatorioWeb(Map parametros,
 			String arquivo) {
