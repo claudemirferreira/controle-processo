@@ -98,8 +98,9 @@
 							actionListener="#{rotinaControlador.telaRotinas()}" />
 		
 						<p:commandButton id="buttonImprimir" value="Gerar relatorio" icon="ui-icon-print"
+								actionListener="#{relatorioSaldoCongregacao.visualiarRelatorio()}"
 								style="margin:0" styleClass="ui-priority-primary"
-								action="#{relatorioSaldoCongregacao.imprimir}" update=":form" ajax="false"/>
+								update=":form" ajax="false"/>
 				</div>
 			</f:facet>
 		</p:panel>
@@ -108,9 +109,9 @@
 			 Processando....<br />
 			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
 		</p:blockUI> 
-
-		<p:media value="#{relatorioSaldoCongregacao.streamedContent}"
-				player="pdf" width="100%" height="500" rendered="#{relatorioSaldoCongregacao.streamedContent ne null}"/>
+	<p:outputPanel rendered="#{relatorioSaldoCongregacao.visualizar}">
+		<iframe  id="pdf"  src="paginas/relatorio/visualizarPdf.xhtml" width="100%" height="450px"></iframe>
+	</p:outputPanel>
 		
 	</h:form>
 
