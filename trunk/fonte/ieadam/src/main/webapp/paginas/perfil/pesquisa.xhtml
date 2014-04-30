@@ -78,7 +78,7 @@
 	</h:form>
 
 	<p:dialog id="dialogRotina" header="Rotina" widgetVar="dlgRotina"
-		modal="true" appendToBody="true">
+		modal="true" appendToBody="true" closable="false">
 
 		<h:form id="formDlg">
 
@@ -86,7 +86,7 @@
 				globalOnly="false" />
 
 			<h4 style="margin-top: 0">Selecione as Rotinas para associar ao
-				Perfil</h4>
+				Perfil #{perfilRotinaControlador.perfil.nome}</h4>
 
 			<p:pickList id="plUsuPerf"
 				value="#{perfilRotinaControlador.dualListRotina}" effect="bounce"
@@ -95,8 +95,8 @@
 				showSourceControls="false" showTargetControls="false"
 				showCheckbox="false" showSourceFilter="true" showTargetFilter="true">
 
-				<f:facet name="sourceCaption">Disponíveis</f:facet>
-				<f:facet name="targetCaption">Atribuídos</f:facet>
+				<f:facet name="sourceCaption">Rotinas Cadastradas</f:facet>
+				<f:facet name="targetCaption">Rotinas Atribuida ao perfil</f:facet>
 
 				<p:ajax event="transfer"
 					listener="#{perfilRotinaControlador.onTransfer}" update="msg" />

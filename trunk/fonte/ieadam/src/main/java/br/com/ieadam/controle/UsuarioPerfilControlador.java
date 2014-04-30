@@ -41,12 +41,15 @@ public class UsuarioPerfilControlador {
     
 	private List<UsuarioPerfil> listaUsuPerfilNotInUsuario;
 	
+	private Usuario usuario;
+	
 	@PostConstruct
 	public void init() {
 		dualListPerfil = new DualListModel<UsuarioPerfil>();
 	}
 
 	public void showModalPerfil( Usuario usuario ) {
+		this.usuario = usuario;
 		listaUsuPerfilNotInUsuario = new ArrayList<UsuarioPerfil>();
 		List<Perfil> listaPerfilNotInUsuario = usuarioPerfilServico.listaPerfilNotInUsuario(usuario.getId());
 		
@@ -133,5 +136,13 @@ public class UsuarioPerfilControlador {
 
 	public void setDualListPerfil(DualListModel<UsuarioPerfil> dualListPerfil) {
 		this.dualListPerfil = dualListPerfil;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }
