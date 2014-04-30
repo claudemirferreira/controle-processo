@@ -1,6 +1,5 @@
 package br.com.ieadam.controle;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -9,7 +8,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -18,11 +16,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import com.lowagie.text.DocumentException;
 
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
@@ -38,6 +33,8 @@ import br.com.ieadam.servico.ZonaServico;
 import br.com.ieadam.utils.IEADAMUtils;
 import br.com.ieadam.utils.PathRelatorios;
 
+import com.lowagie.text.DocumentException;
+
 @ManagedBean
 @SessionScoped
 public class RelatorioSaldoCongregacao implements Serializable {
@@ -45,8 +42,8 @@ public class RelatorioSaldoCongregacao implements Serializable {
 	private static final long serialVersionUID = 4085044268094923889L;
 
 	private Parametro parametro;
-	
-	private boolean visualizar=false;
+
+	private boolean visualizar = false;
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
@@ -89,7 +86,7 @@ public class RelatorioSaldoCongregacao implements Serializable {
 
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
 		this.parametro.setMes(DataUtil.pegarMescorrente());
-		
+
 		this.streamedContent = null;
 
 		this.paginaCentralControlador
@@ -112,8 +109,7 @@ public class RelatorioSaldoCongregacao implements Serializable {
 	}
 
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControlador
-				.setPaginaCentral("paginas/perfil/lista.xhtml");
+		paginaCentralControlador.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
 	public void imprimir() {
@@ -121,50 +117,39 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
 				.getExternalContext();
 		ServletContext context = (ServletContext) externalContext.getContext();
-		String arquivo = context.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_SALDO_CONGREGACAO.getNome());
+		String arquivo = context
+				.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_SALDO_CONGREGACAO
+						.getNome());
 
 		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
 				this.parametro.getMes().getMes(), 1);
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
-		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
+		params.put("MES_ANO",
+				IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())
+						+ "/" + this.parametro.getAno());
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
 
-//		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
-//				arquivo);
-//
-//		if (fis == null) {
-//			
-//			System.out.println("\n\n INFO: Arquivo NULLO\n\n");
-//			
-//			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Arquivo vazio!");
-//			FacesContext.getCurrentInstance().addMessage(
-//					"msgs", message);
-//			return null;
-//		}
-//
-//		this.streamedContent = new DefaultStreamedContent(fis,
-//				"application/pdf");
+		byte[] relatorio = relatorioUtil
+				.gerarRelatorioWebBytes(params, arquivo);
 
-		// Teste
-		 
-        byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params, arquivo);   
-
-        HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
-        res.setContentType("application/pdf");  
-        //Código abaixo gerar o relatório e disponibiliza diretamente na página   
-//        res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");  
-        //Código abaixo gerar o relatório e disponibiliza para o cliente baixar ou salvar   
-        res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");  
-        try {
+		HttpServletResponse res = (HttpServletResponse) FacesContext
+				.getCurrentInstance().getExternalContext().getResponse();
+		res.setContentType("application/pdf");
+		// Código abaixo gerar o relatório e disponibiliza diretamente na página
+		// res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");
+		// Código abaixo gerar o relatório e disponibiliza para o cliente baixar
+		// ou salvar
+		res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");
+		try {
 			res.getOutputStream().write(relatorio);
 			res.getCharacterEncoding();
-        } catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -174,11 +159,10 @@ public class RelatorioSaldoCongregacao implements Serializable {
 				e.printStackTrace();
 			}
 		}
-        
-        
-        FacesContext.getCurrentInstance().responseComplete();  
-		
-//		return "/index.xhtml?faces-redirect=true";
+
+		FacesContext.getCurrentInstance().responseComplete();
+
+		// return "/index.xhtml?faces-redirect=true";
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
@@ -245,7 +229,7 @@ public class RelatorioSaldoCongregacao implements Serializable {
 	public void setStreamedContent(StreamedContent streamedContent) {
 		this.streamedContent = streamedContent;
 	}
-	
+
 	public boolean isVisualizar() {
 		return visualizar;
 	}
@@ -253,35 +237,40 @@ public class RelatorioSaldoCongregacao implements Serializable {
 	public void setVisualizar(boolean visualizar) {
 		this.visualizar = visualizar;
 	}
-	
-	public void visualiarRelatorio(){
-		this.visualizar=true;
+
+	public void visualiarRelatorio() {
+		this.visualizar = true;
 	}
-	
+
 	public void processarPDF() throws IOException, DocumentException {
 
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = fc.getExternalContext();
-        ServletContext context = (ServletContext) externalContext.getContext();
-		String arquivo = context.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_SALDO_CONGREGACAO.getNome());
+		FacesContext fc = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = fc.getExternalContext();
+		ServletContext context = (ServletContext) externalContext.getContext();
+		String arquivo = context
+				.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_SALDO_CONGREGACAO
+						.getNome());
 
 		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
 				this.parametro.getMes().getMes(), 1);
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
-		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
+		params.put("MES_ANO",
+				IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())
+						+ "/" + this.parametro.getAno());
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
-		 
-        byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params, arquivo);   
 
-        externalContext.setResponseContentType("application/pdf");
-        externalContext.getResponseOutputStream().write(relatorio);
+		byte[] relatorio = relatorioUtil
+				.gerarRelatorioWebBytes(params, arquivo);
 
-        fc.responseComplete();
-    }
+		externalContext.setResponseContentType("application/pdf");
+		externalContext.getResponseOutputStream().write(relatorio);
+
+		fc.responseComplete();
+	}
 }

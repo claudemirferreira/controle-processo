@@ -96,21 +96,20 @@
 						<p:commandButton value="Retornar" ajax="false" update=":form"
 							icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 							actionListener="#{rotinaControlador.telaRotinas()}" />
-		
+								
 						<p:commandButton id="buttonImprimir" value="Gerar relatorio" icon="ui-icon-print"
+								actionListener="#{relatorioProventoPastoral.visualiarRelatorio()}"
 								style="margin:0" styleClass="ui-priority-primary"
-								action="#{relatorioProventoPastoral.imprimir}" update=":form" ajax="false"/>
+								update=":form" ajax="false"/>
 				</div>
 			</f:facet>
 		</p:panel>
-		
-		<p:blockUI block="form" trigger="buttonImprimir" >
-			 Processando....<br />
-			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
-		</p:blockUI> 
 
-		<p:media value="#{relatorioProventoPastoral.streamedContent}"
-				player="pdf" width="100%" height="500" rendered="#{relatorioProventoPastoral.streamedContent ne null}"/>
+		<p:outputPanel rendered="#{relatorioProventoPastoral.visualizar}">
+			<iframe id="pdf"
+				src="paginas/relatorio/visualizarPdfproventopastoral.xhtml"
+				width="99%" height="450px"></iframe>
+		</p:outputPanel>
 		
 	</h:form>
 

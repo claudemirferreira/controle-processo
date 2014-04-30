@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import net.sf.jasperreports.engine.JRException;
@@ -17,26 +17,23 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @ManagedBean
 @SessionScoped
 public class RelatorioUtil {
 
+	@ManagedProperty(value = "#{datasource}")
 	private DriverManagerDataSource dataSource;
-	private BeanFactory beanFactory;
 
-	@PostConstruct
-	public void init() {
-		beanFactory = new ClassPathXmlApplicationContext(
-				"classpath*:META-INF/spring/applicationContext.xml");
-
-		this.dataSource = (DriverManagerDataSource) beanFactory
-				.getBean("datasource");
+	public DriverManagerDataSource getDataSource() {
+		return dataSource;
 	}
-	
+
+	public void setDataSource(DriverManagerDataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+
 	public byte[] gerarRelatorioWebBytes(Map parametros,
 			String arquivo) {
 		

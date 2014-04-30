@@ -19,6 +19,7 @@
 		<property name="url" value="jdbc:mysql://localhost:3306/sgr" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
+<!-- 		<property name="password" value="3!ezA9nQd" /> -->
 	</bean>
 
 	<!-- Entity Manager -->
