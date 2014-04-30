@@ -35,6 +35,8 @@ public class PerfilRotinaControlador {
 	private DualListModel<PerfilRotina> dualListRotina;
 
 	private List<PerfilRotina> listaPerfilRotinaNotInPerfil;
+	
+	private Perfil perfil;
 
 	@PostConstruct
 	public void init() {
@@ -42,6 +44,7 @@ public class PerfilRotinaControlador {
 	}
 
 	public void showModalRotina(Perfil perfil) {
+		this.perfil = perfil;
 		listaPerfilRotinaNotInPerfil = new ArrayList<PerfilRotina>();
 		List<Rotina> listaRotinaNotInPerfil = perfilRotinaServico
 				.listaRotinaNotInPerfil(perfil.getId());
@@ -112,5 +115,13 @@ public class PerfilRotinaControlador {
 
 	public void setDualListRotina(DualListModel<PerfilRotina> dualListRotina) {
 		this.dualListRotina = dualListRotina;
+	}
+
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 }
