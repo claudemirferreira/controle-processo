@@ -49,6 +49,11 @@
 			emptyMessage="Nenhum registro encontrado."
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15,20">
+			
+			<p:column style="text-align:left" headerText="Nome"
+				sortBy="#{item.nome}">
+				<h:outputText value="#{item.nome}" />
+			</p:column>
 
 			<p:column style="text-align:left" headerText="Login"
 				sortBy="#{item.login}">
@@ -59,13 +64,33 @@
 				sortBy="#{item.status}">
 				<h:outputText value="#{item.status}" />
 			</p:column>
+			
+			<p:column style="text-align:left" headerText="Privilegio"
+				sortBy="#{item.privilegiado}">
+				<p:selectBooleanCheckbox value="#{item.privilegiado}" disabled="true" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Zona"
+				sortBy="#{item.zona}">
+				<p:selectBooleanCheckbox value="#{item.zona}" disabled="true" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Nucleo"
+				sortBy="#{item.nucleo}">
+				<p:selectBooleanCheckbox value="#{item.nucleo}" disabled="true" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Area"
+				sortBy="#{item.area}">
+				<p:selectBooleanCheckbox value="#{item.area}" disabled="true" />
+			</p:column>
 
 			<p:commandButton ajax="false" value="Detalhe"
 				action="#{usuarioPerfilControlador.manterUsuario(item)}"
 				styleClass="ui-priority-primary" icon="ui-icon-pencil"
 				update=":form" title="Manter Usuário" />
 
-			<p:column style="text-align:left" headerText="Detalhe">
+			<p:column style="text-align:left" headerText="Ação">
 
 				<p:commandButton ajax="false" value="Detalhe"
 					action="#{usuarioControlador.detalhe(item)}"
@@ -128,7 +153,5 @@
 		</h:form>
 		
 	</p:dialog>
-
-
 
 </ui:component>

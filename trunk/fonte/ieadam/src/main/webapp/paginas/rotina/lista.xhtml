@@ -8,22 +8,23 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="MÓDULO DE #{rotinaControlador.perfil.nome}" 
-			style="width:99.4%; height:100%;" >
-			<p:dataGrid id="rotinaousel" value="#{rotinaControlador.lista}"
-				var="rotina" headerText="Administrativo" columns="3"
-				style="width:99%; height:100%; border-color:white;">
-				<div align="center">
-					<h:panelGrid id="panelRelatorio">
-						<h:commandLink update=":form" title="#{rotina.nome}"
-								actionListener="#{pageController.parseUrl(rotina.acao)}">
-							<p:graphicImage value="#{rotina.imagem}"/>
-						</h:commandLink>
-					</h:panelGrid>
-				</div>
-			</p:dataGrid>
-			
+		<p:panel header="Módulo de #{rotinaControlador.perfil.nome}" 
+			style="width:99.4%; height:98%; position: absolute;" >
+			<div class="centro">
+				<p:dataGrid id="rotinaousel" value="#{rotinaControlador.lista}"
+					var="rotina" headerText="Administrativo" columns="3"
+					style="width:99%; height:100%; border-color:white;">
+					<div align="center">
+						<h:panelGrid id="panelRelatorio">
+							<h:commandLink update=":form" title="#{rotina.nome}"
+									actionListener="#{pageController.parseUrl(rotina.acao)}">
+								<p:graphicImage value="#{rotina.imagem}"/>
+							</h:commandLink>
+						</h:panelGrid>
+					</div>
+				</p:dataGrid>
+				
+			</div>
 		</p:panel>
-
 	</h:form>
 </ui:component>

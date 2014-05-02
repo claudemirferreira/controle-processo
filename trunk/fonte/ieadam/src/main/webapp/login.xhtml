@@ -18,7 +18,7 @@
 	<div class="principal">
 		<div class="login">
 
-			<h1>Infome seu Login e Senha</h1>
+			<h1>Controle de Acesso</h1>
 			<h:form id="form">
 				<p:messages id="messages" showDetail="true" autoUpdate="true"
 					closable="true" showSummary="false" />
@@ -32,13 +32,13 @@
 					<p>
 						<h:outputLabel value="Senha: " />
 						<p:password value="#{usuarioControlador.usuario.senha}"
-							label="Senha" required="true" />
+							label="Senha" required="true" requiredMessage="A senha deve ser informada!"/>
 					</p>
 
 					<br />
 					<div align="right">
 						<p:commandButton action="#{usuarioControlador.logar}"
-							styleClass="botao-login" value="Entrar" update="messages" />
+							 value="Entrar" update="messages" />
 					</div>
 			</h:form>
 		</div>
