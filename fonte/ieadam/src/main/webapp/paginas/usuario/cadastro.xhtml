@@ -12,7 +12,9 @@
 	<h:form id="form">
 		<p:panel header="FORMULÁRIO DE CADASTRO DE USUÁRIO">
 			<p:growl id="growl"/> 
-			<h:panelGrid id="panelCadastro" columns="6" cellpadding="4">
+			<h:panelGrid id="panelCadastro" columns="4" cellpadding="8">
+				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
+				<p:inputText id="nome" value="#{usuarioControlador.entidade.nome}" disabled="true"/>
 
 				<p:outputLabel value="Login*:" styleClass="ui-priority-primary" />
 				<p:inputText id="login" value="#{usuarioControlador.entidade.login}" />
@@ -26,6 +28,10 @@
 					<f:selectItem itemLabel="ATIVO(A)" itemValue="A" />
 					<f:selectItem itemLabel="BLOQUEADO(A)" itemValue="B" />
 				</p:selectOneMenu>
+				
+				<p:outputLabel value="Privilegio*:" styleClass="ui-priority-primary" />
+				<p:selectBooleanCheckbox
+					value="#{usuarioControlador.entidade.privilegiado}" />
 
 				<p:outputLabel value="Região*:" styleClass="ui-priority-primary" />
 				<p:selectBooleanCheckbox value="#{usuarioControlador.entidade.zona}" />
@@ -36,7 +42,7 @@
 				<p:outputLabel value="Nucelo*:" styleClass="ui-priority-primary" />
 				<p:selectBooleanCheckbox
 					value="#{usuarioControlador.entidade.nucleo}" />
-
+					
 			</h:panelGrid>
 			<f:facet name="footer">
 				<div align="right">

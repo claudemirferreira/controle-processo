@@ -8,19 +8,21 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:dataGrid id="rotinaousel"
-			value="#{perfilControlador.listaPerfilUsuario}" var="perfil"
-			headerText="Administrativo" columns="#{usuarioControlador.colunas}"
-			style="width:100%; height:100%; ">
-			<div align="center">
-				<h:panelGrid id="panelRelatorio">
-					<h:commandLink update=":form"
-							actionListener="#{rotinaControlador.telaRotinas(perfil)}" >
-						<p:graphicImage value="#{perfil.imagem}" />
-					</h:commandLink>
+		<div class="centro">
+			<p:dataGrid id="rotinaousel"
+				value="#{perfilControlador.listaPerfilUsuario}" var="perfil"
+				headerText="Administrativo" columns="#{usuarioControlador.colunas}"
+				style="width:100%; height:100%; ">
+				<div align="center">
+					<h:panelGrid id="panelRelatorio">
+						<h:commandLink update=":form"
+							actionListener="#{rotinaControlador.telaRotinas(perfil)}">
+							<p:graphicImage value="#{perfil.imagem}" />
+						</h:commandLink>
 
-				</h:panelGrid>
-			</div>
-		</p:dataGrid>
+					</h:panelGrid>
+				</div>
+			</p:dataGrid>
+		</div>
 	</h:form>
 </ui:component>

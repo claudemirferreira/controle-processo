@@ -18,19 +18,21 @@
 			</p:toolbarGroup>
 
 			<p:toolbarGroup align="right">
-				<p:outputLabel value="Usuário: " style="color: #000000; font-style: italic; font-size: large;"/>
-				<p:outputLabel value="#{usuarioControlador.usuario.login}" style="color: #000000; font-style: italic; font-size: large;
-					font-weight: 600; "/>
-				
 				<h:commandLink update=":form" actionListener="#{perfilControlador.listaPerfilPorSistemaPorUsuario}" >
-					<p:graphicImage value="resources/estilos/images/ico_home.png" title="Início" style="padding-top: 1.1%;"/>
+					<p:graphicImage value="resources/estilos/images/ico_home.png" title="Início" />
 				</h:commandLink>
 				
 				<h:commandLink update=":form" action="#{usuarioControlador.logout}" >
-					<p:graphicImage value="resources/estilos/images/ico_sair.png" title="Sair" style="padding-top: 1.1%;"/>
+					<p:graphicImage value="resources/estilos/images/ico_sair.png" title="Sair" style="padding-left: 15%;"/>
 				</h:commandLink>
 			</p:toolbarGroup>
 		</p:toolbar>
+
+		<div align="right" style="background: #eaeaea;">	
+			<p:outputLabel value="Usuário: " style="color: #000000; font-weight:bold; font-size: large;"/>
+			<p:outputLabel value="#{usuarioControlador.usuario.login}" style="color: #000000; font-style: italic; font-size: large;
+				font-weight: 600; "/>
+		</div>	
 
 	</h:form>
 

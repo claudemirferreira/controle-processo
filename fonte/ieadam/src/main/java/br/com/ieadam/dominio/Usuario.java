@@ -34,6 +34,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@Column(unique = true, length = 30)
 	private String login;
 
+	@Column
 	private String senha;
 
 	@Column(name = "status", length = 1, columnDefinition = "CHAR(1)", nullable = false)
@@ -44,6 +45,8 @@ public class Usuario extends AbstractEntity implements Serializable {
 	private boolean area;
 
 	private boolean nucleo;
+	
+	private boolean privilegiado;
 
 //	@OneToOne
 //	@JoinColumn(name = "id_membro")
@@ -152,6 +155,14 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public boolean isPrivilegiado() {
+		return privilegiado;
+	}
+
+	public void setPrivilegiado(boolean privilegiado) {
+		this.privilegiado = privilegiado;
 	}
 	
 //	public Membro getMembro() {
