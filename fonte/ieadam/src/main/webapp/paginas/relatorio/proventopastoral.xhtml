@@ -12,7 +12,7 @@
 
 		<p:growl id="msgs" showDetail="true" />
 
-		<p:panel id="painel" header="RELATÓRIO DE PROVENTO PASTORAL"
+		<p:panel id="painel" header="Relatório de provento pastoral"
 			style="margin-bottom:10px;">
 
 			<h:panelGrid columns="6" cellpadding="5">
@@ -96,7 +96,7 @@
 						<p:commandButton value="Retornar" ajax="false" update=":form"
 							icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 							actionListener="#{rotinaControlador.telaRotinas()}" />
-								
+		
 						<p:commandButton id="buttonImprimir" value="Gerar relatorio" icon="ui-icon-print"
 								actionListener="#{relatorioProventoPastoral.visualiarRelatorio()}"
 								style="margin:0" styleClass="ui-priority-primary"
@@ -104,12 +104,15 @@
 				</div>
 			</f:facet>
 		</p:panel>
-
-		<p:outputPanel rendered="#{relatorioProventoPastoral.visualizar}">
-			<iframe id="pdf"
-				src="paginas/relatorio/visualizarPdfproventopastoral.xhtml"
-				width="99%" height="450px"></iframe>
-		</p:outputPanel>
+		
+		<p:blockUI block="form" trigger="buttonImprimir" >
+			 Processando....<br />
+			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+		</p:blockUI> 
+		
+	<p:outputPanel rendered="#{relatorioProventoPastoral.visualizar}">
+		<iframe  id="pdf"  src="paginas/relatorio/visualizarPdfproventopastoral.xhtml" width="99%" height="450px"></iframe>
+	</p:outputPanel>
 		
 	</h:form>
 
