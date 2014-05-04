@@ -22,6 +22,8 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.lowagie.text.DocumentException;
+
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
@@ -43,6 +45,8 @@ public class RelatorioProventoPastoral implements Serializable {
 	private static final long serialVersionUID = 4085044268094923889L;
 
 	private Parametro parametro;
+	
+	private boolean visualizar = false;
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
@@ -85,6 +89,8 @@ public class RelatorioProventoPastoral implements Serializable {
 
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
 		this.parametro.setMes(DataUtil.pegarMescorrente());
+
+		this.visualizar = false;
 
 		this.paginaCentralControlador
 				.setPaginaCentral("paginas/relatorio/proventopastoral.xhtml");
@@ -237,4 +243,43 @@ public class RelatorioProventoPastoral implements Serializable {
 	public void setStreamedContent(StreamedContent streamedContent) {
 		this.streamedContent = streamedContent;
 	}
+	
+	public boolean isVisualizar() {
+		return visualizar;
+	}
+
+	public void setVisualizar(boolean visualizar) {
+		this.visualizar = visualizar;
+	}
+
+	public void visualiarRelatorio() {
+		this.visualizar = true;
+	}
+	
+	public void processarPDF() throws IOException, DocumentException {
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = fc.getExternalContext();
+        ServletContext context = (ServletContext) externalContext.getContext();
+		String arquivo = context.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_PROVENTOS_PASTORAL.getNome());
+
+		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
+				this.parametro.getMes().getMes(), 1);
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
+		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
+		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
+		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
+		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
+		 
+        byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params, arquivo);   
+
+        externalContext.setResponseContentType("application/pdf");
+        externalContext.getResponseOutputStream().write(relatorio);
+
+        fc.responseComplete();
+    }
 }
