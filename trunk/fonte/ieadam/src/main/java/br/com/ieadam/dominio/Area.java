@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ieadam_area")
@@ -19,17 +20,9 @@ public class Area extends AbstractEntity implements Serializable {
 	@Id
 	private int idArea;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_pastor")
-//	private Membro membro;
-	
 	@Column
 	private int idPastor;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_nucleo")
-//	private Nucleo nucleo;
-	
 	@Column
 	private int idNucleo;
 
@@ -42,11 +35,13 @@ public class Area extends AbstractEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
 
-//	@OneToMany
-//	@JoinColumn(name = "id_area")
-//	private List<Congregacao> congregacoes;
+	@Transient
+	private boolean usuarioArea;
 
-	
+	// @OneToMany
+	// @JoinColumn(name = "id_area")
+	// private List<Congregacao> congregacoes;
+
 	@Override
 	public int getId() {
 		return idArea;
@@ -92,14 +87,6 @@ public class Area extends AbstractEntity implements Serializable {
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
 
-//	public List<Congregacao> getCongregacoes() {
-//		return congregacoes;
-//	}
-//
-//	public void setCongregacoes(List<Congregacao> congregacoes) {
-//		this.congregacoes = congregacoes;
-//	}
-
 	public int getIdNucleo() {
 		return idNucleo;
 	}
@@ -108,19 +95,12 @@ public class Area extends AbstractEntity implements Serializable {
 		this.idNucleo = idNucleo;
 	}
 
-//	public Nucleo getNucleo() {
-//		return nucleo;
-//	}
-//
-//	public void setNucleo(Nucleo nucleo) {
-//		this.nucleo = nucleo;
-//	}
+	public boolean isUsuarioArea() {
+		return usuarioArea;
+	}
 
-//	public Membro getMembro() {
-//		return membro;
-//	}
-//
-//	public void setMembro(Membro membro) {
-//		this.membro = membro;
-//	}
+	public void setUsuarioArea(boolean usuarioArea) {
+		this.usuarioArea = usuarioArea;
+	}
+
 }

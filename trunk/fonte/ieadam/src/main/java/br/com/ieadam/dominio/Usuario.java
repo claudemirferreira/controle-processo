@@ -47,6 +47,15 @@ public class Usuario extends AbstractEntity implements Serializable {
 	private boolean nucleo;
 	
 	private boolean privilegiado;
+	
+	@Column
+	private String telefone;
+	
+	@Column
+	private String email;
+	
+	@OneToMany(mappedBy = "sistema")
+	private List<Perfil> perfils;
 
 //	@OneToOne
 //	@JoinColumn(name = "id_membro")
@@ -163,6 +172,22 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	public void setPrivilegiado(boolean privilegiado) {
 		this.privilegiado = privilegiado;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 //	public Membro getMembro() {
