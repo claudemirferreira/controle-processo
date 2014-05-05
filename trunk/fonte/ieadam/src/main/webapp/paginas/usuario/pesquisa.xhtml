@@ -167,115 +167,131 @@
 			<p:growl id="msg" showDetail="false" escape="false"
 				globalOnly="false" />
 
-			<div id="container" style="width:950px">			
+			<div id="container" style="width: 1000px">
 
-				<div id="regiao" style="float:left; width:33%; height: 400px">				
-					<p:fieldset>	
+				<div id="regiao" style="float: left; width: 28%; height: 400px">
+					<p:fieldset>
 						<p:outputLabel value="Região: " />
-						<p:selectBooleanCheckbox value="#{usuarioAssociacaoControlador.usuario.zona}">
-							<p:ajax listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
+						<p:selectBooleanCheckbox
+							value="#{usuarioAssociacaoControlador.usuario.zona}">
+							<p:ajax
+								listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
 						</p:selectBooleanCheckbox>
-						
-						<p/>
-			
-						<p:dataTable id="gridPesquisaZonas" var="item" rows="10"
+
+						<p />
+
+						<p:dataTable id="gridPesquisaZonas" var="item" rows="7"
 							paginator="true" value="#{usuarioAssociacaoControlador.zonas}"
 							paginatorPosition="bottom" paginatorAlwaysVisible="true"
 							emptyMessage="Nenhum registro encontrado."
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,15,20">
-			
+							rowsPerPageTemplate="7,10,15,20" >
+<!-- 							widgetVar="zonasTable" filteredValue="#{usuarioAssociacaoControlador.filteredZonas}" 
+							
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Search all fields:" />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('zonasTable').filter()" style="width:150px"
+										placeholder="Enter keyword" />
+								</p:outputPanel>
+							</f:facet> -->
+
 							<p:column style="text-align:left" headerText="Zona"
 								sortBy="#{item.nome}">
 								<h:outputText value="#{item.nome}" />
 							</p:column>
-			
+
 							<p:column style="text-align:left" headerText="Situacao"
 								sortBy="#{item.usuarioZona}">
-			
+
 								<p:selectBooleanCheckbox value="#{item.usuarioZona}">
 									<p:ajax update="gridPesquisaZonas"
 										listener="#{usuarioAssociacaoControlador.atualizarZonas(item)}" />
 								</p:selectBooleanCheckbox>
 							</p:column>
-			
+
 							<f:facet name="footer">  
 					            Total de registros: #{fn:length(usuarioAssociacaoControlador.zonas)} regiões.  
 					        </f:facet>
 						</p:dataTable>
-			
+
 					</p:fieldset>
 				</div>
-				
-				<div id="nucleo" style="width:33%;float:left;">		
+
+				<div id="nucleo" style="width: 28%; float: left;">
 					<p:fieldset>
 						<p:outputLabel value="Núcleo: " />
-						<p:selectBooleanCheckbox value="#{usuarioAssociacaoControlador.usuario.nucleo}">
-							<p:ajax listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
+						<p:selectBooleanCheckbox
+							value="#{usuarioAssociacaoControlador.usuario.nucleo}">
+							<p:ajax
+								listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
 						</p:selectBooleanCheckbox>
-						
-						<p/>
-			
-						<p:dataTable id="gridPesquisaNucleo" var="item" rows="10"
+
+						<p />
+
+						<p:dataTable id="gridPesquisaNucleo" var="item" rows="7"
 							paginator="true" value="#{usuarioAssociacaoControlador.nucleos}"
 							paginatorPosition="bottom" paginatorAlwaysVisible="true"
 							emptyMessage="Nenhum registro encontrado."
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,15,20">
-			
+							rowsPerPageTemplate="7,10,15,20">
+
 							<p:column style="text-align:left" headerText="Zona"
 								sortBy="#{item.nome}">
 								<h:outputText value="#{item.nome}" />
 							</p:column>
-			
+
 							<p:column style="text-align:left" headerText="Situacao"
 								sortBy="#{item.usuarioNucleo}">
-			
+
 								<p:selectBooleanCheckbox value="#{item.usuarioNucleo}">
 									<p:ajax update="gridPesquisaNucleo"
 										listener="#{usuarioAssociacaoControlador.atualizarNucleos(item)}" />
 								</p:selectBooleanCheckbox>
 							</p:column>
-			
+
 							<f:facet name="footer">  
 					            Total de registros: #{fn:length(usuarioAssociacaoControlador.nucleos)} núcleos.  
 					        </f:facet>
 						</p:dataTable>
-			
+
 					</p:fieldset>
-				</div>	
-				
-				<div id="menu" style="width:33%;float:left; height: 400px">
+				</div>
+
+				<div id="menu" style="width: 44%; float: left; height: 400px">
 					<p:fieldset>
-					
+
 						<p:outputLabel value="Área: " />
-						<p:selectBooleanCheckbox value="#{usuarioAssociacaoControlador.usuario.area}">
-							<p:ajax listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
+						<p:selectBooleanCheckbox
+							value="#{usuarioAssociacaoControlador.usuario.area}">
+							<p:ajax
+								listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
 						</p:selectBooleanCheckbox>
-						
-						<p/>
-			
-						<p:dataTable id="gridPesquisaArea" var="item" rows="7" 
+
+						<p />
+
+						<p:dataTable id="gridPesquisaArea" var="item" rows="7"
 							paginator="true" value="#{usuarioAssociacaoControlador.areas}"
 							paginatorPosition="bottom" paginatorAlwaysVisible="true"
 							emptyMessage="Nenhum registro encontrado."
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,15,20">
-			
+							rowsPerPageTemplate="7,10,15,20">
+
 							<p:column style="text-align:left" headerText="Area"
 								sortBy="#{item.nome}">
 								<h:outputText value="#{item.nome}" />
 							</p:column>
-			
+
 							<p:column style="text-align:left" headerText="Situacao"
 								sortBy="#{item.usuarioArea}">
-			
+
 								<p:selectBooleanCheckbox value="#{item.usuarioArea}">
 									<p:ajax update="gridPesquisaArea"
 										listener="#{usuarioAssociacaoControlador.atualizarAreas(item)}" />
 								</p:selectBooleanCheckbox>
 							</p:column>
-			
+
 							<f:facet name="footer">  
 					            Total de registros: #{fn:length(usuarioAssociacaoControlador.areas)} áreas.  
 					        </f:facet>
@@ -283,8 +299,10 @@
 					</p:fieldset>
 				</div>
 			</div>
-			
-			<p:commandButton value="Fechar" onclick="PF('dlgAssociacao').hide();" />
+			<div id="footer" style="clear: both; float: left">
+				<p:commandButton value="Fechar"
+					onclick="PF('dlgAssociacao').hide();" />
+			</div>
 		</h:form>
 
 	</p:dialog>

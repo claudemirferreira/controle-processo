@@ -1,6 +1,7 @@
 package br.com.ieadam.controle;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -32,6 +33,8 @@ public class UsuarioAssociacaoControlador {
 	private List<Nucleo> nucleos;
 
 	private List<Area> areas;
+	
+	private List<Zona> filteredZonas;
 
 	@ManagedProperty(value = "#{usuarioServicoImpl}")
 	private UsuarioServico usuarioServico;
@@ -142,6 +145,27 @@ public class UsuarioAssociacaoControlador {
 	public void setAreas(List<Area> areas) {
 		this.areas = areas;
 	}
+
+	public List<Zona> getFilteredZonas() {
+		return filteredZonas;
+	}
+
+	public void setFilteredZonas(List<Zona> filteredZonas) {
+		this.filteredZonas = filteredZonas;
+	}
+	
+	public boolean filterByPrice(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim();
+        if(filterText == null||filterText.equals("")) {
+            return true;
+        }
+         
+        if(value == null) {
+            return false;
+        }
+         
+        return ((Comparable) value).compareTo(Integer.valueOf(filterText)) > 0;
+    }
 
 	public void showModalAssociacao(Usuario usuario) {
 		this.zonas = zonaServico.listarTodos();
