@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ieadam_nucleo")
@@ -35,9 +36,8 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_zona")
-//	private Zona zona;
+	@Transient
+	private boolean usuarioNucleo;
 	
 	@Column
 	private int idZona;
@@ -101,6 +101,14 @@ public class Nucleo extends AbstractEntity implements Serializable {
 
 	public void setIdCoordenador(int idCoordenador) {
 		this.idCoordenador = idCoordenador;
+	}
+
+	public boolean isUsuarioNucleo() {
+		return usuarioNucleo;
+	}
+
+	public void setUsuarioNucleo(boolean usuarioNucleo) {
+		this.usuarioNucleo = usuarioNucleo;
 	}
 
 //	public Membro getMembro() {

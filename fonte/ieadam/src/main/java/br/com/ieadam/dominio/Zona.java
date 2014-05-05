@@ -2,13 +2,16 @@ package br.com.ieadam.dominio;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ieadam_zona")
@@ -28,19 +31,20 @@ public class Zona extends AbstractEntity implements Serializable {
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_primeiro_resp")
-//	private Membro primeiroResponsavel;
-	
 	@Column
 	private int idPrimeiroResp;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_segundo_resp")
-//	private Membro segundoResponsavel;
-	
 	@Column
 	private int idSegundoResp;
+
+	@Transient
+	private boolean membro;
+
+	@Transient
+	private boolean usuarioZona;
+
+	@OneToMany(mappedBy = "zona")
+	private List<UsuarioZona> usuarioZonas;
 
 	@Override
 	public int getId() {
@@ -93,6 +97,30 @@ public class Zona extends AbstractEntity implements Serializable {
 
 	public void setIdSegundoResp(int idSegundoResp) {
 		this.idSegundoResp = idSegundoResp;
+	}
+
+	public boolean isMembro() {
+		return membro;
+	}
+
+	public void setMembro(boolean membro) {
+		this.membro = membro;
+	}
+
+	public boolean isUsuarioZona() {
+		return usuarioZona;
+	}
+
+	public void setUsuarioZona(boolean usuarioZona) {
+		this.usuarioZona = usuarioZona;
+	}
+
+	public List<UsuarioZona> getUsuarioZonas() {
+		return usuarioZonas;
+	}
+
+	public void setUsuarioZonas(List<UsuarioZona> usuarioZonas) {
+		this.usuarioZonas = usuarioZonas;
 	}
 
 }
