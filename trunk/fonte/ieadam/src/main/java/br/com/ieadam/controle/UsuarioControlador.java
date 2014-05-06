@@ -65,7 +65,6 @@ public class UsuarioControlador {
 		this.sistema = sistemaServico.findByCodigo("IEADAM");
 		this.lista = servico.listarTodos();
 		this.telaPesquisa();
-
 	}
 
 	public UsuarioControlador() {
@@ -76,7 +75,7 @@ public class UsuarioControlador {
 	}
 
 	public void pesquisar() {
-		// this.lista = this.servico.findBy(this.pesquisa.getLogin());
+//		this.lista = this.servico.findByLogin(this.pesquisa.getLogin());
 	}
 
 	public void detalhe(Usuario usuario) {
@@ -87,14 +86,14 @@ public class UsuarioControlador {
 		this.telaCadastro();
 	}
 
-	public void salvar() {
+	public String salvar() {
 		this.servico.salvar(this.entidade);
 		this.lista = servico.listarTodos();
-		this.telaPesquisa();
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage("Operação realizada com sucesso!", "Hello "
-				+ "Operação realizada com sucesso!"));
+		context.addMessage(null, new FacesMessage("Operação realizada com sucesso!", null));
+
+		return this.telaPesquisa();
 	}
 
 	public void excluir(Usuario usuario) {
@@ -111,8 +110,9 @@ public class UsuarioControlador {
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 	}
 
-	public void telaPesquisa() {
+	public String telaPesquisa() {
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
+		return "index.xhtml?faces-redirect=true";
 	}
 
 	public Usuario getEntidade() {

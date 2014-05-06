@@ -46,7 +46,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	private boolean nucleo;
 	
-	private boolean privilegiado;
+	private boolean in_privilegio;
 	
 	@Column
 	private String telefone;
@@ -166,12 +166,12 @@ public class Usuario extends AbstractEntity implements Serializable {
 		this.nome = nome;
 	}
 
-	public boolean isPrivilegiado() {
-		return privilegiado;
+	public boolean isIn_privilegio() {
+		return in_privilegio;
 	}
 
-	public void setPrivilegiado(boolean privilegiado) {
-		this.privilegiado = privilegiado;
+	public void setIn_privilegio(boolean in_privilegio) {
+		this.in_privilegio = in_privilegio;
 	}
 
 	public String getTelefone() {

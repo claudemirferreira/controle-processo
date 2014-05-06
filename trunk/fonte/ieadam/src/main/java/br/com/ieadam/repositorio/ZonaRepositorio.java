@@ -15,4 +15,7 @@ public interface ZonaRepositorio extends JpaRepository<Zona, Long> {
 	
 	@Query("select z from Zona z where z.idZona = :id")
 	public Zona findOne(@Param("id") int id);
+	
+	@Query("select z from Zona z where z.situacao = :situacao")
+	public List<Zona> findAllBySituacao(@Param("situacao") String situacao);
 }

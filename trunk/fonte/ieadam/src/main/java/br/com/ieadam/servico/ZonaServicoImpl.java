@@ -23,6 +23,11 @@ public class ZonaServicoImpl implements ZonaServico, Serializable {
 	}
 
 	@Override
+	public List<Zona> listarTodosPorSituacao(String situacao) {
+		return this.zonaRepositorio.findAllBySituacao(situacao);
+	}
+	
+	@Override
 	public Zona salvar(Zona zona) {
 		return this.zonaRepositorio.save(zona);
 	}

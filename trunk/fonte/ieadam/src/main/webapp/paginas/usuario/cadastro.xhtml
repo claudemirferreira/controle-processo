@@ -20,7 +20,7 @@
 				<p:inputText id="login" value="#{usuarioControlador.entidade.login}" />
 
 				<p:outputLabel value="Senha*:" styleClass="ui-priority-primary" />
-				<p:password id="senha" value="#{usuarioControlador.entidade.senha}" />
+				<p:password redisplay="true" value="#{usuarioControlador.entidade.senha}"/>
 
 				<p:outputLabel value="Situação*:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="Situação"
@@ -31,7 +31,7 @@
 				
 				<p:outputLabel value="Privilegio*:" styleClass="ui-priority-primary" />
 				<p:selectBooleanCheckbox
-					value="#{usuarioControlador.entidade.privilegiado}" />
+					value="#{usuarioControlador.entidade.in_privilegio}" />
 
 				<p:outputLabel value="Região*:" styleClass="ui-priority-primary" />
 				<p:selectBooleanCheckbox value="#{usuarioControlador.entidade.zona}" />
@@ -45,7 +45,7 @@
 					
 			</h:panelGrid>
 			<f:facet name="footer">
-				<div align="right">
+				<div align="left">
 					<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
 						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 						ajax="true" immediate="true"

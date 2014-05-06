@@ -1,7 +1,9 @@
 package br.com.ieadam.controle;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -15,6 +17,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -22,6 +25,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.lowagie.text.DocumentException;
 
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
@@ -34,6 +39,8 @@ import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
 import br.com.ieadam.servico.ZonaServico;
+import br.com.ieadam.utils.IEADAMUtils;
+import br.com.ieadam.utils.PathRelatorios;
 
 @ManagedBean
 @SessionScoped
@@ -92,6 +99,7 @@ public class RelatorioBalanceteSintetico implements Serializable {
 	public void atualizarNucleo() {
 		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
 				.findByZona(this.filtroRelatorioDTO.getZona().getId()));
+		this.filtroRelatorioDTO.setAreas(new ArrayList<Area>());
 		System.out.println(" nucleo = "
 				+ this.filtroRelatorioDTO.getNucleos().size());
 
@@ -115,29 +123,41 @@ public class RelatorioBalanceteSintetico implements Serializable {
 		ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
 
-		// BLOCO USADO PARA TESTES
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		Usuario u = new Usuario();
-		u.setLogin("login");
-		usuarios.add(u);
-		// BLOCO USADO PARA TESTES
-
 		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
 				this.parametro.getMes().getMes(), 1);
 
-		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
-
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("DATA_INICIO", dataInicio.getTime());
+		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
+		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
 
-		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
-				arquivo);
+        byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params, arquivo);   
 
-		this.streamedContent = new DefaultStreamedContent(fis,
-				"application/pdf");
+        HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
+        res.setContentType("application/pdf");  
+        // Codigo abaixo gerar o relatorio e disponibiliza diretamente na pagina   
+        // res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");  
+        res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");  
+        try {
+			res.getOutputStream().write(relatorio);
+			res.getCharacterEncoding();
+        } catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				res.getOutputStream().flush();
+				res.getOutputStream().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+        
+        
+        FacesContext.getCurrentInstance().responseComplete(); 
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
@@ -204,4 +224,31 @@ public class RelatorioBalanceteSintetico implements Serializable {
 	public void setStreamedContent(StreamedContent streamedContent) {
 		this.streamedContent = streamedContent;
 	}
+	
+	public void processarPDF() throws IOException, DocumentException {
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = fc.getExternalContext();
+        ServletContext context = (ServletContext) externalContext.getContext();
+		String arquivo = context.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_PROVENTOS_PASTORAL.getNome());
+
+		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
+				this.parametro.getMes().getMes(), 1);
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
+		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
+		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
+		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
+		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
+		 
+        byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params, arquivo);   
+
+        externalContext.setResponseContentType("application/pdf");
+        externalContext.getResponseOutputStream().write(relatorio);
+
+        fc.responseComplete();
+    }
 }

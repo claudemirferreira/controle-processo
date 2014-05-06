@@ -59,12 +59,12 @@
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Opções">
-				<p:commandButton ajax="false"
+				<p:commandButton ajax="false" value="Detalhe"
 					action="#{rotinaControlador.detalhe(item)}"
-					styleClass="ui-priority-primary" icon="	ui-icon-pencil"
+					styleClass="ui-priority-primary" icon="ui-icon-pencil"
 					update=":form" title="Detalhe" />
 
-				<p:commandButton ajax="false"
+				<p:commandButton ajax="false" value="Excluir"
 					action="#{rotinaControlador.excluir(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-trash"
 					update=":form:gridPesquisa" title="Excluir" />
