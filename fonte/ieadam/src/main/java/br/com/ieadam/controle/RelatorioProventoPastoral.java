@@ -1,15 +1,14 @@
 package br.com.ieadam.controle;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -18,11 +17,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import com.lowagie.text.DocumentException;
 
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
@@ -37,6 +33,8 @@ import br.com.ieadam.servico.NucleoServico;
 import br.com.ieadam.servico.ZonaServico;
 import br.com.ieadam.utils.IEADAMUtils;
 import br.com.ieadam.utils.PathRelatorios;
+
+import com.lowagie.text.DocumentException;
 
 @ManagedBean
 @SessionScoped
@@ -100,6 +98,7 @@ public class RelatorioProventoPastoral implements Serializable {
 	public void atualizarNucleo() {
 		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
 				.findByZona(this.filtroRelatorioDTO.getZona().getId()));
+		this.filtroRelatorioDTO.setAreas(new ArrayList<Area>());
 		System.out.println(" nucleo = "
 				+ this.filtroRelatorioDTO.getNucleos().size());
 
@@ -135,31 +134,12 @@ public class RelatorioProventoPastoral implements Serializable {
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
 
-//		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
-//				arquivo);
-//
-//		if (fis == null) {
-//		
-//			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Arquivo vazio!");
-//			FacesContext.getCurrentInstance().addMessage(
-//					"msgs", message);
-//			return null;
-//		}
-//
-//		this.streamedContent = new DefaultStreamedContent(fis,
-//				"application/pdf");
-		
-//		return "index.xhtml?faces-redirect=true";
-		
-		// Teste
-		 
         byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params, arquivo);   
 
         HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
         res.setContentType("application/pdf");  
-        //Código abaixo gerar o relatório e disponibiliza diretamente na página   
-//        res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");  
-        //Código abaixo gerar o relatório e disponibiliza para o cliente baixar ou salvar   
+        // Codigo abaixo gerar o relatorio e disponibiliza diretamente na pagina   
+        // res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");  
         res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");  
         try {
 			res.getOutputStream().write(relatorio);

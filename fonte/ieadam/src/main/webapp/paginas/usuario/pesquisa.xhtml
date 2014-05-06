@@ -49,7 +49,7 @@
 			emptyMessage="Nenhum registro encontrado."
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15,20">
-
+			
 			<p:column style="text-align:left" headerText="Nome"
 				sortBy="#{item.nome}">
 				<h:outputText value="#{item.nome}" />
@@ -64,67 +64,66 @@
 				sortBy="#{item.status}">
 				<h:outputText value="#{item.status}" />
 			</p:column>
-
-			<p:column style="text-align:left" headerText="Privilegio"
-				sortBy="#{item.privilegiado}">
-				<p:selectBooleanCheckbox value="#{item.privilegiado}"
-					disabled="true" />
+			
+			<p:column style="text-align:left" headerText="Privilégio"
+				sortBy="#{item.in_privilegio}">
+				<p:selectBooleanCheckbox value="#{item.in_privilegio}" disabled="true" />
 			</p:column>
-
-			<p:column style="text-align:left" headerText="Zona"
+			
+			<p:column style="text-align:left" headerText="Região"
 				sortBy="#{item.zona}">
 				<p:selectBooleanCheckbox value="#{item.zona}" disabled="true" />
 			</p:column>
-
-			<p:column style="text-align:left" headerText="Nucleo"
+			
+			<p:column style="text-align:left" headerText="Núcleo"
 				sortBy="#{item.nucleo}">
 				<p:selectBooleanCheckbox value="#{item.nucleo}" disabled="true" />
 			</p:column>
-
-			<p:column style="text-align:left" headerText="Area"
+			
+			<p:column style="text-align:left" headerText="Área"
 				sortBy="#{item.area}">
 				<p:selectBooleanCheckbox value="#{item.area}" disabled="true" />
 			</p:column>
 
-			<p:commandButton ajax="false" value="Detalhe"
-				action="#{usuarioPerfilControlador.manterUsuario(item)}"
-				styleClass="ui-priority-primary" icon="ui-icon-pencil"
-				update=":form" title="Manter Usuário" />
-
 			<p:column style="text-align:left" headerText="Ação">
 
 				<p:commandButton ajax="false" value="Detalhe"
-					action="#{usuarioControlador.detalhe(item)}"
+					actionListener="#{usuarioControlador.detalhe(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-pencil"
 					update=":form" title="Detalhe" />
 
 				<p:commandButton value="Perfil"
-					action="#{usuarioPerfilControlador.showModalPerfil(item)}"
+					actionListener="#{usuarioPerfilControlador.showModalPerfil(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-person"
 					oncomplete="PF('dlgPerfil').show();" update=":formDlg" />
 
-				<p:commandButton value="Associação"
+				<p:commandButton value="Associação" id="openDlgAssociacao"
 					action="#{usuarioAssociacaoControlador.showModalAssociacao(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-person"
 					oncomplete="PF('dlgAssociacao').show();" update=":formAssociacao" />
 
 				<p:commandButton ajax="false" value="Excluir"
-					action="#{usuarioControlador.excluir(item)}"
+					actionListener="#{usuarioControlador.excluir(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-trash"
 					update=":form" title="Excluir" />
 
 			</p:column>
 
 			<f:facet name="footer">  
-            Total de registros: #{fn:length(usuarioControlador.lista)} usuarios.  
-        </f:facet>
+	            Total de registros: #{fn:length(usuarioControlador.lista)} usuarios.  
+	        </f:facet>
 
 		</p:dataTable>
+		
+		<p:blockUI block="form" trigger="form:gridPesquisa:openDlgAssociacao" >
+			 Processando....<br />
+			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+		</p:blockUI> 
 
 	</h:form>
 
-	<p:dialog id="dialogPerfil" header="Perfil" widgetVar="dlgPerfil"
-		modal="true" appendToBody="true" closable="false">
+	<p:dialog id="dialogPerfil" header="Perfil" widgetVar="dlgPerfil" 
+		modal="true" appendToBody="true" closable="false" >
 
 		<h:form id="formDlg">
 
@@ -132,7 +131,7 @@
 				globalOnly="false" />
 
 			<h4 style="margin-top: 0">Selecione os Perfis para associar ao
-				Usuário #{usuarioPerfilControlador.usuario.login}</h4>
+				Usuário #{usuarioPerfilControlador.usuario.nome}</h4>
 
 			<p:pickList id="plUsuPerf"
 				value="#{usuarioPerfilControlador.dualListPerfil}" effect="bounce"
@@ -155,7 +154,7 @@
 
 			<p:commandButton value="Fechar" onclick="PF('dlgPerfil').hide();" />
 		</h:form>
-
+		
 	</p:dialog>
 
 	<p:dialog id="dialogAssociacao" header="Associacao"
@@ -167,9 +166,9 @@
 			<p:growl id="msg" showDetail="false" escape="false"
 				globalOnly="false" />
 
-			<div id="container" style="width: 1000px">
+			<div id="container" style="width: 99%">
 
-				<div id="regiao" style="float: left; width: 28%; height: 400px">
+				<div id="regiao" style="float: left; width: 33%; height: 400px">
 					<p:fieldset>
 						<p:outputLabel value="Região: " />
 						<p:selectBooleanCheckbox
@@ -185,7 +184,7 @@
 							paginatorPosition="bottom" paginatorAlwaysVisible="true"
 							emptyMessage="Nenhum registro encontrado."
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="7,10,15,20" >
+							>
 <!-- 							widgetVar="zonasTable" filteredValue="#{usuarioAssociacaoControlador.filteredZonas}" 
 							
 							<f:facet name="header">
@@ -219,7 +218,7 @@
 					</p:fieldset>
 				</div>
 
-				<div id="nucleo" style="width: 28%; float: left;">
+				<div id="nucleo" style="width: 33%; float: left;">
 					<p:fieldset>
 						<p:outputLabel value="Núcleo: " />
 						<p:selectBooleanCheckbox
@@ -235,7 +234,7 @@
 							paginatorPosition="bottom" paginatorAlwaysVisible="true"
 							emptyMessage="Nenhum registro encontrado."
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="7,10,15,20">
+							>
 
 							<p:column style="text-align:left" headerText="Zona"
 								sortBy="#{item.nome}">
@@ -259,7 +258,7 @@
 					</p:fieldset>
 				</div>
 
-				<div id="menu" style="width: 44%; float: left; height: 400px">
+				<div id="menu" style="width: 33%; float: left; height: 400px">
 					<p:fieldset>
 
 						<p:outputLabel value="Área: " />
@@ -276,7 +275,7 @@
 							paginatorPosition="bottom" paginatorAlwaysVisible="true"
 							emptyMessage="Nenhum registro encontrado."
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="7,10,15,20">
+							>
 
 							<p:column style="text-align:left" headerText="Area"
 								sortBy="#{item.nome}">

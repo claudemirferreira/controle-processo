@@ -53,25 +53,26 @@
 			</p:column>
 
 			<p:column style="text-align:left" headerText="Detalhe">
-				<p:commandButton ajax="false"
+				<p:commandButton ajax="false" value="Detalhe"
 					action="#{perfilControlador.detalhe(item)}"
-					styleClass="ui-priority-primary" icon="	ui-icon-folder-collapsed"
+					styleClass="ui-priority-primary" icon="ui-icon-pencil"
 					update=":form" title="Detalhe" />
 
 				<p:commandButton value="Rotina"
 					action="#{perfilRotinaControlador.showModalRotina(item)}"
+					styleClass="ui-priority-primary" icon="ui-icon-folder-collapsed"
 					oncomplete="PF('dlgRotina').show();" update=":formDlg" />
 
-				<p:commandButton ajax="false"
+				<p:commandButton ajax="false" value="Exluir"
 					action="#{perfilControlador.excluir(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-trash"
-					update=":form:gridPesquisa" title="Detalhe" />
+					update=":form:gridPesquisa" title="Excluir" />
 
 			</p:column>
 
 			<f:facet name="footer">  
-            Total de registros: #{fn:length(perfilControlador.lista)} perfis.  
-        </f:facet>
+	            Total de registros: #{fn:length(perfilControlador.lista)} perfis.  
+	        </f:facet>
 
 		</p:dataTable>
 

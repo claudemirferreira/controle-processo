@@ -8,6 +8,8 @@ public interface ZonaServico {
 
 	public List<Zona> listarTodos();
 
+	List<Zona> listarTodosPorSituacao(String situacao);
+	
 	public Zona salvar(Zona zona);
 
 	public void remover(Zona zona);

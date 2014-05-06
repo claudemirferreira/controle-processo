@@ -56,7 +56,6 @@ public class FiltroRelatorioDTO implements Serializable {
 		this.anos = DataUtil.pegarAnos();
 		this.anoInicio = DataUtil.pegarAnocorrente();
 		this.anoFim = DataUtil.pegarAnocorrente();
-
 	}
 
 	public String getTipoRelatorio() {
@@ -198,53 +197,50 @@ public class FiltroRelatorioDTO implements Serializable {
 		this.setNucleos(new ArrayList<Nucleo>());
 		this.setAreas(new ArrayList<Area>());
 		
-		if (usuario.isZona()) {
-			this.setZonas(zonaServico.findByMembro(usuario.getIdMembro()));
-
-			if (this.getZonas().size() == 1) {
-				this.setZona(this.getZonas().iterator().next());
-				this.setNucleos(nucleoServico.findByZona(this.getZonas()
-						.iterator().next().getIdZona()));
-				
-				// TODO Verificar com Dryen se uma Zona poderah ter apenas um Nucleo e se um Nucleo poderah ter apenas uma area
-//				if (this.getNucleos().size() == 1) {
-//					this.setNucleo(this.getNucleos().iterator().next());
-//					this.setAreas(areaServico.findByNucleo(this.getNucleos()
-//						.iterator().next().getIdNucleo()));
-//				}
-			}
-		} else if (usuario.isNucleo()) {
-			this.setNucleos(nucleoServico.findByMembro(usuario.getIdMembro()));
-			
-			this.getZonas().add(zonaServico.findOne(this.getNucleos().iterator().next().getIdZona()));
-			this.setZona(this.getZonas().iterator().next());
-			
-			if (this.getNucleos().size() == 1) {
-				this.setNucleo(this.getNucleos().iterator().next());
-				this.setAreas(areaServico.findByNucleo(this.getNucleos()
-						.iterator().next().getIdNucleo()));
-			}
-			
-		} else if (usuario.isArea()) {
-			
-			this.setAreas(areaServico.findByMembro(usuario.getIdMembro()));
-
-			if (this.getAreas().size() > 0) {
-				
-				if (this.getAreas().size() == 1) {
-					this.setArea(this.getAreas().iterator().next());
-				}
-				
-				this.getNucleos().add(
-						nucleoServico.findOne(this.getAreas().iterator().next().getIdNucleo()));
-				this.setNucleo(this.getNucleos().iterator().next());
-
-				if (this.getNucleos().size() > 0) {
-					this.getZonas().add(
-							zonaServico.findOne(this.getNucleos().iterator().next().getIdZona()));
+		if (!usuario.isIn_privilegio()) {
+			if (usuario.isZona()) {
+				this.setZonas(zonaServico.findByMembro(usuario.getIdMembro()));
+	
+				if (this.getZonas().size() == 1) {
 					this.setZona(this.getZonas().iterator().next());
+					this.setNucleos(nucleoServico.findByZona(this.getZonas()
+							.iterator().next().getIdZona()));
+				}
+			} else if (usuario.isNucleo()) {
+				this.setNucleos(nucleoServico.findByMembro(usuario.getIdMembro()));
+				
+				this.getZonas().add(zonaServico.findOne(this.getNucleos().iterator().next().getIdZona()));
+				this.setZona(this.getZonas().iterator().next());
+				
+				if (this.getNucleos().size() == 1) {
+					this.setNucleo(this.getNucleos().iterator().next());
+					this.setAreas(areaServico.findByNucleo(this.getNucleos()
+							.iterator().next().getIdNucleo()));
+				}
+				
+			} else if (usuario.isArea()) {
+				
+				this.setAreas(areaServico.findByMembro(usuario.getIdMembro()));
+	
+				if (this.getAreas().size() > 0) {
+					
+					if (this.getAreas().size() == 1) {
+						this.setArea(this.getAreas().iterator().next());
+					}
+					
+					this.getNucleos().add(
+							nucleoServico.findOne(this.getAreas().iterator().next().getIdNucleo()));
+					this.setNucleo(this.getNucleos().iterator().next());
+	
+					if (this.getNucleos().size() > 0) {
+						this.getZonas().add(
+								zonaServico.findOne(this.getNucleos().iterator().next().getIdZona()));
+						this.setZona(this.getZonas().iterator().next());
+					}
 				}
 			}
+		} else {
+			this.setZonas(zonaServico.listarTodosPorSituacao("A"));
 		}
 	}
 }

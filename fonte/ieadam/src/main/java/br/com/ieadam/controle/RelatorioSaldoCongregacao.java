@@ -3,6 +3,7 @@ package br.com.ieadam.controle;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -97,6 +98,7 @@ public class RelatorioSaldoCongregacao implements Serializable {
 	public void atualizarNucleo() {
 		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
 				.findByZona(this.filtroRelatorioDTO.getZona().getId()));
+		this.filtroRelatorioDTO.setAreas(new ArrayList<Area>());
 		System.out.println(" nucleo = "
 				+ this.filtroRelatorioDTO.getNucleos().size());
 
@@ -141,10 +143,8 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		HttpServletResponse res = (HttpServletResponse) FacesContext
 				.getCurrentInstance().getExternalContext().getResponse();
 		res.setContentType("application/pdf");
-		// Código abaixo gerar o relatório e disponibiliza diretamente na página
+		// Codigo abaixo gerar o relatorio e disponibiliza diretamente na pagina
 		// res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");
-		// Código abaixo gerar o relatório e disponibiliza para o cliente baixar
-		// ou salvar
 		res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");
 		try {
 			res.getOutputStream().write(relatorio);
@@ -161,8 +161,6 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		}
 
 		FacesContext.getCurrentInstance().responseComplete();
-
-		// return "/index.xhtml?faces-redirect=true";
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {

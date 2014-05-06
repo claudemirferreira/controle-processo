@@ -15,9 +15,16 @@
 		<p:panel id="painel" header="Relatório de saldo de congregação"
 			style="margin-bottom:10px;">
 
-			<h:panelGrid columns="6" cellpadding="5">
-				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
+			<h:panelGrid columns="9" cellpadding="5">
+
+<!-- BLOCO DE ZONA -->
+				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />				
 				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.zonas) == 0}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}" > 
+					<f:selectItem itemLabel="Zero registros" itemValue="" />
+				</p:selectOneMenu>				
+
 				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.zonas) > 1}"
 					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zona.idZona}" >
 					<f:selectItem itemLabel="Selecione a Região" itemValue="" />
@@ -37,7 +44,15 @@
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
+
+<!-- BLOCO DE NUCLEO -->				
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
+
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos) == 0}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleo.idNucleo}" > 
+					<f:selectItem itemLabel="Zero registros" itemValue="" />
+				</p:selectOneMenu>
+
 				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos) > 1}"
 					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleo.idNucleo}" >
 					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
@@ -58,8 +73,16 @@
 					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
+				
 
+<!-- BLOCO DE AREA -->				
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
+			
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.areas) == 0}"
+					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.area.idArea}" > 
+					<f:selectItem itemLabel="Zero registros" itemValue="" />
+				</p:selectOneMenu>
+			
 				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoCongregacao.filtroRelatorioDTO.areas) > 1}"
 					value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.area.idArea}" > 
 					<f:selectItem itemLabel="Selecione a área" itemValue="" />
@@ -74,6 +97,8 @@
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
+				
+				
 			</h:panelGrid>
 				
 			<h:panelGrid columns="4" cellpadding="5">
@@ -92,7 +117,7 @@
 			</h:panelGrid>
 	
 			<f:facet name="footer">
-				<div align="right">
+				<div align="left">
 						<p:commandButton value="Retornar" ajax="false" update=":form"
 							icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 							actionListener="#{rotinaControlador.telaRotinas()}" />

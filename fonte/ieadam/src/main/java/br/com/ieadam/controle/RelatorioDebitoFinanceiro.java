@@ -1,12 +1,12 @@
 package br.com.ieadam.controle;
 
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -16,10 +16,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -34,6 +30,10 @@ import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
 import br.com.ieadam.servico.ZonaServico;
+import br.com.ieadam.utils.IEADAMUtils;
+import br.com.ieadam.utils.PathRelatorios;
+
+import com.lowagie.text.DocumentException;
 
 @ManagedBean
 @SessionScoped
@@ -42,6 +42,8 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 	private static final long serialVersionUID = 4085044268094923889L;
 
 	private Parametro parametro;
+
+	private boolean visualizar = false;
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
@@ -63,6 +65,7 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 	private StreamedContent streamedContent;
 
 	public void init() {
+		this.streamedContent = null;
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 
 		this.filtroRelatorioDTO.setZona(new Zona());
@@ -84,14 +87,17 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
 		this.parametro.setMes(DataUtil.pegarMescorrente());
 
+		this.visualizar = false;
+
 		this.paginaCentralControlador
-				.setPaginaCentral("paginas/relatorio/debitofinanceiro.xhtml");
+				.setPaginaCentral("paginas/relatorio/saldocongregacao.xhtml");
 
 	}
 
 	public void atualizarNucleo() {
 		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
 				.findByZona(this.filtroRelatorioDTO.getZona().getId()));
+		this.filtroRelatorioDTO.setAreas(new ArrayList<Area>());
 		System.out.println(" nucleo = "
 				+ this.filtroRelatorioDTO.getNucleos().size());
 
@@ -104,40 +110,7 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 	}
 
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControlador
-				.setPaginaCentral("paginas/perfil/lista.xhtml");
-	}
-
-	public void imprimir() {
-
-		ExternalContext externalContext = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		ServletContext context = (ServletContext) externalContext.getContext();
-		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
-
-		// BLOCO USADO PARA TESTES
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		Usuario u = new Usuario();
-		u.setLogin("login");
-		usuarios.add(u);
-		// BLOCO USADO PARA TESTES
-
-		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
-				this.parametro.getMes().getMes(), 1);
-
-		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
-
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("DATA_INICIO", dataInicio.getTime());
-		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
-		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
-		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
-
-		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
-				arquivo);
-
-		this.streamedContent = new DefaultStreamedContent(fis,
-				"application/pdf");
+		paginaCentralControlador.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
@@ -203,5 +176,45 @@ public class RelatorioDebitoFinanceiro implements Serializable {
 
 	public void setStreamedContent(StreamedContent streamedContent) {
 		this.streamedContent = streamedContent;
+	}
+
+	public boolean isVisualizar() {
+		return visualizar;
+	}
+
+	public void setVisualizar(boolean visualizar) {
+		this.visualizar = visualizar;
+	}
+
+	public void visualiarRelatorio() {
+		this.visualizar = true;
+	}
+
+	public void processarPDF() throws IOException, DocumentException {
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = fc.getExternalContext();
+		ServletContext context = (ServletContext) externalContext.getContext();
+		String arquivo = context.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_DEBITO_FINANCEIRO.getNome());
+
+		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
+				this.parametro.getMes().getMes(), 1);
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
+		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+ "/" + this.parametro.getAno());
+		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
+		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
+		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
+
+		byte[] relatorio = relatorioUtil
+				.gerarRelatorioWebBytes(params, arquivo);
+
+		externalContext.setResponseContentType("application/pdf");
+		externalContext.getResponseOutputStream().write(relatorio);
+
+		fc.responseComplete();
 	}
 }
