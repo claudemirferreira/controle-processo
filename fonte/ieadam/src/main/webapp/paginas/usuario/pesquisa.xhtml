@@ -13,22 +13,21 @@
 
 		<p:panel header="FORMULÁRIO DE PESQUISA DE USUÁRIO">
 			<p:growl id="growl" />
-			<h:panelGrid id="panelPesquisa" columns="1">
+			<h:panelGrid id="panelPesquisa" columns="3">
 
-				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
-				<p:inputText id="nome" style="width:300px"
-					value="#{usuarioControlador.pesquisa.login}" />
+				<p:outputLabel value="Nome" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Login" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Matricula" styleClass="ui-priority-primary" />
+				
+				<p:inputText id="nome" style="width:300px"	value="#{usuarioControlador.pesquisa.nome}" />
+				<p:inputText id="login" style="width:100px"	value="#{usuarioControlador.pesquisa.login}" />
+				<p:inputText id="idMembro" style="width:100px" value="#{usuarioControlador.pesquisa.idMembro}" />
 
 			</h:panelGrid>
-
+			
 			<f:facet name="footer">
 
-				<div align="right">
-					<p:commandButton id="buttonRetornar" value="Retornar"
-						update=":form" icon="ui-icon-circle-arrow-w"
-						styleClass="ui-priority-primary"
-						actionListener="#{rotinaControlador.telaRotinas(rotinaControlador.perfil)}" />
-
+				<div align="left">
 					<p:commandButton id="buttonPesquisar" value="Pesquisar"
 						update=":form:gridPesquisa" icon="ui-icon-search"
 						styleClass="ui-priority-primary"
@@ -37,6 +36,11 @@
 					<p:commandButton id="buttonNovo" value="Novo" update=":form"
 						icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
 						action="#{usuarioControlador.novo}" />
+				
+					<p:commandButton id="buttonRetornar" value="Retornar"
+						update=":form" icon="ui-icon-circle-arrow-w"
+						styleClass="ui-priority-primary"
+						actionListener="#{rotinaControlador.telaRotinas(rotinaControlador.perfil)}" />
 				</div>
 
 			</f:facet>

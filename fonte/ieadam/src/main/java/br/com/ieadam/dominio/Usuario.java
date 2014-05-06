@@ -64,6 +64,7 @@ public class Usuario extends AbstractEntity implements Serializable {
 	@Column
 	private Integer idMembro;
 
+	@Column
 	private String nome;
 	
 	@Override
