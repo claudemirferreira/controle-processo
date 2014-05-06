@@ -4,13 +4,15 @@ public class Util {
 	
 	public static int definirTamanhoColuna(int tamanho){
 		
-		double col = Math.sqrt(tamanho);
-		int colunas = (int) col;
-
-		if(colunas  < col)
-			colunas ++;
-		
-		return colunas;
+		if (tamanho == 2) {
+			return 2;
+		} else {
+			double col = Math.sqrt(tamanho);
+			int colunas = (int) col;
+			if(colunas  < col)
+				colunas ++;
+			return colunas;
+		}
 	}
 
 }
