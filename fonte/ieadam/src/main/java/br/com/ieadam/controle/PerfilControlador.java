@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import br.com.ieadam.componentes.Util;
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Rotina;
 import br.com.ieadam.dominio.Usuario;
@@ -106,7 +107,9 @@ public class PerfilControlador implements Serializable {
 		this.usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario( SISTEMA_IEADAM, usuario.getId() );
 		this.telaPerfis();
-
+		
+		this.colunas = Util.definirTamanhoColuna(this.listaPerfilUsuario.size());
+		
 	}
 
 	public void telaPesquisa() {
