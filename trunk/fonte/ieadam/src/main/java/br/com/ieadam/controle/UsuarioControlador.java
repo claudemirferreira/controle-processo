@@ -75,7 +75,7 @@ public class UsuarioControlador {
 	}
 
 	public void pesquisar() {
-//		this.lista = this.servico.findByLogin(this.pesquisa.getLogin());
+		this.lista = this.servico.findByUsuario(this.pesquisa);
 	}
 
 	public void detalhe(Usuario usuario) {
@@ -91,7 +91,8 @@ public class UsuarioControlador {
 		this.lista = servico.listarTodos();
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage("Operação realizada com sucesso!", null));
+		context.addMessage(null, new FacesMessage(
+				"Operação realizada com sucesso!", null));
 
 		return this.telaPesquisa();
 	}

@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.repositorio.UsuarioRepositorio;
+import br.com.ieadam.repositorio.UsuarioRepositorioJPA;
 
 @Service
 public class UsuarioServicoImpl implements UsuarioServico {
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
+
+	@Autowired
+	private UsuarioRepositorioJPA usuarioRepositorioJPA;
 
 	@Override
 	public Usuario findByLoginAndSenha(String login, String senha)
@@ -42,9 +46,9 @@ public class UsuarioServicoImpl implements UsuarioServico {
 		this.usuarioRepositorio.delete(usuario);
 	}
 
-//	@Override
-//	public List<Usuario> findByNomeLike(String nome) throws NoResultException {
-//		return this.usuarioRepositorio.findByNomeLike(nome);
-//	}
+	@Override
+	public List<Usuario> findByUsuario(Usuario usuario) {
+		return usuarioRepositorioJPA.findByUsuario(usuario);
+	}
 
 }
