@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import br.com.ieadam.componentes.Util;
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Rotina;
 import br.com.ieadam.servico.RotinaServico;
@@ -84,7 +85,7 @@ public class RotinaControlador implements Serializable {
 	
 	public void telaRotinas() {
 		this.lista = servico.listaRotinasPorPerfil(this.perfil.getId());
-		this.colunas = 4; // Util.definirTamanhoColuna(rotinas.size());
+		this.colunas = Util.definirTamanhoColuna(lista.size());
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_LISTA_ROTINAS);
 
 	}
