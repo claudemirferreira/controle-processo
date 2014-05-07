@@ -209,7 +209,7 @@
 								sortBy="#{item.usuarioZona}">
 
 								<p:selectBooleanCheckbox value="#{item.usuarioZona}">
-									<p:ajax update="gridPesquisaZonas"
+									<p:ajax update=":formAssociacao"
 										listener="#{usuarioAssociacaoControlador.atualizarZonas(item)}" />
 								</p:selectBooleanCheckbox>
 							</p:column>
@@ -249,7 +249,7 @@
 								sortBy="#{item.usuarioNucleo}">
 
 								<p:selectBooleanCheckbox value="#{item.usuarioNucleo}">
-									<p:ajax update="gridPesquisaNucleo"
+									<p:ajax update=":formAssociacao"
 										listener="#{usuarioAssociacaoControlador.atualizarNucleos(item)}" />
 								</p:selectBooleanCheckbox>
 							</p:column>
@@ -268,7 +268,7 @@
 						<p:outputLabel value="Área: " />
 						<p:selectBooleanCheckbox
 							value="#{usuarioAssociacaoControlador.usuario.area}">
-							<p:ajax
+							<p:ajax update=":formAssociacao"
 								listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
 						</p:selectBooleanCheckbox>
 
@@ -290,7 +290,7 @@
 								sortBy="#{item.usuarioArea}">
 
 								<p:selectBooleanCheckbox value="#{item.usuarioArea}">
-									<p:ajax update="gridPesquisaArea"
+									<p:ajax update=":formAssociacao"
 										listener="#{usuarioAssociacaoControlador.atualizarAreas(item)}" />
 								</p:selectBooleanCheckbox>
 							</p:column>
