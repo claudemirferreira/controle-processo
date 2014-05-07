@@ -3,9 +3,11 @@ package br.com.ieadam.controle;
 import java.util.List;
 import java.util.Locale;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Nucleo;
@@ -201,34 +203,58 @@ public class UsuarioAssociacaoControlador {
 
 		usuarioZona.setUsuario(this.usuario);
 		usuarioZona.setZona(zona);
+		String msg = "Zona incluída com sucesso!";
 
-		if (zona.isUsuarioZona())
+		if (zona.isUsuarioZona()) 
 			usuarioZonaServico.salvar(usuarioZona);
-		else
+		else {
 			usuarioZonaServico.deleteByUsuarioAndByZona(this.usuario, zona);
+			msg = "Zona excluída com sucesso!";
+		}
+			
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(
+				msg, null));
+		
 	}
 
 	public void atualizarNucleos(Nucleo nucleo) {
 		UsuarioNucleo usuarioNucleo = new UsuarioNucleo();
 		usuarioNucleo.setUsuario(this.usuario);
 		usuarioNucleo.setNucleo(nucleo);
+		String msg = "Nucleo incluído com sucesso!";
 
-		if (nucleo.isUsuarioNucleo())
+		if (nucleo.isUsuarioNucleo()) 
 			usuarioNucleoServico.salvar(usuarioNucleo);
-		else
+		else {
 			usuarioNucleoServico.deleteByUsuarioAndByNucleo(this.usuario,
 					nucleo);
+			msg = "Nucleo excluído com sucesso!";
+		}
+			
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(
+				msg, null));
 	}
 
 	public void atualizarAreas(Area area) {
 		UsuarioArea usuarioArea = new UsuarioArea();
 		usuarioArea.setUsuario(this.usuario);
-		usuarioArea.setArea(area);
+		usuarioArea.setArea(area);		
+		
+		String msg = "Área incluída com sucesso!";
 
 		if (area.isUsuarioArea())
 			usuarioAreaServico.salvar(usuarioArea);
-		else
-			usuarioAreaServico.deleteByUsuarioAndByArea(this.usuario, area);
+		else {
+			usuarioAreaServico.deleteByUsuarioAndByArea(this.usuario,
+					area);
+			msg = "Área excluída com sucesso!";
+		}
+			
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(
+				msg, null));
 	}
 
 	public void atualizarUsuario(Usuario usuario) {
