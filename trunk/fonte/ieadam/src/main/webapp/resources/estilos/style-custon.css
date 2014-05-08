@@ -8,12 +8,19 @@
 ----------------------------------*/
 
 .centro {
-	width:100px;
+	width:100%;
 	height:100px;
 	position:absolute;
 	margin-top:5%;
-	margin-left:38%;
+/* 	margin-left: 18%; */
 	background: #eaeaea;
+
+/* 	width:150px; */
+/* 	height:100px; */
+/* 	position:absolute; */
+/* 	margin-top:5%; */
+/* 	margin-left: 25%; */
+/* 	background: #eaeaea; */
 }
 
 .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.ui-priority-primary {
