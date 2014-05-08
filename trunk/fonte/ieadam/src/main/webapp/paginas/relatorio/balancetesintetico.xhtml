@@ -22,7 +22,7 @@
 				
 				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioBalanceteSintetico.filtroRelatorioDTO.zonas) == 0}"
 					value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.zona.idZona}" > 
-					<f:selectItem itemLabel="Zero registros" itemValue="" />
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
 				</p:selectOneMenu>				
 
 				<p:selectOneMenu rendered="#{fn:length(relatorioBalanceteSintetico.filtroRelatorioDTO.zonas) > 1}"
@@ -50,7 +50,7 @@
 
 				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioBalanceteSintetico.filtroRelatorioDTO.nucleos) == 0}"
 					value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.nucleo.idNucleo}" > 
-					<f:selectItem itemLabel="Zero registros" itemValue="" />
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
 				</p:selectOneMenu>
 
 				<p:selectOneMenu rendered="#{fn:length(relatorioBalanceteSintetico.filtroRelatorioDTO.nucleos) > 1}"
@@ -80,7 +80,7 @@
 			
 				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioBalanceteSintetico.filtroRelatorioDTO.areas) == 0}"
 					value="#{relatorioBalanceteSintetico.filtroRelatorioDTO.area.idArea}" > 
-					<f:selectItem itemLabel="Zero registros" itemValue="" />
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
 				</p:selectOneMenu>
 			
 				<p:selectOneMenu rendered="#{fn:length(relatorioBalanceteSintetico.filtroRelatorioDTO.areas) > 1}"
