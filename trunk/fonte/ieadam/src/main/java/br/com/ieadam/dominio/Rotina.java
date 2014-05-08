@@ -8,9 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.primefaces.model.StreamedContent;
+
+import br.com.ieadam.componentes.Util;
 
 /**
  * 
@@ -42,6 +47,13 @@ public class Rotina extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "id_sistema")
 	private Sistema sistema;
 
+	@Lob
+	@Column(name = "logomarca")
+	private byte[] logomarca;
+
+	@Transient
+	private StreamedContent streamedContent;
+
 	@Transient
 	private boolean checked;
 
@@ -57,7 +69,6 @@ public class Rotina extends AbstractEntity implements Serializable {
 	public void setIdRotina(int idRotina) {
 		this.idRotina = idRotina;
 	}
-
 
 	public String getNome() {
 		return nome;
@@ -107,12 +118,20 @@ public class Rotina extends AbstractEntity implements Serializable {
 		this.acao = acao;
 	}
 
-	// public List<RotinaRotina> getRotinaRotina() {
-	// return perfilRotina;
-	// }
-	//
-	// public void setRotinaRotina(List<RotinaRotina> perfilRotina) {
-	// this.perfilRotina = perfilRotina;
-	// }
+	public byte[] getLogomarca() {
+		return logomarca;
+	}
+
+	public void setLogomarca(byte[] logomarca) {
+		this.logomarca = logomarca;
+	}
+
+	public StreamedContent getStreamedContent() {
+		return Util.converterBytesToStreamedContent(getLogomarca());
+	}
+
+	public void setStreamedContent() {
+		this.streamedContent = Util.converterBytesToStreamedContent(getLogomarca());
+	}
 
 }

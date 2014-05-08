@@ -115,50 +115,6 @@ public class RelatorioProventoPastoral implements Serializable {
 				.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
-	public void imprimir() {
-
-		ExternalContext externalContext = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		ServletContext context = (ServletContext) externalContext.getContext();
-		String arquivo = context.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_PROVENTOS_PASTORAL.getNome());
-
-		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
-				this.parametro.getMes().getMes(), 1);
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
-		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
-		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
-		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
-		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
-
-        byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params, arquivo);   
-
-        HttpServletResponse res = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
-        res.setContentType("application/pdf");  
-        // Codigo abaixo gerar o relatorio e disponibiliza diretamente na pagina   
-        // res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");  
-        res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");  
-        try {
-			res.getOutputStream().write(relatorio);
-			res.getCharacterEncoding();
-        } catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				res.getOutputStream().flush();
-				res.getOutputStream().close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-        
-        
-        FacesContext.getCurrentInstance().responseComplete(); 
-	}
-
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
 		return filtroRelatorioDTO;
 	}
