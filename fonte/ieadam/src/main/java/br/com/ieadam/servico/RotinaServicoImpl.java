@@ -13,9 +13,6 @@ import br.com.ieadam.repositorio.RotinaRepositorioSql;
 @Service
 public class RotinaServicoImpl implements RotinaServico, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4128328556228022891L;
 
 	@Autowired
