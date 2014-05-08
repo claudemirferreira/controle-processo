@@ -35,7 +35,7 @@ public class RelatorioUtil {
 	}
 
 	public byte[] gerarRelatorioWebBytes(Map parametros,
-			String arquivo) {
+			String arquivo) throws FileNotFoundException {
 		
 		JasperPrint print;
 		byte[] relatorio = null;
@@ -45,8 +45,6 @@ public class RelatorioUtil {
 			
 			relatorio = JasperExportManager.exportReportToPdf(print);
 			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (JRException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
