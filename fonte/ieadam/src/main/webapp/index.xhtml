@@ -7,8 +7,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-<!-- 	<h:outputStylesheet library="estilos" name="resources/estilos/style.css" /> -->
-	<link type="text/css" rel="stylesheet" 	href="resources/estilos/style-custon.css" />
+	<!-- 	<h:outputStylesheet library="estilos" name="resources/estilos/style.css" /> -->
+	<link type="text/css" rel="stylesheet"
+		href="resources/estilos/style-custon.css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<style type="text/css">
 body {
@@ -24,6 +25,13 @@ body {
 		</p:layoutUnit>
 
 		<p:layoutUnit position="center">
+			<div align="right" style="background: #eaeaea;">
+				<p:outputLabel value="Usuário: "
+					style="color: #000000; font-weight:bold; font-size: large;" />
+				<p:outputLabel value="#{usuarioControlador.usuario.nome}"
+					style="color: #000000; font-style: italic; font-size: large;
+				font-weight: 600; " />
+			</div>
 			<p:outputPanel id="paginaCentral">
 				<p:growl />
 				<ui:include src="#{paginaCentralControlador.paginaCentral}" />
