@@ -12,7 +12,7 @@ public class Util {
 
 	public static int definirTamanhoColuna(int tamanho) {
 
-		if (tamanho < 4) {
+		if (tamanho < 5) {
 			return tamanho;
 		} else {
 			double col = Math.sqrt(tamanho);
@@ -21,8 +21,9 @@ public class Util {
 				colunas++;
 			return colunas;
 		}
-	}
 
+	}
+	
 	public static byte[] getBytes(InputStream is) throws IOException {
 		int len;
 		int size = 1024;
