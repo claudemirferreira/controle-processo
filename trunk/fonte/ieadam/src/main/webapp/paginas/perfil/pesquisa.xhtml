@@ -12,13 +12,14 @@
 		<p:panel header="FORMULÁRIO DE PESQUISA DE PERFIL">
 
 			<h:panelGrid id="panelPesquisa" columns="1">
-
 				<h:outputText value="Nome:" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" value="#{perfilControlador.pesquisa.nome}" />
-
 			</h:panelGrid>
 
 			<f:facet name="footer">
+			
+				<p:defaultCommand target="buttonPesquisar" />
+
 				<p:commandButton value="Retornar" ajax="false" update=":form"
 					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 					actionListener="#{rotinaControlador.telaRotinas()}" />
@@ -31,6 +32,7 @@
 				<p:commandButton id="buttonNovo" value="Novo" update=":form"
 					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
 					action="#{perfilControlador.novo}" />
+
 			</f:facet>
 
 		</p:panel>
