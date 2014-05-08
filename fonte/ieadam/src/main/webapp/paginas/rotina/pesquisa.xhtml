@@ -20,6 +20,8 @@
 
 			<f:facet name="footer">
 
+				<p:defaultCommand target="buttonPesquisar" />
+
 				<p:commandButton value="Retornar" ajax="false" update=":form"
 					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 					actionListener="#{rotinaControlador.telaRotinas()}" />
@@ -32,6 +34,7 @@
 				<p:commandButton id="buttonNovo" value="Novo" update=":form"
 					icon="ui-icon-circle-plus" styleClass="ui-priority-primary"
 					action="#{rotinaControlador.novo}" />
+
 			</f:facet>
 
 		</p:panel>
@@ -52,7 +55,7 @@
 				sortBy="#{item.acao}">
 				<h:outputText value="#{item.acao}" />
 			</p:column>
-			
+
 			<p:column style="text-align:left" headerText="Imagem"
 				sortBy="#{item.imagem}">
 				<h:outputText value="#{item.imagem}" />

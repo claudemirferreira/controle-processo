@@ -11,7 +11,7 @@
 
 	<h:form id="form">
 		<p:panel header="FORMULÁRIO DE CADASTRO DE USUÁRIO">
-			<p:growl id="growl"/> 
+			<p:growl id="growl" />
 			<h:panelGrid id="panelCadastro" columns="4" cellpadding="8">
 				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" value="#{usuarioControlador.entidade.nome}" />
@@ -20,7 +20,8 @@
 				<p:inputText id="login" value="#{usuarioControlador.entidade.login}" />
 
 				<p:outputLabel value="Senha*:" styleClass="ui-priority-primary" />
-				<p:password redisplay="true" value="#{usuarioControlador.entidade.senha}"/>
+				<p:password redisplay="true"
+					value="#{usuarioControlador.entidade.senha}" />
 
 				<p:outputLabel value="Situação*:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu id="Situação"
@@ -28,7 +29,7 @@
 					<f:selectItem itemLabel="ATIVO(A)" itemValue="A" />
 					<f:selectItem itemLabel="BLOQUEADO(A)" itemValue="B" />
 				</p:selectOneMenu>
-				
+
 				<p:outputLabel value="Privilegio*:" styleClass="ui-priority-primary" />
 				<p:selectBooleanCheckbox
 					value="#{usuarioControlador.entidade.in_privilegio}" />
@@ -42,22 +43,25 @@
 				<p:outputLabel value="Nucelo*:" styleClass="ui-priority-primary" />
 				<p:selectBooleanCheckbox
 					value="#{usuarioControlador.entidade.nucleo}" />
-					
+
 			</h:panelGrid>
+
 			<f:facet name="footer">
-				<div align="left">
-					<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
-						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-						ajax="true" immediate="true"
-						action="#{usuarioControlador.telaPesquisa}" />
-	
-					<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
-						icon="ui-icon-disk" styleClass="ui-priority-primary"
-						action="#{usuarioControlador.salvar}" />
-				</div>
+
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					ajax="true" immediate="true"
+					action="#{usuarioControlador.telaPesquisa}" />
+
+				<p:commandButton id="buttonCadastro" value="Salvar" update=":form"
+					icon="ui-icon-disk" styleClass="ui-priority-primary"
+					action="#{usuarioControlador.salvar}" />
+
 			</f:facet>
 
+
 		</p:panel>
+
 	</h:form>
 
 </ui:component>
