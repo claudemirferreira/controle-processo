@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.ieadam.componentes.Util;
 import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Rotina;
+import br.com.ieadam.dominio.Sistema;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.servico.PerfilServico;
 import br.com.ieadam.servico.RotinaServico;
@@ -31,6 +32,8 @@ public class PerfilControlador implements Serializable {
 	private Perfil entidade;
 
 	private Perfil pesquisa;
+
+	private Sistema sistema = new Sistema(SISTEMA_IEADAM);
 
 	private List<Perfil> lista;
 
@@ -91,6 +94,7 @@ public class PerfilControlador implements Serializable {
 
 	public void novo() {
 		this.entidade = new Perfil();
+		this.entidade.setSistema(sistema);
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_CADASTRO);
 
 	}
@@ -104,16 +108,19 @@ public class PerfilControlador implements Serializable {
 	}
 
 	public void listaPerfilPorSistemaPorUsuario() {
-		this.usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario( SISTEMA_IEADAM, usuario.getId() );
+		this.usuario = (Usuario) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		this.listaPerfilUsuario = this.servico.listaPerfilPorSistemaPorUsuario(
+				SISTEMA_IEADAM, usuario.getId());
 		this.telaPerfis();
-		
-		this.colunas = Util.definirTamanhoColuna(this.listaPerfilUsuario.size());
-		
+
+		this.colunas = Util
+				.definirTamanhoColuna(this.listaPerfilUsuario.size());
+
 	}
 
 	public void telaPesquisa() {
-		 paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
+		paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 	}
 
 	public Perfil getPerfil() {
