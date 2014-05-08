@@ -1,5 +1,6 @@
 package br.com.ieadam.controle;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -9,18 +10,19 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ieadam.componentes.DataUtil;
+import br.com.ieadam.componentes.MessageControlador;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
 import br.com.ieadam.dominio.Area;
@@ -62,6 +64,9 @@ public class RelatorioSaldoCongregacao implements Serializable {
 
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
+
+	@ManagedProperty(value = "#{messageControlador}")
+	private MessageControlador messageControlador;
 
 	private StreamedContent streamedContent;
 
@@ -114,55 +119,6 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		paginaCentralControlador.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
-	public void imprimir() {
-
-		ExternalContext externalContext = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		ServletContext context = (ServletContext) externalContext.getContext();
-		String arquivo = context
-				.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_SALDO_CONGREGACAO
-						.getNome());
-
-		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
-				this.parametro.getMes().getMes(), 1);
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
-		params.put("MES_ANO",
-				IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())
-						+ "/" + this.parametro.getAno());
-		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
-		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
-		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
-
-		byte[] relatorio = relatorioUtil
-				.gerarRelatorioWebBytes(params, arquivo);
-
-		HttpServletResponse res = (HttpServletResponse) FacesContext
-				.getCurrentInstance().getExternalContext().getResponse();
-		res.setContentType("application/pdf");
-		// Codigo abaixo gerar o relatorio e disponibiliza diretamente na pagina
-		// res.setHeader("Content-disposition", "inline;filename=arquivo.pdf");
-		res.setHeader("Content-disposition", "attachment;filename=arquivo.pdf");
-		try {
-			res.getOutputStream().write(relatorio);
-			res.getCharacterEncoding();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				res.getOutputStream().flush();
-				res.getOutputStream().close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		FacesContext.getCurrentInstance().responseComplete();
-	}
-
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
 		return filtroRelatorioDTO;
 	}
@@ -194,6 +150,14 @@ public class RelatorioSaldoCongregacao implements Serializable {
 	public void setpaginaCentralControlador(
 			PaginaCentralControlador paginaCentralControlador) {
 		this.paginaCentralControlador = paginaCentralControlador;
+	}
+
+	public MessageControlador getMessageControlador() {
+		return messageControlador;
+	}
+
+	public void setMessageControlador(MessageControlador messageControlador) {
+		this.messageControlador = messageControlador;
 	}
 
 	public ZonaServico getZonaServico() {
@@ -263,12 +227,23 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
 
-		byte[] relatorio = relatorioUtil
-				.gerarRelatorioWebBytes(params, arquivo);
+		try {
+			byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params,
+					arquivo);
 
-		externalContext.setResponseContentType("application/pdf");
-		externalContext.getResponseOutputStream().write(relatorio);
+			externalContext.setResponseContentType("application/pdf");
+			externalContext.getResponseOutputStream().write(relatorio);
+			fc.responseComplete();
 
-		fc.responseComplete();
+		} catch (FileNotFoundException e) {
+			this.visualizar = false;
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Sample error message",
+							"PrimeFaces makes no mistakes"));
+
+		}
+
 	}
 }
