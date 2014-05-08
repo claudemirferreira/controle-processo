@@ -60,6 +60,7 @@ public class UsuarioControlador {
 
 	private final String TELA_CADASTRO = "paginas/usuario/cadastro.xhtml";
 	private final String TELA_PESQUISA = "paginas/usuario/pesquisa.xhtml";
+	private final String TELA_ALTERAR_SENHA = "paginas/usuario/alterarSenha.xhtml";
 
 	public void init() {
 		this.sistema = sistemaServico.findByCodigo("IEADAM");
@@ -80,9 +81,6 @@ public class UsuarioControlador {
 
 	public void detalhe(Usuario usuario) {
 		this.entidade = usuario;
-
-		// this.entidade.setPastor(pastorServico.findByUsuario(usuario));
-		// this.pastores = pastorServico.listarTodos();
 		this.telaCadastro();
 	}
 
@@ -105,6 +103,26 @@ public class UsuarioControlador {
 	public void novo() {
 		this.entidade = new Usuario();
 		this.telaCadastro();
+	}
+	
+	public void editarUsuario(){
+		this.entidade = (Usuario) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_ALTERAR_SENHA);
+	}
+	
+	public void salvarSenha(){
+		this.servico.salvar(usuario);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_ALTERAR_SENHA);
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(
+				"Operação realizada com sucesso!", null));
+		
+	}
+	
+	public void telaListaRotina(){
+		this.paginaCentralControlador.setPaginaCentral("paginas/rotina/lista.xhtml");
 	}
 
 	public void telaCadastro() {
@@ -169,9 +187,6 @@ public class UsuarioControlador {
 
 			this.usuario = (Usuario) SecurityContextHolder.getContext()
 					.getAuthentication().getPrincipal();
-
-			this.colunas = 4;
-			// Util .definirTamanhoColuna(usuario.getPerfis().size());
 
 			this.perfilControlador.listaPerfilPorSistemaPorUsuario();
 
