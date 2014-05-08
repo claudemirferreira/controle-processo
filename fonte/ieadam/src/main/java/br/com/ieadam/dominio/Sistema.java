@@ -47,6 +47,10 @@ public class Sistema extends AbstractEntity implements Serializable {
 
 	public Sistema() {
 	}
+	
+	public Sistema(int idSistema) {
+		this.idSistema = idSistema;
+	}
 
 	@Override
 	public int getId() {
