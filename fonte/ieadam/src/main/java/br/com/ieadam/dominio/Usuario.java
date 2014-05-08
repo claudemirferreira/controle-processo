@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -47,6 +48,10 @@ public class Usuario extends AbstractEntity implements Serializable {
 	private boolean nucleo;
 	
 	private boolean in_privilegio;
+	
+	 @Lob 
+	 @Column(name = "logomarca")  
+	 private byte[] logomarca;  
 	
 	@Column
 	private String telefone;
@@ -189,6 +194,14 @@ public class Usuario extends AbstractEntity implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public byte[] getLogomarca() {
+		return logomarca;
+	}
+
+	public void setLogomarca(byte[] logomarca) {
+		this.logomarca = logomarca;
 	}
 	
 //	public Membro getMembro() {
