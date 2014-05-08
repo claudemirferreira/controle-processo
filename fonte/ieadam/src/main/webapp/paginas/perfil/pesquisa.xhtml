@@ -61,7 +61,7 @@
 					update=":form" title="Detalhe" />
 
 				<p:commandButton value="Rotina"
-					action="#{perfilRotinaControlador.showModalRotina(item)}"
+					actionListener="#{perfilRotinaControlador.showModalRotina(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-folder-collapsed"
 					oncomplete="PF('dlgRotina').show();" update=":formDlg" />
 
