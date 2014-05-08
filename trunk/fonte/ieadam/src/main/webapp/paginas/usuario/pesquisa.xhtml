@@ -173,7 +173,16 @@
 			<p:growl id="msg" showDetail="false" escape="false"
 				globalOnly="false" />
 
+			<p:outputLabel value="Privilegio: " styleClass="ui-priority-primary" />
+			<p:selectBooleanCheckbox
+				value="#{usuarioAssociacaoControlador.usuario.in_privilegio}" >
+					<p:ajax listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
+			</p:selectBooleanCheckbox>	
+
+			<p/>
+			
 			<div id="container" style="width: 99%">
+
 
 				<div id="regiao" style="float: left; width: 33%; height: 400px">
 					<p:fieldset>

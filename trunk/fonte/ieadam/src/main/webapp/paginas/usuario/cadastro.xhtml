@@ -30,20 +30,6 @@
 					<f:selectItem itemLabel="BLOQUEADO(A)" itemValue="B" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Privilegio*:" styleClass="ui-priority-primary" />
-				<p:selectBooleanCheckbox
-					value="#{usuarioControlador.entidade.in_privilegio}" />
-
-				<p:outputLabel value="Região*:" styleClass="ui-priority-primary" />
-				<p:selectBooleanCheckbox value="#{usuarioControlador.entidade.zona}" />
-
-				<p:outputLabel value="Area*:" styleClass="ui-priority-primary" />
-				<p:selectBooleanCheckbox value="#{usuarioControlador.entidade.area}" />
-
-				<p:outputLabel value="Nucelo*:" styleClass="ui-priority-primary" />
-				<p:selectBooleanCheckbox
-					value="#{usuarioControlador.entidade.nucleo}" />
-
 			</h:panelGrid>
 
 			<f:facet name="footer">
