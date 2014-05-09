@@ -101,6 +101,56 @@ public class RelatorioSaldoCongregacao implements Serializable {
 				.setPaginaCentral("paginas/relatorio/saldocongregacao.xhtml");
 
 	}
+	
+	public void processarPDF() throws IOException, DocumentException {
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = fc.getExternalContext();
+		ServletContext context = (ServletContext) externalContext.getContext();
+		String arquivo = context
+				.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_SALDO_CONGREGACAO
+						.getNome());
+
+		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
+				this.parametro.getMes().getMes(), 1);
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
+		params.put("MES_ANO",
+				IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())
+						+ "/" + this.parametro.getAno());
+		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
+		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
+		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
+
+		externalContext.setResponseContentType("application/pdf");
+		
+		try {
+			byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params,
+					arquivo);
+			
+			if (relatorio == null || relatorio.length < 1000 ){
+				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
+				FileInputStream file = new FileInputStream(new File(arquivo));
+				relatorio = Util.getBytes(file);
+			} 
+	
+			externalContext.getResponseOutputStream().write(relatorio);
+
+		} catch (FileNotFoundException e) {
+			
+			arquivo = context.getRealPath("/resources/relatorioNotFound.pdf");
+			FileInputStream file = new FileInputStream(new File(arquivo));
+			
+			externalContext.getResponseOutputStream().write(Util.getBytes(file));
+		
+		} finally {
+			fc.responseComplete();
+		}
+
+	}
 
 	public void atualizarNucleo() {
 		this.filtroRelatorioDTO.setNucleos(this.nucleoServico
@@ -206,53 +256,4 @@ public class RelatorioSaldoCongregacao implements Serializable {
 		this.visualizar = true;
 	}
 
-	public void processarPDF() throws IOException, DocumentException {
-
-		FacesContext fc = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = fc.getExternalContext();
-		ServletContext context = (ServletContext) externalContext.getContext();
-		String arquivo = context
-				.getRealPath(PathRelatorios.RELATORIO_TESOURARIA_SALDO_CONGREGACAO
-						.getNome());
-
-		Calendar dataInicio = new GregorianCalendar(this.parametro.getAno(),
-				this.parametro.getMes().getMes(), 1);
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
-		params.put("MES_ANO",
-				IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())
-						+ "/" + this.parametro.getAno());
-		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
-		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
-		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
-
-		externalContext.setResponseContentType("application/pdf");
-		
-		try {
-			byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params,
-					arquivo);
-			
-			if (relatorio == null || relatorio.length < 1000 ){
-				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
-				FileInputStream file = new FileInputStream(new File(arquivo));
-				relatorio = Util.getBytes(file);
-			} 
-	
-			externalContext.getResponseOutputStream().write(relatorio);
-
-		} catch (FileNotFoundException e) {
-			
-			arquivo = context.getRealPath("/resources/relatorioNotFound.pdf");
-			FileInputStream file = new FileInputStream(new File(arquivo));
-			
-			externalContext.getResponseOutputStream().write(Util.getBytes(file));
-		
-		} finally {
-			fc.responseComplete();
-		}
-
-	}
 }
