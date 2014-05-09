@@ -1,5 +1,8 @@
 package br.com.ieadam.controle;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -21,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
+import br.com.ieadam.componentes.Util;
 import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Usuario;
@@ -204,11 +208,29 @@ public class RelatorioDebitoPastoral implements Serializable {
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
 		 
-        byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params, arquivo);   
+		externalContext.setResponseContentType("application/pdf");
+		
+		try {
+			byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params,
+					arquivo);
+			
+			if (relatorio == null || relatorio.length < 1000 ){
+				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
+				FileInputStream file = new FileInputStream(new File(arquivo));
+				relatorio = Util.getBytes(file);
+			} 
+	
+			externalContext.getResponseOutputStream().write(relatorio);
 
-        externalContext.setResponseContentType("application/pdf");
-        externalContext.getResponseOutputStream().write(relatorio);
-
-        fc.responseComplete();
+		} catch (FileNotFoundException e) {
+			
+			arquivo = context.getRealPath("/resources/relatorioNotFound.pdf");
+			FileInputStream file = new FileInputStream(new File(arquivo));
+			
+			externalContext.getResponseOutputStream().write(Util.getBytes(file));
+		
+		} finally {
+			fc.responseComplete();
+		}
     }
 }

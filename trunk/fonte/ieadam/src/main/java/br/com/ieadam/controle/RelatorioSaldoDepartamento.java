@@ -1,5 +1,8 @@
 package br.com.ieadam.controle;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -17,16 +20,12 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import com.lowagie.text.DocumentException;
 
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
+import br.com.ieadam.componentes.Util;
 import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Usuario;
@@ -37,6 +36,8 @@ import br.com.ieadam.servico.NucleoServico;
 import br.com.ieadam.servico.ZonaServico;
 import br.com.ieadam.utils.IEADAMUtils;
 import br.com.ieadam.utils.PathRelatorios;
+
+import com.lowagie.text.DocumentException;
 
 @ManagedBean
 @SessionScoped
@@ -125,7 +126,7 @@ public class RelatorioSaldoDepartamento implements Serializable {
 		u.setLogin("login");
 		usuarios.add(u);
 
-		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
+//		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("dataInicio", this.parametro.getDataInicio());
@@ -222,11 +223,29 @@ public class RelatorioSaldoDepartamento implements Serializable {
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
 		 
-        byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params, arquivo);   
+		externalContext.setResponseContentType("application/pdf");
+		
+		try {
+			byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params,
+					arquivo);
+			
+			if (relatorio == null || relatorio.length < 1000 ){
+				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
+				FileInputStream file = new FileInputStream(new File(arquivo));
+				relatorio = Util.getBytes(file);
+			} 
+	
+			externalContext.getResponseOutputStream().write(relatorio);
 
-        externalContext.setResponseContentType("application/pdf");
-        externalContext.getResponseOutputStream().write(relatorio);
-
-        fc.responseComplete();
+		} catch (FileNotFoundException e) {
+			
+			arquivo = context.getRealPath("/resources/relatorioNotFound.pdf");
+			FileInputStream file = new FileInputStream(new File(arquivo));
+			
+			externalContext.getResponseOutputStream().write(Util.getBytes(file));
+		
+		} finally {
+			fc.responseComplete();
+		}
     }
 }
