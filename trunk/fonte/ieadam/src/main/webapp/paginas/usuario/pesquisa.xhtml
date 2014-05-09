@@ -29,7 +29,7 @@
 			</h:panelGrid>
 
 			<f:facet name="footer">
-			
+
 				<p:defaultCommand target="buttonPesquisar" />
 
 				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
@@ -48,14 +48,6 @@
 			</f:facet>
 
 		</p:panel>
-		
-		<p:commandButton id="pnlBtn" value="Block Panel" type="button" onclick="PF('bui').show()"/>
-    	<p:commandButton id="pnlBtn2" value="Unblock Panel" type="button" onclick="PF('bui').hide()"/>
- 
-    	<p:blockUI block=":form" widgetVar="bui">
-    		processando ...<br />
-    		<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
-    	</p:blockUI>
 
 		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
 			value="#{usuarioControlador.lista}" paginatorPosition="bottom"
@@ -110,13 +102,16 @@
 				<p:commandButton value="Perfil"
 					actionListener="#{usuarioPerfilControlador.showModalPerfil(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-person"
-					onclick="PF('dlgPerfil').show();" update=":formDlg" />
+					onclick="PF('bui').show();"
+					oncomplete="PF('dlgPerfil').show(); PF('bui').hide()"
+					update=":formDlg" />
 
 				<p:commandButton value="Associação" id="openDlgAssociacao"
 					action="#{usuarioAssociacaoControlador.showModalAssociacao(item)}"
 					styleClass="ui-priority-primary" icon="ui-icon-person"
 					onclick="PF('bui').show();"
-					oncomplete="PF('dlgAssociacao').show(); PF('bui').hide()" update=":formAssociacao" />
+					oncomplete="PF('dlgAssociacao').show(); PF('bui').hide()"
+					update=":formAssociacao" />
 
 				<p:commandButton ajax="false" value="Excluir"
 					actionListener="#{usuarioControlador.excluir(item)}"
@@ -130,16 +125,16 @@
 	        </f:facet>
 
 		</p:dataTable>
-		
-		 <p:blockUI block=":formDlg" trigger="form:gridPesquisa:openDlgAssociacao" >
-		 	<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
-		 </p:blockUI>
 
+		<p:blockUI block=":formPrincipal" widgetVar="bui">
+    		processando ...<br />
+			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+		</p:blockUI>
 
 	</h:form>
 
 	<p:dialog id="dialogPerfil" header="Perfil" widgetVar="dlgPerfil"
-		modal="true" appendToBody="true" closable="false" >
+		modal="true" appendToBody="true" closable="false">
 
 		<h:form id="formDlg">
 
@@ -184,13 +179,13 @@
 
 			<p:outputLabel value="Privilégio: " styleClass="ui-priority-primary" />
 			<p:selectBooleanCheckbox
-				value="#{usuarioAssociacaoControlador.usuario.in_privilegio}" >
-					<p:ajax update=":form" 
-						listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
-			</p:selectBooleanCheckbox>	
+				value="#{usuarioAssociacaoControlador.usuario.in_privilegio}">
+				<p:ajax update=":form"
+					listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
+			</p:selectBooleanCheckbox>
 
-			<p/>
-			
+			<p />
+
 			<div id="container" style="width: 99%">
 
 				<div id="regiao" style="float: left; width: 33%; height: 100%">
@@ -208,9 +203,8 @@
 							paginator="true" value="#{usuarioAssociacaoControlador.zonas}"
 							paginatorPosition="bottom" paginatorAlwaysVisible="true"
 							emptyMessage="Nenhum registro encontrado."
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							>
-							
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
 							<p:column style="text-align:left" headerText="Zona"
 								sortBy="#{item.nome}">
 								<h:outputText value="#{item.nome}" />
@@ -318,5 +312,6 @@
 		</h:form>
 
 	</p:dialog>
+
 
 </ui:component>
