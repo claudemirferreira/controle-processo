@@ -13,7 +13,7 @@ import br.com.ieadam.dominio.Zona;
 public interface UsuarioZonaRepositorio extends
 		JpaRepository<UsuarioZona, Long> {
 
-	@Query("select a from UsuarioZona a where a.usuario = :usuario and  a.zona = :zona")
+	@Query("select a from UsuarioZona a where a.usuario = :usuario and  a.zona = :zona order by a.zona.nome")
 	public UsuarioZona findByUsuarioAndByZona(
 			@Param("usuario") Usuario usuario, @Param("zona") Zona zona);
 
