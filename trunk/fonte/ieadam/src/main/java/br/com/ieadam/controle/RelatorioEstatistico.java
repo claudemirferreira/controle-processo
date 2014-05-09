@@ -1,6 +1,9 @@
 package br.com.ieadam.controle;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,16 +19,13 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
+import br.com.ieadam.componentes.Util;
 import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Usuario;
@@ -34,6 +34,9 @@ import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
 import br.com.ieadam.servico.ZonaServico;
+import br.com.ieadam.utils.PathRelatorios;
+
+import com.lowagie.text.DocumentException;
 
 @ManagedBean
 @SessionScoped
@@ -42,6 +45,8 @@ public class RelatorioEstatistico implements Serializable {
 	private static final long serialVersionUID = -2799171038466794271L;
 
 	private Parametro parametro;
+
+	private boolean visualizar = false;
 
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
@@ -84,6 +89,8 @@ public class RelatorioEstatistico implements Serializable {
 		this.parametro.setAno(DataUtil.pegarAnocorrente());
 		this.parametro.setMes(DataUtil.pegarMescorrente());
 
+		this.visualizar = false;
+
 		this.paginaCentralControlador
 				.setPaginaCentral("paginas/relatorio/estatistico.xhtml");
 
@@ -104,16 +111,29 @@ public class RelatorioEstatistico implements Serializable {
 	}
 
 	public void redirecionarModuloPrincipalSecretaria() {
-		paginaCentralControlador
-				.setPaginaCentral("paginas/perfil/lista.xhtml");
+		paginaCentralControlador.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
-	public void imprimir() {
+	public boolean isVisualizar() {
+		return visualizar;
+	}
 
-		ExternalContext externalContext = FacesContext.getCurrentInstance()
-				.getExternalContext();
+	public void setVisualizar(boolean visualizar) {
+		this.visualizar = visualizar;
+	}
+
+	public void visualiarRelatorio() {
+		this.visualizar = true;
+	}
+
+	public void processarPDF() throws IOException, DocumentException {
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = fc.getExternalContext();
 		ServletContext context = (ServletContext) externalContext.getContext();
-		String arquivo = context.getRealPath("/WEB-INF/jasper/teste.jasper");
+		String arquivo = context
+				.getRealPath(PathRelatorios.RELATORIO_SECRETARIA_MEMBROS
+						.getNome());
 
 		// BLOCO USADO PARA TESTES
 		List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -128,8 +148,6 @@ public class RelatorioEstatistico implements Serializable {
 		Calendar dataFim = new GregorianCalendar(this.parametro.getAnoFim(),
 				this.parametro.getMesFim().getMes(), 1);
 
-		JRDataSource jrRS = new JRBeanCollectionDataSource(usuarios);
-
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("DATA_INICIO", dataInicio.getTime());
 		params.put("DATA_FIM", dataFim.getTime());
@@ -137,11 +155,32 @@ public class RelatorioEstatistico implements Serializable {
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
 
-		FileInputStream fis = relatorioUtil.gerarRelatorioWeb(params,
-				arquivo);
+		externalContext.setResponseContentType("application/pdf");
 
-		this.streamedContent = new DefaultStreamedContent(fis,
-				"application/pdf");
+		try {
+			byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params,
+					arquivo);
+
+			if (relatorio == null || relatorio.length < 1000) {
+				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
+				FileInputStream file = new FileInputStream(new File(arquivo));
+				relatorio = Util.getBytes(file);
+			}
+
+			externalContext.getResponseOutputStream().write(relatorio);
+
+		} catch (FileNotFoundException e) {
+
+			arquivo = context.getRealPath("/resources/relatorioNotFound.pdf");
+			FileInputStream file = new FileInputStream(new File(arquivo));
+
+			externalContext.getResponseOutputStream()
+					.write(Util.getBytes(file));
+
+		} finally {
+			fc.responseComplete();
+		}
+
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
