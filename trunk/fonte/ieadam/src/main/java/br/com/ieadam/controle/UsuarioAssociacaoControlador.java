@@ -259,6 +259,10 @@ public class UsuarioAssociacaoControlador {
 
 	public void atualizarUsuario(Usuario usuario) {
 		usuarioServico.salvar(usuario);
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(
+				"Usuário atualizado com sucesso!", null));
 	}
 
 }
