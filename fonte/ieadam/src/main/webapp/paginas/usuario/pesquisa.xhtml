@@ -173,10 +173,11 @@
 			<p:growl id="msg" showDetail="false" escape="false"
 				globalOnly="false" />
 
-			<p:outputLabel value="Privilegio: " styleClass="ui-priority-primary" />
+			<p:outputLabel value="Privilégio: " styleClass="ui-priority-primary" />
 			<p:selectBooleanCheckbox
 				value="#{usuarioAssociacaoControlador.usuario.in_privilegio}" >
-					<p:ajax listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
+					<p:ajax update=":form" 
+						listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
 			</p:selectBooleanCheckbox>	
 
 			<p/>
@@ -188,7 +189,7 @@
 						<p:outputLabel value="Região: " />
 						<p:selectBooleanCheckbox
 							value="#{usuarioAssociacaoControlador.usuario.zona}">
-							<p:ajax
+							<p:ajax update=":form"
 								listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
 						</p:selectBooleanCheckbox>
 
@@ -228,7 +229,7 @@
 						<p:outputLabel value="Núcleo: " />
 						<p:selectBooleanCheckbox
 							value="#{usuarioAssociacaoControlador.usuario.nucleo}">
-							<p:ajax
+							<p:ajax update=":form"
 								listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
 						</p:selectBooleanCheckbox>
 
@@ -268,7 +269,7 @@
 						<p:outputLabel value="Área: " />
 						<p:selectBooleanCheckbox
 							value="#{usuarioAssociacaoControlador.usuario.area}">
-							<p:ajax update=":formAssociacao"
+							<p:ajax update=":form"
 								listener="#{usuarioAssociacaoControlador.atualizarUsuario(usuarioAssociacaoControlador.usuario)}" />
 						</p:selectBooleanCheckbox>
 

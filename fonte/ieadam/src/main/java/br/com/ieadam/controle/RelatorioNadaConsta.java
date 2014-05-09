@@ -78,7 +78,7 @@ public class RelatorioNadaConsta implements Serializable {
 		this.parametro.setMes(DataUtil.pegarMescorrente());
 
 		this.paginaCentralControlador
-				.setPaginaCentral("paginas/relatorio/debitosecretaria.xhtml");
+				.setPaginaCentral("paginas/relatorio/nadaconsta.xhtml");
 
 	}
 
