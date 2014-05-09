@@ -168,7 +168,7 @@
 
 	</p:dialog>
 
-	<p:dialog id="dialogAssociacao" header="Associacao" width="1000px"
+	<p:dialog id="dialogAssociacao" header="Associacao do usuário #{usuarioAssociacaoControlador.usuario.nome}" width="1100px"
 		widgetVar="dlgAssociacao" modal="true" appendToBody="true"
 		closable="false">
 
@@ -188,7 +188,7 @@
 
 			<div id="container" style="width: 99%">
 
-				<div id="regiao" style="float: left; width: 33%; height: 100%">
+				<div id="regiao" style="float: left; width: 30%; height: 100%">
 					<p:fieldset>
 						<p:outputLabel value="Região: " />
 						<p:selectBooleanCheckbox
@@ -199,18 +199,16 @@
 
 						<p />
 						
-						<p:dataTable id="gridPesquisaZonas" var="item" 
-                    		value="#{usuarioAssociacaoControlador.zonas}" 
-                    		scrollRows="20"	scrollable="true" liveScroll="true" scrollHeight="250">
+						<p:dataTable id="gridPesquisaZonas" var="item" style=" border-color: black; "
+                    		value="#{usuarioAssociacaoControlador.zonas}" scrollHeight="172">
 
-							<p:column style="text-align:left;" headerText="Zona"
+							<p:column style="text-align:left;" headerText="Região"
 								sortBy="#{item.nome}">
 								<h:outputText value="#{item.nome}" />
 							</p:column>
 
 							<p:column style="text-align:left; width:50px" headerText="Situação"
 								sortBy="#{item.usuarioZona}">
-
 								<p:selectBooleanCheckbox value="#{item.usuarioZona}">
 									<p:ajax update=":formAssociacao"
 										listener="#{usuarioAssociacaoControlador.atualizarZonas(item)}" />
@@ -225,7 +223,7 @@
 					</p:fieldset>
 				</div>
 
-				<div id="nucleo" style="width: 33%; float: left;">
+				<div id="nucleo" style="width: 30%; float: left;">
 					<p:fieldset>
 						<p:outputLabel value="Núcleo: " />
 						<p:selectBooleanCheckbox
@@ -237,7 +235,7 @@
 						<p />
 						<p:dataTable id="gridPesquisaNucleo" var="item" 
                     		value="#{usuarioAssociacaoControlador.nucleos}" 
-                    		scrollRows="20"	scrollable="true" liveScroll="true" scrollHeight="250">
+                    		scrollRows="20"	scrollable="true" liveScroll="true" scrollHeight="172">
                     		
                     		<p:column style="text-align:left" headerText="Núcleo"
 								sortBy="#{item.nome}">
@@ -261,7 +259,7 @@
 					</p:fieldset>
 				</div>
 				
-				<div id="area" style="width: 33%; float: left;">
+				<div id="area" style="width: 40%; float: left;">
 					<p:fieldset>
 
 						<p:outputLabel value="Área: " />
@@ -275,7 +273,7 @@
 
                     	<p:dataTable id="gridPesquisaArea" var="item" 
                     		value="#{usuarioAssociacaoControlador.areas}" 
-                    		scrollRows="20"	scrollable="true" liveScroll="true" scrollHeight="250">
+                    		scrollRows="20"	scrollable="true" liveScroll="true" scrollHeight="172">
 
 							<p:column style="text-align:left" headerText="Area"
 								sortBy="#{item.nome}">
