@@ -168,7 +168,7 @@
 
 	</p:dialog>
 
-	<p:dialog id="dialogAssociacao" header="Associacao"
+	<p:dialog id="dialogAssociacao" header="Associacao" width="1000px"
 		widgetVar="dlgAssociacao" modal="true" appendToBody="true"
 		closable="false">
 
@@ -198,19 +198,17 @@
 						</p:selectBooleanCheckbox>
 
 						<p />
+						
+						<p:dataTable id="gridPesquisaZonas" var="item" 
+                    		value="#{usuarioAssociacaoControlador.zonas}" 
+                    		scrollRows="20"	scrollable="true" liveScroll="true" scrollHeight="250">
 
-						<p:dataTable id="gridPesquisaZonas" var="item" rows="7"
-							paginator="true" value="#{usuarioAssociacaoControlador.zonas}"
-							paginatorPosition="bottom" paginatorAlwaysVisible="true"
-							emptyMessage="Nenhum registro encontrado."
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-
-							<p:column style="text-align:left" headerText="Zona"
+							<p:column style="text-align:left;" headerText="Zona"
 								sortBy="#{item.nome}">
 								<h:outputText value="#{item.nome}" />
 							</p:column>
 
-							<p:column style="text-align:left" headerText="Situacao"
+							<p:column style="text-align:left; width:50px" headerText="Situação"
 								sortBy="#{item.usuarioZona}">
 
 								<p:selectBooleanCheckbox value="#{item.usuarioZona}">
@@ -237,19 +235,16 @@
 						</p:selectBooleanCheckbox>
 
 						<p />
-
-						<p:dataTable id="gridPesquisaNucleo" var="item" rows="7"
-							paginator="true" value="#{usuarioAssociacaoControlador.nucleos}"
-							paginatorPosition="bottom" paginatorAlwaysVisible="true"
-							emptyMessage="Nenhum registro encontrado."
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-
-							<p:column style="text-align:left" headerText="Zona"
+						<p:dataTable id="gridPesquisaNucleo" var="item" 
+                    		value="#{usuarioAssociacaoControlador.nucleos}" 
+                    		scrollRows="20"	scrollable="true" liveScroll="true" scrollHeight="250">
+                    		
+                    		<p:column style="text-align:left" headerText="Núcleo"
 								sortBy="#{item.nome}">
 								<h:outputText value="#{item.nome}" />
 							</p:column>
 
-							<p:column style="text-align:left" headerText="Situacao"
+							<p:column style="text-align:left; width:50px" headerText="Situação"
 								sortBy="#{item.usuarioNucleo}">
 
 								<p:selectBooleanCheckbox value="#{item.usuarioNucleo}">
@@ -265,8 +260,8 @@
 
 					</p:fieldset>
 				</div>
-
-				<div id="menu" style="width: 33%; float: left; height: 400px">
+				
+				<div id="area" style="width: 33%; float: left;">
 					<p:fieldset>
 
 						<p:outputLabel value="Área: " />
@@ -278,18 +273,16 @@
 
 						<p />
 
-						<p:dataTable id="gridPesquisaArea" var="item" rows="7"
-							paginator="true" value="#{usuarioAssociacaoControlador.areas}"
-							paginatorPosition="bottom" paginatorAlwaysVisible="true"
-							emptyMessage="Nenhum registro encontrado."
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                    	<p:dataTable id="gridPesquisaArea" var="item" 
+                    		value="#{usuarioAssociacaoControlador.areas}" 
+                    		scrollRows="20"	scrollable="true" liveScroll="true" scrollHeight="250">
 
 							<p:column style="text-align:left" headerText="Area"
 								sortBy="#{item.nome}">
 								<h:outputText value="#{item.nome}" />
 							</p:column>
 
-							<p:column style="text-align:left" headerText="Situacao"
+							<p:column style="text-align:left; width:50px" headerText="Situação"
 								sortBy="#{item.usuarioArea}">
 
 								<p:selectBooleanCheckbox value="#{item.usuarioArea}">
