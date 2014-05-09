@@ -13,7 +13,7 @@ import br.com.ieadam.dominio.UsuarioNucleo;
 public interface UsuarioNucleoRepositorio extends
 		JpaRepository<UsuarioNucleo, Long> {
 
-	@Query("select a from UsuarioNucleo a where a.usuario = :usuario and  a.nucleo = :nucleo")
+	@Query("select a from UsuarioNucleo a where a.usuario = :usuario and  a.nucleo = :nucleo order by a.nucleo.nome")
 	public UsuarioNucleo findByUsuarioAndByNucleo(
 			@Param("usuario") Usuario usuario, @Param("nucleo") Nucleo nucleo);
 
