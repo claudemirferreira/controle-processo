@@ -9,8 +9,13 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-		<p:panel header="RELATÓRIO DE SALDO DE DEPARTAMENTO"
-			style="width:99%;">
+	
+		<div align="left" >
+			<p:outputLabel value="Módulo de #{rotinaControlador.perfil.nome} - Saldo de Departamento" 
+				style="color: #8B0000; font-size: large; font-weight: bold;"/>
+		</div>
+		
+		<p:panel style="width:99%;">
 
 			<h:panelGrid columns="6" cellpadding="5">
 				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />

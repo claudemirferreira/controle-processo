@@ -183,8 +183,7 @@
 			
 			<div id="container" style="width: 99%">
 
-
-				<div id="regiao" style="float: left; width: 33%; height: 400px">
+				<div id="regiao" style="float: left; width: 33%; height: 100%">
 					<p:fieldset>
 						<p:outputLabel value="Região: " />
 						<p:selectBooleanCheckbox
@@ -199,18 +198,9 @@
 							paginator="true" value="#{usuarioAssociacaoControlador.zonas}"
 							paginatorPosition="bottom" paginatorAlwaysVisible="true"
 							emptyMessage="Nenhum registro encontrado."
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-							<!-- 							widgetVar="zonasTable" filteredValue="#{usuarioAssociacaoControlador.filteredZonas}" 
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							>
 							
-							<f:facet name="header">
-								<p:outputPanel>
-									<h:outputText value="Search all fields:" />
-									<p:inputText id="globalFilter"
-										onkeyup="PF('zonasTable').filter()" style="width:150px"
-										placeholder="Enter keyword" />
-								</p:outputPanel>
-							</f:facet> -->
-
 							<p:column style="text-align:left" headerText="Zona"
 								sortBy="#{item.nome}">
 								<h:outputText value="#{item.nome}" />
@@ -248,7 +238,7 @@
 							paginator="true" value="#{usuarioAssociacaoControlador.nucleos}"
 							paginatorPosition="bottom" paginatorAlwaysVisible="true"
 							emptyMessage="Nenhum registro encontrado."
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
 							<p:column style="text-align:left" headerText="Zona"
 								sortBy="#{item.nome}">
@@ -288,7 +278,7 @@
 							paginator="true" value="#{usuarioAssociacaoControlador.areas}"
 							paginatorPosition="bottom" paginatorAlwaysVisible="true"
 							emptyMessage="Nenhum registro encontrado."
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
 							<p:column style="text-align:left" headerText="Area"
 								sortBy="#{item.nome}">

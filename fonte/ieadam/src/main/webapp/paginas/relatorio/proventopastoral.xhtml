@@ -10,10 +10,14 @@
 
 	<h:form id="form">
 
+		<div align="left" >
+			<p:outputLabel value="Módulo de #{rotinaControlador.perfil.nome} - Provento Pastoral" 
+				style="color: #8B0000; font-size: large; font-weight: bold;"/>
+		</div>
+
 		<p:growl id="msgs" showDetail="true" />
 
-		<p:panel id="painel" header="Relatório de provento pastoral"
-			style="margin-bottom:10px;">
+		<p:panel id="painel" style="margin-bottom:10px;">
 
 			<h:panelGrid columns="9" cellpadding="5">
 

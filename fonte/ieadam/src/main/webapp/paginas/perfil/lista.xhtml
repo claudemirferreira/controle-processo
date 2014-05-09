@@ -9,19 +9,14 @@
 
 	<h:form id="form">
 	
-		<div class="centro" align="center">
+		<div class="centro" align="left">
 			 <p:outputPanel>
 			 	<ui:repeat var="perfil" value="#{perfilControlador.listaPerfilUsuario}">
-						<h:commandLink update=":form" 
-							actionListener="#{rotinaControlador.telaRotinas(perfil)}">
-							
-							<p:graphicImage value="#{perfil.imagem}" style="padding-left: 5px; padding-bottom: 5px; 
-								width:150px; height: 100px;"/>
-							
-						</h:commandLink>
+					<h:commandLink update=":form" actionListener="#{rotinaControlador.telaRotinas(perfil)}" >
+						<p:graphicImage value="#{perfil.imagem}" style="padding-left: 10px; padding-bottom: 10px; " />
+					</h:commandLink>
 			 	</ui:repeat>
 			 </p:outputPanel>
 		</div>
-		
 	</h:form>
 </ui:component>

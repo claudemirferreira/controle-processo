@@ -12,7 +12,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -236,7 +235,7 @@ public class RelatorioSaldoCongregacao implements Serializable {
 			byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params,
 					arquivo);
 			
-			if (relatorio.length < 1000 ){
+			if (relatorio == null || relatorio.length < 1000 ){
 				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
 				FileInputStream file = new FileInputStream(new File(arquivo));
 				relatorio = Util.getBytes(file);
