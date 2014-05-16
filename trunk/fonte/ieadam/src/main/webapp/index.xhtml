@@ -14,19 +14,24 @@
 	<style type="text/css">
 body {
 	background-color: #eeeeee;
-	font-size: 12px
+	font-size: 12px;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+	
 }
 </style>
 </h:head>
 <h:body>
 		<p:layout fullPage="true">
 		
-			<p:layoutUnit position="north" id="tp_titulo">
+			<p:layoutUnit position="north" id="tp_titulo" >
 				<ui:include src="/paginas/navigation.xhtml" />
 			</p:layoutUnit>
 
-			<p:layoutUnit id="formPrincipal" position="center">
-				<div align="right" style="background: #eaeaea;">
+			<p:layoutUnit id="formPrincipal" position="center" style="width:90%">
+				<div align="right" style="background: #eaeaea; width:">
 					<p:outputLabel value="Usuário: "
 						style="color: #000000; font-weight:bold; font-size: large;" />
 					<p:outputLabel value="#{usuarioControlador.usuario.nome}"
