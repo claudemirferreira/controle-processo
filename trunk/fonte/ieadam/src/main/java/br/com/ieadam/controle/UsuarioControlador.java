@@ -61,6 +61,7 @@ public class UsuarioControlador {
 	private final String TELA_CADASTRO = "paginas/usuario/cadastro.xhtml";
 	private final String TELA_PESQUISA = "paginas/usuario/pesquisa.xhtml";
 	private final String TELA_ALTERAR_SENHA = "paginas/usuario/alterarSenha.xhtml";
+	private final String TELA_PERFIL = "paginas/perfil/lista.xhtml";
 
 	public void init() {
 		this.sistema = sistemaServico.findByCodigo("IEADAM");
@@ -105,7 +106,7 @@ public class UsuarioControlador {
 		this.telaCadastro();
 	}
 	
-	public void editarUsuario(){
+	public void editarSenha(){
 		this.entidade = (Usuario) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_ALTERAR_SENHA);
@@ -113,7 +114,7 @@ public class UsuarioControlador {
 	
 	public void salvarSenha(){
 		this.servico.salvar(usuario);
-		this.paginaCentralControlador.setPaginaCentral(this.TELA_ALTERAR_SENHA);
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_PERFIL);
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(
@@ -123,6 +124,10 @@ public class UsuarioControlador {
 	
 	public void telaListaRotina(){
 		this.paginaCentralControlador.setPaginaCentral("paginas/rotina/lista.xhtml");
+	}
+	
+	public void telaListaPerfil(){
+		this.paginaCentralControlador.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
 
 	public void telaCadastro() {

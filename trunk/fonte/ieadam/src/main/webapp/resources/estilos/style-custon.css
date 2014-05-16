@@ -39,7 +39,6 @@ ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix.ui-
 .tp_titulo {
 	background-image: url(images/bg_titulo.png); 
 	background-repeat: no-repeat;
-/* 	font-weight: normal;  */
 	color: #8B0000; 
 	font-size: large;
 }
@@ -50,10 +49,8 @@ ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix.ui-
     top:50%;
     margin-left:-260px;
     margin-top:-135px;
-/*     margin: 80px auto; */
     width: 500px;
     height: 350px;
-/*     border: 2px solid #026736; */
     padding: 10px;
     text-align: center;
     font-family: calibri;
@@ -64,16 +61,14 @@ ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix.ui-
 .body {
   	font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
   	color: #404040;
- 	background-image: url(images/bg_login.png); 
+ 	background-image: url(../imagens/bg_login.png); 
 	background-repeat: no-repeat;
-	
 }
 
 .login {
   position: relative;
   margin: 0 auto;
   padding: 20px 20px 20px;
-  margin-top: 15%;
   width: 310px;
   background: white;
   border-radius: 3px;
