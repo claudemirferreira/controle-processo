@@ -9,22 +9,27 @@
 
 	<h:form id="menuForm">
 
-		<div id="header" style="height: 30px;">
+		<div style="height: 61px;">
 			<div id="menu" style=" width: 75%; float: left;">
-				<h:outputLabel value="SGR - Sistema de Geração de Relatórios"
-					style="color: #8B0000; font-size: xx-large; font-weight: bold; background-repeat: no-repeat;
-					background-image: url('resources/estilos/images/bg_titulo.png'); " />				
+				<p:graphicImage value="resources/imagens/bg_titulo.png" title="Início" />
 			</div>
 
-			<div align="right" style="background: #eaeaea;">
+			<div align="right" 
+				style="background: #eaeaea; ">
 				<h:commandLink update=":form"
 					actionListener="#{perfilControlador.listaPerfilPorSistemaPorUsuario}">
-					<p:graphicImage value="resources/estilos/images/ico_home.png"
+					<p:graphicImage value="resources/imagens/ico_home.png"
 						title="Início" />
 				</h:commandLink>
-
+				
+				<h:commandLink update=":form"
+					actionListener="#{usuarioControlador.editarSenha}">
+					<p:graphicImage value="resources/imagens/ico_conf.png"
+						title="Alterar Senha" style="padding-left: 10px;"/>
+				</h:commandLink>
+				
 				<h:commandLink update=":form" action="#{usuarioControlador.logout}">
-					<p:graphicImage value="resources/estilos/images/ico_sair.png"
+					<p:graphicImage value="resources/imagens/ico_sair.png"
 						title="Sair" style="padding-left: 10px;" />
 				</h:commandLink>
 
