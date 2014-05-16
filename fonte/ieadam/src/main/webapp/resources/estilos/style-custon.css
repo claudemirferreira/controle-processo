@@ -15,6 +15,15 @@
 	background: #eaeaea;
 }
 
+.ui-layout-unit.ui-widget.ui-widget-content.ui-corner-all.ui-layout-center.ui-layout-pane.ui-layout-pane-center {
+	width: 99.5% !important;
+	height:86% !important;
+/* 	margin-left: 5px !important; */
+/* 	margin-right: 5px !important; */
+/* 	margin-top: 5px !important; */
+	margin-bottom: 5px !important;
+}
+
 .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.ui-priority-primary {
 	height: 30px!important;
 	background: #D3D3D3!important;
