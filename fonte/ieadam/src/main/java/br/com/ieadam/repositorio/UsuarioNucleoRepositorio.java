@@ -1,5 +1,7 @@
 package br.com.ieadam.repositorio;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.UsuarioNucleo;
+import br.com.ieadam.dominio.UsuarioZona;
 
 public interface UsuarioNucleoRepositorio extends
 		JpaRepository<UsuarioNucleo, Long> {
@@ -22,4 +25,7 @@ public interface UsuarioNucleoRepositorio extends
 	@Query("delete from UsuarioNucleo a where a.usuario = :usuario and  a.nucleo = :nucleo")
 	void deleteByUsuarioAndByNucleo(@Param("usuario") Usuario usuario,
 			@Param("nucleo") Nucleo nucleo);
+	
+	@Query("select a from UsuarioNucleo a where a.usuario = :usuario")
+	List<UsuarioNucleo> findByUsuario(@Param("usuario") Usuario usuario);
 }

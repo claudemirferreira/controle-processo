@@ -1,5 +1,6 @@
 package br.com.ieadam.servico;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,19 @@ public class UsuarioZonaServicoImpl implements UsuarioZonaServico {
 	@Override
 	public void deleteByUsuarioAndByZona(Usuario usuario, Zona zona) {
 		repositorio.deleteByUsuarioAndByZona(usuario, zona);
+	}
+	
+	@Override
+	public List<Zona> findByUsuario(Usuario usuario) {
 		
+		List<UsuarioZona> lista = repositorio.findByUsuario(usuario);
+		List<Zona> zonas = new ArrayList<Zona>();
+		
+		for (UsuarioZona usuarioZona : lista) {
+			zonas.add(usuarioZona.getZona());
+		}
+		
+		return zonas;
 	}
 
 }

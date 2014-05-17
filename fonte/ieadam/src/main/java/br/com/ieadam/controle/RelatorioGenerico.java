@@ -29,6 +29,9 @@ import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
+import br.com.ieadam.servico.UsuarioAreaServico;
+import br.com.ieadam.servico.UsuarioNucleoServico;
+import br.com.ieadam.servico.UsuarioZonaServico;
 import br.com.ieadam.servico.ZonaServico;
 
 @ManagedBean
@@ -56,6 +59,15 @@ public class RelatorioGenerico implements Serializable {
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
 
+	@ManagedProperty(value = "#{usuarioAreaServicoImpl}")
+	private UsuarioAreaServico usuarioAreaServico;
+	
+	@ManagedProperty(value = "#{usuarioNucleoServicoImpl}")
+	private UsuarioNucleoServico usuarioNucleoServico;
+	
+	@ManagedProperty(value = "#{usuarioZonaServicoImpl}")
+	private UsuarioZonaServico usuarioZonaServico;
+
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 
@@ -69,9 +81,9 @@ public class RelatorioGenerico implements Serializable {
 
 		// chamada responsavel por preencher os combos de acordo com o nivel de
 		// acesso do pastor
-		this.filtroRelatorioDTO.preencherCombos(
+		this.filtroRelatorioDTO.preencherCombosNovaVersao(
 				this.filtroRelatorioDTO.getUsuarioLogado(), zonaServico,
-				nucleoServico, areaServico);
+				nucleoServico, areaServico, this.usuarioZonaServico, this.usuarioNucleoServico, this.usuarioAreaServico);
 
 		this.parametro = new Parametro();
 
@@ -181,4 +193,27 @@ public class RelatorioGenerico implements Serializable {
 		this.nucleoServico = nucleoServico;
 	}
 
+	public UsuarioAreaServico getUsuarioAreaServico() {
+		return usuarioAreaServico;
+	}
+
+	public void setUsuarioAreaServico(UsuarioAreaServico usuarioAreaServico) {
+		this.usuarioAreaServico = usuarioAreaServico;
+	}
+
+	public UsuarioNucleoServico getUsuarioNucleoServico() {
+		return usuarioNucleoServico;
+	}
+
+	public void setUsuarioNucleoServico(UsuarioNucleoServico usuarioNucleoServico) {
+		this.usuarioNucleoServico = usuarioNucleoServico;
+	}
+
+	public UsuarioZonaServico getUsuarioZonaServico() {
+		return usuarioZonaServico;
+	}
+
+	public void setUsuarioZonaServico(UsuarioZonaServico usuarioZonaServico) {
+		this.usuarioZonaServico = usuarioZonaServico;
+	}
 }

@@ -18,4 +18,5 @@ public interface UsuarioNucleoServico {
 
 	public UsuarioNucleo findByUsuarioAndByNucleo(Usuario usuario, Nucleo nucleo);
 
+	public List<Nucleo> findByUsuario(Usuario usuario);
 }

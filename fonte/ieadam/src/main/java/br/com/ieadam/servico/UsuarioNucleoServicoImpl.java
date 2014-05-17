@@ -1,5 +1,6 @@
 package br.com.ieadam.servico;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +43,16 @@ public class UsuarioNucleoServicoImpl implements UsuarioNucleoServico {
 
 	}
 
+	@Override
+	public List<Nucleo> findByUsuario(Usuario usuario) {
+		
+		List<UsuarioNucleo> lista = repositorio.findByUsuario(usuario);
+		List<Nucleo> nucleos = new ArrayList<Nucleo>();
+		
+		for (UsuarioNucleo usuarioNucleo : lista) {
+			nucleos.add(usuarioNucleo.getNucleo());
+		}
+		
+		return nucleos;
+	}
 }
