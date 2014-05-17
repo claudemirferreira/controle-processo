@@ -18,4 +18,5 @@ public interface UsuarioZonaServico {
 
 	public UsuarioZona findByUsuarioAndByZona(Usuario usuario, Zona zona);
 
+	public List<Zona> findByUsuario(Usuario usuario);
 }

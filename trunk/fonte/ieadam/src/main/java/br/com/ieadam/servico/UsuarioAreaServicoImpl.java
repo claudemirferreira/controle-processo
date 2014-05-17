@@ -1,13 +1,14 @@
 package br.com.ieadam.servico;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.UsuarioArea;
-import br.com.ieadam.dominio.Area;
 import br.com.ieadam.repositorio.UsuarioAreaRepositorio;
 
 @Service
@@ -41,6 +42,19 @@ public class UsuarioAreaServicoImpl implements UsuarioAreaServico {
 	public void deleteByUsuarioAndByArea(Usuario usuario, Area area) {
 		repositorio.deleteByUsuarioAndByArea(usuario, area);
 		
+	}
+
+	@Override
+	public List<Area> findByUsuario(Usuario usuario) {
+		
+		List<UsuarioArea> lista = repositorio.findByUsuario(usuario);
+		List<Area> areas = new ArrayList<Area>();
+		
+		for (UsuarioArea usuarioArea : lista) {
+			areas.add(usuarioArea.getArea());
+		}
+		
+		return areas;
 	}
 
 }

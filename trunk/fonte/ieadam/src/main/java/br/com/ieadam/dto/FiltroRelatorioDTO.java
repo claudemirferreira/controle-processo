@@ -12,6 +12,9 @@ import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.NucleoServico;
+import br.com.ieadam.servico.UsuarioAreaServico;
+import br.com.ieadam.servico.UsuarioNucleoServico;
+import br.com.ieadam.servico.UsuarioZonaServico;
 import br.com.ieadam.servico.ZonaServico;
 
 public class FiltroRelatorioDTO implements Serializable {
@@ -189,7 +192,54 @@ public class FiltroRelatorioDTO implements Serializable {
 	public void setMesFim(Mes mesFim) {
 		this.mesFim = mesFim;
 	}
+	
+	public void preencherCombosNovaVersao(Usuario usuario, ZonaServico zonaServico,
+			NucleoServico nucleoServico, AreaServico areaServico,
+			UsuarioZonaServico usuarioZonaServico, UsuarioNucleoServico usuarioNucleoServico, UsuarioAreaServico usuarioAreaServico) {
 
+		this.setZonas(new ArrayList<Zona>());
+		this.setNucleos(new ArrayList<Nucleo>());
+		this.setAreas(new ArrayList<Area>());
+		
+		if (!usuario.isIn_privilegio()) {
+			
+			if (usuario.isZona()) {
+				this.setZonas(usuarioZonaServico.findByUsuario(usuario));
+				
+				if (this.getZonas().size() == 1) {
+					this.setZona(this.getZonas().iterator().next());
+					this.setNucleos(nucleoServico.findByZona(this.getZonas()
+							.iterator().next().getIdZona()));
+				}
+			} else if (usuario.isNucleo()) {
+				this.setNucleos(usuarioNucleoServico.findByUsuario(usuario));
+				if (this.getNucleos().size() > 0) {
+					this.setZona(zonaServico.findOne(this.getNucleos().iterator().next().getIdZona()));
+					if (this.getNucleos().size() == 1) {
+						this.setNucleo(this.getNucleos().iterator().next());
+						this.setAreas(areaServico.findByNucleo(this.getNucleos().iterator().next().getIdNucleo()));
+					}
+				}
+			} else if (usuario.isArea()) {				
+				this.setAreas(usuarioAreaServico.findByUsuario(usuario));
+				if (this.getAreas().size() > 0) {
+					this.setNucleo(nucleoServico.findOne(this.getAreas().iterator().next().getIdNucleo()));
+					if (this.getAreas().size() == 1) {
+						this.setArea(this.getAreas().iterator().next());
+					}
+					if (this.getNucleos().size() > 0) {
+						this.setZona(zonaServico.findOne(this.getNucleos().iterator().next().getIdZona()));
+					}
+				}
+			}
+			
+		} else {
+			this.setZonas(zonaServico.listarTodosPorSituacao("A"));
+		}
+		
+	}
+	
+	/*
 	public void preencherCombos(Usuario usuario, ZonaServico zonaServico,
 			NucleoServico nucleoServico, AreaServico areaServico) {
 		
@@ -243,4 +293,5 @@ public class FiltroRelatorioDTO implements Serializable {
 			this.setZonas(zonaServico.listarTodosPorSituacao("A"));
 		}
 	}
+	*/
 }
