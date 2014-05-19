@@ -15,4 +15,7 @@ public interface AreaRepositorio extends JpaRepository<Area, Long> {
 
 	@Query("select a from Area a where a.idPastor = :membro")
 	public List<Area> findByMembro(@Param("membro") int membro);
+	
+	@Query("select a from Area a where a.idPastor = :membro and a.idNucleo = :idNucleo")
+	public List<Area> findByMembroAndNucleo(@Param("membro") int membro, @Param("idNucleo") int idNucleo);
 }

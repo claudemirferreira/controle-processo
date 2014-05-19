@@ -15,4 +15,6 @@ public interface AreaServico {
 	public List<Area> findByNucleo(int nucleo);
 
 	public List<Area> findByMembro(int membro);
+	
+	public List<Area> findByMembroAndNucleo(int membro, int idNucleo);
 }

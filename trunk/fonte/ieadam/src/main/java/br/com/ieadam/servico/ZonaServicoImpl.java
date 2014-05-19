@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.repositorio.ZonaRepositorio;
+import br.com.ieadam.repositorio.ZonaRepositorioSql;
 
 @Service
 public class ZonaServicoImpl implements ZonaServico, Serializable {
@@ -16,6 +17,9 @@ public class ZonaServicoImpl implements ZonaServico, Serializable {
 
 	@Autowired
 	private ZonaRepositorio zonaRepositorio;
+	
+	@Autowired
+	private ZonaRepositorioSql zonaRepositorioSql;
 
 	@Override
 	public List<Zona> listarTodos() {
@@ -45,5 +49,10 @@ public class ZonaServicoImpl implements ZonaServico, Serializable {
 	
 	public Zona findOne(int id) {
 		return this.zonaRepositorio.findOne(id);
+	}
+
+	@Override
+	public List<Zona> listaZonaUsuario(int usuarioId) {
+		return zonaRepositorioSql.listaZonaUsuario(usuarioId);
 	}
 }

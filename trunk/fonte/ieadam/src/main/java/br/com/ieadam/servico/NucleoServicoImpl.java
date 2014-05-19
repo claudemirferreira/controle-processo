@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ieadam.dominio.Nucleo;
+import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.repositorio.NucleoRepositorio;
+import br.com.ieadam.repositorio.NucleoRepositorioSql;
 
 @Service
 public class NucleoServicoImpl implements NucleoServico, Serializable {
@@ -16,6 +18,9 @@ public class NucleoServicoImpl implements NucleoServico, Serializable {
 
 	@Autowired
 	private NucleoRepositorio repositorio;
+
+	@Autowired
+	private NucleoRepositorioSql repositorioSql;
 
 	@Override
 	public List<Nucleo> listarTodos() {
@@ -42,8 +47,13 @@ public class NucleoServicoImpl implements NucleoServico, Serializable {
 	public List<Nucleo> findByMembro(int membro) {
 		return this.repositorio.findByMembro(membro);
 	}
-	
+
 	public Nucleo findOne(int id) {
 		return this.repositorio.findOne(id);
+	}
+
+	@Override
+	public List<Nucleo> listaNucleoUsuario(Usuario usuario) {
+		return repositorioSql.listaNucleoUsuario(usuario);
 	}
 }

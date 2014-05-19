@@ -17,5 +17,7 @@ public interface ZonaServico {
 	public List<Zona> findByMembro(int membro);
 	
 	public Zona findOne(int id);
+	
+	public List<Zona> listaZonaUsuario(int usuarioId);
 
 }
