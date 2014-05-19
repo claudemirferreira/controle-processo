@@ -42,4 +42,9 @@ public class AreaServicoImpl implements AreaServico, Serializable {
 	public List<Area> findByMembro(int membro) {
 		return this.repositorio.findByMembro(membro);
 	}
+
+	@Override
+	public List<Area> findByMembroAndNucleo(int membro, int idNucleo) {
+		return this.repositorio.findByMembroAndNucleo(membro, idNucleo);
+	}
 }
