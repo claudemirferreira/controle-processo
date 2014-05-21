@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ieadam.dominio.Nucleo;
+import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.repositorio.ZonaRepositorio;
 import br.com.ieadam.repositorio.ZonaRepositorioSql;
@@ -55,4 +57,10 @@ public class ZonaServicoImpl implements ZonaServico, Serializable {
 	public List<Zona> listaZonaUsuario(int usuarioId) {
 		return zonaRepositorioSql.listaZonaUsuario(usuarioId);
 	}
+
+	@Override
+	public boolean isUsuarioDeZona(int usuarioId, int idZona) {
+		return zonaRepositorioSql.isUsuarioDeZona(usuarioId, idZona);
+	}
+
 }

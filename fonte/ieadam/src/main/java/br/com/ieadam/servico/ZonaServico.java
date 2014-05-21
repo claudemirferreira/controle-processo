@@ -2,6 +2,8 @@ package br.com.ieadam.servico;
 
 import java.util.List;
 
+import br.com.ieadam.dominio.Nucleo;
+import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.Zona;
 
 public interface ZonaServico {
@@ -19,5 +21,7 @@ public interface ZonaServico {
 	public Zona findOne(int id);
 	
 	public List<Zona> listaZonaUsuario(int usuarioId);
+	
+	public boolean isUsuarioDeZona(int usuarioId, int idZona);
 
 }

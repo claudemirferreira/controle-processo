@@ -35,7 +35,7 @@
 					<f:selectItems
 						value="#{relatorioProventoPastoral.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioProventoPastoral.atualizarNucleo}"
+					<p:ajax listener="#{relatorioProventoPastoral.filtroRelatorioDTO.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -44,7 +44,7 @@
 					<f:selectItems
 						value="#{relatorioProventoPastoral.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioProventoPastoral.atualizarNucleo}"
+					<p:ajax listener="#{relatorioProventoPastoral.filtroRelatorioDTO.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -64,7 +64,7 @@
 						value="#{relatorioProventoPastoral.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioProventoPastoral.atualizarArea}"
+					<p:ajax listener="#{relatorioProventoPastoral.filtroRelatorioDTO.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -74,7 +74,7 @@
 						value="#{relatorioProventoPastoral.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioProventoPastoral.atualizarArea}"
+					<p:ajax listener="#{relatorioProventoPastoral.filtroRelatorioDTO.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				

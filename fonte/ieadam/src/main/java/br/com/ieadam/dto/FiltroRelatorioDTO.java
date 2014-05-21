@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import br.com.ieadam.componentes.DataUtil;
 import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Mes;
@@ -17,6 +20,7 @@ import br.com.ieadam.servico.UsuarioNucleoServico;
 import br.com.ieadam.servico.UsuarioZonaServico;
 import br.com.ieadam.servico.ZonaServico;
 
+@Component
 public class FiltroRelatorioDTO implements Serializable {
 
 	private static final long serialVersionUID = 3229078578713401437L;
@@ -54,6 +58,24 @@ public class FiltroRelatorioDTO implements Serializable {
 	private Mes mesFim = Mes.JANEIRO;
 
 	private Mes[] meses;
+	
+	@Autowired
+	private ZonaServico zonaServico;
+	
+	@Autowired
+	private NucleoServico nucleoServico;
+	
+	@Autowired
+	private AreaServico areaServico;
+	
+	@Autowired
+	private UsuarioZonaServico usuarioZonaServico;
+	
+	@Autowired
+	private UsuarioNucleoServico usuarioNucleoServico;
+	
+	@Autowired
+	private UsuarioAreaServico usuarioAreaServico;
 
 	public FiltroRelatorioDTO() {
 		this.anos = DataUtil.pegarAnos();
@@ -193,22 +215,146 @@ public class FiltroRelatorioDTO implements Serializable {
 		this.mesFim = mesFim;
 	}
 	
-	public void preencherCombosNovaVersao(Usuario usuario, ZonaServico zonaServico,
-			NucleoServico nucleoServico, AreaServico areaServico,
-			UsuarioZonaServico usuarioZonaServico, UsuarioNucleoServico usuarioNucleoServico, UsuarioAreaServico usuarioAreaServico) {
+	public ZonaServico getZonaServico() {
+		return zonaServico;
+	}
+
+	public void setZonaServico(ZonaServico zonaServico) {
+		this.zonaServico = zonaServico;
+	}
+
+	public NucleoServico getNucleoServico() {
+		return nucleoServico;
+	}
+
+	public void setNucleoServico(NucleoServico nucleoServico) {
+		this.nucleoServico = nucleoServico;
+	}
+
+	public AreaServico getAreaServico() {
+		return areaServico;
+	}
+
+	public void setAreaServico(AreaServico areaServico) {
+		this.areaServico = areaServico;
+	}
+
+	public UsuarioZonaServico getUsuarioZonaServico() {
+		return usuarioZonaServico;
+	}
+
+	public void setUsuarioZonaServico(UsuarioZonaServico usuarioZonaServico) {
+		this.usuarioZonaServico = usuarioZonaServico;
+	}
+
+	public UsuarioNucleoServico getUsuarioNucleoServico() {
+		return usuarioNucleoServico;
+	}
+
+	public void setUsuarioNucleoServico(UsuarioNucleoServico usuarioNucleoServico) {
+		this.usuarioNucleoServico = usuarioNucleoServico;
+	}
+
+	public UsuarioAreaServico getUsuarioAreaServico() {
+		return usuarioAreaServico;
+	}
+
+	public void setUsuarioAreaServico(UsuarioAreaServico usuarioAreaServico) {
+		this.usuarioAreaServico = usuarioAreaServico;
+	}
+
+	public void preencherCombosNovaVersao(Usuario usuario) {
 
 		this.setZonas(new ArrayList<Zona>());
 		this.setNucleos(new ArrayList<Nucleo>());
 		this.setAreas(new ArrayList<Area>());
 		
-		this.setZonas(zonaServico.listaZonaUsuario(usuario.getId()));
+		this.setZonas(this.zonaServico.listaZonaUsuario(usuario.getId()));
 
 		if (this.getZonas().size() == 1) {
-			this.setNucleos(nucleoServico.listaNucleoUsuario(usuario));
+			this.setNucleos(this.nucleoServico.listaNucleoUsuario(usuario));
 		}
 		
 		if (this.getNucleos().size() == 1) {
-			this.setAreas(areaServico.findByMembroAndNucleo(usuario.getIdMembro(), this.getNucleos().iterator().next().getId()));
+			this.setAreas(this.areaServico.findByMembroAndNucleo(usuario.getIdMembro(), this.getNucleos().iterator().next().getId()));
 		}	
+	}
+	
+	/**
+	 * Metodo utilizado para atualizar o combo de Nucleo
+	 */
+	public void atualizarNucleo() {
+		boolean zonaAssociada = false;
+		
+		this.setNucleos(new ArrayList<Nucleo>());
+		
+		/*
+		 *  Verifica se a zona escolhida no combo esta associada ao usuario.
+		 *  SE estiver, devera listar todos os Nucleos desta zona e nao apenas o Nucleo associado.
+		 */
+		zonaAssociada = this.zonaServico.isUsuarioDeZona(
+				this.getUsuarioLogado().getId(), this.getZona().getId());
+		
+		/*
+		 *  SE a ZONA nao estiver associada ao usuario,
+		 *  deverah ser pesquisado os NUCLEOS que o usuario faz parte DESTA regiao 
+		 */
+		if (!zonaAssociada) {
+			this.setNucleos(this.nucleoServico.listaNucleoToUsuarioAndZona(
+					this.getUsuarioLogado(), this.getZona()));
+		}
+		
+		/*
+		 * SE a lista de nucleos estiver vazia, significa que o Usuario eh de REGIAO
+		 */
+		if (this.getNucleos().size() == 0) {
+			this.setNucleos(this.nucleoServico.findByZona(this.getZona().getId()));			
+		}
+		
+		/*
+		 *  SE a lista de NUCLEO estiver com tamanho 1,
+		 *  deverah ser setado o NUCLEO da lista no objeto NUCLEO e
+		 *  deverah atualizar o combo de AREA
+		 */
+		if (this.getNucleos().size() == 1) {
+			this.setNucleo(this.getNucleos().iterator().next());
+			this.atualizarArea();
+		}
+		
+		System.out.println(" nucleo = " + this.getNucleos().size());
+	}
+
+	/**
+	 * Metodo utilizado para atualizar o combo de Nucleo
+	 */
+	public void atualizarArea() {
+		
+		this.setAreas(new ArrayList<Area>());
+		
+		boolean nucleoAssociado = false;
+		
+		/*
+		 *  Verifica se o nucleo escolhido no combo esta associado ao usuario.
+		 *  SE estiver, devera listar todas as Areas deste nucleo e nao apenas a Area associada.
+		 */
+		nucleoAssociado = this.nucleoServico.isUsuarioDeNucleo(
+				this.getUsuarioLogado().getId(), this.getNucleo().getId());
+		
+		/*
+		 *  SE o NUCLEO nao estiver associada ao usuario,
+		 *  deverah ser pesquisada as AREAS que o usuario faz parte DESTE nucleo 
+		 */
+		if (!nucleoAssociado) {
+			
+			this.setAreas(this.areaServico.listaAreaToUsuarioAndNucleo(
+					this.getUsuarioLogado(), this.getNucleo()));
+		}
+		
+		/*
+		 * SE a lista de areas estiver vazia, significa que o Usuario eh de NUCLEO
+		 */
+		if (this.getAreas().size() == 0) {
+			this.setAreas(this.areaServico.findByNucleo(this.getNucleo().getId()));			
+		}
 	}
 }

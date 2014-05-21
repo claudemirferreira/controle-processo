@@ -11,7 +11,7 @@
 	<h:form id="form">
 
 		<div align="left" >
-			<p:outputLabel value="Módulo de #{rotinaControlador.perfil.nome} - saldo de Congregação" 
+			<p:outputLabel value="Módulo de #{rotinaControlador.perfil.nome} - Saldo de Congregação" 
 				style="color: #8B0000; font-size: large; font-weight: bold;"/>
 		</div>
 
@@ -35,7 +35,7 @@
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarNucleo}"
+					<p:ajax listener="#{relatorioSaldoCongregacao.filtroRelatorioDTO.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 
@@ -45,7 +45,7 @@
 					<f:selectItems
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarNucleo}"
+					<p:ajax listener="#{relatorioSaldoCongregacao.filtroRelatorioDTO.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 
@@ -67,7 +67,7 @@
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarArea}"
+					<p:ajax listener="#{relatorioSaldoCongregacao.filtroRelatorioDTO.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 
@@ -78,7 +78,7 @@
 						value="#{relatorioSaldoCongregacao.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioSaldoCongregacao.atualizarArea}"
+					<p:ajax listener="#{relatorioSaldoCongregacao.filtroRelatorioDTO.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 

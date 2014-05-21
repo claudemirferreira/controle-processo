@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ieadam.dominio.Area;
+import br.com.ieadam.dominio.Nucleo;
+import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.repositorio.AreaRepositorio;
+import br.com.ieadam.repositorio.AreaRepositorioSql;
 
 @Service
 public class AreaServicoImpl implements AreaServico, Serializable {
@@ -16,6 +19,9 @@ public class AreaServicoImpl implements AreaServico, Serializable {
 
 	@Autowired
 	private AreaRepositorio repositorio;
+
+	@Autowired
+	private AreaRepositorioSql repositorioSql;
 
 	@Override
 	public List<Area> listarTodos() {
@@ -47,4 +53,10 @@ public class AreaServicoImpl implements AreaServico, Serializable {
 	public List<Area> findByMembroAndNucleo(int membro, int idNucleo) {
 		return this.repositorio.findByMembroAndNucleo(membro, idNucleo);
 	}
+
+	@Override
+	public List<Area> listaAreaToUsuarioAndNucleo(Usuario usuario, Nucleo nucleo) {
+		return repositorioSql.listaAreaToUsuarioAndNucleo(usuario, nucleo);
+	}
+	
 }

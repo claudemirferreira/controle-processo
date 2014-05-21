@@ -3,6 +3,8 @@ package br.com.ieadam.servico;
 import java.util.List;
 
 import br.com.ieadam.dominio.Area;
+import br.com.ieadam.dominio.Nucleo;
+import br.com.ieadam.dominio.Usuario;
 
 public interface AreaServico {
 
@@ -17,4 +19,7 @@ public interface AreaServico {
 	public List<Area> findByMembro(int membro);
 	
 	public List<Area> findByMembroAndNucleo(int membro, int idNucleo);
+	
+	public List<Area> listaAreaToUsuarioAndNucleo(Usuario usuario, Nucleo nucleo);
+	
 }

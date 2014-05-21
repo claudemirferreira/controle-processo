@@ -35,7 +35,7 @@
 					<f:selectItems
 						value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioDebitoFinanceiro.atualizarNucleo}"
+					<p:ajax listener="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -44,7 +44,7 @@
 					<f:selectItems
 						value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioDebitoFinanceiro.atualizarNucleo}"
+					<p:ajax listener="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -64,7 +64,7 @@
 						value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioDebitoFinanceiro.atualizarArea}"
+					<p:ajax listener="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -74,7 +74,7 @@
 						value="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioDebitoFinanceiro.atualizarArea}"
+					<p:ajax listener="#{relatorioDebitoFinanceiro.filtroRelatorioDTO.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -105,14 +105,8 @@
 				
 			</h:panelGrid>
 				
-			<h:panelGrid columns="4" cellpadding="5">
-				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioDebitoFinanceiro.parametro.mes}" effect="fold"
-					editable="true" style="width:100%;">
-					<f:selectItems value="#{relatorioDebitoFinanceiro.parametro.meses}" />
-				</p:selectOneMenu>
-
+			<h:panelGrid columns="2" cellpadding="5">
+				
 				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
 				<p:inputText id="anoInicio" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
