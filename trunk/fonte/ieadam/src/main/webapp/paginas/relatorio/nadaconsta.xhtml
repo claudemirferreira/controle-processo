@@ -19,7 +19,7 @@
 					<f:selectItems
 						value="#{relatorioNadaConsta.filtroRelatorioDTO.zonas}" var="zona"
 						itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioNadaConsta.atualizarNucleo}"
+					<p:ajax listener="#{relatorioNadaConsta.filtroRelatorioDTO.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 
@@ -31,7 +31,7 @@
 						value="#{relatorioNadaConsta.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioNadaConsta.atualizarArea}"
+					<p:ajax listener="#{relatorioNadaConsta.filtroRelatorioDTO.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 

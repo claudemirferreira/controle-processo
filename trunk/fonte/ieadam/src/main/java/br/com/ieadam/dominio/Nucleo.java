@@ -23,10 +23,6 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	@Column(name = "situacao", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String situacao;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_coordenador")
-//	private Membro membro;
-	
 	@Column
 	private int idCoordenador;
 	
@@ -78,14 +74,6 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	public void setDataUltimaAtualizacao(Date dataUltimaAtualizacao) {
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
-
-//	public Zona getZona() {
-//		return zona;
-//	}
-//
-//	public void setZona(Zona zona) {
-//		this.zona = zona;
-//	}
 	
 	public int getIdZona() {
 		return idZona;
@@ -110,12 +98,5 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	public void setUsuarioNucleo(boolean usuarioNucleo) {
 		this.usuarioNucleo = usuarioNucleo;
 	}
-
-//	public Membro getMembro() {
-//		return membro;
-//	}
-//
-//	public void setMembro(Membro membro) {
-//		this.membro = membro;
-//	}
+	
 }

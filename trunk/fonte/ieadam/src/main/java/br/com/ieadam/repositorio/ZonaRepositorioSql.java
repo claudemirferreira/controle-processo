@@ -8,4 +8,6 @@ public interface ZonaRepositorioSql {
 
 	public List<Zona> listaZonaUsuario(int usuarioId);
 
+	public boolean isUsuarioDeZona(int usuarioId, int idZona);
+
 }

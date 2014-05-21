@@ -54,19 +54,11 @@ public class RelatorioMembro implements Serializable {
 
 	private boolean visualizar = false;
 
+	@ManagedProperty(value = "#{filtroRelatorioDTO}")
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
-
-	@ManagedProperty(value = "#{zonaServicoImpl}")
-	private ZonaServico zonaServico;
-
-	@ManagedProperty(value = "#{areaServicoImpl}")
-	private AreaServico areaServico;
-
-	@ManagedProperty(value = "#{nucleoServicoImpl}")
-	private NucleoServico nucleoServico;
 
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
@@ -74,15 +66,6 @@ public class RelatorioMembro implements Serializable {
 	@ManagedProperty(value = "#{messageControlador}")
 	private MessageControlador messageControlador;
 
-	@ManagedProperty(value = "#{usuarioAreaServicoImpl}")
-	private UsuarioAreaServico usuarioAreaServico;
-	
-	@ManagedProperty(value = "#{usuarioNucleoServicoImpl}")
-	private UsuarioNucleoServico usuarioNucleoServico;
-	
-	@ManagedProperty(value = "#{usuarioZonaServicoImpl}")
-	private UsuarioZonaServico usuarioZonaServico;
-	
 	private StreamedContent streamedContent;
 
 	public void init() {
@@ -99,9 +82,7 @@ public class RelatorioMembro implements Serializable {
 
 		// chamada responsavel por preencher os combos de acordo com o nivel de
 		// acesso do pastor
-		this.filtroRelatorioDTO.preencherCombosNovaVersao(
-				this.filtroRelatorioDTO.getUsuarioLogado(), zonaServico,
-				nucleoServico, areaServico, this.usuarioZonaServico, this.usuarioNucleoServico, this.usuarioAreaServico);
+		this.filtroRelatorioDTO.preencherCombosNovaVersao(this.filtroRelatorioDTO.getUsuarioLogado());
 
 		this.parametro = new Parametro();
 
@@ -166,46 +147,6 @@ public class RelatorioMembro implements Serializable {
 
 	}
 
-	public void atualizarNucleo() {
-		
-		this.filtroRelatorioDTO.setAreas(new ArrayList<Area>());
-		
-		List<Nucleo> nucleos = this.usuarioNucleoServico.findByUsuario(this.filtroRelatorioDTO.getUsuarioLogado());
-		
-		for (Nucleo nucleo : nucleos) {
-			this.filtroRelatorioDTO.setNucleos(new ArrayList<Nucleo>());
-			if (nucleo.getIdZona() == this.filtroRelatorioDTO.getZona().getId()) {
-				this.filtroRelatorioDTO.getNucleos().add(nucleo);
-			}
-		}
-		
-		if (this.filtroRelatorioDTO.getNucleos().size() == 0) {
-			this.filtroRelatorioDTO.setNucleos(this.nucleoServico.findByZona(this.filtroRelatorioDTO.getZona().getId()));			
-		}
-		
-		if (this.filtroRelatorioDTO.getNucleos().size() == 1) {
-			this.filtroRelatorioDTO.setAreas(this.areaServico.findByMembroAndNucleo(this.filtroRelatorioDTO.getUsuarioLogado().getIdMembro(), 
-					this.filtroRelatorioDTO.getNucleos().iterator().next().getId()));
-		}
-		
-		System.out.println(" nucleo = " + this.filtroRelatorioDTO.getNucleos().size());
-	}
-
-	public void atualizarArea() {
-		List<Area> areas = this.usuarioAreaServico.findByUsuario(this.filtroRelatorioDTO.getUsuarioLogado());
-		
-		for (Area area : areas) {
-			this.filtroRelatorioDTO.setAreas(new ArrayList<Area>());
-			if (area.getIdNucleo() == this.filtroRelatorioDTO.getNucleo().getId()) {
-				this.filtroRelatorioDTO.getAreas().add(area);
-			}
-		}
-		
-		if (this.filtroRelatorioDTO.getAreas().size() == 0) {
-			this.filtroRelatorioDTO.setAreas(this.areaServico.findByNucleo(this.filtroRelatorioDTO.getNucleo().getId()));			
-		}
-	}
-
 	public void redirecionarModuloPrincipalSecretaria() {
 		paginaCentralControlador.setPaginaCentral("paginas/perfil/lista.xhtml");
 	}
@@ -251,54 +192,6 @@ public class RelatorioMembro implements Serializable {
 		this.messageControlador = messageControlador;
 	}
 
-	public ZonaServico getZonaServico() {
-		return zonaServico;
-	}
-
-	public void setZonaServico(ZonaServico zonaServico) {
-		this.zonaServico = zonaServico;
-	}
-
-	public AreaServico getAreaServico() {
-		return areaServico;
-	}
-
-	public void setAreaServico(AreaServico areaServico) {
-		this.areaServico = areaServico;
-	}
-
-	public NucleoServico getNucleoServico() {
-		return nucleoServico;
-	}
-
-	public void setNucleoServico(NucleoServico nucleoServico) {
-		this.nucleoServico = nucleoServico;
-	}
-
-	public UsuarioAreaServico getUsuarioAreaServico() {
-		return usuarioAreaServico;
-	}
-
-	public void setUsuarioAreaServico(UsuarioAreaServico usuarioAreaServico) {
-		this.usuarioAreaServico = usuarioAreaServico;
-	}
-
-	public UsuarioNucleoServico getUsuarioNucleoServico() {
-		return usuarioNucleoServico;
-	}
-
-	public void setUsuarioNucleoServico(UsuarioNucleoServico usuarioNucleoServico) {
-		this.usuarioNucleoServico = usuarioNucleoServico;
-	}
-
-	public UsuarioZonaServico getUsuarioZonaServico() {
-		return usuarioZonaServico;
-	}
-
-	public void setUsuarioZonaServico(UsuarioZonaServico usuarioZonaServico) {
-		this.usuarioZonaServico = usuarioZonaServico;
-	}
-	
 	public StreamedContent getStreamedContent() {
 		return streamedContent;
 	}

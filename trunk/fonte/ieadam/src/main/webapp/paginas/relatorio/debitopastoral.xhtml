@@ -35,7 +35,7 @@
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioDebitoPastoral.atualizarNucleo}"
+					<p:ajax listener="#{relatorioDebitoPastoral.filtroRelatorioDTO.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -44,7 +44,7 @@
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioDebitoPastoral.atualizarNucleo}"
+					<p:ajax listener="#{relatorioDebitoPastoral.filtroRelatorioDTO.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -64,7 +64,7 @@
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioDebitoPastoral.atualizarArea}"
+					<p:ajax listener="#{relatorioDebitoPastoral.filtroRelatorioDTO.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -74,7 +74,7 @@
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioDebitoPastoral.atualizarArea}"
+					<p:ajax listener="#{relatorioDebitoPastoral.filtroRelatorioDTO.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -103,35 +103,13 @@
 				</p:selectOneMenu>
 				
 			</h:panelGrid>
-			
-			<h:panelGrid columns="4" cellpadding="5">
-				<p:outputLabel value="Mês Início:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.mesInicio}"
-					effect="fold" editable="true" style="width:100%;">
-					<f:selectItems
-						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.meses}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Ano Inicio:" styleClass="ui-priority-primary" />
+	
+			<h:panelGrid columns="2" cellpadding="5">
+				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
 				<p:inputText id="anoInicio" styleClass="ui-priority-primary"
 					style="width:50px;" required="true"
 					requiredMessage="O ano deve ser informado"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.anoInicio}" />
-
-				<p:outputLabel value="Mês Fim:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.mesFim}"
-					effect="fold" editable="true" style="width:100%;">
-					<f:selectItems
-						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.meses}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Ano Fim:" styleClass="ui-priority-primary" />
-				<p:inputText id="anoFim" styleClass="ui-priority-primary"
-					style="width:50px;" required="true"
-					requiredMessage="O ano deve ser informado"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.anoFim}" />
+					value="#{relatorioDebitoPastoral.parametro.ano}" />
 			</h:panelGrid>
 
 			<f:facet name="footer">

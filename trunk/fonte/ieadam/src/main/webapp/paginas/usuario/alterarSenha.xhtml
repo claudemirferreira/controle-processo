@@ -15,23 +15,9 @@
 			<h:panelGrid id="panelCadastro" columns="6" cellpadding="4">
 				<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
 				<p:inputText id="nome" value="#{usuarioControlador.entidade.nome}" style="width:300px;" disabled="true"/>
-				
-				<p:outputLabel value="Privilegio:" styleClass="ui-priority-primary" />
-				<p:selectBooleanCheckbox disabled="true"
-					value="#{usuarioControlador.entidade.in_privilegio}" />
-
-				<p:outputLabel value="Região:" styleClass="ui-priority-primary" />
-				<p:selectBooleanCheckbox disabled="true" value="#{usuarioControlador.entidade.zona}" />
 
 				<p:outputLabel value="Login:" styleClass="ui-priority-primary" />
 				<p:inputText id="login" value="#{usuarioControlador.entidade.login}" disabled="true"/>
-
-				<p:outputLabel value="Area:" styleClass="ui-priority-primary" />
-				<p:selectBooleanCheckbox disabled="true" value="#{usuarioControlador.entidade.area}" />
-
-				<p:outputLabel value="Nucelo:" styleClass="ui-priority-primary" />
-				<p:selectBooleanCheckbox disabled="true"
-					value="#{usuarioControlador.entidade.nucleo}" />
 
 				<p:outputLabel value="Senha*:" styleClass="ui-priority-primary" />
 				<p:password redisplay="true"

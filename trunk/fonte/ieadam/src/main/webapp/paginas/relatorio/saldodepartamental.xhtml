@@ -25,7 +25,7 @@
 					<f:selectItems
 						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioSaldoDepartamento.atualizarNucleo}"
+					<p:ajax listener="#{relatorioSaldoDepartamento.filtroRelatorioDTO.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 
@@ -37,7 +37,7 @@
 						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioSaldoDepartamento.atualizarArea}"
+					<p:ajax listener="#{relatorioSaldoDepartamento.filtroRelatorioDTO.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Usuario;
+import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.repositorio.NucleoRepositorio;
 import br.com.ieadam.repositorio.NucleoRepositorioSql;
 
@@ -55,5 +56,15 @@ public class NucleoServicoImpl implements NucleoServico, Serializable {
 	@Override
 	public List<Nucleo> listaNucleoUsuario(Usuario usuario) {
 		return repositorioSql.listaNucleoUsuario(usuario);
+	}
+
+	@Override
+	public List<Nucleo> listaNucleoToUsuarioAndZona(Usuario usuario, Zona zona) {
+		return repositorioSql.listaNucleoToUsuarioAndZona(usuario, zona);
+	}
+
+	@Override
+	public boolean isUsuarioDeNucleo(int usuarioId, int idNucleo) {
+		return repositorioSql.isUsuarioDeNucleo(usuarioId, idNucleo);
 	}
 }

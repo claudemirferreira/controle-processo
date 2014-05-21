@@ -5,12 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -31,13 +26,6 @@ import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
-import br.com.ieadam.servico.AreaServico;
-import br.com.ieadam.servico.NucleoServico;
-import br.com.ieadam.servico.UsuarioAreaServico;
-import br.com.ieadam.servico.UsuarioNucleoServico;
-import br.com.ieadam.servico.UsuarioZonaServico;
-import br.com.ieadam.servico.ZonaServico;
-import br.com.ieadam.utils.IEADAMUtils;
 import br.com.ieadam.utils.PathRelatorios;
 
 import com.lowagie.text.DocumentException;
@@ -52,31 +40,14 @@ public class RelatorioDebitoSecretaria implements Serializable {
 	
 	private boolean visualizar = false;
 
+	@ManagedProperty(value = "#{filtroRelatorioDTO}")
 	private FiltroRelatorioDTO filtroRelatorioDTO;
 
 	@ManagedProperty(value = "#{relatorioUtil}")
 	private RelatorioUtil relatorioUtil;
 
-	@ManagedProperty(value = "#{zonaServicoImpl}")
-	private ZonaServico zonaServico;
-
-	@ManagedProperty(value = "#{areaServicoImpl}")
-	private AreaServico areaServico;
-
-	@ManagedProperty(value = "#{nucleoServicoImpl}")
-	private NucleoServico nucleoServico;
-
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
-
-	@ManagedProperty(value = "#{usuarioAreaServicoImpl}")
-	private UsuarioAreaServico usuarioAreaServico;
-	
-	@ManagedProperty(value = "#{usuarioNucleoServicoImpl}")
-	private UsuarioNucleoServico usuarioNucleoServico;
-	
-	@ManagedProperty(value = "#{usuarioZonaServicoImpl}")
-	private UsuarioZonaServico usuarioZonaServico;
 	
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
@@ -91,9 +62,7 @@ public class RelatorioDebitoSecretaria implements Serializable {
 
 		// chamada responsavel por preencher os combos de acordo com o nivel de
 		// acesso do pastor
-		this.filtroRelatorioDTO.preencherCombosNovaVersao(
-				this.filtroRelatorioDTO.getUsuarioLogado(), zonaServico,
-				nucleoServico, areaServico, this.usuarioZonaServico, this.usuarioNucleoServico, this.usuarioAreaServico);
+		this.filtroRelatorioDTO.preencherCombosNovaVersao(this.filtroRelatorioDTO.getUsuarioLogado());
 
 		this.parametro = new Parametro();
 
@@ -105,46 +74,6 @@ public class RelatorioDebitoSecretaria implements Serializable {
 		this.paginaCentralControlador
 				.setPaginaCentral("paginas/relatorio/debitosecretaria.xhtml");
 
-	}
-
-	public void atualizarNucleo() {
-		
-		this.filtroRelatorioDTO.setAreas(new ArrayList<Area>());
-		
-		List<Nucleo> nucleos = this.usuarioNucleoServico.findByUsuario(this.filtroRelatorioDTO.getUsuarioLogado());
-		
-		for (Nucleo nucleo : nucleos) {
-			this.filtroRelatorioDTO.setNucleos(new ArrayList<Nucleo>());
-			if (nucleo.getIdZona() == this.filtroRelatorioDTO.getZona().getId()) {
-				this.filtroRelatorioDTO.getNucleos().add(nucleo);
-			}
-		}
-		
-		if (this.filtroRelatorioDTO.getNucleos().size() == 0) {
-			this.filtroRelatorioDTO.setNucleos(this.nucleoServico.findByZona(this.filtroRelatorioDTO.getZona().getId()));			
-		}
-		
-		if (this.filtroRelatorioDTO.getNucleos().size() == 1) {
-			this.filtroRelatorioDTO.setAreas(this.areaServico.findByMembroAndNucleo(this.filtroRelatorioDTO.getUsuarioLogado().getIdMembro(), 
-					this.filtroRelatorioDTO.getNucleos().iterator().next().getId()));
-		}
-		
-		System.out.println(" nucleo = " + this.filtroRelatorioDTO.getNucleos().size());
-	}
-
-	public void atualizarArea() {
-		List<Area> areas = this.usuarioAreaServico.findByUsuario(this.filtroRelatorioDTO.getUsuarioLogado());
-		
-		for (Area area : areas) {
-			this.filtroRelatorioDTO.setAreas(new ArrayList<Area>());
-			if (area.getIdNucleo() == this.filtroRelatorioDTO.getNucleo().getId()) {
-				this.filtroRelatorioDTO.getAreas().add(area);
-			}
-		}
-		
-		if (this.filtroRelatorioDTO.getAreas().size() == 0) {
-			this.filtroRelatorioDTO.setAreas(this.areaServico.findByNucleo(this.filtroRelatorioDTO.getNucleo().getId()));			
-		}
 	}
 
 	public void redirecionarModuloPrincipalSecretaria() {
@@ -185,54 +114,6 @@ public class RelatorioDebitoSecretaria implements Serializable {
 		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
-	public ZonaServico getZonaServico() {
-		return zonaServico;
-	}
-
-	public void setZonaServico(ZonaServico zonaServico) {
-		this.zonaServico = zonaServico;
-	}
-
-	public AreaServico getAreaServico() {
-		return areaServico;
-	}
-
-	public void setAreaServico(AreaServico areaServico) {
-		this.areaServico = areaServico;
-	}
-
-	public NucleoServico getNucleoServico() {
-		return nucleoServico;
-	}
-
-	public void setNucleoServico(NucleoServico nucleoServico) {
-		this.nucleoServico = nucleoServico;
-	}
-	
-	public UsuarioAreaServico getUsuarioAreaServico() {
-		return usuarioAreaServico;
-	}
-
-	public void setUsuarioAreaServico(UsuarioAreaServico usuarioAreaServico) {
-		this.usuarioAreaServico = usuarioAreaServico;
-	}
-
-	public UsuarioNucleoServico getUsuarioNucleoServico() {
-		return usuarioNucleoServico;
-	}
-
-	public void setUsuarioNucleoServico(UsuarioNucleoServico usuarioNucleoServico) {
-		this.usuarioNucleoServico = usuarioNucleoServico;
-	}
-
-	public UsuarioZonaServico getUsuarioZonaServico() {
-		return usuarioZonaServico;
-	}
-
-	public void setUsuarioZonaServico(UsuarioZonaServico usuarioZonaServico) {
-		this.usuarioZonaServico = usuarioZonaServico;
-	}
-
 	public boolean isVisualizar() {
 		return visualizar;
 	}
@@ -252,20 +133,9 @@ public class RelatorioDebitoSecretaria implements Serializable {
         ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath(PathRelatorios.RELATORIO_SECRETARIA_DEBITO.getNome());
 
-		Calendar dataInicio = new GregorianCalendar(this.parametro.getAnoInicio(),
-				this.parametro.getMesInicio().getMes(), 1);
-		
-		Calendar dataFim = new GregorianCalendar(this.parametro.getAnoFim(),
-				this.parametro.getMesFim().getMes(), 1);
-		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
 		Map<String, Object> params = new HashMap<String, Object>();
 		
-		params.put("DATA_MES_ANO_INICIO", dateFormat.format(dataInicio.getTime()));
-		params.put("DATA_MES_ANO_FIM", dateFormat.format(dataFim.getTime()));
-		params.put("MES_ANO_INICIO", IEADAMUtils.getMesByIndice(this.parametro.getMesInicio().getMes())+"/"+this.parametro.getAnoInicio());
-		params.put("MES_ANO_FIM", IEADAMUtils.getMesByIndice(this.parametro.getMesFim().getMes())+"/"+this.parametro.getAnoFim());
+		params.put("DATA_ANO", this.parametro.getAno());
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
