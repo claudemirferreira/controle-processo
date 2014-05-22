@@ -35,7 +35,7 @@
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioDebitoPastoral.filtroRelatorioDTO.atualizarNucleo}"
+					<p:ajax listener="#{relatorioDebitoPastoral.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -44,7 +44,7 @@
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioDebitoPastoral.filtroRelatorioDTO.atualizarNucleo}"
+					<p:ajax listener="#{relatorioDebitoPastoral.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				

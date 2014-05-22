@@ -26,7 +26,7 @@
 					<f:selectItems
 						value="#{relatorioEstatistico.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioEstatistico.filtroRelatorioDTO.atualizarNucleo}"
+					<p:ajax listener="#{relatorioEstatistico.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 
@@ -38,7 +38,7 @@
 						value="#{relatorioEstatistico.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioEstatistico.filtroRelatorioDTO.atualizarArea}"
+					<p:ajax listener="#{relatorioEstatistico.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 
