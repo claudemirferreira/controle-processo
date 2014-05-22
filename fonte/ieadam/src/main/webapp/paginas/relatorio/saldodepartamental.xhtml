@@ -15,12 +15,22 @@
 				style="color: #8B0000; font-size: large; font-weight: bold;"/>
 		</div>
 		
-		<p:panel style="width:99%;">
+		<p:growl id="msgs" showDetail="true" />
 
-			<h:panelGrid columns="6" cellpadding="5">
-				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="zona"
-					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.zona.idZona}">
+		<p:panel id="painel" style="margin-bottom:10px;">
+
+			<h:panelGrid columns="9" cellpadding="5">
+
+<!-- BLOCO DE ZONA -->
+				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />				
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoDepartamento.filtroRelatorioDTO.zonas) == 0}"
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.zona.idZona}" > 
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>				
+
+				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoDepartamento.filtroRelatorioDTO.zonas) > 1}"
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.zona.idZona}" >
 					<f:selectItem itemLabel="Selecione a Região" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.zonas}"
@@ -28,11 +38,28 @@
 					<p:ajax listener="#{relatorioSaldoDepartamento.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoDepartamento.filtroRelatorioDTO.zonas) == 1}"
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.zona.idZona}" >
+					<f:selectItems
+						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioSaldoDepartamento.atualizarNucleo}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
 
+<!-- BLOCO DE NUCLEO -->				
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="nucleo"
-					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.nucleo.idNucleo}">
-					<f:selectItem itemLabel="Selecione o Núcleo" itemValue="" />
+
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoDepartamento.filtroRelatorioDTO.nucleos) == 0}"
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.nucleo.idNucleo}" > 
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoDepartamento.filtroRelatorioDTO.nucleos) > 1}"
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.nucleo.idNucleo}" >
+					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
@@ -40,15 +67,44 @@
 					<p:ajax listener="#{relatorioSaldoDepartamento.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoDepartamento.filtroRelatorioDTO.nucleos) == 1}"
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.nucleo.idNucleo}" >
+					<f:selectItems
+						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.nucleos}"
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioSaldoDepartamento.atualizarArea}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
 
+<!-- BLOCO DE AREA -->				
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="area"
-					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.area}">
-					<f:selectItem itemLabel="Selecione a Área" itemValue="" />
+			
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoDepartamento.filtroRelatorioDTO.areas) == 0}"
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.area.idArea}" > 
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>
+			
+				<p:selectOneMenu rendered="#{fn:length(relatorioSaldoDepartamento.filtroRelatorioDTO.areas) > 1}"
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.area.idArea}" > 
+					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioSaldoDepartamento.filtroRelatorioDTO.areas) == 1}"
+					value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.area.idArea}" >
+					<f:selectItems
+						value="#{relatorioSaldoDepartamento.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
+				
+			</h:panelGrid>
+			
+			<h:panelGrid columns="4" cellpadding="5">
 
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"

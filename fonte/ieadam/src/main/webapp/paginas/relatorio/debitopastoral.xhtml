@@ -64,7 +64,7 @@
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioDebitoPastoral.filtroRelatorioDTO.atualizarArea}"
+					<p:ajax listener="#{relatorioDebitoPastoral.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -74,7 +74,7 @@
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioDebitoPastoral.filtroRelatorioDTO.atualizarArea}"
+					<p:ajax listener="#{relatorioDebitoPastoral.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				

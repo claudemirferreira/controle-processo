@@ -67,7 +67,7 @@
 						value="#{relatorioMembro.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioMembro.filtroRelatorioDTO.atualizarArea}"
+					<p:ajax listener="#{relatorioMembro.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 
@@ -78,7 +78,7 @@
 						value="#{relatorioMembro.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioMembro.filtroRelatorioDTO.atualizarArea}"
+					<p:ajax listener="#{relatorioMembro.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 
