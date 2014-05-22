@@ -18,10 +18,18 @@
 
 		<p:panel id="painel" style="margin-bottom:10px;">
 
-			<h:panelGrid columns="6" cellpadding="5">
-				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="zona"
-					value="#{relatorioEstatistico.filtroRelatorioDTO.zona.idZona}">
+			<h:panelGrid columns="9" cellpadding="5">
+
+<!-- BLOCO DE ZONA -->
+				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />				
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioEstatistico.filtroRelatorioDTO.zonas) == 0}"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.zona.idZona}" > 
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>				
+
+				<p:selectOneMenu rendered="#{fn:length(relatorioEstatistico.filtroRelatorioDTO.zonas) > 1}"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.zona.idZona}" >
 					<f:selectItem itemLabel="Selecione a Região" itemValue="" />
 					<f:selectItems
 						value="#{relatorioEstatistico.filtroRelatorioDTO.zonas}"
@@ -29,10 +37,27 @@
 					<p:ajax listener="#{relatorioEstatistico.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioEstatistico.filtroRelatorioDTO.zonas) == 1}"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.zona.idZona}" >
+					<f:selectItems
+						value="#{relatorioEstatistico.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioEstatistico.atualizarNucleo}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
 
+<!-- BLOCO DE NUCLEO -->				
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="nucleo"
-					value="#{relatorioEstatistico.filtroRelatorioDTO.nucleo.idNucleo}">
+
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioEstatistico.filtroRelatorioDTO.nucleos) == 0}"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.nucleo.idNucleo}" > 
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu rendered="#{fn:length(relatorioEstatistico.filtroRelatorioDTO.nucleos) > 1}"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.nucleo.idNucleo}" >
 					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioEstatistico.filtroRelatorioDTO.nucleos}"
@@ -41,16 +66,43 @@
 					<p:ajax listener="#{relatorioEstatistico.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioEstatistico.filtroRelatorioDTO.nucleos) == 1}"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.nucleo.idNucleo}" >
+					<f:selectItems
+						value="#{relatorioEstatistico.filtroRelatorioDTO.nucleos}"
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioEstatistico.atualizarArea}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
 
+<!-- BLOCO DE AREA -->				
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="area"
-					value="#{relatorioEstatistico.filtroRelatorioDTO.area.idArea}">
+			
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioEstatistico.filtroRelatorioDTO.areas) == 0}"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.area.idArea}" > 
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>
+			
+				<p:selectOneMenu rendered="#{fn:length(relatorioEstatistico.filtroRelatorioDTO.areas) > 1}"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.area.idArea}" > 
 					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioEstatistico.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioEstatistico.filtroRelatorioDTO.areas) == 1}"
+					value="#{relatorioEstatistico.filtroRelatorioDTO.area.idArea}" >
+					<f:selectItems
+						value="#{relatorioEstatistico.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
+				
 			</h:panelGrid>
+			
 			<h:panelGrid columns="4" cellpadding="5">
 				<p:outputLabel value="Mês Início:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"

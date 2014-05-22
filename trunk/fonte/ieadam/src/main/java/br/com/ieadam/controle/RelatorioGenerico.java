@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -37,6 +38,7 @@ import br.com.ieadam.servico.UsuarioAreaServico;
 import br.com.ieadam.servico.UsuarioNucleoServico;
 import br.com.ieadam.servico.UsuarioZonaServico;
 import br.com.ieadam.servico.ZonaServico;
+import br.com.ieadam.utils.IEADAMUtils;
 
 import com.lowagie.text.DocumentException;
 
@@ -104,6 +106,8 @@ public abstract class RelatorioGenerico implements Serializable {
 		this.parametro.setMes(DataUtil.pegarMescorrente());
 
 		this.visualizar = false;
+		
+		atualizarNucleo();
 
 		this.paginaCentralControlador.setPaginaCentral(telaRelatorio());
 
@@ -145,7 +149,14 @@ public abstract class RelatorioGenerico implements Serializable {
 		Calendar dataFim = new GregorianCalendar(this.parametro.getAnoFim(),
 				this.parametro.getMesFim().getMes(), 1);
 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
 		Map<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
+		params.put("DATA_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
+		
+		params.put("DATA_ANO", this.parametro.getAnoInicio());
 		params.put("DATA_INICIO", dataInicio.getTime());
 		params.put("DATA_FIM", dataFim.getTime());
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
@@ -295,6 +306,8 @@ public abstract class RelatorioGenerico implements Serializable {
 		zonaAssociada = this.zonaServico.isUsuarioDeZona(
 				this.filtroRelatorioDTO.getUsuarioLogado().getId(),
 				this.filtroRelatorioDTO.getZona().getId());
+		
+		this.filtroRelatorioDTO.setAreas(new ArrayList<Area>()); 
 
 		/*
 		 * SE a ZONA nao estiver associada ao usuario, deverah ser pesquisado os
@@ -320,14 +333,12 @@ public abstract class RelatorioGenerico implements Serializable {
 		 * SE a lista de NUCLEO estiver com tamanho 1, deverah ser setado o
 		 * NUCLEO da lista no objeto NUCLEO e deverah atualizar o combo de AREA
 		 */
-		if (this.filtroRelatorioDTO.getNucleos().size() == 1) {
+		else if (this.filtroRelatorioDTO.getNucleos().size() == 1) {
 			this.filtroRelatorioDTO.setNucleo(this.filtroRelatorioDTO
 					.getNucleos().iterator().next());
 			this.atualizarArea();
-		}
+		} 
 
-		System.out.println(" nucleo = "
-				+ this.filtroRelatorioDTO.getNucleos().size());
 	}
 
 	/**

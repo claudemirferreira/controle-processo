@@ -64,7 +64,7 @@
 						value="#{relatorioProventoPastoral.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioProventoPastoral.filtroRelatorioDTO.atualizarArea}"
+					<p:ajax listener="#{relatorioProventoPastoral.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -74,7 +74,7 @@
 						value="#{relatorioProventoPastoral.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioProventoPastoral.filtroRelatorioDTO.atualizarArea}"
+					<p:ajax listener="#{relatorioProventoPastoral.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				

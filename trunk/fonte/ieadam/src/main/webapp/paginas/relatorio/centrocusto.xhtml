@@ -10,15 +10,27 @@
 
 	<h:form id="form">
 
+		<div align="left" >
+			<p:outputLabel value="Módulo de #{rotinaControlador.perfil.nome} - Centro de Custo" 
+				style="color: #8B0000; font-size: large; font-weight: bold;"/>
+		</div>
+	
 		<p:growl id="msgs" showDetail="true" />
 
-		<p:panel id="painel" header="RELATÓRIO DE CENTRO DE CUSTO"
-			style="margin-bottom:10px;">
+		<p:panel id="painel" style="margin-bottom:10px;">
 
-			<h:panelGrid columns="6" cellpadding="5">
-				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="zona"
-					value="#{relatorioCentroCusto.filtroRelatorioDTO.zona.idZona}">
+			<h:panelGrid columns="9" cellpadding="5">
+
+<!-- BLOCO DE ZONA -->
+				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />				
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioCentroCusto.filtroRelatorioDTO.zonas) == 0}"
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.zona.idZona}" > 
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>				
+
+				<p:selectOneMenu rendered="#{fn:length(relatorioCentroCusto.filtroRelatorioDTO.zonas) > 1}"
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.zona.idZona}" >
 					<f:selectItem itemLabel="Selecione a Região" itemValue="" />
 					<f:selectItems
 						value="#{relatorioCentroCusto.filtroRelatorioDTO.zonas}"
@@ -26,10 +38,27 @@
 					<p:ajax listener="#{relatorioCentroCusto.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioCentroCusto.filtroRelatorioDTO.zonas) == 1}"
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.zona.idZona}" >
+					<f:selectItems
+						value="#{relatorioCentroCusto.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioCentroCusto.atualizarNucleo}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
 
+<!-- BLOCO DE NUCLEO -->				
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="nucleo"
-					value="#{relatorioCentroCusto.filtroRelatorioDTO.nucleo.idNucleo}">
+
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioCentroCusto.filtroRelatorioDTO.nucleos) == 0}"
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.nucleo.idNucleo}" > 
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu rendered="#{fn:length(relatorioCentroCusto.filtroRelatorioDTO.nucleos) > 1}"
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.nucleo.idNucleo}" >
 					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioCentroCusto.filtroRelatorioDTO.nucleos}"
@@ -38,16 +67,43 @@
 					<p:ajax listener="#{relatorioCentroCusto.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioCentroCusto.filtroRelatorioDTO.nucleos) == 1}"
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.nucleo.idNucleo}" >
+					<f:selectItems
+						value="#{relatorioCentroCusto.filtroRelatorioDTO.nucleos}"
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioCentroCusto.atualizarArea}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+				
 
+<!-- BLOCO DE AREA -->				
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
-				<p:selectOneMenu id="area"
-					value="#{relatorioCentroCusto.filtroRelatorioDTO.area.idArea}">
+			
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioCentroCusto.filtroRelatorioDTO.areas) == 0}"
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.area.idArea}" > 
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>
+			
+				<p:selectOneMenu rendered="#{fn:length(relatorioCentroCusto.filtroRelatorioDTO.areas) > 1}"
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.area.idArea}" > 
 					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioCentroCusto.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
+				
+				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioCentroCusto.filtroRelatorioDTO.areas) == 1}"
+					value="#{relatorioCentroCusto.filtroRelatorioDTO.area.idArea}" >
+					<f:selectItems
+						value="#{relatorioCentroCusto.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
+				
 			</h:panelGrid>
+			
 			<h:panelGrid columns="4" cellpadding="5">
 				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
 				<p:selectOneMenu styleClass="ui-priority-primary"
