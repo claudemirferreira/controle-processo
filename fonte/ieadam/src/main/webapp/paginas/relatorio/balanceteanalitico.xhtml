@@ -40,7 +40,7 @@
 					<f:selectItems
 						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.atualizarNucleo}"
+					<p:ajax listener="#{relatorioBalanceteAnalitico.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
@@ -70,7 +70,7 @@
 						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.atualizarArea}"
+					<p:ajax listener="#{relatorioBalanceteAnalitico.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
 				
