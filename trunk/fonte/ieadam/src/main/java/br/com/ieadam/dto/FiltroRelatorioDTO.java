@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.faces.bean.ManagedProperty;
+
 import org.springframework.stereotype.Component;
 
 import br.com.ieadam.componentes.DataUtil;
@@ -59,22 +60,22 @@ public class FiltroRelatorioDTO implements Serializable {
 
 	private Mes[] meses;
 	
-	@Autowired
+	@ManagedProperty(value = "#{zonaServicoImpl}")
 	private ZonaServico zonaServico;
 	
-	@Autowired
+	@ManagedProperty(value = "#{nucleoServicoImpl}")
 	private NucleoServico nucleoServico;
 	
-	@Autowired
+	@ManagedProperty(value = "#{areaServicoImpl}")
 	private AreaServico areaServico;
 	
-	@Autowired
+	@ManagedProperty(value = "#{usuarioZonaServicoImpl}")
 	private UsuarioZonaServico usuarioZonaServico;
 	
-	@Autowired
+	@ManagedProperty(value = "#{usuarioNucleoServicoImpl}")
 	private UsuarioNucleoServico usuarioNucleoServico;
 	
-	@Autowired
+	@ManagedProperty(value = "#{usuarioAreaServicoImpl}")
 	private UsuarioAreaServico usuarioAreaServico;
 
 	public FiltroRelatorioDTO() {
@@ -227,58 +228,6 @@ public class FiltroRelatorioDTO implements Serializable {
 		return nucleoServico;
 	}
 
-	public void setNucleoServico(NucleoServico nucleoServico) {
-		this.nucleoServico = nucleoServico;
-	}
-
-	public AreaServico getAreaServico() {
-		return areaServico;
-	}
-
-	public void setAreaServico(AreaServico areaServico) {
-		this.areaServico = areaServico;
-	}
-
-	public UsuarioZonaServico getUsuarioZonaServico() {
-		return usuarioZonaServico;
-	}
-
-	public void setUsuarioZonaServico(UsuarioZonaServico usuarioZonaServico) {
-		this.usuarioZonaServico = usuarioZonaServico;
-	}
-
-	public UsuarioNucleoServico getUsuarioNucleoServico() {
-		return usuarioNucleoServico;
-	}
-
-	public void setUsuarioNucleoServico(UsuarioNucleoServico usuarioNucleoServico) {
-		this.usuarioNucleoServico = usuarioNucleoServico;
-	}
-
-	public UsuarioAreaServico getUsuarioAreaServico() {
-		return usuarioAreaServico;
-	}
-
-	public void setUsuarioAreaServico(UsuarioAreaServico usuarioAreaServico) {
-		this.usuarioAreaServico = usuarioAreaServico;
-	}
-
-	public void preencherCombosNovaVersao(Usuario usuario) {
-
-		this.setZonas(new ArrayList<Zona>());
-		this.setNucleos(new ArrayList<Nucleo>());
-		this.setAreas(new ArrayList<Area>());
-		
-		this.setZonas(this.zonaServico.listaZonaUsuario(usuario.getId()));
-
-		if (this.getZonas().size() == 1) {
-			this.setNucleos(this.nucleoServico.listaNucleoUsuario(usuario));
-		}
-		
-		if (this.getNucleos().size() == 1) {
-			this.setAreas(this.areaServico.findByMembroAndNucleo(usuario.getIdMembro(), this.getNucleos().iterator().next().getId()));
-		}	
-	}
 	
 	/**
 	 * Metodo utilizado para atualizar o combo de Nucleo
