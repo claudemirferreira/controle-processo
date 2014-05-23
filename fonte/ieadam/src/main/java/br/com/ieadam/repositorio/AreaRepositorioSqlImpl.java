@@ -21,11 +21,16 @@ public class AreaRepositorioSqlImpl implements AreaRepositorioSql {
 	@Override
 	public List<Area> listaAreaToUsuarioAndNucleo(Usuario usuario, Nucleo nucleo) {
 
-		String SQL = "select b.* from ieadam_area b,  ieadam_usuario_area c  , ieadam_nucleo d"
-				+ "	where b.id_area = c.id_area and b.id_nucleo = d.id_nucleo " 
-				+ "	and b.id_pastor = " + usuario.getIdMembro()
-				+ "	and d.id_nucleo = " + nucleo.getId();
+//		String SQL = "select b.* from ieadam_area b,  ieadam_usuario_area c  , ieadam_nucleo d"
+//				+ "	where b.id_area = c.id_area and b.id_nucleo = d.id_nucleo " 
+//				+ "	and b.id_pastor = " + usuario.getIdMembro()
+//				+ "	and d.id_nucleo = " + nucleo.getId();
 
+		String SQL = "select b.* from ieadam_area b, ieadam_usuario_area c "
+				+ " where b.id_area = c.id_area "
+				+ " and b.id_nucleo = "+ nucleo.getId()
+				+ " and c.id_usuario = "+usuario.getId();
+		
 		System.out
 				.println("=========== inicio listaAreaToUsuarioAndNucleo ============= ");
 		System.out.println(SQL);

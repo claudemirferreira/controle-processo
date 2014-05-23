@@ -107,7 +107,7 @@ public abstract class RelatorioGenerico implements Serializable {
 
 		this.visualizar = false;
 		
-		atualizarNucleo();
+//		atualizarNucleo();
 
 		this.paginaCentralControlador.setPaginaCentral(telaRelatorio());
 
@@ -391,15 +391,21 @@ public abstract class RelatorioGenerico implements Serializable {
 				.listaZonaUsuario(usuario.getId()));
 
 		if (this.filtroRelatorioDTO.getZonas().size() == 1) {
-			this.filtroRelatorioDTO.setNucleos(this.nucleoServico
-					.listaNucleoUsuario(usuario));
+			this.filtroRelatorioDTO.setZona(this.filtroRelatorioDTO.getZonas().iterator().next());
+			this.atualizarNucleo();
+			
+//			this.filtroRelatorioDTO.setNucleos(this.nucleoServico
+//					.listaNucleoUsuario(usuario));
 		}
 
 		if (this.filtroRelatorioDTO.getNucleos().size() == 1) {
-			this.filtroRelatorioDTO.setAreas(this.areaServico
-					.findByMembroAndNucleo(usuario.getIdMembro(),
-							this.filtroRelatorioDTO.getNucleos().iterator()
-									.next().getId()));
+			this.filtroRelatorioDTO.setNucleo(this.filtroRelatorioDTO.getNucleos().iterator().next());
+			this.atualizarArea();
+			
+//				this.filtroRelatorioDTO.setAreas(this.areaServico
+//					.findByMembroAndNucleo(usuario.getIdMembro(),
+//							this.filtroRelatorioDTO.getNucleos().iterator()
+//									.next().getId()));
 		}
 	}
 
