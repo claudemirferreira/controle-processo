@@ -154,7 +154,7 @@ public abstract class RelatorioGenerico implements Serializable {
 		Map<String, Object> params = new HashMap<String, Object>();
 		
 		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
-		params.put("DATA_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
+		params.put("DATA_MES", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
 		
 		params.put("DATA_ANO", this.parametro.getAnoInicio());
 		params.put("DATA_INICIO", dataInicio.getTime());
