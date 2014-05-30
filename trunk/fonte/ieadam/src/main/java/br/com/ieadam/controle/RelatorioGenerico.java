@@ -107,8 +107,6 @@ public abstract class RelatorioGenerico implements Serializable {
 
 		this.visualizar = false;
 		
-//		atualizarNucleo();
-
 		this.paginaCentralControlador.setPaginaCentral(telaRelatorio());
 
 	}
@@ -152,28 +150,38 @@ public abstract class RelatorioGenerico implements Serializable {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Map<String, Object> params = new HashMap<String, Object>();
-		
+		System.out.println("========== listagem de parametro do relatório " + arquivo + "====================");
 		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
 		params.put("DATA_MES", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
-		
 		params.put("DATA_ANO", this.parametro.getAnoInicio());
 		params.put("DATA_INICIO", dataInicio.getTime());
 		params.put("DATA_FIM", dataFim.getTime());
+		
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
-
+		
+		System.out.println("DATA_MES_ANO = "+ dateFormat.format(dataInicio.getTime()));
+		System.out.println("DATA_MES = "+ IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
+		System.out.println("DATA_ANO = "+ this.parametro.getAnoInicio());
+		System.out.println("DATA_INICIO = "+ dataInicio.getTime());
+		System.out.println("DATA_FIM = "+ dataFim.getTime());
+		
+		System.out.println("ZONA = "+ this.filtroRelatorioDTO.getZona().getIdZona());
+		System.out.println("NUCLEO = " + this.filtroRelatorioDTO.getNucleo().getIdNucleo());
+		System.out.println("AREA = " + this.filtroRelatorioDTO.getArea().getIdArea());
+		
 		externalContext.setResponseContentType("application/pdf");
 
 		try {
 			byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params,
 					arquivo);
 
-			if (relatorio == null || relatorio.length < 1000) {
-				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
-				FileInputStream file = new FileInputStream(new File(arquivo));
-				relatorio = Util.getBytes(file);
-			}
+//			if (relatorio == null || relatorio.length < 1000) {
+//				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
+//				FileInputStream file = new FileInputStream(new File(arquivo));
+//				relatorio = Util.getBytes(file);
+//			}
 
 			externalContext.getResponseOutputStream().write(relatorio);
 
