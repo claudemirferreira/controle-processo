@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -134,13 +133,6 @@ public abstract class RelatorioGenerico implements Serializable {
 		ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath(nomeRelatorio());
 
-		// BLOCO USADO PARA TESTES
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		Usuario u = new Usuario();
-		u.setLogin("login");
-		usuarios.add(u);
-		// BLOCO USADO PARA TESTES
-
 		Calendar dataInicio = new GregorianCalendar(
 				this.parametro.getAnoInicio(), this.parametro.getMesInicio()
 						.getMes(), 1);
@@ -153,7 +145,8 @@ public abstract class RelatorioGenerico implements Serializable {
 		System.out.println("========== listagem de parametro do relatório " + arquivo + "====================");
 		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
 		params.put("DATA_MES", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
-		params.put("DATA_ANO", this.parametro.getAnoInicio());
+		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
+		params.put("DATA_ANO", this.parametro.getAnoInicio()+"");
 		params.put("DATA_INICIO", dataInicio.getTime());
 		params.put("DATA_FIM", dataFim.getTime());
 		
@@ -177,11 +170,11 @@ public abstract class RelatorioGenerico implements Serializable {
 			byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params,
 					arquivo);
 
-//			if (relatorio == null || relatorio.length < 1000) {
-//				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
-//				FileInputStream file = new FileInputStream(new File(arquivo));
-//				relatorio = Util.getBytes(file);
-//			}
+			if (relatorio == null || relatorio.length < 1000) {
+				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
+				FileInputStream file = new FileInputStream(new File(arquivo));
+				relatorio = Util.getBytes(file);
+			}
 
 			externalContext.getResponseOutputStream().write(relatorio);
 
@@ -377,6 +370,13 @@ public abstract class RelatorioGenerico implements Serializable {
 					.listaAreaToUsuarioAndNucleo(
 							this.filtroRelatorioDTO.getUsuarioLogado(),
 							this.filtroRelatorioDTO.getNucleo()));
+			/*
+			 * SE a lista de AREA estiver com tamanho 1, deverah ser setado a
+			 * AREA da lista no objeto AREA
+			 */
+			if (this.filtroRelatorioDTO.getAreas().size() == 1)
+				this.filtroRelatorioDTO.setArea(this.filtroRelatorioDTO
+						.getAreas().iterator().next());
 		}
 
 		/*
@@ -401,19 +401,11 @@ public abstract class RelatorioGenerico implements Serializable {
 		if (this.filtroRelatorioDTO.getZonas().size() == 1) {
 			this.filtroRelatorioDTO.setZona(this.filtroRelatorioDTO.getZonas().iterator().next());
 			this.atualizarNucleo();
-			
-//			this.filtroRelatorioDTO.setNucleos(this.nucleoServico
-//					.listaNucleoUsuario(usuario));
 		}
 
 		if (this.filtroRelatorioDTO.getNucleos().size() == 1) {
 			this.filtroRelatorioDTO.setNucleo(this.filtroRelatorioDTO.getNucleos().iterator().next());
 			this.atualizarArea();
-			
-//				this.filtroRelatorioDTO.setAreas(this.areaServico
-//					.findByMembroAndNucleo(usuario.getIdMembro(),
-//							this.filtroRelatorioDTO.getNucleos().iterator()
-//									.next().getId()));
 		}
 	}
 

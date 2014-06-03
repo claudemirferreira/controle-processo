@@ -30,6 +30,12 @@
 					<f:selectItem itemLabel="BLOQUEADO(A)" itemValue="B" />
 				</p:selectOneMenu>
 
+				<p:outputLabel value="Telefone:" styleClass="ui-priority-primary" />
+				<p:inputText id="telefone" value="#{usuarioControlador.entidade.telefone}" />
+				
+				<p:outputLabel value="Email:" styleClass="ui-priority-primary" />
+				<p:inputText id="email" value="#{usuarioControlador.entidade.email}" />
+
 			</h:panelGrid>
 
 			<f:facet name="footer">
