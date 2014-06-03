@@ -21,6 +21,16 @@
 	</listener>
 
 	<filter>
+		<filter-name>IE9</filter-name>
+		<filter-class>br.com.ieadam.filtro.InternetExplorer9Filter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>IE9</filter-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</filter-mapping>
+
+	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>

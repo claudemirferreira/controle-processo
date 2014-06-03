@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.ieadam.dominio.Perfil;
@@ -87,6 +88,9 @@ public class UsuarioControlador {
 
 	public String salvar() {
 		this.servico.salvar(this.entidade);
+		
+		this.atualizarContexto();
+		
 		this.lista = servico.listarTodos();
 
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -107,19 +111,35 @@ public class UsuarioControlador {
 	}
 	
 	public void editarSenha(){
+		
 		this.entidade = (Usuario) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
+		
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_ALTERAR_SENHA);
 	}
 	
 	public void salvarSenha(){
-		this.servico.salvar(usuario);
+		this.servico.salvar(this.entidade);
+		
+		this.atualizarContexto();
+		
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PERFIL);
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(
 				"Operação realizada com sucesso!", null));
 		
+	}
+	
+	// Bloco para atualizar o usuario no contexto
+	public void atualizarContexto() {
+		Usuario u = this.servico.findByLogin(this.entidade.getLogin());
+
+		List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+
+		SecurityContextHolder.getContext().setAuthentication(
+				new UsernamePasswordAuthenticationToken(
+						u, null, grantedAuthorities));
 	}
 	
 	public void telaListaRotina(){

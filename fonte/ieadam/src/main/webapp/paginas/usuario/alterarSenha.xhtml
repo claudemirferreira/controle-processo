@@ -23,6 +23,12 @@
 				<p:password redisplay="true"
 					value="#{usuarioControlador.entidade.senha}" />
 
+				<p:outputLabel value="Telefone:" styleClass="ui-priority-primary" />
+				<p:inputText id="telefone" value="#{usuarioControlador.entidade.telefone}" />
+				
+				<p:outputLabel value="Email:" styleClass="ui-priority-primary" />
+				<p:inputText id="email" value="#{usuarioControlador.entidade.email}" />
+
 			</h:panelGrid>
 
 			<f:facet name="footer">
