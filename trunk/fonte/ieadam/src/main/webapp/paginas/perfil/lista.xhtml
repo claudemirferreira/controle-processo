@@ -13,7 +13,7 @@
 			 <p:outputPanel>
 			 	<ui:repeat var="perfil" value="#{perfilControlador.listaPerfilUsuario}">
 					<h:commandLink update=":form" actionListener="#{rotinaControlador.telaRotinas(perfil)}" >
-						<p:graphicImage value="#{perfil.imagem}" style="padding-left: 10px; padding-bottom: 10px; " />
+						<p:graphicImage value="#{perfil.imagem}" style="padding-left: 10px; padding-bottom: 10px; border: 0px !important;" />
 					</h:commandLink>
 			 	</ui:repeat>
 			 </p:outputPanel>
