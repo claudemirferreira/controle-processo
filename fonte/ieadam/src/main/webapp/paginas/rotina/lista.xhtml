@@ -15,7 +15,7 @@
 				 <p:outputPanel>
 				 	<ui:repeat var="rotina" value="#{rotinaControlador.lista}">
 						<h:commandLink update=":form" actionListener="#{pageController.parseUrl(rotina.acao)}" title="#{rotina.nome}">
-							<p:graphicImage value="#{rotina.imagem}" style="padding-left: 10px; padding-bottom: 10px; " />
+							<p:graphicImage value="#{rotina.imagem}" style="padding-left: 10px; padding-bottom: 10px;  border: 0px !important;" />
 						</h:commandLink>
 				 	</ui:repeat>
 				 </p:outputPanel>
