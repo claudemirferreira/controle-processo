@@ -33,7 +33,7 @@ public class InternetExplorer9Filter implements Filter {
      */
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
-        //Implementação obrigatória
+        //Implementacao obrigatoria
     }
 
     /**

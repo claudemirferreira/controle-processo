@@ -125,40 +125,50 @@ public abstract class RelatorioGenerico implements Serializable {
 	public void visualiarRelatorio() {
 		this.visualizar = true;
 	}
-
+	
 	public void processarPDF() throws IOException, DocumentException {
+		if(this.validarGeracaoRelatorio()) {
+			gerarRelatorio();
+		} else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = fc.getExternalContext();
+			ServletContext context = (ServletContext) externalContext.getContext();
+			String arquivo = context.getRealPath(nomeRelatorio());
+			
+			arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
+			FileInputStream file = new FileInputStream(new File(arquivo));
 
+			externalContext.getResponseOutputStream()
+					.write(Util.getBytes(file));
+			
+			fc.responseComplete();
+		}
+	}
+	
+	public void gerarRelatorio() throws IOException, DocumentException {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = fc.getExternalContext();
 		ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath(nomeRelatorio());
 
 		Calendar dataInicio = new GregorianCalendar(
-				this.parametro.getAnoInicio(), this.parametro.getMesInicio()
-						.getMes(), 1);
-		Calendar dataFim = new GregorianCalendar(this.parametro.getAnoFim(),
-				this.parametro.getMesFim().getMes(), 1);
-
+				this.parametro.getAnoInicio(), this.parametro.getMes().getMes(), 1);
+		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		System.out.println("========== listagem de parametro do relatório " + arquivo + "====================");
+
 		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
-		params.put("DATA_MES", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
 		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
 		params.put("DATA_ANO", this.parametro.getAnoInicio()+"");
-		params.put("DATA_INICIO", dataInicio.getTime());
-		params.put("DATA_FIM", dataFim.getTime());
-		
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
 		
 		System.out.println("DATA_MES_ANO = "+ dateFormat.format(dataInicio.getTime()));
-		System.out.println("DATA_MES = "+ IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
+		System.out.println("MES_ANO = "+ IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
 		System.out.println("DATA_ANO = "+ this.parametro.getAnoInicio());
-		System.out.println("DATA_INICIO = "+ dataInicio.getTime());
-		System.out.println("DATA_FIM = "+ dataFim.getTime());
 		
 		System.out.println("ZONA = "+ this.filtroRelatorioDTO.getZona().getIdZona());
 		System.out.println("NUCLEO = " + this.filtroRelatorioDTO.getNucleo().getIdNucleo());
@@ -189,7 +199,7 @@ public abstract class RelatorioGenerico implements Serializable {
 		} finally {
 			fc.responseComplete();
 		}
-
+		
 	}
 
 	public FiltroRelatorioDTO getFiltroRelatorioDTO() {
@@ -298,6 +308,9 @@ public abstract class RelatorioGenerico implements Serializable {
 		boolean zonaAssociada = false;
 
 		this.filtroRelatorioDTO.setNucleos(new ArrayList<Nucleo>());
+		this.filtroRelatorioDTO.setNucleo(new Nucleo());
+		this.filtroRelatorioDTO.setAreas(new ArrayList<Area>());
+		this.filtroRelatorioDTO.setArea(new Area());
 
 		/*
 		 * Verifica se a zona escolhida no combo esta associada ao usuario. SE
@@ -348,45 +361,75 @@ public abstract class RelatorioGenerico implements Serializable {
 	public void atualizarArea() {
 
 		this.filtroRelatorioDTO.setAreas(new ArrayList<Area>());
-
+		this.filtroRelatorioDTO.setArea(new Area());
+		
 		boolean nucleoAssociado = false;
 
-		/*
-		 * Verifica se o nucleo escolhido no combo esta associado ao usuario. SE
-		 * estiver, devera listar todas as Areas deste nucleo e nao apenas a
-		 * Area associada.
-		 */
-		nucleoAssociado = this.nucleoServico.isUsuarioDeNucleo(
-				this.filtroRelatorioDTO.getUsuarioLogado().getId(),
-				this.filtroRelatorioDTO.getNucleo().getId());
-
-		/*
-		 * SE o NUCLEO nao estiver associada ao usuario, deverah ser pesquisada
-		 * as AREAS que o usuario faz parte DESTE nucleo
-		 */
-		if (!nucleoAssociado) {
-
-			this.filtroRelatorioDTO.setAreas(this.areaServico
-					.listaAreaToUsuarioAndNucleo(
-							this.filtroRelatorioDTO.getUsuarioLogado(),
-							this.filtroRelatorioDTO.getNucleo()));
+		if (this.filtroRelatorioDTO.getNucleo().getId() != 0) {
 			/*
-			 * SE a lista de AREA estiver com tamanho 1, deverah ser setado a
-			 * AREA da lista no objeto AREA
+			 * Verifica se o nucleo escolhido no combo esta associado ao usuario. SE
+			 * estiver, devera listar todas as Areas deste nucleo e nao apenas a
+			 * Area associada.
 			 */
-			if (this.filtroRelatorioDTO.getAreas().size() == 1)
-				this.filtroRelatorioDTO.setArea(this.filtroRelatorioDTO
-						.getAreas().iterator().next());
+			nucleoAssociado = this.nucleoServico.isUsuarioDeNucleo(
+					this.filtroRelatorioDTO.getUsuarioLogado().getId(),
+					this.filtroRelatorioDTO.getNucleo().getId());
+	
+			/*
+			 * SE o NUCLEO nao estiver associada ao usuario, deverah ser pesquisada
+			 * as AREAS que o usuario faz parte DESTE nucleo
+			 */
+			if (!nucleoAssociado) {
+	
+				this.filtroRelatorioDTO.setAreas(this.areaServico
+						.listaAreaToUsuarioAndNucleo(
+								this.filtroRelatorioDTO.getUsuarioLogado(),
+								this.filtroRelatorioDTO.getNucleo()));
+				/*
+				 * SE a lista de AREA estiver com tamanho 1, deverah ser setado a
+				 * AREA da lista no objeto AREA
+				 */
+				if (this.filtroRelatorioDTO.getAreas().size() == 1)
+					this.filtroRelatorioDTO.setArea(this.filtroRelatorioDTO
+							.getAreas().iterator().next());
+			}
+	
+			/*
+			 * SE a lista de areas estiver vazia, significa que o Usuario eh de
+			 * NUCLEO
+			 */
+			if (this.filtroRelatorioDTO.getAreas().size() == 0) {
+				this.filtroRelatorioDTO.setAreas(this.areaServico
+						.findByNucleo(this.filtroRelatorioDTO.getNucleo().getId()));
+			}
 		}
-
-		/*
-		 * SE a lista de areas estiver vazia, significa que o Usuario eh de
-		 * NUCLEO
-		 */
-		if (this.filtroRelatorioDTO.getAreas().size() == 0) {
-			this.filtroRelatorioDTO.setAreas(this.areaServico
-					.findByNucleo(this.filtroRelatorioDTO.getNucleo().getId()));
+	}
+	
+	public boolean validarGeracaoRelatorio() {
+		
+		boolean permissao = false;
+		
+		if (this.filtroRelatorioDTO.getArea().getId() != 0) {
+			permissao = true;
+			
+		} else if (this.filtroRelatorioDTO.getNucleo().getId() != 0) {
+			
+			// checar se o ususario estah associado a este nucleo
+			permissao = this.nucleoServico.isUsuarioDeNucleo(
+					this.filtroRelatorioDTO.getUsuarioLogado().getId(),
+					this.filtroRelatorioDTO.getNucleo().getId());
+					
+			
+		} else if (this.filtroRelatorioDTO.getZona().getId() != 0) {
+			// checar se o ususario estah associado a este regiao
+			
+			permissao = this.zonaServico.isUsuarioDeZona(
+					this.filtroRelatorioDTO.getUsuarioLogado().getId(),
+					this.filtroRelatorioDTO.getZona().getId());
 		}
+		
+		
+		return permissao;
 	}
 
 	public void preencherCombos(Usuario usuario) {
