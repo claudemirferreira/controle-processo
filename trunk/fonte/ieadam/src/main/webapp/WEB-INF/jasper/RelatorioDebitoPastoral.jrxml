@@ -2,181 +2,523 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioDebitoPastoral" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="797" leftMargin="25" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5341f1aa-8b61-499b-8428-20556817ff85">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="ireport.zoom" value="1.610510000000001"/>
-	<property name="ireport.x" value="9"/>
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="107"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
-	<import value="net.sf.jasperreports.engine.data.*"/>
 	<import value="java.util.*"/>
-	<parameter name="data_inicio" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{data_inicio}]]></defaultValueExpression>
-	</parameter>
-	<parameter name="data_fim" class="java.lang.String">
-		<defaultValueExpression><![CDATA[$P{data_fim}]]></defaultValueExpression>
-	</parameter>
-	<parameter name="periodo_inicio" class="java.lang.String"/>
-	<parameter name="area" class="java.lang.Integer"/>
-	<parameter name="periodo_fim" class="java.lang.String"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="DATA_ANO" class="java.lang.String"/>
+	<parameter name="AREA" class="java.lang.Integer"/>
+	<parameter name="NUCLEO" class="java.lang.Integer"/>
+	<parameter name="ZONA" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SET DATEFORMAT DMY
-EXECUTE SIIAD_TES.dbo.ProcRetornaDebitoTesourariaSecretaria
-@P_ID_AREA = $P{area},
-@P_DT_INICIO = $P{data_inicio},
-@P_DT_FIM = $P{data_fim} ,
-@In_DebRelPastoral = 1;]]>
+		<![CDATA[CALL proc_rel_sec_debito_pastoral ($P{DATA_ANO}, $P{ZONA} , $P{NUCLEO} , $P{AREA}, 0);]]>
 	</queryString>
-	<field name="id_congregacao" class="java.lang.Integer"/>
-	<field name="nm_congregacao" class="java.lang.String"/>
-	<field name="nm_dirigente" class="java.lang.String"/>
-	<field name="id_conta" class="java.lang.Integer"/>
-	<field name="id_conta_retirada" class="java.lang.Integer"/>
-	<field name="ind_situacao" class="java.lang.String"/>
-	<field name="id_area" class="java.lang.Integer"/>
-	<field name="nm_area" class="java.lang.String"/>
-	<field name="nm_pastor" class="java.lang.String"/>
-	<field name="id_nucleo" class="java.lang.Integer"/>
-	<field name="nm_nucleo" class="java.lang.String"/>
-	<field name="nm_coordenador" class="java.lang.String"/>
-	<field name="id_diretoria" class="java.lang.Integer"/>
-	<field name="nm_diretoria" class="java.lang.String"/>
-	<field name="nm_diretor" class="java.lang.String"/>
-	<field name="id_zona" class="java.lang.Integer"/>
-	<field name="nm_Zona" class="java.lang.String"/>
-	<field name="nm_responsavel" class="java.lang.String"/>
-	<field name="nm_secretario" class="java.lang.String"/>
-	<field name="qt_DebRelFinJan" class="java.lang.String"/>
-	<field name="qt_DebRelFinFev" class="java.lang.String"/>
-	<field name="qt_DebRelFinMar" class="java.lang.String"/>
-	<field name="qt_DebRelFinAbr" class="java.lang.String"/>
-	<field name="qt_DebRelFinMai" class="java.lang.String"/>
-	<field name="qt_DebRelFinJun" class="java.lang.String"/>
-	<field name="qt_DebRelFinJul" class="java.lang.String"/>
-	<field name="qt_DebRelFinAgo" class="java.lang.String"/>
-	<field name="qt_DebRelFinSet" class="java.lang.String"/>
-	<field name="qt_DebRelFinOut" class="java.lang.String"/>
-	<field name="qt_DebRelFinNov" class="java.lang.String"/>
-	<field name="qt_DebRelFinDez" class="java.lang.String"/>
-	<field name="qt_DebRelFinTot" class="java.lang.Integer"/>
-	<field name="qt_DebRelEstJan" class="java.lang.String"/>
-	<field name="qt_DebRelEstFev" class="java.lang.String"/>
-	<field name="qt_DebRelEstMar" class="java.lang.String"/>
-	<field name="qt_DebRelEstAbr" class="java.lang.String"/>
-	<field name="qt_DebRelEstMai" class="java.lang.String"/>
-	<field name="qt_DebRelEstJun" class="java.lang.String"/>
-	<field name="qt_DebRelEstJul" class="java.lang.String"/>
-	<field name="qt_DebRelEstAgo" class="java.lang.String"/>
-	<field name="qt_DebRelEstSet" class="java.lang.String"/>
-	<field name="qt_DebRelEstOut" class="java.lang.String"/>
-	<field name="qt_DebRelEstNov" class="java.lang.String"/>
-	<field name="qt_DebRelEstDez" class="java.lang.String"/>
-	<field name="qt_DebRelEstTot" class="java.lang.Integer"/>
-	<field name="qt_DebRelPasJan" class="java.lang.String"/>
-	<field name="qt_DebRelPasFev" class="java.lang.String"/>
-	<field name="qt_DebRelPasMar" class="java.lang.String"/>
-	<field name="qt_DebRelPasAbr" class="java.lang.String"/>
-	<field name="qt_DebRelPasMai" class="java.lang.String"/>
-	<field name="qt_DebRelPasJun" class="java.lang.String"/>
-	<field name="qt_DebRelPasJul" class="java.lang.String"/>
-	<field name="qt_DebRelPasAgo" class="java.lang.String"/>
-	<field name="qt_DebRelPasSet" class="java.lang.String"/>
-	<field name="qt_DebRelPasOut" class="java.lang.String"/>
-	<field name="qt_DebRelPasNov" class="java.lang.String"/>
-	<field name="qt_DebRelPasDez" class="java.lang.String"/>
-	<field name="qt_DebRelPasTot" class="java.lang.Integer"/>
+	<field name="grupo_area" class="java.lang.Long"/>
+	<field name="grupo_nucleo" class="java.lang.Long"/>
+	<field name="grupo_zona" class="java.lang.Long"/>
+	<field name="numero_zona" class="java.lang.Long"/>
+	<field name="numero_area" class="java.lang.Long"/>
+	<field name="numero_nucleo" class="java.lang.Long"/>
+	<field name="numero_congregacao" class="java.lang.Long"/>
+	<field name="zona" class="java.lang.String"/>
+	<field name="congregacao" class="java.lang.String"/>
+	<field name="supervisor" class="java.lang.String"/>
+	<field name="secretario" class="java.lang.String"/>
+	<field name="coordenador" class="java.lang.String"/>
+	<field name="pastor" class="java.lang.String"/>
+	<field name="data_ano" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasJan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasFev" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasMar" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasAbr" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasMai" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasJun" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasJul" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasAgo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasSet" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasOut" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasNov" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasDez" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qt_DebRelPasTot" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="int_qt_DebRelPasJan" class="java.lang.Long"/>
+	<field name="int_qt_DebRelPasFev" class="java.lang.Long"/>
+	<field name="int_qt_DebRelPasMar" class="java.lang.Long"/>
+	<field name="int_qt_DebRelPasAbr" class="java.lang.Long"/>
+	<field name="int_qt_DebRelPasMai" class="java.lang.Long"/>
+	<field name="int_qt_DebRelPasJun" class="java.lang.Long"/>
+	<field name="int_qt_DebRelPasJul" class="java.lang.Long"/>
+	<field name="int_qt_DebRelPasAgo" class="java.lang.Long"/>
+	<field name="int_qt_DebRelPasSet" class="java.lang.Long"/>
+	<field name="int_qt_DebRelPasOut" class="java.lang.Long"/>
+	<field name="int_qt_DebRelPasNov" class="java.lang.Long"/>
+	<field name="int_qt_DebRelPasDez" class="java.lang.Long"/>
 	<variable name="vl_debito_jan" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasJan}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasJan}]]></variableExpression>
 	</variable>
 	<variable name="vl_debito_fev" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasFev}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasFev}]]></variableExpression>
 	</variable>
 	<variable name="vl_debito_mar" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasMar}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasMar}]]></variableExpression>
 	</variable>
 	<variable name="vl_debito_abr" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasAbr}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasAbr}]]></variableExpression>
 	</variable>
 	<variable name="vl_debito_mai" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasMai}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasMai}]]></variableExpression>
 	</variable>
 	<variable name="vl_debito_jun" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasJun}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasJun}]]></variableExpression>
 	</variable>
 	<variable name="vl_debito_jul" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasJul}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasJul}]]></variableExpression>
 	</variable>
 	<variable name="vl_debito_ago" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasAgo}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasAgo}]]></variableExpression>
 	</variable>
 	<variable name="vl_debito_set" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasSet}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasSet}]]></variableExpression>
 	</variable>
 	<variable name="vl_debito_out" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasOut}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasOut}]]></variableExpression>
 	</variable>
 	<variable name="vl_debito_nov" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasNov}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasNov}]]></variableExpression>
 	</variable>
 	<variable name="vl_debito_dez" class="java.lang.String">
-		<variableExpression><![CDATA[!$F{qt_DebRelPasDez}.equals("0") ? new String("X") : new String("")]]></variableExpression>
+		<variableExpression><![CDATA[$F{qt_DebRelPasDez}]]></variableExpression>
 	</variable>
-	<variable name="vl_total_debito" class="java.lang.Integer">
-		<variableExpression><![CDATA[( !$F{qt_DebRelPasJan}.equals("0") ? Integer.valueOf($F{qt_DebRelPasJan}): new Integer(0) ) + ( !$F{qt_DebRelPasFev}.equals("0") ? Integer.valueOf($F{qt_DebRelPasFev}): new Integer(0) ) + ( !$F{qt_DebRelPasMar}.equals("0") ? Integer.valueOf($F{qt_DebRelPasMar}): new Integer(0) ) +  ( !$F{qt_DebRelPasAbr}.equals("0") ? Integer.valueOf($F{qt_DebRelPasAbr}): new Integer(0) ) +  ( !$F{qt_DebRelPasMai}.equals("0") ? Integer.valueOf($F{qt_DebRelPasMai}): new Integer(0) ) +  ( !$F{qt_DebRelPasJun}.equals("0") ? Integer.valueOf($F{qt_DebRelPasJun}): new Integer(0) ) +  ( !$F{qt_DebRelPasJul}.equals("0") ? Integer.valueOf($F{qt_DebRelPasJul}): new Integer(0) ) +  ( !$F{qt_DebRelPasAgo}.equals("0") ? Integer.valueOf($F{qt_DebRelPasAgo}): new Integer(0) ) + ( !$F{qt_DebRelPasSet}.equals("0") ? Integer.valueOf($F{qt_DebRelPasSet}): new Integer(0) ) +  ( !$F{qt_DebRelPasOut}.equals("0") ? Integer.valueOf($F{qt_DebRelPasOut}): new Integer(0) ) + ( !$F{qt_DebRelPasNov}.equals("0") ? Integer.valueOf($F{qt_DebRelPasNov}): new Integer(0) ) + ( !$F{qt_DebRelPasDez}.equals("0") ? Integer.valueOf($F{qt_DebRelPasDez}): new Integer(0) ) ]]></variableExpression>
+	<variable name="vl_total_debito" class="java.lang.Long">
+		<variableExpression><![CDATA[$F{qt_DebRelPasTot}]]></variableExpression>
 	</variable>
-	<group name="area">
-		<groupExpression><![CDATA[$F{id_area}]]></groupExpression>
+	<variable name="vl_debito_jan_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasJan}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_fev_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasFev}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_mar_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasMar}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_abr_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasAbr}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_mai_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasMai}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_jun_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasJun}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_jul_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasJul}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_ago_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasAgo}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_set_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasSet}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_out_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasOut}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_nov_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasNov}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_dez_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasDez}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_total_nucleo" class="java.lang.Long" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[($F{int_qt_DebRelPasJan}+
+$F{int_qt_DebRelPasFev}+
+$F{int_qt_DebRelPasMar}+
+$F{int_qt_DebRelPasAbr}+
+$F{int_qt_DebRelPasMai}+
+$F{int_qt_DebRelPasJun}+
+$F{int_qt_DebRelPasJul}+
+$F{int_qt_DebRelPasAgo}+
+$F{int_qt_DebRelPasOut}+
+$F{int_qt_DebRelPasNov}+
+$F{int_qt_DebRelPasDez})]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_jan_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasJan}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_fev_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasFev}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_mar_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasMar}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_abr_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasAbr}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_mai_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasMai}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_jun_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasJun}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_jul_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasJul}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_ago_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasAgo}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_set_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasSet}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_out_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasOut}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_nov_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasNov}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_dez_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{int_qt_DebRelPasDez}]]></variableExpression>
+	</variable>
+	<variable name="vl_debito_total_zona" class="java.lang.Long" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[($F{int_qt_DebRelPasJan}+
+$F{int_qt_DebRelPasFev}+
+$F{int_qt_DebRelPasMar}+
+$F{int_qt_DebRelPasAbr}+
+$F{int_qt_DebRelPasMai}+
+$F{int_qt_DebRelPasJun}+
+$F{int_qt_DebRelPasJul}+
+$F{int_qt_DebRelPasAgo}+
+$F{int_qt_DebRelPasOut}+
+$F{int_qt_DebRelPasNov}+
+$F{int_qt_DebRelPasDez})]]></variableExpression>
+	</variable>
+	<group name="zona">
+		<groupExpression><![CDATA[$F{numero_zona}]]></groupExpression>
 		<groupHeader>
-			<band height="47">
-				<staticText>
-					<reportElement uuid="80be4d7e-8221-4e91-8890-8c647724559f" x="3" y="4" width="30" height="14"/>
-					<textElement>
+			<band height="20">
+				<printWhenExpression><![CDATA[$P{ZONA}.intValue() != 0]]></printWhenExpression>
+				<textField>
+					<reportElement uuid="67532359-e72d-4d92-8c9b-5a5e08d2ecc7" x="1" y="0" width="202" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{zona}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<rectangle>
+					<reportElement uuid="d26bbdd5-d859-476d-8c8b-1e09bdbe12a1" x="0" y="1" width="796" height="15"/>
+				</rectangle>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="c92987d6-b6d0-4f03-8d23-c6e79838fffd" x="3" y="2" width="135" height="15"/>
+					<textElement verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[ÁREA]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="6af21795-eb44-4ae3-a6f2-94cf3561faaa" x="101" y="4" width="37" height="14"/>
-					<textElement>
+					<textFieldExpression><![CDATA["TOTAL "+$F{zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="a3327e76-3f38-40e4-ab38-2c6a77dc983b" x="331" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Pastor:]]></text>
+					<textFieldExpression><![CDATA[$V{vl_debito_jan_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="bea05539-5502-4629-a21d-ffde1da77e33" x="366" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_fev_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="c646dd77-14c9-4022-8edc-a77edb51a356" x="401" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_mar_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="7d5e1ebd-9f48-4d20-bfdb-2c01eed0b59b" x="436" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_abr_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="ed807411-8e3c-4c5e-9668-ef451718c7c4" x="471" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_mai_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1261b8f3-eb2e-4068-bf52-8d66e258d584" x="506" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_jun_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1b8f73bd-1c4a-43ed-9af9-1d5d4744e12d" x="541" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_jul_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="ad6a1ffe-3799-4adc-86c7-5548111ae931" x="576" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_ago_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="c4b02625-4110-48b2-8931-8d305c6c2694" x="611" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_set_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="e9fb7326-abd2-4f7d-8119-0ddf466c3d45" x="646" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_out_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="e3893bc3-e46b-47b0-ae41-57031d7e12d1" x="681" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_nov_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="3564d766-483c-4c42-b45d-66e5bf4b62d9" x="716" y="0" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_dez_zona}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="0adad0e0-2b64-4ca9-942a-41cfa60999c6" x="752" y="0" width="44" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_total_zona}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="nucleo">
+		<groupExpression><![CDATA[$F{numero_nucleo}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<printWhenExpression><![CDATA[$P{NUCLEO}.intValue() != 0 || $P{ZONA}.intValue() != 0]]></printWhenExpression>
+				<textField>
+					<reportElement uuid="8bd94e46-cda5-403b-b5b1-cbc783213dd5" x="204" y="4" width="309" height="14"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{coordenador}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="029889ae-000b-406a-8583-46f5dc48d626" x="135" y="4" width="69" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Coordenador:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="0bee7ee4-20fb-4507-a900-97790489a200" x="178" y="31" width="45" height="15"/>
+					<reportElement uuid="541f6c06-c166-4c23-a80f-575277a58655" x="3" y="4" width="45" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NÚCLEO:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="b62b6df6-a85e-46e2-a8ff-0a59aa2e84bc" x="48" y="4" width="54" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numero_nucleo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="19">
+				<rectangle>
+					<reportElement uuid="335d14ee-762b-4e48-9b90-74ef84730fb9" x="1" y="2" width="795" height="15"/>
+				</rectangle>
+				<textField>
+					<reportElement uuid="2a290491-1143-4bac-89e4-609ea2f5c2b8" x="331" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_jan_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="5e98f190-9043-4be1-ae8a-fc4e5ff6a8da" x="752" y="2" width="44" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_total_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="e506bcf0-27d6-437b-870f-952cb6b6b811" x="366" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_fev_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="0a743791-efcf-4b03-9faf-b3a8adfa15bd" x="401" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_mar_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="9535b507-48f4-4608-aaff-f49e330e4d55" x="436" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_abr_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="a4cc81bb-2974-4c43-a473-48e6ee56b1ec" x="471" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_mai_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="dcb4b68f-34b9-4345-83e6-2f852736b760" x="506" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_jun_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="cb9823d0-4eb0-4391-a048-8a5d80132dfb" x="541" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_jul_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="67746725-93fb-431d-bbeb-a9b108bc579d" x="576" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_ago_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="e1e1a25e-d3cc-4160-9a17-1a8c2bee4c5e" x="611" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_set_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1ad73107-3a26-449e-a8c0-e3b8ef4c28dc" x="646" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_out_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="c3acfdb8-a633-4ae5-8edc-0fb4897d23c2" x="681" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_nov_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="a8f0c451-dfc5-4a1b-98ab-dc6712248283" x="716" y="2" width="35" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_debito_dez_nucleo}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="4d84f374-0517-4255-a794-96dba81e7c4e" x="3" y="2" width="135" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["TOTAL NÚCLEO  "+$F{numero_nucleo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="area">
+		<groupExpression><![CDATA[$F{grupo_nucleo}]]></groupExpression>
+		<groupHeader>
+			<band height="28">
+				<staticText>
+					<reportElement uuid="0bee7ee4-20fb-4507-a900-97790489a200" x="331" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[JAN]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="14f8e786-de43-4f54-81f8-1658cace9060" x="222" y="31" width="45" height="15"/>
+					<reportElement uuid="14f8e786-de43-4f54-81f8-1658cace9060" x="366" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[FEV]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="177d1455-8a12-40a3-844f-b70003682cc1" x="266" y="31" width="45" height="15"/>
+					<reportElement uuid="177d1455-8a12-40a3-844f-b70003682cc1" x="401" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[MAR]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="090c819a-052c-45e9-a78b-8f300748b97b" x="310" y="31" width="45" height="15"/>
+					<reportElement uuid="090c819a-052c-45e9-a78b-8f300748b97b" x="436" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[ABR]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="8dd6ea20-dfb2-4040-8167-0bfa1e1db3f3" x="354" y="31" width="45" height="15"/>
+					<reportElement uuid="8dd6ea20-dfb2-4040-8167-0bfa1e1db3f3" x="471" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[MAI]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="5ea077e2-3cdf-4167-b177-60b666d9e6c3" x="706" y="30" width="45" height="15"/>
+					<reportElement uuid="5ea077e2-3cdf-4167-b177-60b666d9e6c3" x="752" y="12" width="44" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
@@ -185,175 +527,71 @@ EXECUTE SIIAD_TES.dbo.ProcRetornaDebitoTesourariaSecretaria
 				<line>
 					<reportElement uuid="5a588176-0ff3-488f-af27-f6f9087639b1" x="1" y="1" width="801" height="2"/>
 				</line>
-				<textField isBlankWhenNull="true">
-					<reportElement uuid="0e324860-63a5-4c0a-b997-5d03e8433f97" x="33" y="4" width="51" height="15"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{id_area}]]></textFieldExpression>
-				</textField>
 				<staticText>
-					<reportElement uuid="d62113e9-6e36-4623-b0dd-0d8dee1d3264" x="398" y="31" width="45" height="15"/>
+					<reportElement uuid="d62113e9-6e36-4623-b0dd-0d8dee1d3264" x="506" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[JUN]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="b93f3462-0e1d-4d8b-85b4-b48af7a03037" x="442" y="31" width="45" height="15"/>
+					<reportElement uuid="b93f3462-0e1d-4d8b-85b4-b48af7a03037" x="541" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[JUL]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="5f1c830f-d489-4cf8-83b5-bb1d2c23a658" x="486" y="31" width="45" height="15"/>
+					<reportElement uuid="5f1c830f-d489-4cf8-83b5-bb1d2c23a658" x="576" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[AGO]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="9b962915-f605-43fc-9a78-8239d9a61e9e" x="530" y="31" width="45" height="15"/>
+					<reportElement uuid="9b962915-f605-43fc-9a78-8239d9a61e9e" x="611" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[SET]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="b5db0f5d-f6ec-48e1-a96a-3db3fed452b1" x="574" y="31" width="45" height="15"/>
+					<reportElement uuid="b5db0f5d-f6ec-48e1-a96a-3db3fed452b1" x="646" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[OUT]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="32a2018a-f5ea-4dad-aa89-ebb1906f5911" x="618" y="31" width="45" height="15"/>
+					<reportElement uuid="32a2018a-f5ea-4dad-aa89-ebb1906f5911" x="681" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[NOV]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="89a8aecc-aeb7-4cd9-9d16-dbdbc7f6c41c" x="662" y="31" width="45" height="15"/>
+					<reportElement uuid="89a8aecc-aeb7-4cd9-9d16-dbdbc7f6c41c" x="716" y="12" width="35" height="15"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[DEZ]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement uuid="416867a7-3967-47db-8a34-0c95729ae12b" x="138" y="4" width="259" height="14"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{nm_pastor}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band height="70">
-				<textField>
-					<reportElement uuid="14d8bb1d-3341-40d2-a259-8d0dec13d4d7" x="178" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_jan}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="38232b4e-e59a-477f-ac31-de0dded72798" x="222" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_fev}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="e09e6aad-c5e4-44e5-bbac-fe2708ad22c9" x="266" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_mar}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="d006c852-f7ed-4cde-beba-9a658eea0be6" x="310" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_abr}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="5aef0216-e143-4955-a0b5-4d1fe83d4c8c" x="354" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_mai}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="bb1975f7-373c-49db-bdd0-73ae7161a9e4" x="398" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_jun}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="39b36db5-f8a7-4c00-ab4c-fbcd2a8b558e" x="442" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_jul}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="2afe3f27-d3ad-4641-ade7-905ed71369f3" x="486" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_ago}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="b07c48f3-c94c-4cf5-ba7e-10b2c2b589f0" x="530" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_set}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="1cec1b57-a1d8-4a13-bdf2-cfb404dfb40b" x="574" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_out}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="a4bf833b-d184-4716-8576-a394a4e51f87" x="618" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_nov}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="049bc64f-ea72-40f9-a516-22c024a44dee" x="662" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_debito_dez}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="14701e87-dd98-45f5-8d95-135ee609576a" x="706" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_total_debito}]]></textFieldExpression>
-				</textField>
 				<staticText>
-					<reportElement uuid="3080064c-076f-4b2f-9f81-dc30c6973488" x="0" y="29" width="100" height="38"/>
+					<reportElement uuid="80be4d7e-8221-4e91-8890-8c647724559f" x="3" y="2" width="30" height="15"/>
 					<textElement>
-						<font isBold="true"/>
+						<font size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Legenda:
-
-X = Pendência]]></text>
+					<text><![CDATA[ÁREA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6af21795-eb44-4ae3-a6f2-94cf3561faaa" x="79" y="2" width="37" height="15"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Pastor]]></text>
 				</staticText>
 			</band>
-		</groupFooter>
+		</groupHeader>
 	</group>
 	<background>
 		<band/>
@@ -389,7 +627,7 @@ X = Pendência]]></text>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Débito de Relatório Pastoral - " + $P{periodo_inicio}+" à "+$P{periodo_fim}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Débito de Relatório Pastoral - " + $P{DATA_ANO}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="37e4a92b-f13a-4e5d-bb3f-40238990ae43" x="694" y="30" width="50" height="15" forecolor="#736343"/>
@@ -435,7 +673,129 @@ X = Pendência]]></text>
 			</staticText>
 		</band>
 	</title>
-	<columnFooter>
-		<band/>
-	</columnFooter>
+	<detail>
+		<band height="16">
+			<textField>
+				<reportElement uuid="14d8bb1d-3341-40d2-a259-8d0dec13d4d7" x="331" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_jan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="38232b4e-e59a-477f-ac31-de0dded72798" x="366" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_fev}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e09e6aad-c5e4-44e5-bbac-fe2708ad22c9" x="401" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_mar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d006c852-f7ed-4cde-beba-9a658eea0be6" x="436" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_abr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5aef0216-e143-4955-a0b5-4d1fe83d4c8c" x="471" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_mai}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bb1975f7-373c-49db-bdd0-73ae7161a9e4" x="506" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_jun}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="39b36db5-f8a7-4c00-ab4c-fbcd2a8b558e" x="541" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_jul}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2afe3f27-d3ad-4641-ade7-905ed71369f3" x="576" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_ago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b07c48f3-c94c-4cf5-ba7e-10b2c2b589f0" x="611" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_set}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1cec1b57-a1d8-4a13-bdf2-cfb404dfb40b" x="646" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_out}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a4bf833b-d184-4716-8576-a394a4e51f87" x="681" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_nov}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="049bc64f-ea72-40f9-a516-22c024a44dee" x="716" y="0" width="35" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_debito_dez}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="14701e87-dd98-45f5-8d95-135ee609576a" x="752" y="0" width="44" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vl_total_debito}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0e324860-63a5-4c0a-b997-5d03e8433f97" x="3" y="0" width="35" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_area}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="416867a7-3967-47db-8a34-0c95729ae12b" x="78" y="0" width="189" height="15"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pastor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="43">
+			<staticText>
+				<reportElement uuid="3080064c-076f-4b2f-9f81-dc30c6973488" x="3" y="4" width="100" height="38"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Legenda:
+
+X = Pendência]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="7721e531-26ef-48fd-a2c1-e5957f0fe803" x="0" y="0" width="801" height="2"/>
+			</line>
+		</band>
+	</summary>
 </jasperReport>
