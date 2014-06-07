@@ -235,6 +235,7 @@ $F{int_qt_DebRelPasDez})]]></variableExpression>
 		</groupHeader>
 		<groupFooter>
 			<band height="20">
+				<printWhenExpression><![CDATA[$P{ZONA}.intValue() != 0]]></printWhenExpression>
 				<rectangle>
 					<reportElement uuid="d26bbdd5-d859-476d-8c8b-1e09bdbe12a1" x="0" y="1" width="796" height="15"/>
 				</rectangle>
@@ -374,6 +375,7 @@ $F{int_qt_DebRelPasDez})]]></variableExpression>
 		</groupHeader>
 		<groupFooter>
 			<band height="19">
+				<printWhenExpression><![CDATA[$P{NUCLEO}.intValue() != 0 || $P{ZONA}.intValue() != 0]]></printWhenExpression>
 				<rectangle>
 					<reportElement uuid="335d14ee-762b-4e48-9b90-74ef84730fb9" x="1" y="2" width="795" height="15"/>
 				</rectangle>
