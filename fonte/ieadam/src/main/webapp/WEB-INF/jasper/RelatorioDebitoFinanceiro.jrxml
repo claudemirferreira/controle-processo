@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioDebitoSecretaria" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="797" leftMargin="25" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5341f1aa-8b61-499b-8428-20556817ff85">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioDebitoTesouraria" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="797" leftMargin="25" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5341f1aa-8b61-499b-8428-20556817ff85">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.zoom" value="1.2100000000000009"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
@@ -13,7 +13,7 @@
 	<parameter name="NUCLEO" class="java.lang.Integer"/>
 	<parameter name="ZONA" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[CALL proc_rel_sec_debito_secretaria ($P{DATA_ANO}, $P{ZONA} , $P{NUCLEO} , $P{AREA}, 0);]]>
+		<![CDATA[CALL proc_rel_fin_debito_financeiro ($P{DATA_ANO}, $P{ZONA} , $P{NUCLEO} , $P{AREA}, 0);]]>
 	</queryString>
 	<field name="grupo_area" class="java.lang.Long"/>
 	<field name="grupo_nucleo" class="java.lang.Long"/>
@@ -31,181 +31,181 @@
 	<field name="data_ano" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstJan" class="java.lang.String">
+	<field name="qt_DebRelFinJan" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstFev" class="java.lang.String">
+	<field name="qt_DebRelFinFev" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstMar" class="java.lang.String">
+	<field name="qt_DebRelFinMar" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstAbr" class="java.lang.String">
+	<field name="qt_DebRelFinAbr" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstMai" class="java.lang.String">
+	<field name="qt_DebRelFinMai" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstJun" class="java.lang.String">
+	<field name="qt_DebRelFinJun" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstJul" class="java.lang.String">
+	<field name="qt_DebRelFinJul" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstAgo" class="java.lang.String">
+	<field name="qt_DebRelFinAgo" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstSet" class="java.lang.String">
+	<field name="qt_DebRelFinSet" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstOut" class="java.lang.String">
+	<field name="qt_DebRelFinOut" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstNov" class="java.lang.String">
+	<field name="qt_DebRelFinNov" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstDez" class="java.lang.String">
+	<field name="qt_DebRelFinDez" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="qt_DebRelEstTot" class="java.lang.Long">
+	<field name="qt_DebRelFinTot" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="int_qt_DebRelEstJan" class="java.lang.Long"/>
-	<field name="int_qt_DebRelEstFev" class="java.lang.Long"/>
-	<field name="int_qt_DebRelEstMar" class="java.lang.Long"/>
-	<field name="int_qt_DebRelEstAbr" class="java.lang.Long"/>
-	<field name="int_qt_DebRelEstMai" class="java.lang.Long"/>
-	<field name="int_qt_DebRelEstJun" class="java.lang.Long"/>
-	<field name="int_qt_DebRelEstJul" class="java.lang.Long"/>
-	<field name="int_qt_DebRelEstAgo" class="java.lang.Long"/>
-	<field name="int_qt_DebRelEstSet" class="java.lang.Long"/>
-	<field name="int_qt_DebRelEstOut" class="java.lang.Long"/>
-	<field name="int_qt_DebRelEstNov" class="java.lang.Long"/>
-	<field name="int_qt_DebRelEstDez" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinJan" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinFev" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinMar" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinAbr" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinMai" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinJun" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinJul" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinAgo" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinSet" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinOut" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinNov" class="java.lang.Long"/>
+	<field name="int_qt_DebRelFinDez" class="java.lang.Long"/>
 	<variable name="vl_total_jan" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstJan}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinJan}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_fev" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstFev}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinFev}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_mar" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstMar}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinMar}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_abr" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstAbr}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinAbr}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_mai" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstMai}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinMai}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_jun" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstJun}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinJun}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_jul" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstJul}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinJul}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_ago" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstAgo}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinAgo}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_set" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstSet}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinSet}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_out" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstOut}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinOut}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_nov" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstNov}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinNov}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_dez" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstDez}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinDez}]]></variableExpression>
 	</variable>
-	<variable name="qt_DebRelEstTot_1" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
-		<variableExpression><![CDATA[$F{qt_DebRelEstTot}]]></variableExpression>
+	<variable name="qt_DebRelFinTot_1" class="java.lang.Integer" resetType="Group" resetGroup="area" calculation="Sum">
+		<variableExpression><![CDATA[$F{qt_DebRelFinTot}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_jan_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstJan}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinJan}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_fev_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstFev}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinFev}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_mar_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstMar}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinMar}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_abr_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstAbr}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinAbr}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_mai_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstMai}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinMai}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_jun_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstJun}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinJun}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_jul_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstJul}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinJul}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_ago_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstAgo}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinAgo}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_set_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstSet}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinSet}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_out_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstOut}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinOut}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_nov_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstNov}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinNov}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_dez_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstDez}]]></variableExpression>
+		<variableExpression><![CDATA[!$F{qt_DebRelFinDez}.equals("-") ? Integer.valueOf($F{qt_DebRelFinDez}): new Integer(0)]]></variableExpression>
 	</variable>
-	<variable name="qt_DebRelEstTot_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
-		<variableExpression><![CDATA[$F{qt_DebRelEstTot}]]></variableExpression>
+	<variable name="qt_DebRelFinTot_nucleo" class="java.lang.Integer" resetType="Group" resetGroup="nucleo" calculation="Sum">
+		<variableExpression><![CDATA[$F{qt_DebRelFinTot}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_jan_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstJan}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinJan}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_fev_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstFev}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinFev}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_mar_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstMar}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinMar}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_abr_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstAbr}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinAbr}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_mai_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstMai}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinMai}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_jun_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstJun}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinJun}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_jul_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstJul}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinJul}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_ago_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstAgo}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinAgo}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_set_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstSet}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinSet}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_out_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstOut}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinOut}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_nov_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstNov}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinNov}]]></variableExpression>
 	</variable>
 	<variable name="vl_total_dez_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{int_qt_DebRelEstDez}]]></variableExpression>
+		<variableExpression><![CDATA[$F{int_qt_DebRelFinDez}]]></variableExpression>
 	</variable>
-	<variable name="qt_DebRelEstTot_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
-		<variableExpression><![CDATA[$F{qt_DebRelEstTot}]]></variableExpression>
+	<variable name="qt_DebRelFinTot_zona" class="java.lang.Integer" resetType="Group" resetGroup="zona" calculation="Sum">
+		<variableExpression><![CDATA[$F{qt_DebRelFinTot}]]></variableExpression>
 	</variable>
 	<group name="zona">
 		<groupExpression><![CDATA[$F{numero_zona}]]></groupExpression>
 		<groupHeader>
-			<band height="20">
+			<band height="21">
 				<printWhenExpression><![CDATA[$F{grupo_zona}.intValue() != 0]]></printWhenExpression>
 				<textField>
-					<reportElement uuid="aeacc264-e0a8-480f-94f1-6b5b5a2ecfc2" x="1" y="0" width="202" height="20"/>
+					<reportElement uuid="1a76ae45-3873-4c80-ada2-b61f73893904" x="1" y="0" width="202" height="20"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -217,105 +217,105 @@
 			<band height="23">
 				<printWhenExpression><![CDATA[$F{grupo_zona}.intValue() != 0]]></printWhenExpression>
 				<rectangle>
-					<reportElement uuid="434e4985-f88d-41e3-857e-e9f0ed1ebadc" x="1" y="1" width="767" height="20"/>
+					<reportElement uuid="f3a15ca7-ea60-4302-b15c-98df5ff4e092" x="1" y="1" width="767" height="20"/>
 				</rectangle>
 				<textField>
-					<reportElement uuid="766d3d7a-3f7b-41af-8be8-76912eb51b5b" x="4" y="4" width="100" height="15"/>
+					<reportElement uuid="c1801e82-ad18-4cda-b636-f8b222dd8a26" x="4" y="4" width="100" height="15"/>
 					<textElement>
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Total da " + $F{zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="eddf8ebd-6f64-43a2-a024-5ce167080576" x="178" y="4" width="45" height="15"/>
+					<reportElement uuid="d693ae68-18ab-43ef-9f97-362e51a5afa7" x="178" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_jan_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="73852e70-1ed6-4674-82cf-38193ef18898" x="222" y="4" width="45" height="15"/>
+					<reportElement uuid="e1b52288-b856-4149-9c2f-f4011a6a4938" x="222" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_fev_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="1fb02c05-7172-4b1d-9604-fd8f9dc1d941" x="266" y="4" width="45" height="15"/>
+					<reportElement uuid="4aab545f-cb1b-47a5-8bc2-26c3a721bff7" x="266" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_mar_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="f9121451-1c36-47b6-8f25-90b344ce9183" x="310" y="4" width="45" height="15"/>
+					<reportElement uuid="9fae5af4-69b0-411a-b291-614c179a60ea" x="310" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_abr_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="06f1d15b-4067-4b22-b528-f61fdb066e16" x="354" y="4" width="45" height="15"/>
+					<reportElement uuid="9c641072-c486-4b2a-81d8-a91ef6482247" x="354" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_mai_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="5b3d98ae-4df1-4204-8390-25e69cac0904" x="398" y="4" width="45" height="15"/>
+					<reportElement uuid="faffea24-3ce4-4f81-9295-b45e723cca39" x="398" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_jun_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="3d1f3d07-1bb6-4889-b24a-a7383ed319b1" x="442" y="4" width="45" height="15"/>
+					<reportElement uuid="408a1a12-bece-447e-8761-d27ba7a9238a" x="442" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_jul_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="adaefb79-3a32-438c-9972-122e44185f14" x="486" y="4" width="45" height="15"/>
+					<reportElement uuid="e33a5bf3-36d6-4e3a-85f3-af2520e87001" x="486" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_ago_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="f6398984-98f1-4107-8e86-824425a0f564" x="530" y="4" width="45" height="15"/>
+					<reportElement uuid="8089ba6a-566a-4c8e-84e6-6ac2c5b2f3cd" x="530" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_set_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="6dc81e2d-6379-4cdc-b4b6-088859543814" x="574" y="4" width="45" height="15"/>
+					<reportElement uuid="d66eaa20-47d9-46cf-a9e7-2b4f2a6b1d62" x="574" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_out_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="bd0de1a8-7262-4d5b-91ab-738026f46c90" x="618" y="4" width="45" height="15"/>
+					<reportElement uuid="faa98de2-cd13-4260-b40d-b989f28024f1" x="618" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_nov_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="8b5dbbe9-98cd-44fe-9325-8528fdf249c2" x="662" y="4" width="45" height="15"/>
+					<reportElement uuid="2b4f16cb-4579-4bb8-a7ca-8bc9a2b418d5" x="662" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_dez_zona}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="f14ff38f-87f6-4075-9e1a-341f3b96ef08" x="706" y="4" width="50" height="15"/>
+					<reportElement uuid="d868a3e9-e56c-4769-81f3-173d9b8b7a63" x="706" y="4" width="50" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{qt_DebRelEstTot_zona}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{qt_DebRelFinTot_zona}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -326,26 +326,26 @@
 			<band height="20">
 				<printWhenExpression><![CDATA[$F{grupo_nucleo}.intValue() != 0 || $F{grupo_zona}.intValue() != 0]]></printWhenExpression>
 				<textField>
-					<reportElement uuid="4466556e-b911-4671-978a-d26f9cdae9da" x="202" y="4" width="309" height="14"/>
+					<reportElement uuid="c6fa51a5-a79e-4ee9-ad07-f2f139ae85a3" x="204" y="4" width="309" height="14"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{coordenador}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="3520703a-e7d8-40c7-9e67-db377cbdfd52" x="133" y="4" width="69" height="14"/>
+					<reportElement uuid="602bc787-f9ab-4070-aae7-4696d116e664" x="135" y="4" width="69" height="14"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Coordenador:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="0d03a336-6d43-4e14-8752-24b3429fcc3d" x="1" y="4" width="45" height="14"/>
+					<reportElement uuid="11109b4d-48f7-4040-901b-e5ed3cfbac45" x="3" y="4" width="45" height="14"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[NÚCLEO:]]></text>
 				</staticText>
 				<textField>
-					<reportElement uuid="cf2d102a-f491-46e1-8b2b-26f3c17f12a5" x="46" y="4" width="54" height="14"/>
+					<reportElement uuid="b99c12ec-02fe-4c6e-a988-87f2e61fb204" x="48" y="4" width="54" height="14"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{numero_nucleo}]]></textFieldExpression>
 				</textField>
@@ -355,105 +355,105 @@
 			<band height="24">
 				<printWhenExpression><![CDATA[$F{grupo_nucleo}.intValue() != 0 || $F{grupo_zona}.intValue() != 0]]></printWhenExpression>
 				<rectangle>
-					<reportElement uuid="2446149c-7ebd-404b-baf9-706f971d84c5" x="1" y="1" width="767" height="20"/>
+					<reportElement uuid="e4eb113b-310a-47d1-a60c-dc18406dfbc0" x="1" y="1" width="767" height="20"/>
 				</rectangle>
 				<textField>
-					<reportElement uuid="d8ec009f-0abd-4b2f-9d76-39a3c2266ba1" x="4" y="4" width="100" height="15"/>
+					<reportElement uuid="86a5fb1b-fcbe-40a7-9ca3-037c4244edb9" x="4" y="4" width="100" height="15"/>
 					<textElement>
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Total do Núcleo " + $F{numero_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="14f1cf7b-84ed-44d2-a455-be0426f06688" x="178" y="4" width="45" height="15"/>
+					<reportElement uuid="b93fd757-7e27-4349-bcef-e598945c9a7f" x="178" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_jan_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="c9b4d3b7-bfbb-4d2b-8ad2-ac5d38b6f439" x="222" y="4" width="45" height="15"/>
+					<reportElement uuid="11bbcf1e-0564-40ae-a145-a4aecb0cce81" x="222" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_fev_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="9a9454df-000f-468e-ab96-852835db93df" x="266" y="4" width="45" height="15"/>
+					<reportElement uuid="6a227495-1ef7-4aa1-a46c-f1eba25c3dd0" x="266" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_mar_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="ffeca835-8f72-46ce-8edc-a66a6a53b582" x="310" y="4" width="45" height="15"/>
+					<reportElement uuid="0fd6ab6d-2634-4094-a4bf-d267b8145001" x="310" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_abr_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="9788429b-d964-4640-9358-db5c6770edc8" x="354" y="4" width="45" height="15"/>
+					<reportElement uuid="5533403c-d9ee-466f-88dd-ebcfb1cd0123" x="354" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_mai_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="b487eb2e-7b53-4ffa-802e-68d4b2b21a81" x="398" y="4" width="45" height="15"/>
+					<reportElement uuid="29c0bc29-f180-49a4-871c-39b85d67d209" x="398" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_jun_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="3358b8b1-4fa0-4771-9374-767099dc89bf" x="442" y="4" width="45" height="15"/>
+					<reportElement uuid="2d796d80-c039-4482-88f9-c494b1ebfe45" x="442" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_jul_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="fde87708-977e-4349-ad2c-7a132521aa1f" x="486" y="4" width="45" height="15"/>
+					<reportElement uuid="bc5fe70c-c1b2-48c1-80b0-28b03b153e9a" x="486" y="4" width="44" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_ago_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="323c8665-7e90-4dfb-8e74-6065554bed13" x="530" y="4" width="45" height="15"/>
+					<reportElement uuid="4c783d52-10cc-4837-a8ca-27c46d0ace67" x="530" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_set_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="543b5d7d-92c0-429b-a927-303f5775beae" x="574" y="4" width="45" height="15"/>
+					<reportElement uuid="5ae3f3c9-e493-4f51-8e3f-ee7db2efbb68" x="574" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_out_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="b649cb60-abe2-4c77-afc1-5c9184bb4501" x="618" y="4" width="45" height="15"/>
+					<reportElement uuid="5ec66abe-a798-41ae-b7a9-56d654297d19" x="618" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_nov_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="0b432b81-eb08-4870-af33-c3d0f1745be6" x="662" y="4" width="45" height="15"/>
+					<reportElement uuid="913deac6-29c8-4c0e-8a92-85a5e0007b1b" x="662" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_dez_nucleo}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="5c131916-b45c-4635-907a-1052cd34621e" x="706" y="4" width="50" height="15"/>
+					<reportElement uuid="47ed265a-b427-45bf-bff6-15140674a140" x="706" y="4" width="50" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{qt_DebRelEstTot_nucleo}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{qt_DebRelFinTot_nucleo}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -533,9 +533,9 @@
 					<text><![CDATA[Total]]></text>
 				</staticText>
 				<line>
-					<reportElement uuid="5a588176-0ff3-488f-af27-f6f9087639b1" x="1" y="1" width="801" height="2"/>
+					<reportElement uuid="5a588176-0ff3-488f-af27-f6f9087639b1" x="0" y="1" width="801" height="2"/>
 				</line>
-				<textField isBlankWhenNull="true">
+				<textField>
 					<reportElement uuid="0e324860-63a5-4c0a-b997-5d03e8433f97" x="33" y="4" width="51" height="15"/>
 					<textElement>
 						<font size="8"/>
@@ -591,7 +591,7 @@
 					</textElement>
 					<text><![CDATA[DEZ]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
+				<textField>
 					<reportElement uuid="416867a7-3967-47db-8a34-0c95729ae12b" x="138" y="4" width="259" height="14"/>
 					<textElement>
 						<font size="8"/>
@@ -603,105 +603,105 @@
 		<groupFooter>
 			<band height="23">
 				<rectangle>
-					<reportElement uuid="924de23d-94b5-4c7a-a21f-560c0fe21ffd" x="1" y="1" width="767" height="20"/>
+					<reportElement uuid="ebe5b634-2b66-4cf8-af12-57176837767d" x="1" y="1" width="767" height="20"/>
 				</rectangle>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="491dbd01-2892-48fc-8277-de28e459cae8" x="178" y="4" width="45" height="15"/>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="f03a9809-60cd-4f9e-a900-3ef7a0de78bc" x="178" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_jan}]]></textFieldExpression>
 				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="d1e32f3e-e025-4e94-aa8b-89cec7129314" x="222" y="4" width="45" height="15"/>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="4b65c4b8-8365-48a6-9f86-f9b1841dee41" x="222" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_fev}]]></textFieldExpression>
 				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="68138763-672f-4c08-b4d6-bf6a611b9a85" x="266" y="4" width="45" height="15"/>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="64ed36a7-c884-403a-827d-0d0ce41080bf" x="266" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_mar}]]></textFieldExpression>
 				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="0b12a21a-1878-4c7e-9ecc-aa3d70e3a3f0" x="310" y="4" width="45" height="15"/>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="c3f91673-9292-46c9-838a-007e709d3dde" x="310" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_abr}]]></textFieldExpression>
 				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="2f5d9e22-3de4-442c-96b0-2117b4ee9831" x="354" y="4" width="45" height="15"/>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="94db9429-eab7-4495-8c0e-e346436540f8" x="354" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_mai}]]></textFieldExpression>
 				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="9fd0be12-0cfc-48bc-8bd8-544e0ae0785c" x="398" y="4" width="45" height="15"/>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="8e9beb44-3f49-4106-aabb-dc9963a1b592" x="398" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_jun}]]></textFieldExpression>
 				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="ffe5e76a-f144-496c-94ab-bce0f6ff6356" x="442" y="4" width="45" height="15"/>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="e94db9a7-2719-424f-b3e2-d04d5f53c7e0" x="442" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_jul}]]></textFieldExpression>
 				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="a9dd0214-5da7-4a2b-9a96-54d239d34c0b" x="530" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_total_set}]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="9725aa74-5ffd-4670-802d-d087729dcd53" x="574" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_total_out}]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="945cc571-53a0-42f6-99ab-45553e8d7ed6" x="618" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_total_nov}]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="a3a9d0b2-bf37-43ad-b0e6-ab21de5c189b" x="662" y="4" width="45" height="15"/>
-					<textElement textAlignment="Center">
-						<font size="8" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vl_total_dez}]]></textFieldExpression>
-				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="444e9824-6d07-4fa6-af48-29721ba03ad2" x="486" y="4" width="45" height="15"/>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="2920e043-6656-486e-b0d2-1fb4b3f3eee5" x="486" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{vl_total_ago}]]></textFieldExpression>
 				</textField>
-				<textField pattern="" isBlankWhenNull="true">
-					<reportElement uuid="c2f2efe6-5cd2-4bc5-8e5f-671b30e2ed1a" x="706" y="4" width="50" height="15"/>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="af8f535b-bc5c-4dc2-a75b-45cbf26ffe82" x="530" y="4" width="45" height="15"/>
 					<textElement textAlignment="Center">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{qt_DebRelEstTot_1}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{vl_total_set}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="9b0a79dd-a510-4ac3-8d3e-7f6820cdabc7" x="574" y="4" width="45" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_total_out}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="7af262dc-c7f4-44b4-bea7-d43510d8f887" x="618" y="4" width="45" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_total_nov}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="43ed59fe-32b5-4122-b97c-d85943c4fa2f" x="662" y="4" width="45" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{vl_total_dez}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="964ee18e-7ed0-4da4-96c4-cb6a52a5bf81" x="706" y="4" width="50" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{qt_DebRelFinTot_1}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="e6f5c95a-a417-4dec-802b-0a5a36df5980" x="4" y="4" width="100" height="15"/>
+					<reportElement uuid="9ff24f89-d1a1-4009-9f31-ec809a7765e9" x="4" y="4" width="98" height="15"/>
 					<textElement>
 						<font size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Total da Área " + $F{numero_area}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Total da Área "+$F{numero_area}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -740,54 +740,54 @@
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Débito de Relatório de Secretaria - " + $P{DATA_ANO}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="691dbd6c-9bc9-49db-9303-784a04ed5dcd" x="693" y="1" width="35" height="15" forecolor="#736343"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Emissão:]]></text>
-			</staticText>
-			<textField pattern="HH.mm">
-				<reportElement uuid="a4e45736-9771-488d-a72a-624aa8037d2b" x="716" y="15" width="80" height="15" forecolor="#736343"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="45f8ea0b-1560-4573-b074-f916169f1291" x="693" y="15" width="23" height="15" forecolor="#736343"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[Hora:]]></text>
-			</staticText>
-			<textField evaluationTime="Report">
-				<reportElement uuid="9178425b-e13e-4a92-94cf-2b2d7cf08d34" x="743" y="30" width="53" height="15" forecolor="#736343"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="98687446-08fb-48a7-be96-25bc18b25016" x="728" y="1" width="68" height="15" forecolor="#736343"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Débito de Relatório Financeiro - " + $P{DATA_ANO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="e9142827-b6d8-44e3-84f7-a68bb58c81be" x="693" y="30" width="50" height="15" forecolor="#736343"/>
+				<reportElement uuid="ffaff81f-0770-4e08-ab52-f63b616bf23d" x="693" y="30" width="50" height="15" forecolor="#736343"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="4a8103e1-eb7f-49fc-818b-30605f90ab1c" x="693" y="15" width="23" height="15" forecolor="#736343"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="4a22609c-e939-47cd-af76-031cb99a4a0e" x="728" y="1" width="68" height="15" forecolor="#736343"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm">
+				<reportElement uuid="cb3e3257-6152-4d1b-a53e-1f553e19f6a5" x="716" y="15" width="80" height="15" forecolor="#736343"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="e95ab49e-3464-41ac-8a3e-54e8be9f6b53" x="743" y="30" width="53" height="15" forecolor="#736343"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3fb4eefe-36b7-4e47-ad19-f4b2c4dea349" x="693" y="1" width="35" height="15" forecolor="#736343"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Emissão:]]></text>
+			</staticText>
 		</band>
 	</title>
 	<detail>
-		<band height="19">
+		<band height="15">
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="000d5f5f-d57b-4aef-a1e7-80066ce33639" x="0" y="0" width="33" height="15"/>
 				<textElement>
@@ -803,99 +803,96 @@
 				<textFieldExpression><![CDATA[$F{congregacao}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ae5dbb56-7a5d-458d-98ae-adbd75aeb1b5" x="178" y="0" width="45" height="15"/>
+				<reportElement uuid="1a4a547f-86cd-4a96-89e2-2e00bc7bd495" x="178" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstJan}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinJan}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="85bbd923-be8e-411a-b428-ff569593b218" x="222" y="0" width="45" height="15"/>
+				<reportElement uuid="73feafc8-a6f7-4d92-81f4-eecad3b25d77" x="222" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstFev}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinFev}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="fa552760-e24b-4b77-9764-87dda6a13c6e" x="266" y="0" width="45" height="15"/>
+				<reportElement uuid="a7eac471-dd76-453b-bcf4-4e66d485fd16" x="266" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstMar}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinMar}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="57e17d3e-9187-44c1-9f5a-dfb290ee200b" x="310" y="0" width="45" height="15"/>
+				<reportElement uuid="cbfa912b-598f-4f74-98a9-e657e17c3655" x="310" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstAbr}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinAbr}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="f19c3756-cab9-4f2b-b8f1-3f09a1f3ba5a" x="354" y="0" width="45" height="15"/>
+				<reportElement uuid="6cf92581-7654-4926-8b20-8575ebed90a4" x="354" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstMai}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinMai}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="91e798d2-8f0f-429e-9b11-38b8e4b16c92" x="398" y="0" width="45" height="15"/>
+				<reportElement uuid="861545c4-b2b7-40a3-b294-976525452358" x="398" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstJun}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinJun}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="8f38400a-2e0b-42f5-bb29-0cd02b7c5dd8" x="442" y="0" width="45" height="15"/>
+				<reportElement uuid="acae9e5f-73ec-45ac-920e-9928b8a363fc" x="442" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstJul}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinJul}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="3f56814c-ae0e-487b-8554-e981e713e56d" x="486" y="0" width="45" height="15"/>
+				<reportElement uuid="6c6a23a4-bcb9-48b2-a2c4-ddd78470ddd2" x="486" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstAgo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinAgo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="cb3f96d6-a76c-42d6-a86c-cfd191c0baad" x="530" y="0" width="45" height="15"/>
+				<reportElement uuid="c98ade84-72ef-4eda-8a49-39217d3de8bd" x="530" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstSet}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinSet}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="a47627dd-fca8-4ac8-b67c-2893e657df90" x="574" y="0" width="45" height="15"/>
+				<reportElement uuid="21690ba7-8970-4095-9188-4059972e7881" x="574" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstOut}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinOut}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="02426f10-f8cb-4aa8-8721-c4adb08b0056" x="618" y="0" width="45" height="15"/>
+				<reportElement uuid="1932f2f1-076e-4de9-ba92-613a506a73ef" x="618" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstNov}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinNov}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="fcc436c1-5e4a-4110-b872-a3f0b540d45b" x="662" y="0" width="45" height="15"/>
+				<reportElement uuid="24680f5e-a6ce-4da5-8098-e6a16291face" x="662" y="0" width="45" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstDez}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinDez}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="4eaab94d-6d29-4194-8e2e-b41b653ac59d" x="706" y="0" width="50" height="15"/>
+				<reportElement uuid="6b60f13c-a916-4e30-aa8b-b3012d7f1abf" x="706" y="0" width="50" height="15"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qt_DebRelEstTot}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qt_DebRelFinTot}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band/>
-	</columnFooter>
 </jasperReport>
