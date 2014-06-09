@@ -36,6 +36,8 @@ public class UsuarioAssociacaoControlador {
 
 	private List<Area> areas;
 	
+	private List<Area> filteredAreas;
+	
 	private List<Zona> filteredZonas;
 
 	@ManagedProperty(value = "#{usuarioServicoImpl}")
@@ -156,6 +158,14 @@ public class UsuarioAssociacaoControlador {
 		this.filteredZonas = filteredZonas;
 	}
 	
+	public List<Area> getFilteredAreas() {
+		return filteredAreas;
+	}
+
+	public void setFilteredAreas(List<Area> filteredAreas) {
+		this.filteredAreas = filteredAreas;
+	}
+
 	public boolean filterByPrice(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim();
         if(filterText == null||filterText.equals("")) {
