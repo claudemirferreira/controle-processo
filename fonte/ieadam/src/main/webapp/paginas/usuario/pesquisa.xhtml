@@ -201,6 +201,7 @@
 						
 						<p:dataTable id="gridPesquisaZonas" var="item" style=" border-color: black; "
                     		value="#{usuarioAssociacaoControlador.zonas}" scrollHeight="172">
+                    		
 
 							<p:column style="text-align:left;" headerText="Região"
 								sortBy="#{item.nome}">
@@ -273,9 +274,11 @@
 
                     	<p:dataTable id="gridPesquisaArea" var="item" 
                     		value="#{usuarioAssociacaoControlador.areas}" 
-                    		scrollRows="20"	scrollable="true" liveScroll="true" scrollHeight="172">
+                    		scrollRows="20"	scrollable="true" liveScroll="true" scrollHeight="172"
+                    		filteredValue="#{usuarioAssociacaoControlador.filteredAreas}">
 
 							<p:column style="text-align:left" headerText="Area"
+								filterBy="#{item.nome}" footerText="contains"
 								sortBy="#{item.nome}">
 								<h:outputText value="#{item.nome}" />
 							</p:column>
