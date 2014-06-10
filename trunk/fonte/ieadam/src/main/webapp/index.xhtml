@@ -19,32 +19,63 @@ body {
 	margin-right: 5px !important;
 	margin-top: 5px !important;
 	margin-bottom: 5px !important;
-	
 }
 </style>
+
+	<script>
+		function verificarReader() {
+			var version = null;
+			var versaoMinima =parseFloat(9.4);
+
+			var browser_info = {
+				name : null,
+				acrobat : null,
+				acrobat_ver : null
+			};
+
+			if (navigator.plugins != null) {
+				var acrobat = navigator.plugins['Adobe Acrobat'];
+				if (acrobat == null) {
+					browser_info.acrobat = null;
+					alert(' no instalado');
+				} else {
+					browser_info.acrobat = "installed";
+					browser_info.acrobat_ver = parseFloat(acrobat.version[0]);
+					version = parseFloat(acrobat.plugins);
+					if ( versaoMinima > version ){
+						alert(' Acrobat atualizado ' + version);
+					} else {
+						alert(' Acrobat desatualizado ' + version);
+					}
+				}
+			}
+
+		}
+	</script>
+
 </h:head>
 <h:body>
-		<p:layout fullPage="true">
-		
-			<p:layoutUnit position="north" id="tp_titulo" >
-				<ui:include src="/paginas/navigation.xhtml" />
-			</p:layoutUnit>
+	<p:layout fullPage="true">
 
-			<p:layoutUnit id="formPrincipal" position="center" style="width:90%">
-				<div align="right" style="background: #eaeaea; width:">
-					<p:outputLabel value="Usuário: "
-						style="color: #000000; font-weight:bold; font-size: large;" />
-					<p:outputLabel value="#{usuarioControlador.usuario.nome}"
-						style="color: #000000; font-style: italic; font-size: large;
+		<p:layoutUnit position="north" id="tp_titulo">
+			<ui:include src="/paginas/navigation.xhtml" />
+		</p:layoutUnit>
+
+		<p:layoutUnit id="formPrincipal" position="center" style="width:90%">
+			<div align="right" style="background: #eaeaea; width:">
+				<p:outputLabel value="Usuário: "
+					style="color: #000000; font-weight:bold; font-size: large;" />
+				<p:outputLabel value="#{usuarioControlador.usuario.nome}"
+					style="color: #000000; font-style: italic; font-size: large;
 				font-weight: 600; " />
-				</div>
-				<p:outputPanel id="paginaCentral">
-					<p:growl />
-					<ui:include src="#{paginaCentralControlador.paginaCentral}" />
-				</p:outputPanel>
-			</p:layoutUnit>
+			</div>
+			<p:outputPanel id="paginaCentral">
+				<p:growl />
+				<ui:include src="#{paginaCentralControlador.paginaCentral}" />
+			</p:outputPanel>
+		</p:layoutUnit>
 
-		</p:layout>
+	</p:layout>
 
 </h:body>
 </html>
