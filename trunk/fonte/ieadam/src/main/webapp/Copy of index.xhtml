@@ -25,7 +25,13 @@ body {
 	<script type="text/javascript">
 		function verificarReader() {
 			var version = null;
-			var versaoMinima = parseFloat(9.1);
+			var versaoMinima =parseFloat(9.6);
+
+			var browser_info = {
+				name : null,
+				acrobat : null,
+				acrobat_ver : null
+			};
 
 			if (navigator.plugins != null) {
 				var acrobat = navigator.plugins['Adobe Acrobat'];
@@ -33,9 +39,11 @@ body {
 					browser_info.acrobat = null;
 					alert(' no instalado');
 				} else {
+					browser_info.acrobat = "installed";
+					browser_info.acrobat_ver = parseFloat(acrobat.version[0]);
 					version = parseFloat(acrobat.version);
-					if (version >= versaoMinima) {
-						document.getElementById("form:buttonImprimir1").click();
+					if ( version >= versaoMinima ){
+						#{relatorioDebitoSecretaria.processarPDF()};
 					} else {
 						alert(' Acrobat desatualizado ' + version);
 					}

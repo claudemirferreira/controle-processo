@@ -12,6 +12,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -83,7 +84,8 @@ public abstract class RelatorioGenerico implements Serializable {
 	public abstract String telaRelatorio();
 
 	public abstract String nomeRelatorio();
-
+		
+	@PostConstruct
 	public void init() {
 		this.filtroRelatorioDTO = new FiltroRelatorioDTO();
 
@@ -305,6 +307,8 @@ public abstract class RelatorioGenerico implements Serializable {
 	 * Metodo utilizado para atualizar o combo de Nucleo
 	 */
 	public void atualizarNucleo() {
+		setVisualizar(false);
+		
 		boolean zonaAssociada = false;
 
 		this.filtroRelatorioDTO.setNucleos(new ArrayList<Nucleo>());
@@ -364,6 +368,7 @@ public abstract class RelatorioGenerico implements Serializable {
 		this.filtroRelatorioDTO.setArea(new Area());
 		
 		boolean nucleoAssociado = false;
+		setVisualizar(false);
 
 		if (this.filtroRelatorioDTO.getNucleo().getId() != 0) {
 			/*

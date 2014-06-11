@@ -14,6 +14,7 @@ public class RelatorioDebitoSecretaria extends RelatorioGenerico implements
 
 	@Override
 	public String telaRelatorio() {
+		setVisualizar(false);
 		return "paginas/relatorio/debitosecretaria.xhtml";
 	}
 
