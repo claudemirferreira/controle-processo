@@ -25,19 +25,22 @@ body {
 	<script type="text/javascript">
 		function verificarReader() {
 			var version = null;
-			var versaoMinima = parseFloat(9.1);
-
+			var versaoMinima = parseFloat(9.5);
 			if (navigator.plugins != null) {
 				var acrobat = navigator.plugins['Adobe Acrobat'];
 				if (acrobat == null) {
 					browser_info.acrobat = null;
-					alert(' no instalado');
+					alert(' Para imprimir o relatorio é necessário ter instalado o '
+							+ 'superior Adobe Acrobat Reader vesao 9.5 ou superior  '
+							+ 'Favor baixar no link http://get.adobe.com/br/reader/ ');
 				} else {
 					version = parseFloat(acrobat.version);
 					if (version >= versaoMinima) {
-						document.getElementById("form:buttonImprimir1").click();
+						document.getElementById('form:buttonImprimir').click();
 					} else {
-						alert(' Acrobat desatualizado ' + version);
+						alert(' Para imprimir o relatorio é necessario a versão '
+								+ '9.5 ou superior Adobe Acrobat Reader.  '
+								+ 'Favor atualizar a versão no link http://get.adobe.com/br/reader/ ');
 					}
 				}
 			}
