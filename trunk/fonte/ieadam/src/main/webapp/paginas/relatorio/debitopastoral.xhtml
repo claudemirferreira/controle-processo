@@ -10,27 +10,30 @@
 
 	<h:form id="form">
 
-		<div align="left" >
-			<p:outputLabel value="Módulo de #{rotinaControlador.perfil.nome} - Débito Pastoral" 
-				style="color: #8B0000; font-size: large; font-weight: bold;"/>
+		<div align="left">
+			<p:outputLabel
+				value="Módulo de #{rotinaControlador.perfil.nome} - Débito Pastoral"
+				style="color: #8B0000; font-size: large; font-weight: bold;" />
 		</div>
-	
+
 		<p:growl id="msgs" showDetail="true" />
 
 		<p:panel id="painel" style="margin-bottom:10px;">
 
 			<h:panelGrid columns="9" cellpadding="5">
 
-<!-- BLOCO DE ZONA -->
-				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />				
-				
-				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.zonas) == 0}"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona.idZona}" > 
-					<f:selectItem itemLabel="Nenhum" itemValue="" />
-				</p:selectOneMenu>				
+				<!-- BLOCO DE ZONA -->
+				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
 
-				<p:selectOneMenu rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.zonas) > 1}"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona.idZona}" >
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.zonas) == 0}"
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona.idZona}">
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu
+					rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.zonas) > 1}"
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona.idZona}">
 					<f:selectItem itemLabel="Selecione a Região" itemValue="" />
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
@@ -38,27 +41,30 @@
 					<p:ajax listener="#{relatorioDebitoPastoral.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
-				
-				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.zonas) == 1}"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona.idZona}" >
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.zonas) == 1}"
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zona.idZona}">
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
 					<p:ajax listener="#{relatorioDebitoPastoral.atualizarNucleo}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
-				
 
-<!-- BLOCO DE NUCLEO -->				
+
+				<!-- BLOCO DE NUCLEO -->
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
 
-				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.nucleos) == 0}"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo.idNucleo}" > 
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.nucleos) == 0}"
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo.idNucleo}">
 					<f:selectItem itemLabel="Nenhum" itemValue="" />
 				</p:selectOneMenu>
 
-				<p:selectOneMenu rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.nucleos) > 1}"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo.idNucleo}" >
+				<p:selectOneMenu
+					rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.nucleos) > 1}"
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo.idNucleo}">
 					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
@@ -67,9 +73,10 @@
 					<p:ajax listener="#{relatorioDebitoPastoral.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
-				
-				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.nucleos) == 1}"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo.idNucleo}" >
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.nucleos) == 1}"
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleo.idNucleo}">
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
@@ -77,33 +84,36 @@
 					<p:ajax listener="#{relatorioDebitoPastoral.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
-				
 
-<!-- BLOCO DE AREA -->				
+
+				<!-- BLOCO DE AREA -->
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
-			
-				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.areas) == 0}"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area.idArea}" > 
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.areas) == 0}"
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area.idArea}">
 					<f:selectItem itemLabel="Nenhum" itemValue="" />
 				</p:selectOneMenu>
-			
-				<p:selectOneMenu rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.areas) > 1}"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area.idArea}" > 
+
+				<p:selectOneMenu
+					rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.areas) > 1}"
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area.idArea}">
 					<f:selectItem itemLabel="Selecione a área" itemValue="" />
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
-				
-				<p:selectOneMenu disabled="true" rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.areas) == 1}"
-					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area.idArea}" >
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioDebitoPastoral.filtroRelatorioDTO.areas) == 1}"
+					value="#{relatorioDebitoPastoral.filtroRelatorioDTO.area.idArea}">
 					<f:selectItems
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
-				
+
 			</h:panelGrid>
-	
+
 			<h:panelGrid columns="2" cellpadding="5">
 				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
 				<p:inputText id="anoInicio" styleClass="ui-priority-primary"
@@ -113,15 +123,20 @@
 			</h:panelGrid>
 
 			<f:facet name="footer">
+				<div align="left">
+					<p:commandButton value="Retornar" ajax="false" update=":form"
+						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+						actionListener="#{rotinaControlador.telaRotinas()}" />
 
-				<p:commandButton value="Retornar" ajax="false" update=":form" id="buttonRetornar"
-					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-					actionListener="#{rotinaControlador.telaRotinas()}" />
-					
-				<p:commandButton id="buttonImprimir" value="Gerar relatorio" icon="ui-icon-print"
-						style="margin:0" styleClass="ui-priority-primary"
-						actionListener="#{relatorioDebitoPastoral.visualiarRelatorio()}"
-						update=":form" ajax="false"/>
+					<p:commandButton id="botao" value="Gerar relatório"
+						icon="ui-icon-print" style="margin:0"
+						styleClass="ui-priority-primary" ajax="false"
+						onclick="verificarReader();" />
+
+					<p:commandButton id="buttonImprimir" value="Gerar relatorio"
+						style=" visibility: hidden;" update=":form:pdf" ajax="false"
+						actionListener="#{relatorioDebitoPastoral.visualiarRelatorio()}" />
+				</div>
 
 			</f:facet>
 
@@ -133,7 +148,9 @@
 		</p:blockUI>
 
 		<p:outputPanel rendered="#{relatorioDebitoPastoral.visualizar}">
-			<iframe  id="pdf"  src="paginas/relatorio/visualizarPdfdebitopastoral.xhtml" width="99%" height="450px"></iframe>
+			<iframe id="pdf"
+				src="paginas/relatorio/visualizarPdfdebitopastoral.xhtml"
+				width="99%" height="450px"></iframe>
 		</p:outputPanel>
 	</h:form>
 
