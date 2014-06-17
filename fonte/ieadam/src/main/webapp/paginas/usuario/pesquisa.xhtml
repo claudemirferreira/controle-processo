@@ -168,11 +168,15 @@
 
 	</p:dialog>
 
-	<p:dialog id="dialogAssociacao" header="Associação do usuário #{usuarioAssociacaoControlador.usuario.nome}" width="1100px"
+	<p:dialog id="dialogAssociacao" header="" width="1100px"
 		widgetVar="dlgAssociacao" modal="true" appendToBody="true"
 		closable="false">
 
 		<h:form id="formAssociacao">
+			
+			<p:outputLabel value="Associação do usuário: #{usuarioAssociacaoControlador.usuario.nome} " styleClass="ui-priority-primary" />
+
+			<p/>
 
 			<p:growl id="msg" showDetail="false" escape="false"
 				globalOnly="false" />
