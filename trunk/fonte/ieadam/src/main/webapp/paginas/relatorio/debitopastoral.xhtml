@@ -20,7 +20,7 @@
 
 		<p:panel id="painel" style="margin-bottom:10px;">
 
-			<h:panelGrid columns="9" cellpadding="5">
+			<h:panelGrid columns="9" cellpadding="1">
 
 				<!-- BLOCO DE ZONA -->
 				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
@@ -39,7 +39,7 @@
 						value="#{relatorioDebitoPastoral.filtroRelatorioDTO.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
 					<p:ajax listener="#{relatorioDebitoPastoral.atualizarNucleo}"
-						update=":form" event="change" />
+						update=":form:painel" event="change" />
 				</p:selectOneMenu>
 
 				<p:selectOneMenu disabled="true"
@@ -71,7 +71,7 @@
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
 					<p:ajax listener="#{relatorioDebitoPastoral.atualizarArea}"
-						update=":form" event="change" />
+						update=":form:painel" event="change" />
 				</p:selectOneMenu>
 
 				<p:selectOneMenu disabled="true"
@@ -128,11 +128,8 @@
 						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
 						actionListener="#{rotinaControlador.telaRotinas()}" />
 
-					<p:commandButton id="botao" value="Gerar relatório"
-						icon="ui-icon-print" style="margin:0"
-						styleClass="ui-priority-primary" ajax="false"
-						onclick="verificarReader();" />
-
+					<input id="botao" type="button" value="Gerar relatório" onclick="verificarReader();" class="inputButton"/>	
+					
 					<p:commandButton id="buttonImprimir" value="Gerar relatorio"
 						style=" visibility: hidden;" update=":form:pdf" ajax="false"
 						actionListener="#{relatorioDebitoPastoral.visualiarRelatorio()}" />

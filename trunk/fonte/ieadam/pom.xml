@@ -15,7 +15,7 @@
 		<spring.version>3.2.0.RELEASE</spring.version>
 		<spring-security.version>3.1.4.RELEASE</spring-security.version>
 		<spring-security.version>3.1.0.RELEASE</spring-security.version>
-		<primefaces-theme.version>1.0.10</primefaces-theme.version>
+<!-- 		<primefaces-theme.version>1.0.10</primefaces-theme.version> -->
 		<poi.version>3.7</poi.version>
 		<itext.version>2.1.7</itext.version>
 	</properties>
@@ -260,17 +260,17 @@
 		</dependency>
 
 		<!-- Primefaces Themes -->
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>all-themes</artifactId>
-			<version>${primefaces-theme.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.primefaces.themes</groupId> -->
+<!-- 			<artifactId>all-themes</artifactId> -->
+<!-- 			<version>${primefaces-theme.version}</version> -->
+<!-- 		</dependency> -->
 
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>redmond</artifactId>
-			<version>${primefaces-theme.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.primefaces.themes</groupId> -->
+<!-- 			<artifactId>redmond</artifactId> -->
+<!-- 			<version>${primefaces-theme.version}</version> -->
+<!-- 		</dependency> -->
 
 		<!-- Exportar Grid PDF e XLS -->
 		<dependency>
