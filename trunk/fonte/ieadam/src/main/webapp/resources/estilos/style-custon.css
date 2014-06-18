@@ -15,7 +15,7 @@
 
 .inputButton {
 	height: 30px; font-weight: bold;  
-	background-image: url('../imagens/print.png');
+	background-image: url('../imagens/print.png') !important;
 	background-repeat: no-repeat; background-position: 5px 6px;
 	position: absolute;
 	padding-left: 25px;
