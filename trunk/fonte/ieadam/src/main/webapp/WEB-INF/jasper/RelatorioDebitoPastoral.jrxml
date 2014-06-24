@@ -3,7 +3,7 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.331000000000001"/>
-	<property name="ireport.x" value="107"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -223,7 +223,7 @@ $F{int_qt_DebRelPasDez})]]></variableExpression>
 		<groupExpression><![CDATA[$F{numero_zona}]]></groupExpression>
 		<groupHeader>
 			<band height="20">
-				<printWhenExpression><![CDATA[$P{ZONA}.intValue() != 0]]></printWhenExpression>
+				<printWhenExpression><![CDATA[$F{grupo_zona}.intValue() != 0]]></printWhenExpression>
 				<textField>
 					<reportElement uuid="67532359-e72d-4d92-8c9b-5a5e08d2ecc7" x="1" y="0" width="202" height="20"/>
 					<textElement verticalAlignment="Middle">
@@ -235,7 +235,7 @@ $F{int_qt_DebRelPasDez})]]></variableExpression>
 		</groupHeader>
 		<groupFooter>
 			<band height="20">
-				<printWhenExpression><![CDATA[$P{ZONA}.intValue() != 0]]></printWhenExpression>
+				<printWhenExpression><![CDATA[$F{grupo_zona}.intValue() != 0]]></printWhenExpression>
 				<rectangle>
 					<reportElement uuid="d26bbdd5-d859-476d-8c8b-1e09bdbe12a1" x="0" y="1" width="796" height="15"/>
 				</rectangle>
@@ -344,7 +344,7 @@ $F{int_qt_DebRelPasDez})]]></variableExpression>
 		<groupExpression><![CDATA[$F{numero_nucleo}]]></groupExpression>
 		<groupHeader>
 			<band height="20">
-				<printWhenExpression><![CDATA[$P{NUCLEO}.intValue() != 0 || $P{ZONA}.intValue() != 0]]></printWhenExpression>
+				<printWhenExpression><![CDATA[$F{grupo_nucleo}.intValue() != 0 || $F{grupo_zona}.intValue() != 0]]></printWhenExpression>
 				<textField>
 					<reportElement uuid="8bd94e46-cda5-403b-b5b1-cbc783213dd5" x="204" y="4" width="309" height="14"/>
 					<textElement verticalAlignment="Middle"/>
@@ -375,7 +375,7 @@ $F{int_qt_DebRelPasDez})]]></variableExpression>
 		</groupHeader>
 		<groupFooter>
 			<band height="19">
-				<printWhenExpression><![CDATA[$P{NUCLEO}.intValue() != 0 || $P{ZONA}.intValue() != 0]]></printWhenExpression>
+				<printWhenExpression><![CDATA[$F{grupo_nucleo}.intValue() != 0 || $F{grupo_zona}.intValue() != 0]]></printWhenExpression>
 				<rectangle>
 					<reportElement uuid="335d14ee-762b-4e48-9b90-74ef84730fb9" x="1" y="2" width="795" height="15"/>
 				</rectangle>
