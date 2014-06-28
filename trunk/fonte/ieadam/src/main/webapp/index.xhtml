@@ -46,35 +46,63 @@ body {
 
 	</p:layout>
 	
-		<script type="text/javascript">
+	<p:dialog header="INFORMAÇÃO" widgetVar="dlgInfo" minHeight="40" modal="true">
+		<h:outputText value="Para imprimir o relatorio é necessario a versão 9.5 ou superior do Adobe Acrobat Reader." />
+		<p/><h:outputText value="Atualize a versão no link: " />
+		<a href="http://get.adobe.com/br/reader/">Adobe Acrobat Reader</a>
+		<p/><i><b><h:outputText value="Observação: Após a instalação é necessário reiniciar o navegador de internet!" /></b></i>
+	</p:dialog>
+	
+	<script type="text/javascript">
+	
 		function verificarReader() {
 			var version = null;
 			var versaoMinima = parseFloat(9.5);
-	
-// 			if (navigator.plugins != null) {
-// 				var acrobat = navigator.plugins['Adobe Acrobat'];
 				
-// 				if (acrobat == null) {
-// // 					alert(' Para imprimir o relatorio é necessário ter instalado o '
-// // 							+ 'superior Adobe Acrobat Reader vesao 9.5 ou superior  '
-// // 							+ 'Favor baixar no link http://get.adobe.com/br/reader/ ');
-
-// 					document.getElementById('form:buttonImprimir').click();
-// 				} else {
-// 					version = parseFloat(acrobat.version);
-						
-// 					if (isNaN(version) || version >= versaoMinima) {
-// 						document.getElementById('form:buttonImprimir').click();
-// 					} else {
-// 						alert(' Para imprimir o relatorio é necessario a versão '
-// 								+ '9.5 ou superior Adobe Acrobat Reader.  '
-// 								+ 'Favor atualizar a versão no link http://get.adobe.com/br/reader/ ');
-// 					}
-// 				}
-// 			}
+			if (window.ActiveXObject) {
+				var control = null;
+				
+				try {
+					control = new ActiveXObject('AcroPDF.PDF'); 
+				} catch(e) {
+					// Do nothing
+				}
+				if (!control) {
+					try {
+						control = new ActiveXObject('PDF.PdfCtrl');
+					} catch(e) {
+						version = 0;
+					}
+				} else if (control) {
+					version = control.GetVersions().split(',');
+					version = version[0].split('=');
+					version = parseFloat(version[1]);
+				}
+				
+			} else if (navigator.plugins != null) {
+				var plugin = navigator.plugins['Adobe Acrobat'];
+ 				
+ 				if (plugin==undefined) {
+ 					if (navigator.plugins["Chrome PDF Viewer"]) {
+ 						document.getElementById('form:buttonImprimir').click();
+ 						return;
+ 					}
+ 					version = 0;
+ 					
+  				} else if (plugin.version==undefined) {
+  					document.getElementById('form:buttonImprimir').click();
+  					return;
+ 				} else {
+ 					version = parseFloat(plugin.version);
+ 				}
+ 			}
 			
-			document.getElementById('form:buttonImprimir').click();
-
+			if (version >= versaoMinima) {
+	 			document.getElementById('form:buttonImprimir').click();
+			
+			} else {
+				dlgInfo.show();	
+			}
 		}
 	</script>
 

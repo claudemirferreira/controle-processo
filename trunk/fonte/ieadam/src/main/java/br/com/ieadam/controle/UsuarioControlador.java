@@ -155,6 +155,7 @@ public class UsuarioControlador {
 	}
 
 	public String telaPesquisa() {
+		this.pesquisa = new Usuario();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 		return "index.xhtml?faces-redirect=true";
 	}
