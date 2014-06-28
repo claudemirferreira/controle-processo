@@ -423,7 +423,13 @@ public abstract class RelatorioGenerico implements Serializable {
 			permissao = this.nucleoServico.isUsuarioDeNucleo(
 					this.filtroRelatorioDTO.getUsuarioLogado().getId(),
 					this.filtroRelatorioDTO.getNucleo().getId());
-					
+			
+			// Se o usuario nao for de nucleo, eh necessario validar se o mesmo eh de Regiao. 
+			if (!permissao) {
+				permissao = this.zonaServico.isUsuarioDeZona(
+						this.filtroRelatorioDTO.getUsuarioLogado().getId(),
+						this.filtroRelatorioDTO.getZona().getId());
+			}
 			
 		} else if (this.filtroRelatorioDTO.getZona().getId() != 0) {
 			// checar se o ususario estah associado a este regiao
