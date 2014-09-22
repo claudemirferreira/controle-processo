@@ -1,0 +1,84 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+
+		<p:panel header="FORMULÁRIO DE PESQUISA DE USUÁRIO">
+			<p:growl id="growl" />
+			<h:panelGrid id="panelPesquisa" columns="5">
+
+				<p:outputLabel value="Nome" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Congregação" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Área" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Núcleo" styleClass="ui-priority-primary" />
+				<p:outputLabel value="Região" styleClass="ui-priority-primary" />
+
+				<p:inputText id="nome" style="width:300px"
+					value="#{membroControlador.pesquisa.nome}" />
+				<p:inputText id="login" style="width:100px"
+					value="#{membroControlador.pesquisa.login}" />
+				<p:inputText id="idMembro" style="width:100px"
+					value="#{membroControlador.pesquisa.idMembro}" />
+				<p:inputText id="idMembro" style="width:100px"
+					value="#{membroControlador.pesquisa.idMembro}" />	
+				<p:inputText id="idMembro" style="width:100px"
+					value="#{membroControlador.pesquisa.idMembro}" />
+
+			</h:panelGrid>
+
+			<f:facet name="footer">
+
+				<p:defaultCommand target="buttonPesquisar" />
+
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					actionListener="#{rotinaControlador.telaRotinas(rotinaControlador.perfil)}" />
+
+				<p:commandButton id="buttonPesquisar" value="Pesquisar"
+					update=":form:gridPesquisa" icon="ui-icon-search"
+					styleClass="ui-priority-primary"
+					action="#{membroControlador.pesquisar}" />
+
+			</f:facet>
+
+		</p:panel>
+
+		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
+			value="#{membroControlador.lista}" paginatorPosition="bottom"
+			paginatorAlwaysVisible="true"
+			emptyMessage="Nenhum registro encontrado."
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20">
+
+			<p:column style="text-align:left" headerText="Nome"
+				sortBy="#{item.nome}">
+				<h:outputText value="#{item.nome}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Login"
+				sortBy="#{item.congregacao.id}">
+				<h:outputText value="#{item.login}" />
+			</p:column>
+
+			<f:facet name="footer">  
+	            Total de registros: #{fn:length(usuarioControlador.lista)} usuarios.  
+	        </f:facet>
+
+		</p:dataTable>
+
+		<p:blockUI block=":formPrincipal" widgetVar="bui">
+    		processando ...<br />
+			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+		</p:blockUI>
+
+	</h:form>
+
+</ui:component>
