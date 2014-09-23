@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,12 +23,12 @@ public class Congregacao extends AbstractEntity implements Serializable {
 
 	private String cidade;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_area")
-//	private Area area;
+	@ManyToOne
+	@JoinColumn(name = "id_area")
+	private Area area;
 	
-	@Column
-	private int idArea;
+//	@Column
+//	private int idArea;
 
 	@Column(length = 60, nullable = false)
 	private String bairro;
@@ -76,21 +78,21 @@ public class Congregacao extends AbstractEntity implements Serializable {
 		this.cidade = cidade;
 	}
 
-//	public Area getArea() {
-//		return area;
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
+	}
+
+//	public int getIdArea() {
+//		return idArea;
 //	}
 //
-//	public void setArea(Area area) {
-//		this.area = area;
+//	public void setIdArea(int idArea) {
+//		this.idArea = idArea;
 //	}
-
-	public int getIdArea() {
-		return idArea;
-	}
-
-	public void setIdArea(int idArea) {
-		this.idArea = idArea;
-	}
 
 	public String getBairro() {
 		return bairro;

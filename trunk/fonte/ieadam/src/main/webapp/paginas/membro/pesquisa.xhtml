@@ -13,24 +13,98 @@
 
 		<p:panel header="FORMULÁRIO DE PESQUISA DE USUÁRIO">
 			<p:growl id="growl" />
-			<h:panelGrid id="panelPesquisa" columns="5">
+			<h:panelGrid columns="9" cellpadding="1">
 
-				<p:outputLabel value="Nome" styleClass="ui-priority-primary" />
-				<p:outputLabel value="Congregação" styleClass="ui-priority-primary" />
-				<p:outputLabel value="Área" styleClass="ui-priority-primary" />
-				<p:outputLabel value="Núcleo" styleClass="ui-priority-primary" />
-				<p:outputLabel value="Região" styleClass="ui-priority-primary" />
+				<!-- BLOCO DE ZONA -->
+				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
 
-				<p:inputText id="nome" style="width:300px"
-					value="#{membroControlador.pesquisa.nome}" />
-				<p:inputText id="login" style="width:100px"
-					value="#{membroControlador.pesquisa.login}" />
-				<p:inputText id="idMembro" style="width:100px"
-					value="#{membroControlador.pesquisa.idMembro}" />
-				<p:inputText id="idMembro" style="width:100px"
-					value="#{membroControlador.pesquisa.idMembro}" />	
-				<p:inputText id="idMembro" style="width:100px"
-					value="#{membroControlador.pesquisa.idMembro}" />
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.zonas) == 0}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zona.idZona}">
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu
+					rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.zonas) > 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zona.idZona}">
+					<f:selectItem itemLabel="Selecione a Região" itemValue="" />
+					<f:selectItems
+						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioBalanceteAnalitico.atualizarNucleo}"
+						update=":form:painel" event="change" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.zonas) == 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zona.idZona}">
+					<f:selectItems
+						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.zonas}"
+						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+					<p:ajax listener="#{relatorioBalanceteAnalitico.atualizarNucleo}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+
+
+				<!-- BLOCO DE NUCLEO -->
+				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleos) == 0}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleo.idNucleo}">
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu
+					rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleos) > 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleo.idNucleo}">
+					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
+					<f:selectItems
+						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleos}"
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioBalanceteAnalitico.atualizarArea}"
+						update=":form:painel" event="change" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleos) == 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleo.idNucleo}">
+					<f:selectItems
+						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.nucleos}"
+						var="nucleo" itemLabel="#{nucleo.nome}"
+						itemValue="#{nucleo.idNucleo}" />
+					<p:ajax listener="#{relatorioBalanceteAnalitico.atualizarArea}"
+						update=":form" event="change" />
+				</p:selectOneMenu>
+
+
+				<!-- BLOCO DE AREA -->
+				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.areas) == 0}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.area.idArea}">
+					<f:selectItem itemLabel="Nenhum" itemValue="" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu
+					rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.areas) > 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.area.idArea}">
+					<f:selectItem itemLabel="Selecione a área" itemValue="" />
+					<f:selectItems
+						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
+
+				<p:selectOneMenu disabled="true"
+					rendered="#{fn:length(relatorioBalanceteAnalitico.filtroRelatorioDTO.areas) == 1}"
+					value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.area.idArea}">
+					<f:selectItems
+						value="#{relatorioBalanceteAnalitico.filtroRelatorioDTO.areas}"
+						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+				</p:selectOneMenu>
+
 
 			</h:panelGrid>
 
@@ -63,9 +137,19 @@
 				<h:outputText value="#{item.nome}" />
 			</p:column>
 
-			<p:column style="text-align:left" headerText="Login"
-				sortBy="#{item.congregacao.id}">
-				<h:outputText value="#{item.login}" />
+			<p:column style="text-align:left" headerText="Congregação"
+				sortBy="#{item.congregacao.nome}">
+				<h:outputText value="#{item.congregacao.nome}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Area"
+				sortBy="#{item.congregacao.area.nome}">
+				<h:outputText value="#{item.congregacao.area.nome}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Nucleo"
+				sortBy="#{item.congregacao.area.nucleo.nome}">
+				<h:outputText value="#{item.congregacao.area.nucleo.nome}" />
 			</p:column>
 
 			<f:facet name="footer">  

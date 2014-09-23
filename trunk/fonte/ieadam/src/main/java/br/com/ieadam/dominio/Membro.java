@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -49,12 +51,12 @@ public class Membro extends AbstractEntity implements Serializable {
 	@Column(name = "sexo", length = 1, columnDefinition = "CHAR(1)", nullable = false)
 	private String sexo;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_congregacao", nullable = false)
-//	private Congregacao congregacao;
+	@ManyToOne
+	@JoinColumn(name = "id_congregacao", nullable = false)
+	private Congregacao congregacao;
 
-	@Column
-	private int idCongregacao;
+//	@Column
+//	private int idCongregacao;
 	
 	private String cidade;
 
@@ -126,22 +128,22 @@ public class Membro extends AbstractEntity implements Serializable {
 		this.idMembro = idMembro;
 	}
 
-//	public Congregacao getCongregacao() {
-//		return congregacao;
-//	}
-//
-//	public void setCongregacao(Congregacao congregacao) {
-//		this.congregacao = congregacao;
-//	}
+	public Congregacao getCongregacao() {
+		return congregacao;
+	}
+
+	public void setCongregacao(Congregacao congregacao) {
+		this.congregacao = congregacao;
+	}
 	
 
-	public int getIdCongregacao() {
-		return idCongregacao;
-	}
-
-	public void setIdCongregacao(int idCongregacao) {
-		this.idCongregacao = idCongregacao;
-	}
+//	public int getIdCongregacao() {
+//		return idCongregacao;
+//	}
+//
+//	public void setIdCongregacao(int idCongregacao) {
+//		this.idCongregacao = idCongregacao;
+//	}
 
 	public Date getDataNascimento() {
 		return dataNascimento;
