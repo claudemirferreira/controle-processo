@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,8 +25,8 @@ public class Area extends AbstractEntity implements Serializable {
 	@Column
 	private int idPastor;
 
-	@Column
-	private int idNucleo;
+//	@Column
+//	private int idNucleo;
 
 	@Column(length = 60, nullable = false)
 	private String nome;
@@ -34,6 +36,10 @@ public class Area extends AbstractEntity implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	private Date dataUltimaAtualizacao;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_nucleo")
+	private Nucleo nucleo;
 
 	@Transient
 	private boolean usuarioArea;
@@ -87,13 +93,21 @@ public class Area extends AbstractEntity implements Serializable {
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
 
-	public int getIdNucleo() {
-		return idNucleo;
+	public Nucleo getNucleo() {
+		return nucleo;
 	}
 
-	public void setIdNucleo(int idNucleo) {
-		this.idNucleo = idNucleo;
+	public void setNucleo(Nucleo nucleo) {
+		this.nucleo = nucleo;
 	}
+//
+//	public int getIdNucleo() {
+//		return idNucleo;
+//	}
+//
+//	public void setIdNucleo(int idNucleo) {
+//		this.idNucleo = idNucleo;
+//	}
 
 	public boolean isUsuarioArea() {
 		return usuarioArea;
