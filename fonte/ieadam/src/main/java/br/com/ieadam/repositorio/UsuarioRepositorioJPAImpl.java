@@ -1,6 +1,7 @@
 package br.com.ieadam.repositorio;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -59,5 +60,7 @@ public class UsuarioRepositorioJPAImpl extends RepositorioGenerico implements
 
 		return query.getResultList();
 	}
+
+	
 
 }
