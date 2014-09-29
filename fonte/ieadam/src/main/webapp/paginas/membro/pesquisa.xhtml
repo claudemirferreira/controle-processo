@@ -11,7 +11,7 @@
 
 	<h:form id="form">
 
-		<p:panel header="FORMULÁRIO DE PESQUISA DE USUÁRIO">
+		<p:panel id="painel" header="FORMULÁRIO DE PESQUISA DE USUÁRIO">
 			<p:growl id="growl" />
 			<h:panelGrid columns="3" cellpadding="2">
 
@@ -23,18 +23,30 @@
 					<f:selectItem itemLabel="Todas as regiões" itemValue="" />
 					<f:selectItems value="#{membroControlador.zonas}" var="zona"
 						itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
+
+					<p:ajax listener="#{membroControlador.atualizarNucleo}"
+						update=":form:painel" event="change" />
+
 				</p:selectOneMenu>
 
 				<p:selectOneMenu value="#{membroControlador.nucleo.idNucleo}">
 					<f:selectItem itemLabel="Todos os nucleos" itemValue="" />
 					<f:selectItems value="#{membroControlador.nucleos}" var="nucleo"
 						itemLabel="#{nucleo.nome}" itemValue="#{nucleo.idNucleo}" />
+
+					<p:ajax listener="#{membroControlador.atualizarArea}"
+						update=":form:painel" event="change" />
+
 				</p:selectOneMenu>
 
-				<p:selectOneMenu value="#{membroControlador.area.id}">
-					<f:selectItem itemLabel="Todas as áreas" itemValue="" />
+				<p:selectOneMenu value="#{membroControlador.area.idArea}">
+					<f:selectItem itemLabel="Todos os areas" itemValue="" />
 					<f:selectItems value="#{membroControlador.areas}" var="area"
-						itemLabel="#{area.nome}" itemValue="#{area.id}" />
+						itemLabel="#{area.nome}" itemValue="#{area.idArea}" />
+
+					<p:ajax listener="#{membroControlador.atualizarCongregacao}"
+						update=":form:painel" event="change" />
+
 				</p:selectOneMenu>
 
 			</h:panelGrid>
