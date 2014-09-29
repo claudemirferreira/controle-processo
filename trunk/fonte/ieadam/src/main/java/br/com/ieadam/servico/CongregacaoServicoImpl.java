@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Congregacao;
 import br.com.ieadam.repositorio.CongregacaoRepositorio;
 
@@ -31,5 +32,10 @@ public class CongregacaoServicoImpl implements CongregacaoServico, Serializable 
 	public void remover(Congregacao congregacao) {
 		this.congregacaoRepositorio.delete(congregacao);
 
+	}
+
+	@Override
+	public List<Congregacao> findByArea(Area area) {
+		return this.congregacaoRepositorio.findByArea(area);
 	}
 }

@@ -30,8 +30,6 @@ public class MembroControlador {
 
 	private List<Membro> lista;
 
-	private List<Perfil> perfis = new ArrayList<Perfil>();
-
 	private Congregacao congregacao = new Congregacao();
 
 	private Zona zona = new Zona();
@@ -70,7 +68,7 @@ public class MembroControlador {
 
 	@PostConstruct
 	public void init() {
-		this.lista = servico.listarTodos();
+		//this.lista = servico.listarTodos();
 
 		this.congregacoes = congregacaoServico.listarTodos();
 
@@ -81,17 +79,6 @@ public class MembroControlador {
 		this.nucleos = nucleoServico.listarTodos();
 
 		this.paginaCentralControlador.setPaginaCentral(TELA_PESQUISA);
-
-	}
-
-	public void atualizarNucleo() {
-
-	}
-
-	/**
-	 * Metodo utilizado para atualizar o combo de Nucleo
-	 */
-	public void atualizarArea() {
 
 	}
 
@@ -180,12 +167,36 @@ public class MembroControlador {
 		this.paginaCentralControlador = paginaCentralControlador;
 	}
 
-	public List<Perfil> getPerfis() {
-		return perfis;
-	}
+	/**
+	 * Metodo utilizado para atualizar o combo de Nucleo
+	 */
+	public void atualizarNucleo() {
+		this.setNucleos(new ArrayList<Nucleo>());
+		this.setNucleos(this.nucleoServico.findByZona(this.zona.getId()));
+		this.setNucleo(new Nucleo());
+		this.setAreas(new ArrayList<Area>());
+		this.setArea(new Area());
 
-	public void setPerfis(List<Perfil> perfis) {
-		this.perfis = perfis;
+		this.setAreas(new ArrayList<Area>()); 
+
+	}
+	
+	/**
+	 * Metodo utilizado para atualizar o combo de Nucleo
+	 */
+	public void atualizarArea() {
+		this.setAreas(new ArrayList<Area>());
+		this.setAreas(this.areaServico.findByNucleo(this.nucleo.getId()));
+
+	}
+	
+	/**
+	 * Metodo utilizado para atualizar o combo de Nucleo
+	 */
+	public void atualizarCongregacao() {
+		this.setCongregacoes(new ArrayList<Congregacao>());
+		this.setCongregacoes(this.congregacaoServico.findByArea(this.area));
+
 	}
 
 	public PaginaCentralControlador getPaginaCentralControlador() {
