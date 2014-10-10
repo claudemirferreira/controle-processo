@@ -156,17 +156,29 @@ public abstract class RelatorioGenerico implements Serializable {
 		Calendar dataInicio = new GregorianCalendar(
 				this.parametro.getAnoInicio(), this.parametro.getMes().getMes(), 1);
 		
+		Calendar dataMesAnoInicio = new GregorianCalendar(
+				this.parametro.getAnoInicio(), this.parametro.getMesInicio().getMes(), 1);
+		
+		Calendar dataMesAnoFim = new GregorianCalendar(
+				this.parametro.getAnoFim(), this.parametro.getMesFim().getMes(), 1);
+		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		System.out.println("========== listagem de parametro do relatório " + arquivo + "====================");
-
+		
+		params.put("DATA_MES_ANO_INICIO", dateFormat.format(dataMesAnoInicio.getTime()));
+		params.put("DATA_MES_ANO_FIM", dateFormat.format(dataMesAnoFim.getTime()));
+		
 		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
 		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
 		params.put("DATA_ANO", this.parametro.getAnoInicio()+"");
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
+		
+		System.out.println("DATA_MES_ANO_INICIO = "+ dateFormat.format(dataMesAnoInicio.getTime()));
+		System.out.println("DATA_MES_ANO_FIM = "+ dateFormat.format(dataMesAnoFim.getTime()));
 		
 		System.out.println("DATA_MES_ANO = "+ dateFormat.format(dataInicio.getTime()));
 		System.out.println("MES_ANO = "+ IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
