@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Congregacao;
+import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.repositorio.CongregacaoRepositorio;
+import br.com.ieadam.repositorio.CongregacaoRepositorioSql;
 
 @Service
 public class CongregacaoServicoImpl implements CongregacaoServico, Serializable {
@@ -17,6 +19,9 @@ public class CongregacaoServicoImpl implements CongregacaoServico, Serializable 
 	
 	@Autowired
 	private CongregacaoRepositorio congregacaoRepositorio;
+	
+	@Autowired
+	private CongregacaoRepositorioSql congregacaoRepositorioSql;
 
 	@Override
 	public List<Congregacao> listarTodos() {
@@ -37,5 +42,10 @@ public class CongregacaoServicoImpl implements CongregacaoServico, Serializable 
 	@Override
 	public List<Congregacao> findByArea(Area area) {
 		return this.congregacaoRepositorio.findByArea(area);
+	}
+
+	@Override
+	public List<Congregacao> listaCongregacaoToZona(Zona zona) {
+		return this.congregacaoRepositorioSql.listaCongregacaoToZona(zona);
 	}
 }

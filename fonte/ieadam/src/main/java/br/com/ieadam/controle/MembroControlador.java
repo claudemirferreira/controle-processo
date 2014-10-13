@@ -12,7 +12,6 @@ import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Congregacao;
 import br.com.ieadam.dominio.Membro;
 import br.com.ieadam.dominio.Nucleo;
-import br.com.ieadam.dominio.Perfil;
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.servico.AreaServico;
 import br.com.ieadam.servico.CongregacaoServico;
@@ -68,7 +67,7 @@ public class MembroControlador {
 
 	@PostConstruct
 	public void init() {
-		//this.lista = servico.listarTodos();
+		// this.lista = servico.listarTodos();
 
 		this.congregacoes = congregacaoServico.listarTodos();
 
@@ -172,15 +171,25 @@ public class MembroControlador {
 	 */
 	public void atualizarNucleo() {
 		this.setNucleos(new ArrayList<Nucleo>());
-		this.setNucleos(this.nucleoServico.findByZona(this.zona.getId()));
+		this.setCongregacoes(new ArrayList<Congregacao>());
 		this.setNucleo(new Nucleo());
-		this.setAreas(new ArrayList<Area>());
 		this.setArea(new Area());
 
-		this.setAreas(new ArrayList<Area>()); 
-
+		// lista todos os nucleos, areas e congregacões
+		if (this.zona.getId() == -1) {
+			this.setNucleos(this.nucleoServico.listarTodos());
+			this.setAreas(this.areaServico.listarTodos());
+			this.setCongregacoes(this.congregacaoServico.listarTodos());
+		}
+		// lista os nucleos, areas e congregacões de uma zona
+		else {
+			this.setNucleos(this.nucleoServico.findByZona(this.zona.getId()));
+			this.setAreas(this.areaServico.listaAreaToZona(zona));
+			this.setCongregacoes(this.congregacaoServico
+					.listaCongregacaoToZona(zona));
+		}
 	}
-	
+
 	/**
 	 * Metodo utilizado para atualizar o combo de Nucleo
 	 */
@@ -189,7 +198,7 @@ public class MembroControlador {
 		this.setAreas(this.areaServico.findByNucleo(this.nucleo.getId()));
 
 	}
-	
+
 	/**
 	 * Metodo utilizado para atualizar o combo de Nucleo
 	 */

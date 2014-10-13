@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Usuario;
+import br.com.ieadam.dominio.Zona;
 
 @Repository
 public class AreaRepositorioSqlImpl implements AreaRepositorioSql {
@@ -29,4 +30,14 @@ public class AreaRepositorioSqlImpl implements AreaRepositorioSql {
 
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Area> listaAreaToZona(Zona zona) {
+
+		String SQL = "select a.* from sgr.ieadam_area a, sgr.ieadam_nucleo b, sgr.ieadam_zona c "
+				+ "where a.id_nucleo = b.id_nucleo and b.id_zona = c.id_zona "
+				+ "and c.id_zona =" + zona.getIdZona();
+
+		return entityManager.createNativeQuery(SQL, Area.class).getResultList();
+	}
 }
