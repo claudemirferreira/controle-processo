@@ -9,12 +9,10 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import br.com.ieadam.dominio.Area;
-import br.com.ieadam.dominio.Congregacao;
-import br.com.ieadam.dominio.Membro;
 import br.com.ieadam.dominio.Nucleo;
+import br.com.ieadam.dominio.ViewMembro;
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.servico.AreaServico;
-import br.com.ieadam.servico.CongregacaoServico;
 import br.com.ieadam.servico.MembroServico;
 import br.com.ieadam.servico.NucleoServico;
 import br.com.ieadam.servico.ZonaServico;
@@ -23,21 +21,9 @@ import br.com.ieadam.servico.ZonaServico;
 @SessionScoped
 public class MembroControlador {
 
-	private Membro entidade;
+	private ViewMembro pesquisa;
 
-	private Membro pesquisa;
-
-	private List<Membro> lista;
-
-	private Congregacao congregacao = new Congregacao();
-
-	private Zona zona = new Zona();
-
-	private Area area = new Area();
-
-	private Nucleo nucleo = new Nucleo();
-
-	private List<Congregacao> congregacoes = new ArrayList<Congregacao>();
+	private List<ViewMembro> lista;
 
 	private List<Zona> zonas = new ArrayList<Zona>();
 
@@ -57,71 +43,64 @@ public class MembroControlador {
 	@ManagedProperty(value = "#{areaServicoImpl}")
 	private AreaServico areaServico;
 
-	@ManagedProperty(value = "#{congregacaoServicoImpl}")
-	private CongregacaoServico congregacaoServico;
-
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
 
-	private final String TELA_PESQUISA = "paginas/membro/pesquisa.xhtml";
+	private final String TELA_PESQUISA = "paginas/relatorio/membro.xhtml";
 
 	@PostConstruct
 	public void init() {
-		// this.lista = servico.listarTodos();
-
-		this.congregacoes = congregacaoServico.listarTodos();
-
+		
+		this.pesquisa = new ViewMembro();
+		
 		this.zonas = zonaServico.listarTodos();
+		
+		this.areas = new ArrayList<Area>();
 
-		this.areas = areaServico.listarTodos();
-
-		this.nucleos = nucleoServico.listarTodos();
-
+		this.nucleos = new ArrayList<Nucleo>();
+		
 		this.paginaCentralControlador.setPaginaCentral(TELA_PESQUISA);
-
 	}
 
 	public MembroControlador() {
-		this.entidade = new Membro();
-		this.pesquisa = new Membro();
+		this.pesquisa = new ViewMembro();
 	}
 
 	public void pesquisar() {
-		// this.lista = this.servico.findByMembro(this.pesquisa);
-	}
-
-	public void excluir(Membro Membro) {
-		this.servico.remover(Membro);
-		this.lista = servico.listarTodos();
+		
+		if (this.pesquisa.getIdArea() != null
+				&& this.pesquisa.getIdArea() != -1) {
+			this.pesquisa.setIdZona(null);
+			this.pesquisa.setIdNucleo(null);
+			
+		} else if (this.pesquisa.getIdNucleo() != null 
+				&& this.pesquisa.getIdNucleo() != -1) {
+			this.pesquisa.setIdZona(null);
+			this.pesquisa.setIdArea(null);
+		}
+		
+		this.lista  =  this.servico.listarMembrosByFiltros(this.pesquisa);
 	}
 
 	public String telaPesquisa() {
-		this.pesquisa = new Membro();
+		this.pesquisa = new ViewMembro();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 		return "index.xhtml?faces-redirect=true";
 	}
-
-	public Membro getEntidade() {
-		return entidade;
-	}
-
-	public void setEntidade(Membro entidade) {
-		this.entidade = entidade;
-	}
-
-	public Membro getPesquisa() {
+	
+	public ViewMembro getPesquisa() {
 		return pesquisa;
 	}
 
-	public void setPesquisa(Membro pesquisa) {
+	public void setPesquisa(ViewMembro pesquisa) {
 		this.pesquisa = pesquisa;
 	}
 
-	public List<Membro> getLista() {
+	public List<ViewMembro> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<Membro> lista) {
+	public void setLista(List<ViewMembro> lista) {
 		this.lista = lista;
 	}
 
@@ -171,22 +150,11 @@ public class MembroControlador {
 	 */
 	public void atualizarNucleo() {
 		this.setNucleos(new ArrayList<Nucleo>());
-		this.setCongregacoes(new ArrayList<Congregacao>());
-		this.setNucleo(new Nucleo());
-		this.setArea(new Area());
-
-		// lista todos os nucleos, areas e congregacões
-		if (this.zona.getId() == -1) {
-			this.setNucleos(this.nucleoServico.listarTodos());
-			this.setAreas(this.areaServico.listarTodos());
-			this.setCongregacoes(this.congregacaoServico.listarTodos());
-		}
-		// lista os nucleos, areas e congregacões de uma zona
-		else {
-			this.setNucleos(this.nucleoServico.findByZona(this.zona.getId()));
-			this.setAreas(this.areaServico.listaAreaToZona(zona));
-			this.setCongregacoes(this.congregacaoServico
-					.listaCongregacaoToZona(zona));
+		this.setAreas(new ArrayList<Area>());
+		this.pesquisa.setIdNucleo(null);
+		
+		if (this.pesquisa.getIdZona() != -1) {
+			this.setNucleos(this.nucleoServico.findByZona(this.pesquisa.getIdZona()));
 		}
 	}
 
@@ -195,16 +163,7 @@ public class MembroControlador {
 	 */
 	public void atualizarArea() {
 		this.setAreas(new ArrayList<Area>());
-		this.setAreas(this.areaServico.findByNucleo(this.nucleo.getId()));
-
-	}
-
-	/**
-	 * Metodo utilizado para atualizar o combo de Nucleo
-	 */
-	public void atualizarCongregacao() {
-		this.setCongregacoes(new ArrayList<Congregacao>());
-		this.setCongregacoes(this.congregacaoServico.findByArea(this.area));
+		this.setAreas(this.areaServico.findByNucleo(this.pesquisa.getIdNucleo()));
 
 	}
 
@@ -215,46 +174,6 @@ public class MembroControlador {
 	public void setPaginaCentralControlador(
 			PaginaCentralControlador paginaCentralControlador) {
 		this.paginaCentralControlador = paginaCentralControlador;
-	}
-
-	public Congregacao getCongregacao() {
-		return congregacao;
-	}
-
-	public void setCongregacao(Congregacao congregacao) {
-		this.congregacao = congregacao;
-	}
-
-	public List<Congregacao> getCongregacoes() {
-		return congregacoes;
-	}
-
-	public void setCongregacoes(List<Congregacao> congregacoes) {
-		this.congregacoes = congregacoes;
-	}
-
-	public CongregacaoServico getCongregacaoServico() {
-		return congregacaoServico;
-	}
-
-	public void setCongregacaoServico(CongregacaoServico congregacaoServico) {
-		this.congregacaoServico = congregacaoServico;
-	}
-
-	public Zona getZona() {
-		return zona;
-	}
-
-	public void setZona(Zona zona) {
-		this.zona = zona;
-	}
-
-	public Nucleo getNucleo() {
-		return nucleo;
-	}
-
-	public void setNucleo(Nucleo nucleo) {
-		this.nucleo = nucleo;
 	}
 
 	public List<Zona> getZonas() {
@@ -281,11 +200,5 @@ public class MembroControlador {
 		this.nucleos = nucleos;
 	}
 
-	public Area getArea() {
-		return area;
-	}
 
-	public void setArea(Area area) {
-		this.area = area;
-	}
 }

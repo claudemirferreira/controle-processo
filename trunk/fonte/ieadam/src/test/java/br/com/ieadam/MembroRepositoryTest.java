@@ -2,6 +2,7 @@ package br.com.ieadam;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.com.ieadam.dominio.Congregacao;
 import br.com.ieadam.dominio.Membro;
+import br.com.ieadam.dominio.ViewMembro;
 import br.com.ieadam.repositorio.MembroRepositorioSql;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
 // @ContextConfiguration(locations="classpath*:META-INF/spring/test-context.xml")
+@Ignore
 public class MembroRepositoryTest {
 
 	@Autowired
@@ -23,16 +26,12 @@ public class MembroRepositoryTest {
 	@Test
 	public void test() {
 
-		Membro membro = new Membro();
-		membro.setNome("e");
+		ViewMembro membro = new ViewMembro();
+		membro.setMembro("e");
 
-		Congregacao cong = new Congregacao();
-
-		cong.setIdCongregacao(2);
-
-		List<Membro> lista = repository.pesquisar(membro, cong);
-		for (Membro membro2 : lista) {
-			System.out.println(membro2.getNome());
+		List<ViewMembro> lista = repository.listarMembrosByFiltros(membro);
+		for (ViewMembro membro2 : lista) {
+			System.out.println(membro2.getMembro());
 		}
 
 	}

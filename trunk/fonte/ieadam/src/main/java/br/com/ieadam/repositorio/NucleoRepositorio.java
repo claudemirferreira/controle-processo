@@ -10,7 +10,7 @@ import br.com.ieadam.dominio.Nucleo;
 
 public interface NucleoRepositorio extends JpaRepository<Nucleo, Long> {
 
-	@Query("select n from Nucleo n where n.idZona = :zona")
+	@Query("select n from Nucleo n where n.zona.idZona = :zona")
 	public List<Nucleo> findByZona(@Param("zona") int zona);
 
 	@Query("select n from Nucleo n where n.idCoordenador = :membro")
