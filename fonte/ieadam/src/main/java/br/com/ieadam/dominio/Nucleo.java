@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,8 +37,12 @@ public class Nucleo extends AbstractEntity implements Serializable {
 	@Transient
 	private boolean usuarioNucleo;
 	
-	@Column
-	private int idZona;
+	@ManyToOne
+	@JoinColumn(name = "id_zona")
+	private Zona zona;
+	
+//	@Column
+//	private int idZona;
 
 	@Override
 	public int getId() {
@@ -75,13 +81,21 @@ public class Nucleo extends AbstractEntity implements Serializable {
 		this.dataUltimaAtualizacao = dataUltimaAtualizacao;
 	}
 	
-	public int getIdZona() {
-		return idZona;
+	public Zona getZona() {
+		return zona;
 	}
 
-	public void setIdZona(int idZona) {
-		this.idZona = idZona;
+	public void setZona(Zona zona) {
+		this.zona = zona;
 	}
+	
+//	public int getIdZona() {
+//		return idZona;
+//	}
+//
+//	public void setIdZona(int idZona) {
+//		this.idZona = idZona;
+//	}
 
 	public int getIdCoordenador() {
 		return idCoordenador;

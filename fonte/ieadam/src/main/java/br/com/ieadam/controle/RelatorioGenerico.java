@@ -129,7 +129,11 @@ public abstract class RelatorioGenerico implements Serializable {
 	}
 	
 	public void processarPDF() throws IOException, DocumentException {
-		if(this.validarGeracaoRelatorio()) {
+		if((this.filtroRelatorioDTO.getUsuarioLogado().isZona() 
+				&& this.filtroRelatorioDTO.getUsuarioLogado().isNucleo()
+				&& this.filtroRelatorioDTO.getUsuarioLogado().isArea()
+			) || this.validarGeracaoRelatorio()) {
+			
 			gerarRelatorio();
 		} else {
 			FacesContext fc = FacesContext.getCurrentInstance();
@@ -153,6 +157,9 @@ public abstract class RelatorioGenerico implements Serializable {
 		ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath(nomeRelatorio());
 
+		
+		System.out.println("\n\n**** GERACAO DO RELATORIO [ " + nomeRelatorio() + " ] ****\n\n");
+		
 		Calendar dataInicio = new GregorianCalendar(
 				this.parametro.getAnoInicio(), this.parametro.getMes().getMes(), 1);
 		
@@ -165,10 +172,13 @@ public abstract class RelatorioGenerico implements Serializable {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Map<String, Object> params = new HashMap<String, Object>();
-		System.out.println("========== listagem de parametro do relatório " + arquivo + "====================");
+		System.out.println("========== listagem de parametro ====================");
 		
 		params.put("DATA_MES_ANO_INICIO", dateFormat.format(dataMesAnoInicio.getTime()));
 		params.put("DATA_MES_ANO_FIM", dateFormat.format(dataMesAnoFim.getTime()));
+		
+		params.put("MES_ANO_INICIO", IEADAMUtils.getMesByIndice(this.parametro.getMesInicio().getMes()) + "/" + this.parametro.getAnoInicio());
+		params.put("MES_ANO_FIM", IEADAMUtils.getMesByIndice(this.parametro.getMesFim().getMes()) + "/" + this.parametro.getAnoFim());
 		
 		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
 		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
@@ -461,18 +471,23 @@ public abstract class RelatorioGenerico implements Serializable {
 		this.filtroRelatorioDTO.setNucleos(new ArrayList<Nucleo>());
 		this.filtroRelatorioDTO.setAreas(new ArrayList<Area>());
 
-		this.filtroRelatorioDTO.setZonas(this.zonaServico
-				.listaZonaUsuario(usuario.getId()));
+		// Flag para identificar se o usuario eh administrador do Sistema
+		if (usuario.isZona() && usuario.isNucleo() && usuario.isArea()) {
+			this.filtroRelatorioDTO.setZonas(this.zonaServico.listarTodos());
+		} else {
+			this.filtroRelatorioDTO.setZonas(this.zonaServico
+					.listaZonaUsuario(usuario.getId()));
+	
+			if (this.filtroRelatorioDTO.getZonas().size() == 1) {
+				this.filtroRelatorioDTO.setZona(this.filtroRelatorioDTO.getZonas().iterator().next());
+				this.atualizarNucleo();
+			}
+	
+			if (this.filtroRelatorioDTO.getNucleos().size() == 1) {
+				this.filtroRelatorioDTO.setNucleo(this.filtroRelatorioDTO.getNucleos().iterator().next());
+				this.atualizarArea();
+			}
 
-		if (this.filtroRelatorioDTO.getZonas().size() == 1) {
-			this.filtroRelatorioDTO.setZona(this.filtroRelatorioDTO.getZonas().iterator().next());
-			this.atualizarNucleo();
-		}
-
-		if (this.filtroRelatorioDTO.getNucleos().size() == 1) {
-			this.filtroRelatorioDTO.setNucleo(this.filtroRelatorioDTO.getNucleos().iterator().next());
-			this.atualizarArea();
 		}
 	}
-
 }

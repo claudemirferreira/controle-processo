@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -9,146 +10,152 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<h:form id="form">
-
+	
 		<div align="left" >
 			<p:outputLabel value="Módulo de #{rotinaControlador.perfil.nome} - Relatório de Membros" 
 				style="color: #8B0000; font-size: large; font-weight: bold;"/>
 		</div>
-
+		
 		<p:panel id="painel" style="margin-bottom:10px;">
-
+			<p:growl id="growl" />
+			
 			<h:panelGrid columns="9" cellpadding="1">
-
+			
 				<!-- BLOCO DE ZONA -->
 				<p:outputLabel value="Região: " styleClass="ui-priority-primary" />
-
-				<p:selectOneMenu disabled="true"
-					rendered="#{fn:length(relatorioMembro.filtroRelatorioDTO.zonas) == 0}"
-					value="#{relatorioMembro.filtroRelatorioDTO.zona.idZona}">
-					<f:selectItem itemLabel="Nenhum" itemValue="" />
-				</p:selectOneMenu>
-
-				<p:selectOneMenu
-					rendered="#{fn:length(relatorioMembro.filtroRelatorioDTO.zonas) > 1}"
-					value="#{relatorioMembro.filtroRelatorioDTO.zona.idZona}">
-					<f:selectItem itemLabel="Selecione a Região" itemValue="" />
-					<f:selectItems
-						value="#{relatorioMembro.filtroRelatorioDTO.zonas}"
+	
+				<p:selectOneMenu value="#{membroControlador.pesquisa.idZona}">
+					<f:selectItem itemLabel="Selecione a Região" itemValue="-1" />
+					<f:selectItems value="#{membroControlador.zonas}"
 						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioMembro.atualizarNucleo}"
+					<p:ajax listener="#{membroControlador.atualizarNucleo}"
 						update=":form:painel" event="change" />
 				</p:selectOneMenu>
-
-				<p:selectOneMenu disabled="true"
-					rendered="#{fn:length(relatorioMembro.filtroRelatorioDTO.zonas) == 1}"
-					value="#{relatorioMembro.filtroRelatorioDTO.zona.idZona}">
-					<f:selectItems
-						value="#{relatorioMembro.filtroRelatorioDTO.zonas}"
-						var="zona" itemLabel="#{zona.nome}" itemValue="#{zona.idZona}" />
-					<p:ajax listener="#{relatorioMembro.atualizarNucleo}"
-						update=":form" event="change" />
-				</p:selectOneMenu>
-
-
+	
+			
 				<!-- BLOCO DE NUCLEO -->
 				<p:outputLabel value="Núcleo: " styleClass="ui-priority-primary" />
-
+	
 				<p:selectOneMenu disabled="true"
-					rendered="#{fn:length(relatorioMembro.filtroRelatorioDTO.nucleos) == 0}"
-					value="#{relatorioMembro.filtroRelatorioDTO.nucleo.idNucleo}">
+					rendered="#{fn:length(membroControlador.nucleos) == 0}"
+					value="#{membroControlador.pesquisa.idNucleo}">
 					<f:selectItem itemLabel="Nenhum" itemValue="" />
 				</p:selectOneMenu>
-
+	
 				<p:selectOneMenu
-					rendered="#{fn:length(relatorioMembro.filtroRelatorioDTO.nucleos) > 1}"
-					value="#{relatorioMembro.filtroRelatorioDTO.nucleo.idNucleo}">
-					<f:selectItem itemLabel="Selecione o núcleo" itemValue="" />
-					<f:selectItems
-						value="#{relatorioMembro.filtroRelatorioDTO.nucleos}"
+					rendered="#{fn:length(membroControlador.nucleos) > 1}"
+					value="#{membroControlador.pesquisa.idNucleo}">
+					<f:selectItem itemLabel="Selecione o núcleo" itemValue="-1" />
+					<f:selectItems value="#{membroControlador.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioMembro.atualizarArea}"
+					<p:ajax listener="#{membroControlador.atualizarArea}"
 						update=":form:painel" event="change" />
 				</p:selectOneMenu>
-
+	
 				<p:selectOneMenu disabled="true"
-					rendered="#{fn:length(relatorioMembro.filtroRelatorioDTO.nucleos) == 1}"
-					value="#{relatorioMembro.filtroRelatorioDTO.nucleo.idNucleo}">
+					rendered="#{fn:length(membroControlador.nucleos) == 1}"
+					value="#{membroControlador.pesquisa.idNucleo}">
 					<f:selectItems
-						value="#{relatorioMembro.filtroRelatorioDTO.nucleos}"
+						value="#{membroControlador.nucleos}"
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
-					<p:ajax listener="#{relatorioMembro.atualizarArea}"
+					<p:ajax listener="#{membroControlador.atualizarArea}"
 						update=":form" event="change" />
 				</p:selectOneMenu>
-
-
+	
+	
 				<!-- BLOCO DE AREA -->
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
-
+	
 				<p:selectOneMenu disabled="true"
-					rendered="#{fn:length(relatorioMembro.filtroRelatorioDTO.areas) == 0}"
-					value="#{relatorioMembro.filtroRelatorioDTO.area.idArea}">
+					rendered="#{fn:length(membroControlador.areas) == 0}"
+					value="#{membroControlador.pesquisa.idArea}">
 					<f:selectItem itemLabel="Nenhum" itemValue="" />
 				</p:selectOneMenu>
-
+	
 				<p:selectOneMenu
-					rendered="#{fn:length(relatorioMembro.filtroRelatorioDTO.areas) > 1}"
-					value="#{relatorioMembro.filtroRelatorioDTO.area.idArea}">
-					<f:selectItem itemLabel="Selecione a área" itemValue="" />
+					rendered="#{fn:length(membroControlador.areas) > 1}"
+					value="#{membroControlador.pesquisa.idArea}">
+					<f:selectItem itemLabel="Selecione a área" itemValue="-1" />
 					<f:selectItems
-						value="#{relatorioMembro.filtroRelatorioDTO.areas}"
+						value="#{membroControlador.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
-
+	
 				<p:selectOneMenu disabled="true"
-					rendered="#{fn:length(relatorioMembro.filtroRelatorioDTO.areas) == 1}"
-					value="#{relatorioMembro.filtroRelatorioDTO.area.idArea}">
+					rendered="#{fn:length(membroControlador.areas) == 1}"
+					value="#{membroControlador.pesquisa.idArea}">
 					<f:selectItems
-						value="#{relatorioMembro.filtroRelatorioDTO.areas}"
+						value="#{membroControlador.areas}"
 						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
 				</p:selectOneMenu>
-
-
+	
 			</h:panelGrid>
+			
+			<h:panelGrid id="panelPesquisa" columns="3">
 
-			<h:panelGrid columns="6" cellpadding="4">
+				<p:outputLabel value="Nome do Membro: " styleClass="ui-priority-primary" />
 				
-				<p:outputLabel value="Mês:" styleClass="ui-priority-primary" />
-				<p:selectOneMenu styleClass="ui-priority-primary"
-					value="#{relatorioMembro.parametro.mes}" effect="fold"
-					editable="true" style="width:100%;">
-					<f:selectItems value="#{relatorioMembro.parametro.meses}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Ano:" styleClass="ui-priority-primary" />
-				<p:inputText id="ano" styleClass="ui-priority-primary"
-					style="width:50px;" required="true"
-					requiredMessage="O ano deve ser informado"
-					value="#{relatorioMembro.parametro.ano}" />
-					
+				<p:inputText id="nome" style="width:300px"
+					value="#{membroControlador.pesquisa.membro}" />
+				
 			</h:panelGrid>
 
 			<f:facet name="footer">
-				<div align="left">
-					<p:commandButton value="Retornar" ajax="false" update=":form"
-						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
-						actionListener="#{rotinaControlador.telaRotinas()}" />
 
-					<input id="botao" type="button" value="Gerar relatório" onclick="verificarReader();" class="inputButton"/>
+				<p:defaultCommand target="buttonPesquisar" />
 
-					<p:commandButton id="buttonImprimir" value="Gerar relatorio"
-						style=" visibility: hidden;" update=":form:pdf" ajax="false"
-						actionListener="#{relatorioMembro.visualiarRelatorio()}" />
-				</div>
+				<p:commandButton id="buttonRetornar" value="Retornar" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					actionListener="#{rotinaControlador.telaRotinas(rotinaControlador.perfil)}" />
+
+				<p:commandButton id="buttonPesquisar" value="Pesquisar"
+					update=":form:gridPesquisa" icon="ui-icon-search"
+					styleClass="ui-priority-primary"
+					action="#{membroControlador.pesquisar}" />
+				
 			</f:facet>
+
 		</p:panel>
 
-		<p:outputPanel rendered="#{relatorioMembro.visualizar}">
-			<iframe src="paginas/relatorio/visualizarPdfmembro.xhtml" 
-				rendered="#{relatorioMembro.visualizar}"
-				id="pdf" width="99%" height="450px"> </iframe>
-		</p:outputPanel>
+		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
+			value="#{membroControlador.lista}" paginatorPosition="bottom"
+			paginatorAlwaysVisible="true"
+			emptyMessage="Nenhum registro encontrado."
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20">
+
+			<p:column style="text-align:left" headerText="Nome"
+				sortBy="#{item.nome}">
+				<h:outputText value="#{item.membro}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Area"
+				sortBy="#{item.area}">
+				<h:outputText value="#{item.area}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Nucleo"
+				sortBy="#{item.nucleo}">
+				<h:outputText value="#{item.nucleo}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Zona"
+				sortBy="#{item.zona}">
+				<h:outputText value="#{item.zona}" />
+			</p:column>
+
+			<f:facet name="footer">  
+	            Total de registros: #{fn:length(membroControlador.lista)} membros.  
+	        </f:facet>
+
+		</p:dataTable>
+
+		<p:blockUI block=":formPrincipal" widgetVar="bui">
+    		processando ...<br />
+			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+		</p:blockUI>
 
 	</h:form>
 

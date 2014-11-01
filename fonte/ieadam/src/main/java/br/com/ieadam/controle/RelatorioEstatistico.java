@@ -21,7 +21,7 @@ public class RelatorioEstatistico extends RelatorioGenerico implements
 
 	@Override
 	public String nomeRelatorio() {
-		return PathRelatorios.RELATORIO_SECRETARIA_MEMBROS.getNome();
+		return PathRelatorios.RELATORIO_SECRETARIA_ESTATISTICO.getNome();
 	}
 
 }
