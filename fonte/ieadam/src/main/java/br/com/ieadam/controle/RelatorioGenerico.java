@@ -160,8 +160,8 @@ public abstract class RelatorioGenerico implements Serializable {
 		
 		System.out.println("\n\n**** GERACAO DO RELATORIO [ " + nomeRelatorio() + " ] ****\n\n");
 		
-		Calendar dataInicio = new GregorianCalendar(
-				this.parametro.getAnoInicio(), this.parametro.getMes().getMes(), 1);
+		Calendar dataAno = new GregorianCalendar(
+				this.parametro.getAno(), this.parametro.getMes().getMes(), 1);
 		
 		Calendar dataMesAnoInicio = new GregorianCalendar(
 				this.parametro.getAnoInicio(), this.parametro.getMesInicio().getMes(), 1);
@@ -180,9 +180,9 @@ public abstract class RelatorioGenerico implements Serializable {
 		params.put("MES_ANO_INICIO", IEADAMUtils.getMesByIndice(this.parametro.getMesInicio().getMes()) + "/" + this.parametro.getAnoInicio());
 		params.put("MES_ANO_FIM", IEADAMUtils.getMesByIndice(this.parametro.getMesFim().getMes()) + "/" + this.parametro.getAnoFim());
 		
-		params.put("DATA_MES_ANO", dateFormat.format(dataInicio.getTime()));
+		params.put("DATA_MES_ANO", dateFormat.format(dataAno.getTime()));
 		params.put("MES_ANO", IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
-		params.put("DATA_ANO", this.parametro.getAnoInicio()+"");
+		params.put("DATA_ANO", this.parametro.getAno()+"");
 		params.put("ZONA", this.filtroRelatorioDTO.getZona().getIdZona());
 		params.put("NUCLEO", this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		params.put("AREA", this.filtroRelatorioDTO.getArea().getIdArea());
@@ -190,9 +190,9 @@ public abstract class RelatorioGenerico implements Serializable {
 		System.out.println("DATA_MES_ANO_INICIO = "+ dateFormat.format(dataMesAnoInicio.getTime()));
 		System.out.println("DATA_MES_ANO_FIM = "+ dateFormat.format(dataMesAnoFim.getTime()));
 		
-		System.out.println("DATA_MES_ANO = "+ dateFormat.format(dataInicio.getTime()));
+		System.out.println("DATA_MES_ANO = "+ dateFormat.format(dataAno.getTime()));
 		System.out.println("MES_ANO = "+ IEADAMUtils.getMesByIndice(this.parametro.getMes().getMes())+"/"+this.parametro.getAno());
-		System.out.println("DATA_ANO = "+ this.parametro.getAnoInicio());
+		System.out.println("DATA_ANO = "+ this.parametro.getAno());
 		
 		System.out.println("ZONA = "+ this.filtroRelatorioDTO.getZona().getIdZona());
 		System.out.println("NUCLEO = " + this.filtroRelatorioDTO.getNucleo().getIdNucleo());
