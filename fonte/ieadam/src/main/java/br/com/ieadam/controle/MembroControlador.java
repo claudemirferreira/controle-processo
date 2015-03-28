@@ -47,7 +47,13 @@ public class MembroControlador {
 	private PaginaCentralControlador paginaCentralControlador;
 
 	private final String TELA_PESQUISA = "paginas/relatorio/membro.xhtml";
+	
+	private final String TELA_DETALHE = "paginas/membro/detalhe-membro.xhtml";
+	
+	private ViewMembro viewMembro;
 
+	private boolean visualizar = false;
+	
 	@PostConstruct
 	public void init() {
 		
@@ -86,6 +92,21 @@ public class MembroControlador {
 		this.pesquisa = new ViewMembro();
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
 		return "index.xhtml?faces-redirect=true";
+	}
+	
+	public String detalhar(ViewMembro membro) {
+		this.viewMembro = membro;
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_DETALHE);
+		return "index.xhtml?faces-redirect=true";
+	}
+	
+	public String voltarListaMembro() {
+		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
+		return "index.xhtml?faces-redirect=true";
+	}
+	
+	public void visualiarRelatorio() {
+		this.visualizar = true;
 	}
 	
 	public ViewMembro getPesquisa() {
@@ -200,5 +221,19 @@ public class MembroControlador {
 		this.nucleos = nucleos;
 	}
 
+	public ViewMembro getViewMembro() {
+		return viewMembro;
+	}
 
+	public void setViewMembro(ViewMembro viewMembro) {
+		this.viewMembro = viewMembro;
+	}
+	
+	public boolean isVisualizar() {
+		return visualizar;
+	}
+
+	public void setVisualizar(boolean visualizar) {
+		this.visualizar = visualizar;
+	}
 }
