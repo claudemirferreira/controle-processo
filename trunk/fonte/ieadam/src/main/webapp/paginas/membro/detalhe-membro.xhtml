@@ -1,0 +1,125 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form" prependId="false">
+		<p:panel header="Detalhe de Membro " style="width:99%; margin-bottom:10px;">
+
+			<p:fieldset legend="Dados Pessoais">
+				<h:panelGrid id="panelGrid" width="75%" columns="5">
+					<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
+					<p:outputLabel value="Nacionalidade:" styleClass="ui-priority-primary" />
+					<p:outputLabel value="Naturalidade:" styleClass="ui-priority-primary" />
+					<p:outputLabel value="Data de Nascimento:" styleClass="ui-priority-primary" />
+					<p:outputLabel value="Sexo:" styleClass="ui-priority-primary" />
+					
+					<p:inputText id="nome" style="width:300px;"
+						value="#{membroControlador.viewMembro.membro}" />
+						
+					<p:inputText id="nacionalidade" style="width:200px;"
+						value="#{membroControlador.viewMembro.nacionalidade}" />
+						
+					<p:inputText id="cidade" style="width:200px;"
+						value="#{membroControlador.viewMembro.cidade}" />
+					
+					<p:calendar id="dataNascimento" value="#{membroControlador.viewMembro.dataNascimento}" 
+						navigator="true" pattern="dd/MM/yyyy" />
+	
+					<p:inputText id="sexo" style="width:25px;"
+						value="#{membroControlador.viewMembro.sexo}" />
+				</h:panelGrid>
+
+				<br/>					
+
+				<h:panelGrid width="85%" columns="4">
+					<p:outputLabel value="Estado Civil:" styleClass="ui-priority-primary" />
+					<p:outputLabel value="Conjuge:" styleClass="ui-priority-primary" />
+					<p:outputLabel value="Pai:" styleClass="ui-priority-primary" />
+					<p:outputLabel value="Mãe:" styleClass="ui-priority-primary" />
+					
+					<p:inputText id="estadoCivil" style="width:200px;"
+						value="#{membroControlador.viewMembro.estadoCivil}" />
+					
+					<p:inputText id="conjuge" style="width:300px;"
+						value="#{membroControlador.viewMembro.conjuge}" />
+					
+					<p:inputText id="nomePai" style="width:300px;"
+						value="#{membroControlador.viewMembro.nomePai}" />					
+					
+					<p:inputText id="nomeMae" style="width:300px;"
+						value="#{membroControlador.viewMembro.nomeMae}" />	
+				</h:panelGrid>	
+			</p:fieldset>
+
+			<br/>
+
+			<p:fieldset legend="Dados Eclesiástico">
+				<h:panelGrid width="80%" columns="5">
+					<p:outputLabel value="Registro:" styleClass="ui-priority-primary" />
+					<p:outputLabel value="Batismo em Águas:" styleClass="ui-priority-primary" />
+					<p:outputLabel value="Atividade:" styleClass="ui-priority-primary" />
+					<p:outputLabel value="Congregação:" styleClass="ui-priority-primary" />
+					<p:outputLabel value="Área:" styleClass="ui-priority-primary" />
+					
+					<p:calendar id="dataRegistro" value="#{membroControlador.viewMembro.dataCadastro}" 
+						navigator="true" pattern="dd/MM/yyyy" />
+						
+					<p:calendar id="dataBatismo" value="#{membroControlador.viewMembro.dataBatismo}" 
+						navigator="true" pattern="dd/MM/yyyy" />
+								
+					<p:inputText id="funcao" style="width:200px;"
+						value="#{membroControlador.viewMembro.funcao}" />
+					
+					<p:inputText id="congregacao" style="width:200px;"
+						value="#{membroControlador.viewMembro.congregacao}" />
+	
+					<p:inputText id="area" style="width:300px;"
+						value="#{membroControlador.viewMembro.area}" />
+				</h:panelGrid>
+				
+				<br />
+				
+				<h:panelGrid width="80%" columns="1">
+					<p:outputLabel value="Situação:" styleClass="ui-priority-primary" />
+					<p:inputText id="situacao" style="width:30px;"
+						value="#{membroControlador.viewMembro.situacao}" />
+				</h:panelGrid>
+			</p:fieldset>	
+				
+			<f:facet name="footer">
+				<div align="left">
+					<p:commandButton value="Retornar" ajax="false" update=":form"
+						icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+						actionListener="#{membroControlador.voltarListaMembro()}" />
+		
+					<input id="botao" type="button" value="Gerar relatório" onclick="verificarReader();" class="inputButton"/>
+						
+					<p:commandButton id="buttonImprimir" value="Gerar relatorio"
+						style=" visibility: hidden;" update=":form:pdf" ajax="false"
+						actionListener="#{membroControlador.visualiarRelatorio()}" />
+				</div>
+			</f:facet>
+
+		</p:panel>
+
+		<p:blockUI block="form" trigger="buttonImprimir">
+			 Processando....<br />
+			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
+		</p:blockUI>
+
+		<p:outputPanel rendered="#{relatorioBalanceteAnalitico.visualizar}">
+			<iframe id="pdf"
+				src="paginas/relatorio/visualizarPdfmembro.xhtml.xhtml"
+				width="99%" height="450px"></iframe>
+		</p:outputPanel>
+		
+	</h:form>
+	
+</ui:component>

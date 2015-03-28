@@ -50,7 +50,7 @@
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
 					<p:ajax listener="#{membroControlador.atualizarArea}"
-						update=":form:painel" event="change" />
+						update="groupArea" event="change" />
 				</p:selectOneMenu>
 	
 				<p:selectOneMenu disabled="true"
@@ -61,35 +61,37 @@
 						var="nucleo" itemLabel="#{nucleo.nome}"
 						itemValue="#{nucleo.idNucleo}" />
 					<p:ajax listener="#{membroControlador.atualizarArea}"
-						update=":form" event="change" />
+						update="groupArea" event="change" />
 				</p:selectOneMenu>
 	
 	
 				<!-- BLOCO DE AREA -->
 				<p:outputLabel value="Área: " styleClass="ui-priority-primary" />
 	
-				<p:selectOneMenu disabled="true"
-					rendered="#{fn:length(membroControlador.areas) == 0}"
-					value="#{membroControlador.pesquisa.idArea}">
-					<f:selectItem itemLabel="Nenhum" itemValue="" />
-				</p:selectOneMenu>
-	
-				<p:selectOneMenu
-					rendered="#{fn:length(membroControlador.areas) > 1}"
-					value="#{membroControlador.pesquisa.idArea}">
-					<f:selectItem itemLabel="Selecione a área" itemValue="-1" />
-					<f:selectItems
-						value="#{membroControlador.areas}"
-						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
-				</p:selectOneMenu>
-	
-				<p:selectOneMenu disabled="true"
-					rendered="#{fn:length(membroControlador.areas) == 1}"
-					value="#{membroControlador.pesquisa.idArea}">
-					<f:selectItems
-						value="#{membroControlador.areas}"
-						var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
-				</p:selectOneMenu>
+				<h:panelGroup id="groupArea">
+					<p:selectOneMenu disabled="true"
+						rendered="#{fn:length(membroControlador.areas) == 0}"
+						value="#{membroControlador.pesquisa.idArea}">
+						<f:selectItem itemLabel="Nenhum" itemValue="" />
+					</p:selectOneMenu>
+		
+					<p:selectOneMenu
+						rendered="#{fn:length(membroControlador.areas) > 1}"
+						value="#{membroControlador.pesquisa.idArea}">
+						<f:selectItem itemLabel="Selecione a área" itemValue="-1" />
+						<f:selectItems
+							value="#{membroControlador.areas}"
+							var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+					</p:selectOneMenu>
+		
+					<p:selectOneMenu disabled="true"
+						rendered="#{fn:length(membroControlador.areas) == 1}"
+						value="#{membroControlador.pesquisa.idArea}">
+						<f:selectItems
+							value="#{membroControlador.areas}"
+							var="area" itemLabel="#{area.nome}" itemValue="#{area.id}" />
+					</p:selectOneMenu>
+				</h:panelGroup>
 	
 			</h:panelGrid>
 			
@@ -131,6 +133,16 @@
 				<h:outputText value="#{item.membro}" />
 			</p:column>
 			
+			<p:column style="text-align:left" headerText="Data de Nascimento"
+				sortBy="#{item.dataNascimento}">
+				<h:outputText value="#{item.dataNascimento}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Congregação"
+				sortBy="#{item.congregacao}">
+				<h:outputText value="#{item.congregacao}" />
+			</p:column>
+			
 			<p:column style="text-align:left" headerText="Area"
 				sortBy="#{item.area}">
 				<h:outputText value="#{item.area}" />
@@ -146,6 +158,17 @@
 				<h:outputText value="#{item.zona}" />
 			</p:column>
 
+			<p:column style="text-align:left" headerText="Situação"
+				sortBy="#{item.situacao}">
+				<h:outputText value="#{item.situacao}" />
+			</p:column>
+			
+			<p:column style="text-align:left" headerText="Ação">
+				<p:commandButton action="#{membroControlador.detalhar(item)}"
+					icon="ui-icon-search" title="Detalhe"
+					styleClass="ui-priority-primary" />
+			</p:column>
+			
 			<f:facet name="footer">  
 	            Total de registros: #{fn:length(membroControlador.lista)} membros.  
 	        </f:facet>

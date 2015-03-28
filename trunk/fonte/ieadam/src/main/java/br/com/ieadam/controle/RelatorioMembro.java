@@ -11,6 +11,11 @@ import br.com.ieadam.utils.PathRelatorios;
 @SessionScoped
 public class RelatorioMembro extends RelatorioGenerico implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1861887599964307388L;
+
 	@Override
 	public String telaRelatorio() {
 		return "paginas/relatorio/membro.xhtml";
