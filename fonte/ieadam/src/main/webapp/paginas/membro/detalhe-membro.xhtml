@@ -9,10 +9,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-	<h:form id="form" prependId="false">
-		<p:panel header="Detalhe de Membro " style="width:99%; margin-bottom:10px;">
+	<h:form id="form">
 
-			<p:fieldset legend="Dados Pessoais">
+		<p:panel id="painel" header="Detalhe de Membro " style="width:99%; margin-bottom:10px;">
+			<p:fieldset legend="Dados Pessoais" styleClass="ui-priority-primary">
 				<h:panelGrid id="panelGrid" width="75%" columns="5">
 					<p:outputLabel value="Nome:" styleClass="ui-priority-primary" />
 					<p:outputLabel value="Nacionalidade:" styleClass="ui-priority-primary" />
@@ -20,19 +20,19 @@
 					<p:outputLabel value="Data de Nascimento:" styleClass="ui-priority-primary" />
 					<p:outputLabel value="Sexo:" styleClass="ui-priority-primary" />
 					
-					<p:inputText id="nome" style="width:300px;"
+					<p:inputText id="nome" style="width:300px;" disabled="true"
 						value="#{membroControlador.viewMembro.membro}" />
 						
-					<p:inputText id="nacionalidade" style="width:200px;"
+					<p:inputText id="nacionalidade" style="width:200px;" disabled="true"
 						value="#{membroControlador.viewMembro.nacionalidade}" />
 						
-					<p:inputText id="cidade" style="width:200px;"
+					<p:inputText id="cidade" style="width:200px;" disabled="true"
 						value="#{membroControlador.viewMembro.cidade}" />
 					
 					<p:calendar id="dataNascimento" value="#{membroControlador.viewMembro.dataNascimento}" 
-						navigator="true" pattern="dd/MM/yyyy" />
+						navigator="true" pattern="dd/MM/yyyy" enable="true" />
 	
-					<p:inputText id="sexo" style="width:25px;"
+					<p:inputText id="sexo" style="width:25px;" disabled="true"
 						value="#{membroControlador.viewMembro.sexo}" />
 				</h:panelGrid>
 
@@ -44,23 +44,23 @@
 					<p:outputLabel value="Pai:" styleClass="ui-priority-primary" />
 					<p:outputLabel value="Mãe:" styleClass="ui-priority-primary" />
 					
-					<p:inputText id="estadoCivil" style="width:200px;"
+					<p:inputText id="estadoCivil" style="width:200px;" disabled="true"
 						value="#{membroControlador.viewMembro.estadoCivil}" />
 					
-					<p:inputText id="conjuge" style="width:300px;"
+					<p:inputText id="conjuge" style="width:300px;" disabled="true"
 						value="#{membroControlador.viewMembro.conjuge}" />
 					
-					<p:inputText id="nomePai" style="width:300px;"
+					<p:inputText id="nomePai" style="width:300px;" disabled="true"
 						value="#{membroControlador.viewMembro.nomePai}" />					
 					
-					<p:inputText id="nomeMae" style="width:300px;"
+					<p:inputText id="nomeMae" style="width:300px;" disabled="true"
 						value="#{membroControlador.viewMembro.nomeMae}" />	
 				</h:panelGrid>	
 			</p:fieldset>
 
 			<br/>
 
-			<p:fieldset legend="Dados Eclesiástico">
+			<p:fieldset legend="Dados Eclesiástico" styleClass="ui-priority-primary">
 				<h:panelGrid width="80%" columns="5">
 					<p:outputLabel value="Registro:" styleClass="ui-priority-primary" />
 					<p:outputLabel value="Batismo em Águas:" styleClass="ui-priority-primary" />
@@ -68,19 +68,19 @@
 					<p:outputLabel value="Congregação:" styleClass="ui-priority-primary" />
 					<p:outputLabel value="Área:" styleClass="ui-priority-primary" />
 					
-					<p:calendar id="dataRegistro" value="#{membroControlador.viewMembro.dataCadastro}" 
-						navigator="true" pattern="dd/MM/yyyy" />
+					<p:inputText id="registro" style="width:200px;" disabled="true"
+						value="#{membroControlador.viewMembro.registro}" /> 
 						
 					<p:calendar id="dataBatismo" value="#{membroControlador.viewMembro.dataBatismo}" 
-						navigator="true" pattern="dd/MM/yyyy" />
+						navigator="true" pattern="dd/MM/yyyy" disabled="true" />
 								
-					<p:inputText id="funcao" style="width:200px;"
+					<p:inputText id="funcao" style="width:200px;" disabled="true"
 						value="#{membroControlador.viewMembro.funcao}" />
 					
-					<p:inputText id="congregacao" style="width:200px;"
+					<p:inputText id="congregacao" style="width:200px;" disabled="true"
 						value="#{membroControlador.viewMembro.congregacao}" />
 	
-					<p:inputText id="area" style="width:300px;"
+					<p:inputText id="area" style="width:300px;" disabled="true"
 						value="#{membroControlador.viewMembro.area}" />
 				</h:panelGrid>
 				
@@ -88,7 +88,7 @@
 				
 				<h:panelGrid width="80%" columns="1">
 					<p:outputLabel value="Situação:" styleClass="ui-priority-primary" />
-					<p:inputText id="situacao" style="width:30px;"
+					<p:inputText id="situacao" style="width:30px;" disabled="true"
 						value="#{membroControlador.viewMembro.situacao}" />
 				</h:panelGrid>
 			</p:fieldset>	
@@ -103,7 +103,7 @@
 						
 					<p:commandButton id="buttonImprimir" value="Gerar relatorio"
 						style=" visibility: hidden;" update=":form:pdf" ajax="false"
-						actionListener="#{membroControlador.visualiarRelatorio()}" />
+						actionListener="#{membroControlador.relatorioMembro.visualiarRelatorio}" />
 				</div>
 			</f:facet>
 
@@ -114,9 +114,9 @@
 			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
 		</p:blockUI>
 
-		<p:outputPanel rendered="#{relatorioBalanceteAnalitico.visualizar}">
-			<iframe id="pdf"
-				src="paginas/relatorio/visualizarPdfmembro.xhtml.xhtml"
+		<p:outputPanel>
+			<iframe id="pdf" rendered="#{membroControlar.visualizar}"
+				src="paginas/relatorio/visualizarPdfmembro.xhtml"
 				width="99%" height="450px"></iframe>
 		</p:outputPanel>
 		

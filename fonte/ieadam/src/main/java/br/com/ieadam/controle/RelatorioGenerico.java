@@ -129,12 +129,21 @@ public abstract class RelatorioGenerico implements Serializable {
 	}
 	
 	public void processarPDF() throws IOException, DocumentException {
+		this.processarPDF(0);
+	}
+	
+	public void processarPDF(int idMembro) throws IOException, DocumentException {
 		if((this.filtroRelatorioDTO.getUsuarioLogado().isZona() 
 				&& this.filtroRelatorioDTO.getUsuarioLogado().isNucleo()
 				&& this.filtroRelatorioDTO.getUsuarioLogado().isArea()
 			) || this.validarGeracaoRelatorio()) {
 			
-			gerarRelatorio();
+			if (idMembro == 0) {
+				this.gerarRelatorio();
+			} else {
+				this.gerarRelatorioMembro(idMembro);
+			}
+			
 		} else {
 			FacesContext fc = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = fc.getExternalContext();
@@ -156,7 +165,6 @@ public abstract class RelatorioGenerico implements Serializable {
 		ExternalContext externalContext = fc.getExternalContext();
 		ServletContext context = (ServletContext) externalContext.getContext();
 		String arquivo = context.getRealPath(nomeRelatorio());
-
 		
 		System.out.println("\n\n**** GERACAO DO RELATORIO [ " + nomeRelatorio() + " ] ****\n\n");
 		
@@ -197,6 +205,47 @@ public abstract class RelatorioGenerico implements Serializable {
 		System.out.println("ZONA = "+ this.filtroRelatorioDTO.getZona().getIdZona());
 		System.out.println("NUCLEO = " + this.filtroRelatorioDTO.getNucleo().getIdNucleo());
 		System.out.println("AREA = " + this.filtroRelatorioDTO.getArea().getIdArea());
+		
+		externalContext.setResponseContentType("application/pdf");
+
+		try {
+			byte[] relatorio = relatorioUtil.gerarRelatorioWebBytes(params,
+					arquivo);
+
+			if (relatorio == null || relatorio.length < 1000) {
+				arquivo = context.getRealPath("/resources/relatorioVazio.pdf");
+				FileInputStream file = new FileInputStream(new File(arquivo));
+				relatorio = Util.getBytes(file);
+			}
+
+			externalContext.getResponseOutputStream().write(relatorio);
+
+		} catch (FileNotFoundException e) {
+
+			arquivo = context.getRealPath("/resources/relatorioNotFound.pdf");
+			FileInputStream file = new FileInputStream(new File(arquivo));
+
+			externalContext.getResponseOutputStream()
+					.write(Util.getBytes(file));
+
+		} finally {
+			fc.responseComplete();
+		}
+	}
+
+	public void gerarRelatorioMembro(int idMembro) throws IOException, DocumentException {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = fc.getExternalContext();
+		ServletContext context = (ServletContext) externalContext.getContext();
+		String arquivo = context.getRealPath(nomeRelatorio());
+
+		System.out.println("\n\n**** GERACAO DO RELATORIO [ " + nomeRelatorio() + " ] ****\n\n");
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		System.out.println("========== listagem de parametro ====================");
+		
+		params.put("MEMBRO", idMembro);
+		System.out.println("MEMBRO = " + idMembro);
 		
 		externalContext.setResponseContentType("application/pdf");
 
