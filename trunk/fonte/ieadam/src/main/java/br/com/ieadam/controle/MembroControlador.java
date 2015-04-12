@@ -1,5 +1,6 @@
 package br.com.ieadam.controle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+
+import com.lowagie.text.DocumentException;
 
 import br.com.ieadam.dominio.Area;
 import br.com.ieadam.dominio.Nucleo;
@@ -51,9 +54,10 @@ public class MembroControlador {
 	private final String TELA_DETALHE = "paginas/membro/detalhe-membro.xhtml";
 	
 	private ViewMembro viewMembro;
-
-	private boolean visualizar = false;
 	
+	@ManagedProperty(value = "#{relatorioMembro}")
+	private RelatorioMembro relatorioMembro;
+
 	@PostConstruct
 	public void init() {
 		
@@ -66,6 +70,10 @@ public class MembroControlador {
 		this.nucleos = new ArrayList<Nucleo>();
 		
 		this.paginaCentralControlador.setPaginaCentral(TELA_PESQUISA);
+		
+		this.lista = new ArrayList<ViewMembro>();
+		
+		this.relatorioMembro.setVisualizar(false);
 	}
 
 	public MembroControlador() {
@@ -85,7 +93,7 @@ public class MembroControlador {
 			this.pesquisa.setIdArea(null);
 		}
 		
-		this.lista  =  this.servico.listarMembrosByFiltros(this.pesquisa);
+		this.lista = this.servico.listarMembrosByFiltros(this.pesquisa);
 	}
 
 	public String telaPesquisa() {
@@ -105,8 +113,14 @@ public class MembroControlador {
 		return "index.xhtml?faces-redirect=true";
 	}
 	
-	public void visualiarRelatorio() {
-		this.visualizar = true;
+	public void relatorio() {
+		try {
+			this.relatorioMembro.processarPDF(this.viewMembro.getIdMembro());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public ViewMembro getPesquisa() {
@@ -170,6 +184,8 @@ public class MembroControlador {
 	 * Metodo utilizado para atualizar o combo de Nucleo
 	 */
 	public void atualizarNucleo() {
+		this.relatorioMembro.setVisualizar(false);
+		
 		this.setNucleos(new ArrayList<Nucleo>());
 		this.setAreas(new ArrayList<Area>());
 		this.pesquisa.setIdNucleo(null);
@@ -183,9 +199,9 @@ public class MembroControlador {
 	 * Metodo utilizado para atualizar o combo de Nucleo
 	 */
 	public void atualizarArea() {
+		this.relatorioMembro.setVisualizar(false);
 		this.setAreas(new ArrayList<Area>());
 		this.setAreas(this.areaServico.findByNucleo(this.pesquisa.getIdNucleo()));
-
 	}
 
 	public PaginaCentralControlador getPaginaCentralControlador() {
@@ -228,12 +244,12 @@ public class MembroControlador {
 	public void setViewMembro(ViewMembro viewMembro) {
 		this.viewMembro = viewMembro;
 	}
-	
-	public boolean isVisualizar() {
-		return visualizar;
+
+	public RelatorioMembro getRelatorioMembro() {
+		return relatorioMembro;
 	}
 
-	public void setVisualizar(boolean visualizar) {
-		this.visualizar = visualizar;
+	public void setRelatorioMembro(RelatorioMembro relatorioMembro) {
+		this.relatorioMembro = relatorioMembro;
 	}
 }

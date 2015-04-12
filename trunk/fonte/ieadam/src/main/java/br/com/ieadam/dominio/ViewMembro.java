@@ -76,13 +76,15 @@ public class ViewMembro {
 	private String conjuge;
 
 	@Column
-	private Date dataCadastro; // Registro
+	private Date dataCadastro;
 	
 	@Column
 	private Date dataBatismo;
 
 	@Column
 	private String funcao;
+	
+	private int registro;
 	
 	public int getIdMembro() {
 		return idMembro;
@@ -266,5 +268,13 @@ public class ViewMembro {
 
 	public void setFuncao(String funcao) {
 		this.funcao = funcao;
+	}
+
+	public int getRegistro() {
+		return registro;
+	}
+
+	public void setRegistro(int registro) {
+		this.registro = registro;
 	}
 }

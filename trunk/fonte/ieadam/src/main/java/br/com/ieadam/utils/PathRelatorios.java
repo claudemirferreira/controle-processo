@@ -3,7 +3,7 @@ package br.com.ieadam.utils;
 public enum PathRelatorios {
 	RELATORIO_SECRETARIA_DEBITO("/WEB-INF/jasper/RelatorioDebitoSecretaria.jasper"), 
 	RELATORIO_SECRETARIA_ESTATISTICO("/WEB-INF/jasper/RelatorioEstatistico.jasper"), 
-	RELATORIO_SECRETARIA_MEMBROS(""),
+	RELATORIO_SECRETARIA_MEMBROS("/WEB-INF/jasper/RelatorioFichaMembro.jasper"),
 	RELATORIO_SECRETARIA_DEBITO_PASTORAL("/WEB-INF/jasper/RelatorioDebitoPastoral.jasper"),
     
 	RELATORIO_TESOURARIA_SALDO_CONGREGACAO("/WEB-INF/jasper/RelatorioSaldoCongregacao.jasper"),
