@@ -23,4 +23,8 @@ public class RelatorioBalanceteSintetico extends RelatorioGenerico implements
 				.getNome();
 	}
 
+	@Override
+	public String acaoUsuario() {
+		return "GERACAO DE RELATORIO TESOURARIA BALANCETE SINTETICO";
+	}
 }

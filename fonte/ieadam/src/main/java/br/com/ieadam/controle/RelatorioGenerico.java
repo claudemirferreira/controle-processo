@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,11 +29,13 @@ import br.com.ieadam.componentes.Parametro;
 import br.com.ieadam.componentes.RelatorioUtil;
 import br.com.ieadam.componentes.Util;
 import br.com.ieadam.dominio.Area;
+import br.com.ieadam.dominio.LogApp;
 import br.com.ieadam.dominio.Nucleo;
 import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.dto.FiltroRelatorioDTO;
 import br.com.ieadam.servico.AreaServico;
+import br.com.ieadam.servico.LogAppServico;
 import br.com.ieadam.servico.NucleoServico;
 import br.com.ieadam.servico.UsuarioAreaServico;
 import br.com.ieadam.servico.UsuarioNucleoServico;
@@ -78,12 +81,17 @@ public abstract class RelatorioGenerico implements Serializable {
 
 	@ManagedProperty(value = "#{usuarioAreaServicoImpl}")
 	private UsuarioAreaServico usuarioAreaServico;
+	
+	@ManagedProperty(value = "#{logAppServicoImpl}")
+	private LogAppServico logAppServico;
 
 	private StreamedContent streamedContent;
 
 	public abstract String telaRelatorio();
 
 	public abstract String nomeRelatorio();
+	
+	public abstract String acaoUsuario();
 		
 	@PostConstruct
 	public void init() {
@@ -131,8 +139,20 @@ public abstract class RelatorioGenerico implements Serializable {
 	public void processarPDF() throws IOException, DocumentException {
 		this.processarPDF(0);
 	}
+
+	private void salvarLogApp() {
+		LogApp logApp = new LogApp();
+		logApp.setDataHoraAcao(new Date());
+		logApp.setAcaoUsuario(this.acaoUsuario());
+		logApp.setUsuario(this.filtroRelatorioDTO.getUsuarioLogado());
+		
+		this.logAppServico.salvar(logApp);
+	}
 	
 	public void processarPDF(int idMembro) throws IOException, DocumentException {
+		
+		this.salvarLogApp();
+		
 		if((this.filtroRelatorioDTO.getUsuarioLogado().isZona() 
 				&& this.filtroRelatorioDTO.getUsuarioLogado().isNucleo()
 				&& this.filtroRelatorioDTO.getUsuarioLogado().isArea()
@@ -372,6 +392,14 @@ public abstract class RelatorioGenerico implements Serializable {
 
 	public void setUsuarioAreaServico(UsuarioAreaServico usuarioAreaServico) {
 		this.usuarioAreaServico = usuarioAreaServico;
+	}
+	
+	public LogAppServico getLogAppServico() {
+		return logAppServico;
+	}
+
+	public void setLogAppServico(LogAppServico logAppServico) {
+		this.logAppServico = logAppServico;
 	}
 
 	/**

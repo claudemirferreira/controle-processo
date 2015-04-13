@@ -21,4 +21,9 @@ public class RelatorioDebitoPastoral extends RelatorioGenerico implements
 	public String nomeRelatorio() {
 		return PathRelatorios.RELATORIO_SECRETARIA_DEBITO_PASTORAL.getNome();
 	}
+	
+	@Override
+	public String acaoUsuario() {
+		return "GERACAO DE RELATORIO SECRETARIA DEBITO PASTORAL";
+	}
 }

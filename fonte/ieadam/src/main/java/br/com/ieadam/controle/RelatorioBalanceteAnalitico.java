@@ -21,4 +21,9 @@ public class RelatorioBalanceteAnalitico extends RelatorioGenerico implements
 	public String nomeRelatorio() {
 		return PathRelatorios.RELATORIO_TESOURARIA_BALANCETE_ANALITICO.getNome();
 	}
+
+	@Override
+	public String acaoUsuario() {
+		return "GERACAO DE RELATORIO TESOURARIA BALANCETE ANALITICO";
+	}
 }

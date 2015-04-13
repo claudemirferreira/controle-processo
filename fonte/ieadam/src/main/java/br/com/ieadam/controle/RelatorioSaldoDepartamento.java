@@ -21,4 +21,9 @@ public class RelatorioSaldoDepartamento extends RelatorioGenerico implements
 	public String nomeRelatorio() {
 		return PathRelatorios.RELATORIO_TESOURARIA_SALDO_DEPARTAMENTO.getNome();
 	}
+	
+	@Override
+	public String acaoUsuario() {
+		return "GERACAO DE RELATORIO TESOURARIA SALDO DEPARTAMENTO";
+	}
 }
