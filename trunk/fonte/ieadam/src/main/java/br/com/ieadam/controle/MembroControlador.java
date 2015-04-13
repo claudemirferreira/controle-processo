@@ -2,6 +2,7 @@ package br.com.ieadam.controle;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,13 +10,18 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.lowagie.text.DocumentException;
 
 import br.com.ieadam.dominio.Area;
+import br.com.ieadam.dominio.LogApp;
 import br.com.ieadam.dominio.Nucleo;
+import br.com.ieadam.dominio.Usuario;
 import br.com.ieadam.dominio.ViewMembro;
 import br.com.ieadam.dominio.Zona;
 import br.com.ieadam.servico.AreaServico;
+import br.com.ieadam.servico.LogAppServico;
 import br.com.ieadam.servico.MembroServico;
 import br.com.ieadam.servico.NucleoServico;
 import br.com.ieadam.servico.ZonaServico;
@@ -45,6 +51,9 @@ public class MembroControlador {
 
 	@ManagedProperty(value = "#{areaServicoImpl}")
 	private AreaServico areaServico;
+	
+	@ManagedProperty(value = "#{logAppServicoImpl}")
+	private LogAppServico logAppServico;
 
 	@ManagedProperty(value = "#{paginaCentralControlador}")
 	private PaginaCentralControlador paginaCentralControlador;
@@ -80,7 +89,19 @@ public class MembroControlador {
 		this.pesquisa = new ViewMembro();
 	}
 
+	private void salvarLogApp() {
+		LogApp logApp = new LogApp();
+		logApp.setDataHoraAcao(new Date());
+		logApp.setAcaoUsuario("REALIZACAO DE PESQUISA DE MEMBRO");
+		logApp.setUsuario((Usuario) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal());
+		
+		this.logAppServico.salvar(logApp);
+	}
+	
 	public void pesquisar() {
+		
+		this.salvarLogApp();
 		
 		if (this.pesquisa.getIdArea() != null
 				&& this.pesquisa.getIdArea() != -1) {
@@ -251,5 +272,13 @@ public class MembroControlador {
 
 	public void setRelatorioMembro(RelatorioMembro relatorioMembro) {
 		this.relatorioMembro = relatorioMembro;
+	}
+	
+	public LogAppServico getLogAppServico() {
+		return logAppServico;
+	}
+
+	public void setLogAppServico(LogAppServico logAppServico) {
+		this.logAppServico = logAppServico;
 	}
 }

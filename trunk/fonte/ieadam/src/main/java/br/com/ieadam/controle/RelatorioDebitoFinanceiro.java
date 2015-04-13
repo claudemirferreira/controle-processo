@@ -21,4 +21,9 @@ public class RelatorioDebitoFinanceiro extends RelatorioGenerico implements
 	public String nomeRelatorio() {
 		return PathRelatorios.RELATORIO_TESOURARIA_DEBITO_FINANCEIRO.getNome();
 	}
+	
+	@Override
+	public String acaoUsuario() {
+		return "GERACAO DE RELATORIO TESOURARIA DEBITO FINANCEIRO";
+	}
 }

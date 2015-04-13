@@ -21,4 +21,9 @@ public class RelatorioCentroCusto extends RelatorioGenerico implements
 	public String nomeRelatorio() {
 		return PathRelatorios.RELATORIO_TESOURARIA_CENTRO_CUSTO.getNome();
 	}
+	
+	@Override
+	public String acaoUsuario() {
+		return "GERACAO DE RELATORIO TESOURARIA CENTRO CUSTO";
+	}
 }

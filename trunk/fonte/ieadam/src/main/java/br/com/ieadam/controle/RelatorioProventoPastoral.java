@@ -21,4 +21,9 @@ public class RelatorioProventoPastoral extends RelatorioGenerico implements
 	public String nomeRelatorio() {
 		return PathRelatorios.RELATORIO_TESOURARIA_PROVENTOS_PASTORAL.getNome();
 	}
+	
+	@Override
+	public String acaoUsuario() {
+		return "GERACAO DE RELATORIO TESOURARIA PROVENTOS PASTORAL";
+	}
 }

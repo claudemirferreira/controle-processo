@@ -25,4 +25,9 @@ public class RelatorioMembro extends RelatorioGenerico implements Serializable {
 	public String nomeRelatorio() {
 		return PathRelatorios.RELATORIO_SECRETARIA_MEMBROS.getNome();
 	}
+	
+	@Override
+	public String acaoUsuario() {
+		return "GERACAO DE RELATORIO SECRETARIA MEMBROS";
+	}	
 }

@@ -21,4 +21,9 @@ public class RelatorioNadaConsta extends RelatorioGenerico implements
 	public String nomeRelatorio() {
 		return PathRelatorios.RELATORIO_TESOURARIA_NADA_CONSTA.getNome();
 	}
+	
+	@Override
+	public String acaoUsuario() {
+		return "GERACAO DE RELATORIO TESOURARIA NADA CONSTA";
+	}
 }

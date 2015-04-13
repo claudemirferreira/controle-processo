@@ -23,5 +23,9 @@ public class RelatorioEstatistico extends RelatorioGenerico implements
 	public String nomeRelatorio() {
 		return PathRelatorios.RELATORIO_SECRETARIA_ESTATISTICO.getNome();
 	}
-
+	
+	@Override
+	public String acaoUsuario() {
+		return "GERACAO DE RELATORIO ESTATISTICO";
+	}	
 }
