@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<h:form id="form">
+		<p:panel header="LOG DA APLICAÇÃO">
+
+			<h:panelGrid id="panelPesquisa" columns="1">
+				<h:outputText value="Usuário:" styleClass="ui-priority-primary" />
+				<p:inputText id="nome" style="width:300px"
+					value="#{logAppControlador.pesquisa.usuario.nome}" />
+			</h:panelGrid>
+
+			<h:panelGrid id="panelPesquisa-periodo" columns="2">
+				<h:outputText value="Data Inicio:" styleClass="ui-priority-primary" />
+				<h:outputText value="Data Fim:" styleClass="ui-priority-primary" />
+				
+				<p:calendar id="dataInicio" value="#{logAppControlador.dataInicioPesquisa}" 
+					pattern="dd-MM-yyyy HH:mm" mask="true"/>
+				<p:calendar id="dataFim" value="#{logAppControlador.dataFimPesquisa}" 
+					pattern="dd-MM-yyyy HH:mm" mask="true"/>
+							
+			</h:panelGrid>
+		
+			<f:facet name="footer">
+			
+				<p:defaultCommand target="buttonPesquisar" />
+
+				<p:commandButton value="Retornar" ajax="false" update=":form"
+					icon="ui-icon-circle-arrow-w" styleClass="ui-priority-primary"
+					actionListener="#{rotinaControlador.telaRotinas()}" />
+
+				<p:commandButton id="buttonPesquisar" value="Pesquisar"
+					update=":form:gridPesquisa" icon="ui-icon-search"
+					styleClass="ui-priority-primary"
+					action="#{logAppControlador.pesquisar}" />
+					
+			</f:facet>
+
+		</p:panel>
+
+		<p:dataTable id="gridPesquisa" var="item" rows="10" paginator="true"
+			value="#{logAppControlador.lista}" paginatorPosition="bottom"
+			paginatorAlwaysVisible="true"
+			emptyMessage="Nenhum registro encontrado."
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20">
+
+			<p:column style="text-align:left" headerText="Data e Hora"
+				sortBy="#{item.dataHoraAcao}">
+				<h:outputText value="#{item.dataHoraAcao}" >
+					<f:convertDateTime timeZone="GMT-03:00" pattern="dd/MM/yyyy HH:mm:ss"/>
+				</h:outputText>
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Usuário"
+				sortBy="#{item.usuario}">
+				<h:outputText value="#{item.usuario.nome}" />
+			</p:column>
+
+			<p:column style="text-align:left" headerText="Ação"
+				sortBy="#{item.acaoUsuario}">
+				<h:outputText value="#{item.acaoUsuario}" />
+			</p:column>
+			
+			<f:facet name="footer">  
+	            Total de registros: #{fn:length(perfilControlador.lista)} itens.  
+	        </f:facet>
+
+		</p:dataTable>
+	</h:form>
+
+</ui:component>

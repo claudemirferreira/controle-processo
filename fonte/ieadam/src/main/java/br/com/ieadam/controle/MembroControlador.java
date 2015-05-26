@@ -70,7 +70,7 @@ public class MembroControlador {
 	@PostConstruct
 	public void init() {
 		
-		this.pesquisa = new ViewMembro();
+ 		this.pesquisa = new ViewMembro();
 		
 		this.zonas = zonaServico.listarTodos();
 		
@@ -131,6 +131,7 @@ public class MembroControlador {
 	
 	public String voltarListaMembro() {
 		this.paginaCentralControlador.setPaginaCentral(this.TELA_PESQUISA);
+		this.init();
 		return "index.xhtml?faces-redirect=true";
 	}
 	

@@ -30,7 +30,7 @@
 						value="#{membroControlador.viewMembro.cidade}" />
 					
 					<p:calendar id="dataNascimento" value="#{membroControlador.viewMembro.dataNascimento}" 
-						navigator="true" pattern="dd/MM/yyyy" enable="true" />
+						navigator="true" pattern="dd/MM/yyyy" disabled="true" />
 	
 					<p:inputText id="sexo" style="width:25px;" disabled="true"
 						value="#{membroControlador.viewMembro.sexo}" />
@@ -103,20 +103,24 @@
 						
 					<p:commandButton id="buttonImprimir" value="Gerar relatorio"
 						style=" visibility: hidden;" update=":form:pdf" ajax="false"
-						actionListener="#{membroControlador.relatorioMembro.visualiarRelatorio}" />
+						actionListener="#{membroControlador.relatorioMembro.visualiarRelatorio()}" />
+						
 				</div>
+				
 			</f:facet>
 
 		</p:panel>
 
-		<p:blockUI block="form" trigger="buttonImprimir">
+		<p:blockUI block="painel" trigger="buttonImprimir">
 			 Processando....<br />
 			<p:graphicImage value="/resources/imagens/ajax-loader.gif" />
 		</p:blockUI>
 
-		<p:outputPanel>
-			<iframe id="pdf" rendered="#{membroControlar.visualizar}"
-				src="paginas/relatorio/visualizarPdfmembro.xhtml"
+		
+
+		<p:outputPanel rendered="#{membroControlador.relatorioMembro.visualizar}">
+			<iframe id="pdf"
+				src="paginas/relatorio/visualizarPdfmembro.xhtml" 
 				width="99%" height="450px"></iframe>
 		</p:outputPanel>
 		
