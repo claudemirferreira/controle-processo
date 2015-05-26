@@ -2,7 +2,6 @@ package br.com.ieadam.repositorio;
 
 import java.util.List;
 
-import br.com.ieadam.dominio.Membro;
 import br.com.ieadam.dominio.ViewMembro;
 
 public interface MembroRepositorioSql {
